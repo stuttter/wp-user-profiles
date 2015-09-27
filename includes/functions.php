@@ -65,10 +65,17 @@ function wp_user_profiles_sections( $args = array() ) {
 			'cap'  => 'edit_user'
 		),
 
-		// Acount
+		// Options
 		'options' => array(
 			'slug' => 'options',
 			'name' => esc_html__( 'Options', 'wp-user-profiles' ),
+			'cap'  => 'edit_user'
+		),
+
+		// Roles
+		'roles' => array(
+			'slug' => 'roles',
+			'name' => esc_html__( 'Permissions', 'wp-user-profiles' ),
 			'cap'  => 'edit_user'
 		)
 	) );
