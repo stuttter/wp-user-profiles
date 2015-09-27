@@ -23,6 +23,19 @@ function _wp_user_profiles() {
 	// Get the plugin path
 	$plugin_path = plugin_dir_path( __FILE__ );
 
+	// Metaboxes
+	require $plugin_path . 'metaboxes/about.php';
+	require $plugin_path . 'metaboxes/capabilities.php';
+	require $plugin_path . 'metaboxes/color-scheme.php';
+	require $plugin_path . 'metaboxes/contact.php';
+	require $plugin_path . 'metaboxes/email.php';
+	require $plugin_path . 'metaboxes/name.php';
+	require $plugin_path . 'metaboxes/password.php';
+	require $plugin_path . 'metaboxes/personal-options.php';
+	require $plugin_path . 'metaboxes/roles.php';
+	require $plugin_path . 'metaboxes/sessions.php';
+	require $plugin_path . 'metaboxes/status.php';
+
 	// Required files
 	require $plugin_path . 'includes/functions.php';
 	require $plugin_path . 'includes/admin.php';
