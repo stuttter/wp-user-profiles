@@ -33,7 +33,7 @@ function wp_user_profiles_admin_menus() {
 	unset( $GLOBALS['submenu']['users.php'][15] );
 
 	// Replace the core "Your Profile" submenu
-	foreach( wp_user_profiles_sections() as $tab_id => $tab ) {
+	foreach( wp_user_profiles_sections() as $tab ) {
 		add_submenu_page( 'admin.php', esc_html__( 'Profile', 'wp-user-profiles' ), $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
 	}
 
@@ -202,7 +202,7 @@ function wp_user_profiles_user_admin() {
 			// The page title
 			echo esc_html( $title );
 
-			// Any arbitrary "page-title-action" links
+			// Any arbitrary "page-title-action" class links
 			do_action( 'wp_user_profiles_title_actions' );
 
 		?></h1>
