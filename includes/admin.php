@@ -169,19 +169,25 @@ function wp_user_profiles_user_admin() {
 		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user->ID ) );
 	}
 
+	// User and/or title
 	if ( empty( $user_id ) && IS_PROFILE_PAGE ) {
 		$user_id = $current_user->ID;
 	} elseif ( empty( $user_id ) && ! IS_PROFILE_PAGE ) {
-		wp_die( __( 'Invalid user ID.', 'wp-user-profiles' ) );
+		$title = esc_html__( 'Invalid user ID', 'wp-user-profiles' );
 	} elseif ( ! get_userdata( $user_id ) ) {
-		wp_die( __( 'Invalid user ID.', 'wp-user-profiles' ) );
+		$title = esc_html__( 'Invalid user ID', 'wp-user-profiles' );
 	}
 
+	// Get user
 	$user = get_user_to_edit( $user_id );
 
-	// Construct title
 	// Setup meta boxes
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
+
+	// Set title to user display name
+	if ( ! empty( $user ) ) {
+		$title = $user->display_name;
+	}
 
 	// Construct URL for form
 	$request_url     = remove_query_arg( array( 'action', 'error', 'updated', 'spam', 'ham' ), $_SERVER['REQUEST_URI'] );
@@ -194,7 +200,7 @@ function wp_user_profiles_user_admin() {
 		<h1><?php
 
 			// The page title
-			echo esc_html( $user->display_name );
+			echo esc_html( $title );
 
 			// Any arbitrary "page-title-action" links
 			do_action( 'wp_user_profiles_title_actions' );
