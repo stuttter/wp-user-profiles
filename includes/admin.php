@@ -13,6 +13,13 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	wp_enqueue_script( 'postbox' );
 	wp_enqueue_script( 'user-profile' );
 	wp_enqueue_script( 'dashboard' );
+
+	// Set location & version for scripts & styles
+	$src = wp_user_profiles_get_plugin_url();
+	$ver = wp_user_profiles_get_asset_version();
+
+	// Styles
+	wp_enqueue_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
 }
 
 /**
@@ -183,7 +190,7 @@ function wp_user_profiles_user_admin() {
 	// Arbitrary notice execution point
 	do_action( 'wp_user_profiles_admin_notices' ); ?>
 
-	<div class="wrap" id="community-profile-page">
+	<div class="wrap" id="wp-user-profiles-page">
 		<h1><?php
 
 			// The page title

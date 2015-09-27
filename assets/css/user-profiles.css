@@ -1,0 +1,13 @@
+#wp-user-profiles-page table.form-table th,
+#wp-user-profiles-page table.form-table td {
+	font-size: 13px;
+}
+
+#wp-user-profiles-page table.form-table textarea {
+	width: 25em;
+}
+
+#wp-user-profiles-page table.form-table th .description {
+	font-weight: normal;
+	font-size: 12px;
+}

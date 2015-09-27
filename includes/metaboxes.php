@@ -35,7 +35,7 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '' ) {
 		'core'
 	);
 
-	// Register metaboxes for the user edit screen
+	// About
 	add_meta_box(
 		'about',
 		_x( 'About', 'users user-admin edit screen', 'wp-user-profiles' ),
@@ -45,6 +45,15 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '' ) {
 		'core'
 	);
 
+	// Contact
+	add_meta_box(
+		'contact',
+		_x( 'Contact', 'users user-admin edit screen', 'wp-user-profiles' ),
+		'wp_user_profiles_contact_metabox',
+		$type,
+		'normal',
+		'core'
+	);
 }
 
 /**
@@ -218,7 +227,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 
 	endif; ?>
 
-	<div class="submitbox" id="submitcomment">
+	<div class="submitbox">
 		<div id="minor-publishing">
 			<div id="misc-publishing-actions">
 				<?php
@@ -445,7 +454,7 @@ function wp_user_profiles_name_metabox( $user = null ) {
 					$public_display = array_unique( $public_display );
 
 					// Show options
-					foreach ( $public_display as $id => $item ) : ?>
+					foreach ( $public_display as $item ) : ?>
 
 						<option <?php selected( $user->display_name, $item ); ?>><?php echo esc_html( $item ); ?></option>
 
@@ -500,33 +509,32 @@ function wp_user_profiles_email_metabox( $user = null ) {
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_contact_metabox( $user = null ) {
-?>
+
+	// Get methods
+	$methods = wp_get_user_contact_methods( $user ); ?>
 
 	<table class="form-table">
-		<tr class="user-url-wrap">
-			<th><label for="url"><?php _e('Website') ?></label></th>
-			<td><input type="url" name="url" id="url" value="<?php echo esc_attr( $user->user_url ) ?>" class="regular-text code" /></td>
-		</tr>
 
-		<?php foreach ( wp_get_user_contact_methods( $user ) as $name => $desc ) : ?>
+		<?php foreach ( $methods as $name => $desc ) : ?>
 
-			<tr class="user-<?php echo $name; ?>-wrap">
-				<th><label for="<?php echo $name; ?>">
-					<?php
-					/**
-					 * Filter a user contactmethod label.
-					 *
-					 * The dynamic portion of the filter hook, `$name`, refers to
-					 * each of the keys in the contactmethods array.
-					 *
-					 * @since 2.9.0
-					 *
-					 * @param string $desc The translatable label for the contactmethod.
-					 */
-					echo apply_filters( "user_{$name}_label", $desc );
-					?>
-				</label></th>
-				<td><input type="text" name="<?php echo $name; ?>" id="<?php echo $name; ?>" value="<?php echo esc_attr($user->$name) ?>" class="regular-text" /></td>
+			<tr class="user-<?php echo esc_attr( $name ); ?>-wrap">
+				<th>
+					<label for="<?php echo esc_attr( $name ); ?>">
+						<?php
+						/**
+						 * Filter a user contactmethod label.
+						 *
+						 * The dynamic portion of the filter hook, `$name`, refers to
+						 * each of the keys in the contactmethods array.
+						 *
+						 * @since 2.9.0
+						 *
+						 * @param string $desc The translatable label for the contactmethod.
+						 */
+						echo apply_filters( "user_{$name}_label", $desc ); ?>
+					</label>
+				</th>
+				<td><input type="text" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $user->$name ); ?>" class="regular-text" /></td>
 			</tr>
 
 		<?php endforeach; ?>
@@ -640,16 +648,21 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 
 	<table class="form-table">
 
-		<?php foreach ( $sites as $site ) :
+		<?php foreach ( $sites as $site_id => $site ) :
 
 			// Switch to this site
 			if ( is_multisite() ) {
-				switch_to_blog( $site->ID );
+				switch_to_blog( $site_id );
 			} ?>
 
 			<tr class="user-role-wrap">
-				<th><label for="role"><?php bloginfo( 'name' ); ?></label></th>
-				<td><select name="role" id="role" <?php	disabled( ! IS_PROFILE_PAGE && ! is_network_admin(), false ); ?>>
+				<th>
+					<label for="role[<?php echo $site_id; ?>]">
+						<?php echo $site->blogname; ?><br>
+						<span class="description"><?php echo $site->siteurl; ?></span>
+					</label>
+				</th>
+				<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( ! IS_PROFILE_PAGE && ! is_network_admin(), false ); ?>>
 						<?php
 
 						// Compare user role against currently editable roles
@@ -807,4 +820,3 @@ function wp_user_profiles_password_metabox() {
 
 <?php
 }
-
