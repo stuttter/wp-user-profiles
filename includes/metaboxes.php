@@ -8,7 +8,7 @@
  * @param   string  $type
  * @param   mixed   $user
  */
-function wp_user_profiles_add_profile_meta_boxes( $type = '' ) {
+function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 
 	// Bail if not user metaboxes
 	if ( 'admin_page_profile' !== $type ) {
@@ -45,15 +45,17 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '' ) {
 		'core'
 	);
 
-	// Contact
-	add_meta_box(
-		'contact',
-		_x( 'Contact', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_contact_metabox',
-		$type,
-		'normal',
-		'core'
-	);
+	// Contact, if methods are registered
+	if ( wp_get_user_contact_methods( $user ) ) {
+		add_meta_box(
+			'contact',
+			_x( 'Contact', 'users user-admin edit screen', 'wp-user-profiles' ),
+			'wp_user_profiles_contact_metabox',
+			$type,
+			'normal',
+			'core'
+		);
+	}
 }
 
 /**
@@ -81,7 +83,7 @@ function wp_user_profiles_add_account_meta_boxes( $type = '' ) {
 		'core'
 	);
 
-	// Password
+	// Email
 	add_meta_box(
 		'email',
 		_x( 'Email', 'users user-admin edit screen', 'wp-user-profiles' ),
