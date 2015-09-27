@@ -647,7 +647,8 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 				switch_to_blog( $site->ID );
 			} ?>
 
-			<tr class="user-role-wrap"><th><label for="role"><?php _e( 'Role' ) ?></label></th>
+			<tr class="user-role-wrap">
+				<th><label for="role"><?php bloginfo( 'name' ); ?></label></th>
 				<td><select name="role" id="role" <?php	disabled( ! IS_PROFILE_PAGE && ! is_network_admin(), false ); ?>>
 						<?php
 
