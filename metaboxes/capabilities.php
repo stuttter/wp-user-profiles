@@ -2,7 +2,7 @@
 
 /**
  * User Profile Capabilities Metabox
- * 
+ *
  * @package User/Profiles/Metaboxes/Capabilities
  */
 
@@ -32,7 +32,8 @@ function wp_user_profiles_additional_capabilities_metabox( $user = null ) {
 
 						<p>
 							<label>
-								<input type="checkbox" id="super_admin" name="super_admin"<?php checked( is_super_admin( $user->ID ) ); ?> /> <?php esc_html_e( 'Grant this user super admin privileges for the Network.', 'wp-user-profiles' ); ?>
+								<input type="checkbox" id="super_admin" name="super_admin"<?php checked( is_super_admin( $user->ID ) ); ?> />
+								<?php esc_html_e( 'Grant this user super admin privileges for the Network.', 'wp-user-profiles' ); ?>
 							</label>
 						</p>
 
