@@ -31,7 +31,7 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 
 	// Theme side editing
 	} else {
-		$url = wp_user_profile_get_edit_user_url( $user_id );
+		$url = wp_user_profiles_get_edit_user_url( $user_id );
 	}
 
 	return add_query_arg( array( 'page' => 'profile' ), $url );
@@ -117,6 +117,6 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 	return apply_filters( 'wp_user_profiles_get_admin_area_url', $url, $user_id, $scheme, $args );
 }
 
-function wp_user_profile_get_edit_user_url( $user_id = 0 ) {
+function wp_user_profiles_get_edit_user_url( $user_id = 0 ) {
 	return '';
 }
