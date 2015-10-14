@@ -20,3 +20,7 @@ add_filter( 'get_edit_user_link', 'wp_user_profiles_edit_user_url_filter', 10, 3
 
 // Admin notices
 add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' );
+
+// Save the user
+add_action( 'admin_init',                         'wp_user_profiles_save_user'         );
+add_filter( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_notices' );

@@ -91,11 +91,11 @@ function wp_user_profiles_admin_notices() {
 	}
 
 	// Get notices, if any
-	$notice = apply_filters( 'wp_user_profiles_get_admin_notices', array(), $wp_http_referer );
+	$notice = apply_filters( 'wp_user_profiles_get_admin_notices', false, $wp_http_referer );
 
 	if ( ! empty( $notice ) ) : ?>
 
-		<div <?php if ( 'updated' === $notice['class'] ) : ?>id="message" <?php endif; ?>class="<?php echo esc_attr( $notice['class'] ); ?>">
+		<div<?php if ( 'updated' === $notice['class'] ) : ?> id="message"<?php endif; ?> class="<?php echo esc_attr( $notice['class'] ); ?>">
 
 			<p><?php echo esc_html( $notice['message'] ); ?></p>
 
