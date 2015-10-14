@@ -27,6 +27,12 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 
 			// Switch to this site
 			if ( is_multisite() ) {
+
+				// Skip if user cannot manage
+				if ( ( get_current_blog_id() !== $site_id ) && ! current_user_can( 'manage_sites' ) ) {
+					continue;
+				}
+
 				switch_to_blog( $site_id );
 			} ?>
 
