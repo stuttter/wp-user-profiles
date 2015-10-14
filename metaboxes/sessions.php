@@ -62,6 +62,20 @@ function wp_user_profiles_session_metabox( $user = null ) {
 				</td>
 			</tr>
 
+		<?php elseif ( ! IS_PROFILE_PAGE && ! $sessions->get_all() ) : ?>
+
+			<tr class="user-sessions-wrap hide-if-no-js">
+				<th><?php esc_html_e( 'Inactive', 'wp-user-profiles' ); ?></th>
+				<td>
+					<p>
+						<?php
+						/* translators: 1: User's display name. */
+						printf( esc_html__( '%s has not logged in yet.', 'wp-user-profiles' ), $user->display_name );
+						?>
+					</p>
+				</td>
+			</tr>
+
 		<?php endif; ?>
 
 	</table>
