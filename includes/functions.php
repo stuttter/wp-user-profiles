@@ -72,9 +72,9 @@ function wp_user_profiles_sections( $args = array() ) {
 			'cap'  => 'edit_user'
 		),
 
-		// Roles
-		'roles' => array(
-			'slug' => 'roles',
+		// Permissions
+		'permissions' => array(
+			'slug' => 'permissions',
 			'name' => esc_html__( 'Permissions', 'wp-user-profiles' ),
 			'cap'  => 'edit_user'
 		)
@@ -99,15 +99,15 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 	// User admin (multisite only)
 	if ( is_user_admin() ) {
-		$url = user_admin_url( 'admin.php', $scheme );
+		$url = user_admin_url( 'users.php', $scheme );
 
 	// Network admin editing
 	} elseif ( is_network_admin() ) {
-		$url = network_admin_url( 'admin.php', $scheme );
+		$url = network_admin_url( 'users.php', $scheme );
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, 'admin.php', $scheme );
+		$url = get_dashboard_url( $user_id, 'users.php', $scheme );
 	}
 
 	// Add query args

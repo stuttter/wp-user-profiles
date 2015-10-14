@@ -11,7 +11,7 @@
 function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 
 	// Bail if not user metaboxes
-	if ( ( 'admin_page_profile' !== $type ) || empty( $user ) ) {
+	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_profile' ) ) ) {
 		return;
 	}
 
@@ -69,7 +69,7 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 
 	// Bail if not user metaboxes
-	if ( ( 'admin_page_account' !== $type ) || empty( $user ) ) {
+	if ( empty( $user ) || ( 'users_page_account' !== $type ) ) {
 		return;
 	}
 
@@ -125,7 +125,7 @@ function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 
 	// Bail if not user metaboxes
-	if ( ( 'admin_page_options' !== $type ) || empty( $user ) ) {
+	if ( empty( $user ) || ( 'users_page_options' !== $type ) ) {
 		return;
 	}
 
@@ -171,7 +171,7 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 function wp_user_profiles_add_permissions_meta_boxes( $type = '', $user = null ) {
 
 	// Bail if not user metaboxes
-	if ( ( 'admin_page_permissions' !== $type ) || empty( $user ) ) {
+	if ( empty( $user ) || ( 'users_page_permissions' !== $type )) {
 		return;
 	}
 

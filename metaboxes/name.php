@@ -2,7 +2,7 @@
 
 /**
  * User Profile Name Metabox
- * 
+ *
  * @package User/Profiles/Metaboxes/Name
  */
 
@@ -36,26 +36,27 @@ function wp_user_profiles_name_metabox( $user = null ) {
 			<th><label for="user_login"><?php esc_html_e( 'Username', 'wp-user-profiles' ); ?></label></th>
 			<td>
 				<cite title="<?php esc_html_e( 'Usernames cannot be changed.', 'wp-user-profiles' ); ?>"><?php echo esc_attr( $user->user_login ); ?></cite>
-				<input type="hidden" name="user_login" id="user_login" value="<?php echo esc_attr($user->user_login); ?>" disabled="disabled" class="regular-text" />
+				<input type="hidden" name="user_login" id="user_login" value="<?php echo esc_attr( $user->user_login ); ?>" disabled="disabled" class="regular-text" />
 			</td>
 		</tr>
 
 		<tr class="user-first-name-wrap">
-			<th><label for="first_name"><?php _e('First Name') ?></label></th>
+			<th><label for="first_name"><?php esc_html_e( 'First Name', 'wp-user-profiles' ); ?></label></th>
 			<td><input type="text" name="first_name" id="first_name" value="<?php echo esc_attr( $user->first_name ); ?>" class="regular-text" /></td>
 		</tr>
 
 		<tr class="user-last-name-wrap">
-			<th><label for="last_name"><?php esc_html_e( 'Last Name', 'wp-user-profiles' ) ?></label></th>
+			<th><label for="last_name"><?php esc_html_e( 'Last Name', 'wp-user-profiles' ); ?></label></th>
 			<td><input type="text" name="last_name" id="last_name" value="<?php echo esc_attr( $user->last_name ); ?>" class="regular-text" /></td>
 		</tr>
 
 		<tr class="user-nickname-wrap">
-			<th><label for="nickname"><?php esc_html_e( 'Nickname', 'wp-user-profiles' ); ?>
+			<th>
+				<label for="nickname"><?php esc_html_e( 'Nickname', 'wp-user-profiles' ); ?>
 					<span class="description"><?php esc_html_e( '(required)', 'wp-use-profiles' ); ?></span>
 				</label>
 			</th>
-			<td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr($user->nickname) ?>" class="regular-text" /></td>
+			<td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr( $user->nickname ) ?>" class="regular-text" /></td>
 		</tr>
 
 		<tr class="user-display-name-wrap">

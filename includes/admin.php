@@ -23,7 +23,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 }
 
 /**
- * Menu pages
+ * Add admin pages and setup submenus
  *
  * @since 0.1.0
  */
@@ -32,12 +32,43 @@ function wp_user_profiles_admin_menus() {
 	// Remove the core "Your Profile" submenu
 	unset( $GLOBALS['submenu']['users.php'][15] );
 
-	// Replace the core "Your Profile" submenu
-	foreach( wp_user_profiles_sections() as $tab ) {
-		add_submenu_page( 'admin.php', esc_html__( 'Profile', 'wp-user-profiles' ), $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
+	// Empty hooks array
+	$hooks = array();
+	$file  = 'users.php';
+
+	// Add (and quickly remove) submenu pages
+	foreach ( wp_user_profiles_sections() as $tab ) {
+		$hooks[] = add_submenu_page( 'users.php', $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
+		remove_submenu_page( $file, $tab['slug'] );
 	}
 
-	//,add_menu_page( 'Profile', 'Profile', 'read', 'profile', 'wp_user_profiles_user_admin', 'dashicons-admin-profile', 4 );
+	// Add a visbile "Your Profile" link
+	add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+
+	// Fudge the highlighted subnav item
+	foreach( $hooks as $hook ) {
+		add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
+	}
+}
+
+/**
+ * Fix submenu highlights
+ *
+ * @since 0.1.0
+ *
+ * @global  string  $plugin_page
+ * @global  string  $submenu_file
+ */
+function wp_user_profiles_admin_menu_highlight() {
+	global $plugin_page, $submenu_file;
+
+	// Get slugs from profile sections
+	$plucked = wp_list_pluck( wp_user_profiles_sections(), 'slug' );
+
+	// Maybe tweak the highlighted submenu
+	if ( ! in_array( $plugin_page, array( $plucked ) ) ) {
+		$submenu_file = 'profile';
+	}
 }
 
 /**
@@ -163,7 +194,6 @@ function wp_user_profiles_user_admin() {
 		: get_current_user_id();
 
 	// Get current user ID
-	$user_id      = (int) $user_id;
 	$current_user = wp_get_current_user();
 	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
 		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user->ID ) );

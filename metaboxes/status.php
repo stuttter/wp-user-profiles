@@ -51,10 +51,10 @@ function wp_user_profiles_status_metabox( $user = null ) {
 					<?php
 
 					// translators: Publish box date format, see http://php.net/date
-					$datef = __( 'M j, Y @ G:i', 'wp-user-profiles' );
+					$datef = esc_html__( 'M j, Y @ G:i', 'wp-user-profiles' );
 					$date  = date_i18n( $datef, strtotime( $user->user_registered ) ); ?>
 
-					<span id="timestamp"><?php printf( __( 'Registered on: <strong>%1$s</strong>', 'wp-user-profiles' ), $date ); ?></span>
+					<span id="timestamp"><?php printf( esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ), '<strong>' . $date . '</strong>' ); ?></span>
 				</div>
 			</div>
 
@@ -63,7 +63,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 
 		<div id="major-publishing-actions">
 			<div id="publishing-action">
-				<a class="button" href="<?php echo esc_url(); ?>" target="_blank"><?php esc_html_e( 'View User', 'wp-user-profiles' ); ?></a>
+				<a class="button" href="<?php echo esc_url( get_author_posts_url( $user->ID ) ); ?>" target="_blank"><?php esc_html_e( 'View User', 'wp-user-profiles' ); ?></a>
 				<?php submit_button( esc_html__( 'Update', 'wp-user-profiles' ), 'primary', 'save', false ); ?>
 				<input type="hidden" name="action" value="update" />
 				<input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $user->ID ); ?>" />
