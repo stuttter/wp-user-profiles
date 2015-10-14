@@ -62,6 +62,12 @@ function wp_user_profiles_admin_menus() {
 function wp_user_profiles_admin_menu_highlight() {
 	global $plugin_page, $submenu_file;
 
+	// If not current user's profile page, set to Users and bail
+	if ( ! empty( $_GET['user_id'] ) && ( get_current_user_id() !== (int) $_GET['user_id'] ) ) {
+		$submenu_file = 'users.php';
+		return;
+	}
+
 	// Get slugs from profile sections
 	$plucked = wp_list_pluck( wp_user_profiles_sections(), 'slug' );
 
@@ -122,11 +128,9 @@ function wp_user_profiles_admin_nav( $user = null ) {
 	}
 
 	// Add the user ID to query arguments when not editing yourself
-	if ( IS_PROFILE_PAGE ) {
-		$query_args = array( 'user_id' => $user->ID );
-	} else {
-		$query_args = array();
-	}
+	$query_args = ! IS_PROFILE_PAGE
+		? array( 'user_id' => $user->ID )
+		: array();
 
 	// Conditionally add a referer if it exists in the existing request
 	if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
@@ -146,9 +150,10 @@ function wp_user_profiles_admin_nav( $user = null ) {
 
 		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 
-			<?php if ( current_user_can( $tab['cap'], $user->ID ) ) : ?>
+			<?php if ( current_user_can( $tab['cap'], $user->ID ) ) :
+				$query_args['page'] = $tab['slug']; ?>
 
-				<a class="nav-tab<?php echo ( $tab_id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( array( 'page' => $tab['slug'] ), $user_url ) );?>">
+				<a class="nav-tab<?php echo ( $tab_id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( $query_args, $user_url ) );?>">
 					<?php echo esc_html( $tab['name'] ); ?>
 				</a>
 
