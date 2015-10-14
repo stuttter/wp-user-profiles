@@ -34,11 +34,11 @@ function wp_user_profiles_admin_menus() {
 
 	// Empty hooks array
 	$hooks = array();
-	$file  = 'users.php';
+	$file  = wp_user_profiles_get_file();
 
 	// Add (and quickly remove) submenu pages
 	foreach ( wp_user_profiles_sections() as $tab ) {
-		$hooks[] = add_submenu_page( 'users.php', $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
+		$hooks[] = add_submenu_page( $file, $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
 		remove_submenu_page( $file, $tab['slug'] );
 	}
 
@@ -64,7 +64,7 @@ function wp_user_profiles_admin_menu_highlight() {
 
 	// If not current user's profile page, set to Users and bail
 	if ( ! empty( $_GET['user_id'] ) && ( get_current_user_id() !== (int) $_GET['user_id'] ) ) {
-		$submenu_file = 'users.php';
+		$submenu_file = wp_user_profiles_get_file();
 		return;
 	}
 

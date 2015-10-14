@@ -15,7 +15,8 @@ add_action( 'add_meta_boxes', 'wp_user_profiles_add_options_meta_boxes',     10,
 add_action( 'add_meta_boxes', 'wp_user_profiles_add_permissions_meta_boxes', 10, 2 );
 
 // Profiles
-add_filter( 'edit_profile_url', 'wp_user_profiles_edit_user_url_filter', 10, 3 );
+add_filter( 'edit_profile_url',   'wp_user_profiles_edit_user_url_filter', 10, 3 );
+add_filter( 'get_edit_user_link', 'wp_user_profiles_edit_user_url_filter', 10, 3 );
 
 // Admin notices
 add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' );

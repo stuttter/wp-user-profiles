@@ -4,6 +4,17 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Return the file all menus will use as their parent
+ *
+ * @since 0.1.0
+ *
+ * @return string
+ */
+function wp_user_profiles_get_file() {
+	return apply_filters( 'wp_user_profiles_get_file', 'users.php' );
+}
+
+/**
  * Conditionally filter the URL used to edit a user
  *
  * This function does some primitive routing for theme-side user profile editing,
@@ -19,11 +30,6 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme = '' ) {
-
-	// Get user ID
-	$user_id = ! empty( $user_id )
-		? (int) $user_id
-		: get_current_user_id();
 
 	// Admin area editing
 	if ( is_admin() ) {
@@ -97,18 +103,23 @@ function wp_user_profiles_sections( $args = array() ) {
  */
 function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args = array() ) {
 
+	$file = wp_user_profiles_get_file();
+
 	// User admin (multisite only)
 	if ( is_user_admin() ) {
-		$url = user_admin_url( 'users.php', $scheme );
+		$url = user_admin_url( $file, $scheme );
 
 	// Network admin editing
 	} elseif ( is_network_admin() ) {
-		$url = network_admin_url( 'users.php', $scheme );
+		$url = network_admin_url( $file, $scheme );
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, 'users.php', $scheme );
+		$url = get_dashboard_url( $user_id, $file, $scheme );
 	}
+
+	// Add user ID to args array for other users
+	$args['user_id'] = $user_id;
 
 	// Add query args
 	$url = add_query_arg( $args, $url );
