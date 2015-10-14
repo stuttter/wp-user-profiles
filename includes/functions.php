@@ -178,26 +178,23 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 	if ( isset( $_POST['role'] ) && current_user_can( 'edit_users' ) ) {
 
 		// New roles
-		$new_roles = array_map( 'sanitize_text_field', array_values( $_POST['role'] ) );
-		$wp_roles  = wp_roles();
+		$new_roles = $_POST['role'];
 
 		// Loop through new roles
-		foreach ( $new_roles as $new_role ) {
-			$potential_role = isset( $wp_roles->role_objects[ $new_role ] )
-				? $wp_roles->role_objects[ $new_role ]
-				: false;
+		foreach ( $new_roles as $blog_id => $new_role ) {
 
-			// Don't let anyone with 'edit_users' (admins) edit their own role to something without it.
-			// Multisite super admins can freely edit their blog roles -- they possess all caps.
-			if ( ( is_multisite() && current_user_can( 'manage_sites' ) ) || $user_id != get_current_user_id() || ($potential_role && $potential_role->has_cap( 'edit_users' ) ) ) {
-				$user->role = $new_role;
-			}
+			// Switch to the blog
+			switch_to_blog( $blog_id );
 
 			// If the new role isn't editable by the logged-in user die with error
 			$editable_roles = get_editable_roles();
-			if ( ! empty( $new_role ) && empty( $editable_roles[ $new_role ] ) ) {
-				wp_die( __( 'You can&#8217;t give users that role.' ) );
+			if ( ! empty( $new_role ) && ! empty( $editable_roles[ $new_role ] ) ) {
+				$update_role = get_userdata( $user_id );
+				$update_role->set_role( $new_role );
 			}
+
+			// Switch back
+			restore_current_blog();
 		}
 	}
 
@@ -309,12 +306,14 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 		$user->user_pass = $pass1;
 	}
 
-	if ( isset( $_POST['user_login'] ) && ! validate_username( $_POST['user_login'] ) ) {
-		$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
-	}
+	if ( isset( $_POST['user_login'] ) ) {
+		if ( ! validate_username( $_POST['user_login'] ) ) {
+			$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
+		}
 
-	if ( isset( $_POST['user_login'] ) && username_exists( $user->user_login ) ) {
-		$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
+		if ( isset( $_POST['user_login'] ) && username_exists( $user->user_login ) ) {
+			$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
+		}
 	}
 
 	// Checking email address
