@@ -21,16 +21,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 	// Bail if no user id or if the user has not activated their account yet
 	if ( empty( $user->ID ) ) {
 		return;
-	}
-
-	// Bail if user has not been activated yet (how did you get here?)
-	if ( isset( $user->user_status ) && ( 2 == $user->user_status ) ) : ?>
-
-		<p class="not-activated"><?php esc_html_e( 'User account has not yet been activated', 'wp-user-profiles' ); ?></p>
-
-		<?php return;
-
-	endif; ?>
+	} ?>
 
 	<div class="submitbox">
 		<div id="minor-publishing">
@@ -42,6 +33,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 
 					<div class="misc-pub-section" id="comment-status-radio">
 						<label class="approved"><input type="radio" name="user_status" value="ham" <?php checked( $user->user_status, 0 ); ?>><?php esc_html_e( 'Active', 'wp-user-profiles' ); ?></label><br>
+						<label><input type="radio" name="user_status" value="inactive" <?php checked( $user->user_status, 2 ); ?>><?php esc_html_e( 'Inactive', 'wp-user-profiles' ); ?></label><br>
 						<label class="spam"><input type="radio" name="user_status" value="spam" <?php checked( $user->user_status, 1 ); ?>><?php esc_html_e( 'Spammer', 'wp-user-profiles' ); ?></label>
 					</div>
 

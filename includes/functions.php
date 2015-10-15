@@ -449,7 +449,7 @@ function wp_user_profiles_update_user_status( $user, $status = 'inactive' ) {
 	} elseif ( 'undeleted' === $status ) {
 		$wpdb->update( $wpdb->users, array( 'user_status' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
 	} elseif ( 'inactive' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '1', 'spam' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
+		$wpdb->update( $wpdb->users, array( 'user_status' => '2', 'spam' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
 	} else {
 		$wpdb->update( $wpdb->users, array( 'user_status' => '0', 'spam' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
 	}
