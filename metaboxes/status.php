@@ -29,7 +29,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 				<?php
 
 				// Get the spam status once here to compare against below
-				if ( ! IS_PROFILE_PAGE && ! in_array( $user->user_login, get_super_admins() ) ) : ?>
+				if ( ! IS_PROFILE_PAGE && ! in_array( $user->user_login, get_super_admins() ) || ( is_multisite() && current_user_can( 'edit_user', $user->ID ) ) ) : ?>
 
 					<div class="misc-pub-section" id="comment-status-radio">
 						<label class="approved"><input type="radio" name="user_status" value="ham" <?php checked( $user->user_status, 0 ); ?>><?php esc_html_e( 'Active', 'wp-user-profiles' ); ?></label><br>
