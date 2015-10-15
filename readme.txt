@@ -11,8 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WP User Profiles is a sophisticated way to edit users in WordPress.
 
-Cards are used to show users in a favorable way rather than listing them in a table like other faceless objects.
-
 = Also checkout =
 
 * [WP Term Meta](https://wordpress.org/plugins/wp-term-meta/ "Metadata, for taxonomy terms.")

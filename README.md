@@ -1,8 +1,6 @@
-# WP User Cards
+# WP User Profiles
 
-WP User Cards is a more modern way to view all of the users in your individual sites.
-
-Cards are used to show users in a favorable way rather than listing them in a table like other faceless objects.
+WP User Profiles is a sophisticated way to edit users in WordPress.
 
 # Installation
 
@@ -14,11 +12,11 @@ Cards are used to show users in a favorable way rather than listing them in a ta
 
 ### Does this work with multisite?
 
-This only replaces the user list on individual sites, because the Network interface is commonly used as a more utilitarian tool.
+Yes.
 
-### Can I customize the card output?
+### Can I add my own sections?
 
-Yes. There are a few actions & filters inserted before and after some hard-coded output. In a future version, we may explore the idea of auto-populating more data based on registered columns, metadata, etc...
+Yes. There are a filters you can use to add or remove sections and their metaboxes.
 
 ### Where can I get support?
 
