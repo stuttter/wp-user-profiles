@@ -1,6 +1,6 @@
 === WP User Cards ===
 Contributors: johnjamesjacoby, stuttter
-Tags: users, user, cards, list
+Tags: users, user, profile, edit, metabox
 Requires at least: 4.3
 Tested up to: 4.4
 Stable tag: 0.1.0
