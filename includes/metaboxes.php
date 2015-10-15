@@ -139,15 +139,17 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 		'core'
 	);
 
-	// Color schemes
-	add_meta_box(
-		'colors',
-		_x( 'Color Scheme', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_color_scheme_metabox',
-		$type,
-		'normal',
-		'core'
-	);
+	// Color schemes (only if available)
+	if ( count( $GLOBALS['_wp_admin_css_colors'] ) && has_action( 'admin_color_scheme_picker' ) ) {
+		add_meta_box(
+			'colors',
+			_x( 'Color Scheme', 'users user-admin edit screen', 'wp-user-profiles' ),
+			'wp_user_profiles_color_scheme_metabox',
+			$type,
+			'normal',
+			'core'
+		);
+	}
 
 	// Color schemes
 	add_meta_box(
