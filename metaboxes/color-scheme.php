@@ -17,11 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_color_scheme_metabox( $user = null ) {
-
-	// Bail if no color schemes
-	if ( ! count( $GLOBALS['_wp_admin_css_colors'] ) || ! has_action( 'admin_color_scheme_picker' ) ) {
-		return;
-	} ?>
+?>
 
 	<table class="form-table">
 		<tr class="user-admin-color-wrap">
