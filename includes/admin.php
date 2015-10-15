@@ -246,7 +246,7 @@ function wp_user_profiles_user_admin() {
 
 			wp_user_profiles_admin_nav( $user ); ?>
 
-			<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post">
+			<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
 				<div id="poststuff">
 					<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
 						<div id="postbox-container-1" class="postbox-container">
