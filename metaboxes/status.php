@@ -50,8 +50,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 				<div class="misc-pub-section curtime misc-pub-section-last">
 					<?php
 
-					// translators: Publish box date format, see http://php.net/date
-					$datef = esc_html__( 'M j, Y @ G:i', 'wp-user-profiles' );
+					$datef = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 					$date  = date_i18n( $datef, strtotime( $user->user_registered ) ); ?>
 
 					<span id="timestamp"><?php printf( esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ), '<strong>' . $date . '</strong>' ); ?></span>
