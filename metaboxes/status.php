@@ -42,7 +42,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 
 					<div class="misc-pub-section" id="comment-status-radio">
 						<label class="approved"><input type="radio" name="user_status" value="ham" <?php checked( $user->user_status, 0 ); ?>><?php esc_html_e( 'Active', 'wp-user-profiles' ); ?></label><br>
-						<label class="spam"><input type="radio" name="user_status" value="spam" <?php checked( $user->user_status, 2 ); ?>><?php esc_html_e( 'Spammer', 'wp-user-profiles' ); ?></label>
+						<label class="spam"><input type="radio" name="user_status" value="spam" <?php checked( $user->user_status, 1 ); ?>><?php esc_html_e( 'Spammer', 'wp-user-profiles' ); ?></label>
 					</div>
 
 				<?php endif ;?>
