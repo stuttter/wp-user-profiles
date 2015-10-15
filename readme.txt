@@ -1,4 +1,4 @@
-=== WP User Cards ===
+=== WP User Profiles ===
 Contributors: johnjamesjacoby, stuttter
 Tags: users, user, profile, edit, metabox
 Requires at least: 4.3
