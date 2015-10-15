@@ -1,0 +1,17 @@
+{
+  "name": "stuttter/wp-user-profiles",
+  "description": "A sophisticated way to edit users in WordPress",
+  "homepage": "https://github.com/stuttter/wp-user-profiles",
+  "type": "wordpress-plugin",
+  "require": {
+    "php": ">=5.2",
+    "composer/installers": "^1.0"
+  },
+  "license": "GPLv2 or later",
+  "authors": [
+    {
+      "name": "John James Jacoby",
+      "email": "johnjamesjacoby@me.com"
+    }
+  ]
+}
