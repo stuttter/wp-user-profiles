@@ -9,6 +9,18 @@ defined( 'ABSPATH' ) || exit;
  * @since 0.1.0
  */
 function wp_user_profiles_admin_enqueue_scripts() {
+
+	// Bail if not the correct page
+	if ( $GLOBALS['pagenow'] !== wp_user_profiles_get_file() ) {
+		return;
+	}
+
+	// Bail if not a user profile section
+	if ( ! isset( $_GET['page'] ) || ! in_array( $_GET['page'], wp_list_pluck( wp_user_profiles_sections(), 'slug' ) ) ) {
+		return;
+	}
+
+	// Enqueue core scripts
 	wp_enqueue_script( 'jquery-ui-sortable' );
 	wp_enqueue_script( 'postbox' );
 	wp_enqueue_script( 'user-profile' );
