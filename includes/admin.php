@@ -8,15 +8,18 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 0.1.0
  */
-function wp_user_profiles_admin_enqueue_scripts() {
+function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 
 	// Bail if not the correct page
 	if ( $GLOBALS['pagenow'] !== wp_user_profiles_get_file() ) {
 		return;
 	}
 
+	// Break hook back into parts
+	$page = explode( '_', $hook );
+
 	// Bail if not a user profile section
-	if ( ! isset( $_GET['page'] ) || ! in_array( $_GET['page'], wp_list_pluck( wp_user_profiles_sections(), 'slug' ) ) ) {
+	if ( ! isset( $page[2] ) || ! in_array( $page[2], wp_list_pluck( wp_user_profiles_sections(), 'slug' ) ) ) {
 		return;
 	}
 
