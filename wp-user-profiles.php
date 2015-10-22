@@ -4,10 +4,12 @@
  * Plugin Name: WP User Profiles
  * Plugin URI:  https://wordpress.org/plugins/wp-user-profiles/
  * Description: A sophisticated way to edit users in WordPress
- * Author:      John James Jacoby
  * Version:     0.1.4
+ * Author:      John James Jacoby
  * Author URI:  https://profiles.wordpress.org/johnjamesjacoby/
+ * Text Domain: wp-user-profiles
  * License:     GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 // Exit if accessed directly
