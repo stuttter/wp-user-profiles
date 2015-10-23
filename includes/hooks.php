@@ -9,6 +9,7 @@ add_action( 'admin_menu', 'wp_user_profiles_admin_menus' );
 add_action( 'admin_enqueue_scripts', 'wp_user_profiles_admin_enqueue_scripts' );
 
 // Metaboxes
+add_action( 'add_meta_boxes', 'wp_user_profiles_add_status_metabox',         10, 2 );
 add_action( 'add_meta_boxes', 'wp_user_profiles_add_profile_meta_boxes',     10, 2 );
 add_action( 'add_meta_boxes', 'wp_user_profiles_add_account_meta_boxes',     10, 2 );
 add_action( 'add_meta_boxes', 'wp_user_profiles_add_options_meta_boxes',     10, 2 );

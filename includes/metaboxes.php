@@ -1,5 +1,43 @@
 <?php
 
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Ensure the submit metabox is added to all profile pages
+ *
+ * @since 0.1.9
+ *
+ * @param string $type
+ * @param object $user
+ */
+function wp_user_profiles_add_status_metabox( $type = '', $user = null ) {
+
+	// Get the section slugs
+	$sections = wp_list_pluck( wp_user_profiles_sections(), 'slug' );
+	$types    = array( 'toplevel_page_profile' );
+
+	// Setup type
+	foreach ( $sections as $slug ) {
+		$types[] = 'users_page_' . $slug;
+	}
+
+	// Bail if not the correct type
+	if ( empty( $user ) || ! in_array( $type, $types ) ) {
+		return;
+	}
+
+	// Register metaboxes for the user edit screen
+	add_meta_box(
+		'submitdiv',
+		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
+		'wp_user_profiles_status_metabox',
+		$types,
+		'side',
+		'high'
+	);
+}
+
 /**
  * Add the default user profile metaboxes
  *
@@ -14,16 +52,6 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_profile' ) ) ) {
 		return;
 	}
-
-	// Register metaboxes for the user edit screen
-	add_meta_box(
-		'submitdiv',
-		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_status_metabox',
-		$type,
-		'side',
-		'core'
-	);
 
 	// Name
 	add_meta_box(
@@ -73,16 +101,6 @@ function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 		return;
 	}
 
-	// Status
-	add_meta_box(
-		'submitdiv',
-		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_status_metabox',
-		$type,
-		'side',
-		'core'
-	);
-
 	// Email
 	add_meta_box(
 		'email',
@@ -129,16 +147,6 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 		return;
 	}
 
-	// Always register the status box
-	add_meta_box(
-		'submitdiv',
-		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_status_metabox',
-		$type,
-		'side',
-		'core'
-	);
-
 	// Color schemes (only if available)
 	if ( count( $GLOBALS['_wp_admin_css_colors'] ) && has_action( 'admin_color_scheme_picker' ) ) {
 		add_meta_box(
@@ -176,16 +184,6 @@ function wp_user_profiles_add_permissions_meta_boxes( $type = '', $user = null )
 	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_permissions' ) ) ) {
 		return;
 	}
-
-	// Always register the status box
-	add_meta_box(
-		'submitdiv',
-		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
-		'wp_user_profiles_status_metabox',
-		$type,
-		'side',
-		'core'
-	);
 
 	// Color schemes
 	add_meta_box(
