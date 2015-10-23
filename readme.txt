@@ -58,8 +58,6 @@ http://github.com/stuttter/wp-user-profiles/
 == Changelog ==
 
 = 0.1.5 =
-* Update column names
-* Add support for WP User Profiles
 * Add support for third party sections
 
 = 0.1.4 =
