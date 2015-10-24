@@ -32,7 +32,7 @@ function wp_user_profiles_add_status_metabox( $type = '', $user = null ) {
 		'submitdiv',
 		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
 		'wp_user_profiles_status_metabox',
-		$types,
+		$type,
 		'side',
 		'high'
 	);
