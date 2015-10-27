@@ -3,7 +3,7 @@ Contributors: johnjamesjacoby, stuttter
 Tags: users, user, profile, edit, metabox
 Requires at least: 4.3
 Tested up to: 4.4
-Stable tag: 0.1.4
+Stable tag: 0.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,13 +49,16 @@ Yes. There are a filters you can use to add or remove sections and their metabox
 
 = Where can I get support? =
 
-The WordPress support forums: https://wordpress.org/support/plugin/wp-user-profiles/
+The WordPress support forums: https://wordpress.org/support/plugin/wp-user-profiles.
 
 = Where can I find documentation? =
 
-http://github.com/stuttter/wp-user-profiles/
+http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= 0.1.5 =
+* Add support for third party sections
 
 = 0.1.4 =
 * Update scripts & reprioritize actions
