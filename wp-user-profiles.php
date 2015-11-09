@@ -3,11 +3,12 @@
 /**
  * Plugin Name: WP User Profiles
  * Plugin URI:  https://wordpress.org/plugins/wp-user-profiles/
- * Description: A sophisticated way to edit users in WordPress
- * Version:     0.1.5
  * Author:      John James Jacoby
  * Author URI:  https://profiles.wordpress.org/johnjamesjacoby/
+ * Description: A sophisticated way to edit users in WordPress
+ * Version:     0.1.6
  * Text Domain: wp-user-profiles
+ * Domain Path: /assets/lang/
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -66,5 +67,5 @@ function wp_user_profiles_get_plugin_url() {
  * @return int
  */
 function wp_user_profiles_get_asset_version() {
-	return 201510230001;
+	return 201511090001;
 }
