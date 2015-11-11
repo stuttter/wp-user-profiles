@@ -150,7 +150,7 @@ function wp_user_profiles_get_section_hooknames( $section = '' ) {
  * @param string $value
  * @param string $key
  */
-function _wp_user_profiles_walk_section_hooknames( &$value, $key ) {
+function _wp_user_profiles_walk_section_hooknames( &$value, $key = '' ) {
 	if ( is_network_admin() && substr( $value, -8 ) !== '-network' ) {
 		$value .= '-network';
 	} elseif ( is_user_admin() && substr( $value, -5 ) != '-user' ) {
