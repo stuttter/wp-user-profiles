@@ -24,6 +24,9 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 	// Get hooknames
 	$sections = wp_user_profiles_get_section_hooknames();
 
+	// Maybe manipulate the hook based on dashboard
+	_wp_user_profiles_walk_section_hooknames( $hook, '' );
+
 	// Bail if not a user profile section
 	if ( ! in_array( $hook, $sections, true ) ) {
 		return;
