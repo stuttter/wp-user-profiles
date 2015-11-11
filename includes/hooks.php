@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * User Profile Hooks
+ * 
+ * @package Plugins/Users/Profiles/Hooks
+ */
+
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 

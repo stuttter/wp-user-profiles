@@ -3,7 +3,7 @@
 /**
  * User Profile Contact Metabox
  * 
- * @package User/Profiles/Metaboxes/Contact
+ * @package Plugins/Users/Profiles/Metaboxes/Contact
  */
 
 // Exit if accessed directly

@@ -3,7 +3,7 @@
 /**
  * User Profile Personal-Options Metabox
  *
- * @package User/Profiles/Metaboxes/PersonalOptions
+ * @package Plugins/Users/Profiles/Metaboxes/PersonalOptions
  */
 
 // Exit if accessed directly

@@ -3,7 +3,7 @@
 /**
  * User Profile Session Metabox
  *
- * @package User/Profiles/Metaboxes/Sessions
+ * @package Plugins/Users/Profiles/Metaboxes/Sessions
  */
 
 // Exit if accessed directly

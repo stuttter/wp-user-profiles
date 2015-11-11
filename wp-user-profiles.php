@@ -67,5 +67,5 @@ function wp_user_profiles_get_plugin_url() {
  * @return int
  */
 function wp_user_profiles_get_asset_version() {
-	return 201511100001;
+	return 201511110001;
 }

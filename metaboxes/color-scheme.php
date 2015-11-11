@@ -3,7 +3,7 @@
 /**
  * User Profile Color-Scheme Metabox
  * 
- * @package User/Profiles/Metaboxes/ColorScheme
+ * @package Plugins/Users/Profiles/Metaboxes/ColorScheme
  */
 
 // Exit if accessed directly

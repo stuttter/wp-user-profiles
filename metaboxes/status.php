@@ -3,7 +3,7 @@
 /**
  * User Profile Status Metabox
  * 
- * @package User/Profiles/Metaboxes/Status
+ * @package Plugins/Users/Profiles/Metaboxes/Status
  */
 
 // Exit if accessed directly

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * User Profile Admin
+ * 
+ * @package Plugins/Users/Profiles/Admin
+ */
+
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 

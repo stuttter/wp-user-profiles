@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * User Profile Functions
+ * 
+ * @package Plugins/Users/Profiles/Functions
+ */
+
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 

@@ -3,7 +3,7 @@
 /**
  * User Profile Roles Metabox
  * 
- * @package User/Profiles/Metaboxes/Roles
+ * @package Plugins/Users/Profiles/Metaboxes/Roles
  */
 
 // Exit if accessed directly

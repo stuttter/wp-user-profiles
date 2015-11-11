@@ -3,7 +3,7 @@
 /**
  * User Profile Email Metabox
  * 
- * @package User/Profiles/Metaboxes/Email
+ * @package Plugins/Users/Profiles/Metaboxes/Email
  */
 
 // Exit if accessed directly

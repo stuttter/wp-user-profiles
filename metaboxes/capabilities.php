@@ -3,7 +3,7 @@
 /**
  * User Profile Capabilities Metabox
  *
- * @package User/Profiles/Metaboxes/Capabilities
+ * @package Plugins/Users/Profiles/Metaboxes/Capabilities
  */
 
 // Exit if accessed directly

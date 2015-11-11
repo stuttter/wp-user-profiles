@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * User Profile Metaboxes
+ * 
+ * @package Plugins/Users/Profiles/Metaboxes
+ */
+
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
