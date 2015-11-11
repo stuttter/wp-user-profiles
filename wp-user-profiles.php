@@ -28,7 +28,6 @@ function _wp_user_profiles() {
 
 	// Metaboxes
 	require_once $plugin_path . 'metaboxes/about.php';
-	require_once $plugin_path . 'metaboxes/capabilities.php';
 	require_once $plugin_path . 'metaboxes/color-scheme.php';
 	require_once $plugin_path . 'metaboxes/contact.php';
 	require_once $plugin_path . 'metaboxes/email.php';
