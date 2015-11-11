@@ -4,7 +4,9 @@
 defined( 'ABSPATH' ) || exit;
 
 // Admin Menus
-add_action( 'admin_menu', 'wp_user_profiles_admin_menus' );
+add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );
+add_action( 'network_admin_menu', 'wp_user_profiles_admin_menus' );
+add_action( 'user_admin_menu',    'wp_user_profiles_admin_menus' );
 
 add_action( 'admin_enqueue_scripts', 'wp_user_profiles_admin_enqueue_scripts' );
 

@@ -11,7 +11,17 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 function wp_user_profiles_get_file() {
-	return apply_filters( 'wp_user_profiles_get_file', 'users.php' );
+
+	// Default to users.php
+	$file = 'users.php';
+
+	// Maybe override to profile.php
+	if ( is_user_admin() || ! current_user_can( 'list_users' ) ) {
+		$file = 'profile.php';
+	}
+
+	// Filter & return
+	return apply_filters( 'wp_user_profiles_get_file', $file );
 }
 
 /**
@@ -59,35 +69,87 @@ function wp_user_profiles_sections( $args = array() ) {
 
 		// Profile
 		'profile' => array(
-			'slug' => 'profile',
-			'name' => esc_html__( 'Profile', 'wp-user-profiles' ),
-			'cap'  => 'edit_user'
+			'slug'  => 'profile',
+			'name'  => esc_html__( 'Profile', 'wp-user-profiles' ),
+			'cap'   => 'edit_user',
+			'icon'  => 'dashicons-admin-users',
+			'order' => 70
 		),
 
 		// Acount
 		'account' => array(
-			'slug' => 'account',
-			'name' => esc_html__( 'Account', 'wp-user-profiles' ),
-			'cap'  => 'edit_user'
+			'slug'  => 'account',
+			'name'  => esc_html__( 'Account', 'wp-user-profiles' ),
+			'cap'   => 'edit_user',
+			'icon'  => 'dashicons-admin-generic',
+			'order' => 75
 		),
 
 		// Options
 		'options' => array(
-			'slug' => 'options',
-			'name' => esc_html__( 'Options', 'wp-user-profiles' ),
-			'cap'  => 'edit_user'
+			'slug'  => 'options',
+			'name'  => esc_html__( 'Options', 'wp-user-profiles' ),
+			'cap'   => 'edit_user',
+			'icon'  => 'dashicons-admin-settings',
+			'order' => 80
 		),
 
 		// Permissions
 		'permissions' => array(
-			'slug' => 'permissions',
-			'name' => esc_html__( 'Permissions', 'wp-user-profiles' ),
-			'cap'  => 'edit_user'
+			'slug'  => 'permissions',
+			'name'  => esc_html__( 'Permissions', 'wp-user-profiles' ),
+			'cap'   => 'edit_user',
+			'icon'  => 'dashicons-hidden',
+			'order' => 85
 		)
 	) );
 
 	// Filter & return
 	return apply_filters( 'wp_user_profiles_sections', $r, $args );
+}
+
+/**
+ * Get profile section slugs
+ *
+ * @since 0.1.7
+ */
+function wp_user_profiles_get_section_hooknames( $section = '' ) {
+
+	// What slugs are we looking for
+	$sections = ! empty( $section )
+		? array( $section )
+		: wp_list_pluck( wp_user_profiles_sections(), 'slug' );
+
+	// Get file
+	$hooks = array();
+	$file  = wp_user_profiles_get_file();
+
+	// Generate hooknames
+	foreach ( $sections as $slug ) {
+		$hookname = get_plugin_page_hookname( $slug, $file );
+		$hooks[]  = $hookname;
+	}
+
+	// Network & user admin corrections
+	array_walk( $hooks, '_wp_user_profiles_walk_section_hooknames' );
+
+	return $hooks;
+}
+
+/**
+ * Walk array and add maybe add network or user suffix
+ *
+ * @since 0.1.7
+ *
+ * @param string $value
+ * @param string $key
+ */
+function _wp_user_profiles_walk_section_hooknames( &$value, $key ) {
+	if ( is_network_admin() && substr( $value, -8 ) !== '-network' ) {
+		$value .= '-network';
+	} elseif ( is_user_admin() && substr( $value, -5 ) != '-user' ) {
+		$value .= '-user';
+	}
 }
 
 /**
@@ -241,7 +303,7 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 
 	// Contact methods
 	foreach ( wp_get_user_contact_methods( $user ) as $method => $name ) {
-		if ( isset( $_POST[ $method ] )) {
+		if ( isset( $_POST[ $method ] ) ) {
 			$user->$method = sanitize_text_field( $_POST[ $method ] );
 		}
 	}
@@ -352,7 +414,7 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 }
 
 /**
- * Save the user when they click "Updat"
+ * Save the user when they click "Update"
  *
  * @since 0.1.0
  */

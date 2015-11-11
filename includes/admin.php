@@ -11,22 +11,21 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 
 	// Bail if not the correct page
-	if ( $GLOBALS['pagenow'] !== wp_user_profiles_get_file() ) {
+	if ( ! is_user_admin() && ( $GLOBALS['pagenow'] !== wp_user_profiles_get_file() ) ) {
 		return;
 	}
 
-	// Break hook back into parts
-	$page = explode( '_', $hook );
+	// Get hooknames
+	$sections = wp_user_profiles_get_section_hooknames();
 
 	// Bail if not a user profile section
-	if ( ! isset( $page[2] ) || ! in_array( $page[2], wp_list_pluck( wp_user_profiles_sections(), 'slug' ) ) ) {
+	if ( ! in_array( $hook, $sections, true ) ) {
 		return;
 	}
 
 	// Enqueue core scripts
 	wp_enqueue_script( 'jquery-ui-sortable' );
 	wp_enqueue_script( 'postbox' );
-	wp_enqueue_script( 'user-profile' );
 	wp_enqueue_script( 'dashboard' );
 
 	// Set location & version for scripts & styles
@@ -34,7 +33,11 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 	$ver = wp_user_profiles_get_asset_version();
 
 	// Styles
-	wp_enqueue_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
+	wp_enqueue_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array( 'dashboard' ), $ver );
+
+	// Ugh... this is terrible
+	wp_enqueue_script( 'user-profile', $src . 'assets/css/user-profiles.css', array( 'jquery', 'password-strength-meter', 'wp-util' ), $ver );
+	wp_scripts()->registered['user-profile']->src = $src . 'assets/js/user-profiles.js';
 }
 
 /**
@@ -44,25 +47,40 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
  */
 function wp_user_profiles_admin_menus() {
 
-	// Remove the core "Your Profile" submenu
-	unset( $GLOBALS['submenu']['users.php'][15] );
-
 	// Empty hooks array
-	$hooks = array();
-	$file  = wp_user_profiles_get_file();
-
-	// Add (and quickly remove) submenu pages
-	foreach ( wp_user_profiles_sections() as $tab ) {
-		$hooks[] = add_submenu_page( $file, $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
-		remove_submenu_page( $file, $tab['slug'] );
-	}
+	$hooks    = array();
+	$file     = wp_user_profiles_get_file();
+	$sections = wp_user_profiles_sections();
 
 	// Add a visbile "Your Profile" link
-	add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+	if ( 'users.php' === $file ) {
 
-	// Fudge the highlighted subnav item
-	foreach( $hooks as $hook ) {
-		add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
+		// Remove the core "Your Profile" submenu
+		unset( $GLOBALS['submenu']['users.php'][15] );
+
+		// Add (and quickly remove) submenu pages
+		foreach ( $sections as $tab ) {
+			$hooks[] = add_submenu_page( $file, $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
+			remove_submenu_page( $file, $tab['slug'] );
+		}
+
+		// Re-add new "Your Profile" submenu
+		add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+
+		// Fudge the highlighted subnav item
+		foreach ( $hooks as $hook ) {
+			add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
+		}
+
+	// User admin needs some coercing
+	} elseif ( is_user_admin() ) {
+		remove_menu_page( 'profile.php' );
+
+		foreach ( $sections as $tab ) {
+			add_menu_page( $tab['name'], $tab['name'], 'exist', $tab['slug'], 'wp_user_profiles_user_admin', $tab['icon'], $tab['order'] );
+		}
+	} else {
+		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
 	}
 }
 
@@ -84,10 +102,10 @@ function wp_user_profiles_admin_menu_highlight() {
 	}
 
 	// Get slugs from profile sections
-	$plucked = wp_list_pluck( wp_user_profiles_sections(), 'slug' );
+	$plucked = wp_user_profiles_get_section_hooknames();
 
 	// Maybe tweak the highlighted submenu
-	if ( ! in_array( $plugin_page, array( $plucked ) ) ) {
+	if ( ! in_array( $plugin_page, array( $plucked ), true ) ) {
 		$submenu_file = 'profile';
 	}
 }
@@ -139,6 +157,12 @@ function wp_user_profiles_admin_nav( $user = null ) {
 
 	// Bail if no user ID exists here
 	if ( empty( $user->ID ) ) {
+		return;
+	}
+
+	// User admin is a special case where top-level menus replace
+	// tabulated ones.
+	if ( is_user_admin() ) {
 		return;
 	}
 

@@ -13,17 +13,11 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_add_status_metabox( $type = '', $user = null ) {
 
-	// Get the section slugs
-	$sections = wp_list_pluck( wp_user_profiles_sections(), 'slug' );
-	$types    = array( 'toplevel_page_profile' );
-
-	// Setup type
-	foreach ( $sections as $slug ) {
-		$types[] = 'users_page_' . $slug;
-	}
+	// Get types
+	$types = wp_user_profiles_get_section_hooknames();
 
 	// Bail if not the correct type
-	if ( empty( $user ) || ! in_array( $type, $types ) ) {
+	if ( empty( $user ) || ! in_array( $type, $types, true ) ) {
 		return;
 	}
 
@@ -32,7 +26,7 @@ function wp_user_profiles_add_status_metabox( $type = '', $user = null ) {
 		'submitdiv',
 		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
 		'wp_user_profiles_status_metabox',
-		$types,
+		$type,
 		'side',
 		'high'
 	);
@@ -48,8 +42,11 @@ function wp_user_profiles_add_status_metabox( $type = '', $user = null ) {
  */
 function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 
+	// Get types
+	$types = wp_user_profiles_get_section_hooknames( 'profile' );
+
 	// Bail if not user metaboxes
-	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_profile' ) ) ) {
+	if ( empty( $user ) || ! in_array( $type, $types, true ) ) {
 		return;
 	}
 
@@ -96,8 +93,11 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
  */
 function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 
+	// Get types
+	$types = wp_user_profiles_get_section_hooknames( 'account' );
+
 	// Bail if not user metaboxes
-	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_account' ) ) ) {
+	if ( empty( $user ) || ! in_array( $type, $types, true ) ) {
 		return;
 	}
 
@@ -142,8 +142,11 @@ function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
  */
 function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 
+	// Get types
+	$types = wp_user_profiles_get_section_hooknames( 'options' );
+
 	// Bail if not user metaboxes
-	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_options' ) ) ) {
+	if ( empty( $user ) || ! in_array( $type, $types, true ) ) {
 		return;
 	}
 
@@ -180,8 +183,11 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
  */
 function wp_user_profiles_add_permissions_meta_boxes( $type = '', $user = null ) {
 
+	// Get types
+	$types = wp_user_profiles_get_section_hooknames( 'permissions' );
+
 	// Bail if not user metaboxes
-	if ( empty( $user ) || ! in_array( $type, array( 'toplevel_page_profile', 'users_page_permissions' ) ) ) {
+	if ( empty( $user ) || ! in_array( $type, $types, true ) ) {
 		return;
 	}
 
