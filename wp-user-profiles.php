@@ -6,7 +6,7 @@
  * Author:      John James Jacoby
  * Author URI:  https://profiles.wordpress.org/johnjamesjacoby/
  * Description: A sophisticated way to edit users in WordPress
- * Version:     0.1.9
+ * Version:     0.1.10
  * Text Domain: wp-user-profiles
  * Domain Path: /assets/lang/
  * License:     GPL v2 or later
@@ -66,5 +66,5 @@ function wp_user_profiles_get_plugin_url() {
  * @return int
  */
 function wp_user_profiles_get_asset_version() {
-	return 201511110003;
+	return 201511120001;
 }
