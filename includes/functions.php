@@ -447,10 +447,10 @@ function wp_user_profiles_save_user() {
 	}
 
 	// Setup constant for backpat
-	define( 'IN_PROFILE_PAGE', get_current_user_id() === $user_id );
+	define( 'IS_PROFILE_PAGE', get_current_user_id() === $user_id );
 
 	// Fire WordPress core actions
-	if ( IN_PROFILE_PAGE ) {
+	if ( IS_PROFILE_PAGE ) {
 		do_action( 'personal_options_update', $user_id );
 	} else {
 		do_action( 'edit_user_profile_update', $user_id );
