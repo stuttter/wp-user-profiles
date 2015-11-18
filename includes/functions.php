@@ -468,7 +468,7 @@ function wp_user_profiles_save_user() {
 
 	// No errors
 	if ( ! is_wp_error( $errors ) ) {
-		$redirect = add_query_arg( 'updated', true );
+		$redirect = add_query_arg( 'updated', true, get_edit_user_link( $user_id ) );
 
 		if ( ! empty( $wp_http_referer ) ) {
 			$redirect = add_query_arg( 'wp_http_referer', urlencode( $wp_http_referer ), $redirect );
