@@ -128,7 +128,7 @@ class WP_User_Profile_Section {
 	public function action_save( $user_id = 0 ) {
 
 		// Bail if ID is empty
-		if ( empty( $this->id ) ) {
+		if ( empty( $this->id ) || empty( $user_id ) ) {
 			return;
 		}
 
@@ -142,8 +142,12 @@ class WP_User_Profile_Section {
 			return;
 		}
 
+		// Setup the user being saved
+		$user     = new stdClass;
+		$user->ID = (int) $user_id;
+
 		// Do the save action
-		return $this->save( $user_id );
+		return $this->save( $user );
 	}
 
 	/**
@@ -174,18 +178,18 @@ class WP_User_Profile_Section {
 	}
 
 	/**
-	 * Stub method for classes to extend
+	 * Parent method for extended classes to call
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param int $user_id
+	 * @param object $user
 	 */
-	public function save( $user_id = 0 ) {
-		return do_action( "wp_user_profiles_save_{$this->id}_section", $user_id );
+	public function save( $user = 0 ) {
+		return do_action( "wp_user_profiles_save_{$this->id}_section", $user );
 	}
 
 	/**
-	 * Stub method for classes to extend
+	 * Parent method for extended classes to call
 	 *
 	 * @since 0.2.0
 	 *

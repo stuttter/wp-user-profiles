@@ -211,13 +211,12 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 	// Setup the user being saved
 	$user     = new stdClass;
 	$user->ID = (int) $user_id;
-	$userdata = get_userdata( $user_id );
 
 	// Setup the user login
 	if ( isset( $_POST['user_login'] ) ) {
 		$user->user_login = sanitize_user( $_POST['user_login'], true );
 	} else {
-		$user->user_login = wp_slash( $userdata->user_login );
+		$user->user_login = wp_slash( get_userdata( $user_id )->user_login );
 	}
 
 	// Password changes
@@ -264,8 +263,8 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 			$user->user_url = '';
 		} else {
 			$user->user_url = esc_url_raw( $_POST['url'] );
-			$protocols = implode( '|', array_map( 'preg_quote', wp_allowed_protocols() ) );
-			$user->user_url = preg_match('/^(' . $protocols . '):/is', $user->user_url) ? $user->user_url : 'http://'.$user->user_url;
+			$protocols      = implode( '|', array_map( 'preg_quote', wp_allowed_protocols() ) );
+			$user->user_url = preg_match( '/^(' . $protocols . '):/is', $user->user_url ) ? $user->user_url : 'http://'.$user->user_url;
 		}
 	}
 
