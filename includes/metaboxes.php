@@ -93,7 +93,7 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 		'wp_user_profiles_name_metabox',
 		$type,
 		'normal',
-		'core',
+		'high',
 		$user
 	);
 
@@ -116,7 +116,7 @@ function wp_user_profiles_add_profile_meta_boxes( $type = '', $user = null ) {
 			'wp_user_profiles_contact_metabox',
 			$type,
 			'normal',
-			'core',
+			'low',
 			$user
 		);
 	}
@@ -139,7 +139,7 @@ function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 		'wp_user_profiles_email_metabox',
 		$type,
 		'normal',
-		'core',
+		'high',
 		$user
 	);
 
@@ -161,7 +161,7 @@ function wp_user_profiles_add_account_meta_boxes( $type = '', $user = null ) {
 		'wp_user_profiles_session_metabox',
 		$type,
 		'normal',
-		'core',
+		'low',
 		$user
 	);
 }
@@ -184,7 +184,7 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
 			'wp_user_profiles_color_scheme_metabox',
 			$type,
 			'normal',
-			'core',
+			'high',
 			$user
 		);
 	}
@@ -211,18 +211,18 @@ function wp_user_profiles_add_options_meta_boxes( $type = '', $user = null ) {
  */
 function wp_user_profiles_add_permissions_meta_boxes( $type = '', $user = null ) {
 
-	// Color schemes
+	// Roles
 	add_meta_box(
 		'roles',
 		_x( 'Roles', 'users user-admin edit screen', 'wp-user-profiles' ),
 		'wp_user_profiles_roles_metabox',
 		$type,
 		'normal',
-		'core',
+		'high',
 		$user
 	);
 
-	// Color schemes
+	// Additional Capabilities
 	add_meta_box(
 		'options',
 		_x( 'Additional Capabilities', 'users user-admin edit screen', 'wp-user-profiles' ),
