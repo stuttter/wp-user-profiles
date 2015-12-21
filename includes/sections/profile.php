@@ -1,7 +1,7 @@
 <?php
 
 /**
- * User Profile Base Section
+ * User Profile Profile Section
  *
  * @package Plugins/Users/Profiles/Sections/Profile
  */
