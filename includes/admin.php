@@ -25,7 +25,7 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 	$sections = wp_user_profiles_get_section_hooknames();
 
 	// Maybe manipulate the hook based on dashboard
-	_wp_user_profiles_walk_section_hooknames( $hook, '' );
+	_wp_user_profiles_walk_section_hooknames( $hook );
 
 	// Bail if not a user profile section
 	if ( ! in_array( $hook, $sections, true ) ) {
@@ -69,8 +69,8 @@ function wp_user_profiles_admin_menus() {
 
 		// Add (and quickly remove) submenu pages
 		foreach ( $sections as $tab ) {
-			$hooks[] = add_submenu_page( $file, $tab['name'], $tab['name'], $tab['cap'], $tab['slug'], 'wp_user_profiles_user_admin' );
-			remove_submenu_page( $file, $tab['slug'] );
+			$hooks[] = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+			remove_submenu_page( $file, $tab->slug );
 		}
 
 		// Re-add new "Your Profile" submenu
@@ -86,7 +86,7 @@ function wp_user_profiles_admin_menus() {
 		remove_menu_page( 'profile.php' );
 
 		foreach ( $sections as $tab ) {
-			add_menu_page( $tab['name'], $tab['name'], 'exist', $tab['slug'], 'wp_user_profiles_user_admin', $tab['icon'], $tab['order'] );
+			add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
 		}
 	} else {
 		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
@@ -198,11 +198,11 @@ function wp_user_profiles_admin_nav( $user = null ) {
 
 		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
 
-			<?php if ( current_user_can( $tab['cap'], $user->ID ) ) :
-				$query_args['page'] = $tab['slug']; ?>
+			<?php if ( current_user_can( $tab->cap, $user->ID ) ) :
+				$query_args['page'] = $tab->slug; ?>
 
 				<a class="nav-tab<?php echo ( $tab_id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( $query_args, $user_url ) );?>">
-					<?php echo esc_html( $tab['name'] ); ?>
+					<?php echo esc_html( $tab->name ); ?>
 				</a>
 
 			<?php endif; ?>

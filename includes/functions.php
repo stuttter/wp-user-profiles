@@ -64,54 +64,29 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
  *
  * @since 0.1.0
  *
- * @param   array  $args
+ * @param  array $args
  *
- * @return  array
+ * @return array
  */
 function wp_user_profiles_sections( $args = array() ) {
 
+	// Sanity check for malformed global
+	$r = ! empty( $GLOBALS['wp_user_profile_sections'] )
+		? wp_parse_args( $args, $GLOBALS['wp_user_profile_sections'] )
+		: wp_parse_args( $args, array() );
+
 	// Parse arguments
-	$r = wp_parse_args( $args, array(
+	$sections = apply_filters( 'wp_user_profiles_sections', $r, $args );
 
-		// Profile
-		'profile' => array(
-			'slug'  => 'profile',
-			'name'  => esc_html__( 'Profile', 'wp-user-profiles' ),
-			'cap'   => 'edit_user',
-			'icon'  => 'dashicons-admin-users',
-			'order' => 70
-		),
+	// Backwards compatibility for sections as arrays
+	foreach ( $sections as $section_id => $section ) {
+		if ( is_array( $section ) ) {
+			$sections[ $section_id ] = (object) $section;
+		}
+	}
 
-		// Acount
-		'account' => array(
-			'slug'  => 'account',
-			'name'  => esc_html__( 'Account', 'wp-user-profiles' ),
-			'cap'   => 'edit_user',
-			'icon'  => 'dashicons-admin-generic',
-			'order' => 75
-		),
-
-		// Options
-		'options' => array(
-			'slug'  => 'options',
-			'name'  => esc_html__( 'Options', 'wp-user-profiles' ),
-			'cap'   => 'edit_user',
-			'icon'  => 'dashicons-admin-settings',
-			'order' => 80
-		),
-
-		// Permissions
-		'permissions' => array(
-			'slug'  => 'permissions',
-			'name'  => esc_html__( 'Permissions', 'wp-user-profiles' ),
-			'cap'   => 'edit_user',
-			'icon'  => 'dashicons-hidden',
-			'order' => 85
-		)
-	) );
-
-	// Filter & return
-	return apply_filters( 'wp_user_profiles_sections', $r, $args );
+	// Return sections
+	return $sections;
 }
 
 /**
@@ -150,7 +125,7 @@ function wp_user_profiles_get_section_hooknames( $section = '' ) {
  * @param string $value
  * @param string $key
  */
-function _wp_user_profiles_walk_section_hooknames( &$value, $key = '' ) {
+function _wp_user_profiles_walk_section_hooknames( &$value = '' ) {
 	if ( is_network_admin() && substr( $value, -8 ) !== '-network' ) {
 		$value .= '-network';
 	} elseif ( is_user_admin() && substr( $value, -5 ) != '-user' ) {
@@ -200,6 +175,18 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 function wp_user_profiles_get_edit_user_url( $user_id = 0 ) {
 	return '';
+}
+
+/**
+ * Edit user Profile settings
+ *
+ * @since 0.2.0
+ *
+ * @param int $user_id Optional. User ID.
+ * @return int|WP_Error user id of the updated user
+ */
+function wp_user_profiles_update_profile( $user_id = 0 ) {
+	
 }
 
 /**
@@ -456,11 +443,11 @@ function wp_user_profiles_save_user() {
 		do_action( 'edit_user_profile_update', $user_id );
 	}
 
-	// Update the user
-	$errors = wp_user_profiles_edit_user( $user_id );
+	// Do actions & return errors
+	$errors = do_action( 'wp_user_profiles_save', $user_id );
 
 	// Grant or revoke super admin status if requested.
-	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $super_admins ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
+	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
 		empty( $_POST['super_admin'] )
 			? revoke_super_admin( $user_id )
 			: grant_super_admin( $user_id );

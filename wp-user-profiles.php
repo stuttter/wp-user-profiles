@@ -26,23 +26,31 @@ function _wp_user_profiles() {
 	// Get the plugin path
 	$plugin_path = plugin_dir_path( __FILE__ );
 
-	// Metaboxes
-	require_once $plugin_path . 'metaboxes/about.php';
-	require_once $plugin_path . 'metaboxes/capabilities.php';
-	require_once $plugin_path . 'metaboxes/color-scheme.php';
-	require_once $plugin_path . 'metaboxes/contact.php';
-	require_once $plugin_path . 'metaboxes/email.php';
-	require_once $plugin_path . 'metaboxes/name.php';
-	require_once $plugin_path . 'metaboxes/password.php';
-	require_once $plugin_path . 'metaboxes/personal-options.php';
-	require_once $plugin_path . 'metaboxes/roles.php';
-	require_once $plugin_path . 'metaboxes/sessions.php';
-	require_once $plugin_path . 'metaboxes/status.php';
+	// Sections
+	require_once $plugin_path . 'includes/sections/base.php';
+	require_once $plugin_path . 'includes/sections/profile.php';
+	require_once $plugin_path . 'includes/sections/account.php';
+	require_once $plugin_path . 'includes/sections/options.php';
+	require_once $plugin_path . 'includes/sections/permissions.php';
 
-	// Required files
-	require_once $plugin_path . 'includes/functions.php';
+	// Meta Boxes
+	require_once $plugin_path . 'includes/metaboxes/all-status.php';
+	require_once $plugin_path . 'includes/metaboxes/account-email.php';
+	require_once $plugin_path . 'includes/metaboxes/account-password.php';
+	require_once $plugin_path . 'includes/metaboxes/account-sessions.php';
+	require_once $plugin_path . 'includes/metaboxes/options-color-scheme.php';
+	require_once $plugin_path . 'includes/metaboxes/options-contact.php';
+	require_once $plugin_path . 'includes/metaboxes/options-personal.php';
+	require_once $plugin_path . 'includes/metaboxes/permissions-capabilities.php';
+	require_once $plugin_path . 'includes/metaboxes/permissions-roles.php';	
+	require_once $plugin_path . 'includes/metaboxes/profile-about.php';
+	require_once $plugin_path . 'includes/metaboxes/profile-name.php';
+
+	// Required Files
 	require_once $plugin_path . 'includes/admin.php';
+	require_once $plugin_path . 'includes/functions.php';
 	require_once $plugin_path . 'includes/metaboxes.php';
+	require_once $plugin_path . 'includes/sections.php';
 	require_once $plugin_path . 'includes/hooks.php';
 }
 add_action( 'plugins_loaded', '_wp_user_profiles' );
