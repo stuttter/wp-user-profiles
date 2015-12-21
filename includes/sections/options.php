@@ -15,7 +15,15 @@ defined( 'ABSPATH' ) || exit;
  * @since 0.2.0
  */
 class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
-	
+
+	/**
+	 * Add the meta boxes for this section
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $type
+	 * @param object $user
+	 */
 	public function add_meta_boxes( $type = '', $user = null ) {
 
 		// Allow third party plugins to add metaboxes
