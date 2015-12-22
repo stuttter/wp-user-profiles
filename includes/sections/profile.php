@@ -151,6 +151,16 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 			}
 		}
 
+		// Look for contact methods
+		$methods = wp_get_user_contact_methods( $user );
+
+		// Contact methods
+		foreach ( array_keys( $methods ) as $method ) {
+			if ( isset( $_POST[ $method ] ) ) {
+				$user->{$method} = sanitize_text_field( $_POST[ $method ] );
+			}
+		}
+
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
