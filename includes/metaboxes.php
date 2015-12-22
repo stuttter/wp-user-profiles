@@ -32,7 +32,7 @@ function wp_user_profiles_add_meta_boxes() {
 	// Get the user being edited & bail if user does not exist
 	$user = get_userdata( $user_id );
 	if ( empty( $user ) ) {
-		wp_die( esc_html__( 'Invalid user.', 'wp-user-profiles' ) );
+		wp_die( esc_html__( 'Invalid user ID.', 'wp-user-profiles' ) );
 	}
 
 	// Adjust the type for user/network dashboards
@@ -56,17 +56,17 @@ function wp_user_profiles_add_meta_boxes() {
  *
  * @since 0.1.9
  *
- * @param  string  $type
+ * @param  string  $hook
  * @param  WP_User $user
  */
-function wp_user_profiles_add_status_meta_box( $type = '', $user = null ) {
+function wp_user_profiles_add_status_meta_box( $hook = '', $user = null ) {
 
-	// Register metaboxes for the user edit screen
+	// Register the "Status" side meta box
 	add_meta_box(
 		'submitdiv',
 		_x( 'Status', 'users user-admin edit screen', 'wp-user-profiles' ),
 		'wp_user_profiles_status_metabox',
-		$type,
+		$hook,
 		'side',
 		'high',
 		$user
