@@ -75,9 +75,9 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 	public function save( $user = null ) {
 
 		// Setup the user login
-		if ( isset( $_POST['user_login'] ) ) {
-			$user->user_login = sanitize_user( $_POST['user_login'], true );
-		}
+		$user->user_login = isset( $_POST['user_login'] )
+			? sanitize_user( $_POST['user_login'], true )
+			: $user->user_login;
 
 		// First
 		$user->first_name = isset( $_POST['first_name'] )
