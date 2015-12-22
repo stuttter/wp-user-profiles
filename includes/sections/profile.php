@@ -74,32 +74,30 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 	 */
 	public function save( $user = null ) {
 
-		// Setup the error handler
-		$errors = new WP_Error();
-
 		// User Login
 		if ( isset( $_POST['user_login'] ) ) {
 
+			// Set the login
+			$user->user_login = sanitize_user( $_POST['user_login'], true );
+
 			// Invalid login
-			if ( ! validate_username( $_POST['user_login'] ) ) {
-				$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
+			if ( ! validate_username( $user->user_login ) ) {
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
 			}
 
 			// Login already exists
-			if ( username_exists( $_POST['user_login'] ) ) {
-				$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
+			if ( username_exists( $user->user_login ) ) {
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
 			}
 
 			// Checking that username has been typed
 			if ( empty( $user->user_login ) ) {
-				$errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.' ) );
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.' ) );
 			}
 
-			// No errors
-			if ( ! $errors->get_error_code() ) {
-				$user->user_login = sanitize_user( $_POST['user_login'], true );
-			} else {
-				return $errors;
+			// Return if errored
+			if ( $this->errors->get_error_code() ) {
+				return $this->errors;
 			}
 		}
 
@@ -115,13 +113,15 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 
 		// Nickname
 		if ( isset( $_POST['nickname'] ) ) {
-			if ( empty( $_POST['nickname'] ) ) {
-				$errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.' ) );
-				return $errors;
-			}
 
 			// Set the nick
 			$user->nickname = sanitize_text_field( $_POST['nickname'] );
+
+			// Nickname was empty
+			if ( empty( $user->nickname ) ) {
+				$this->errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.' ) );
+				return $this->errors;
+			}
 		}
 
 		// Display
