@@ -212,12 +212,12 @@ function wp_user_profiles_admin_nav( $user = null ) {
 
 	<h2 id="profile-nav" class="nav-tab-wrapper">
 
-		<?php foreach ( $tabs as $tab_id => $tab ) : ?>
+		<?php foreach ( $tabs as $tab ) : ?>
 
 			<?php if ( current_user_can( $tab->cap, $user->ID ) ) :
 				$query_args['page'] = $tab->slug; ?>
 
-				<a class="nav-tab<?php echo ( $tab_id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( $query_args, $user_url ) );?>">
+				<a class="nav-tab<?php echo ( $tab->id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( $query_args, $user_url ) );?>">
 					<?php echo esc_html( $tab->name ); ?>
 				</a>
 
