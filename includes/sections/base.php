@@ -128,6 +128,9 @@ class WP_User_Profile_Section {
 
 		// Meta Boxes
 		add_action( 'wp_user_profiles_add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 10, 2 );
+
+		// Contextual Help
+		add_action( 'wp_user_profiles_add_contextual_help', array( $this, 'add_contextual_help' ) );
 	}
 
 	/**
@@ -219,5 +222,14 @@ class WP_User_Profile_Section {
 	 */
 	public function add_meta_boxes( $type = '', $user = null ) {
 		do_action( "wp_user_profiles_add_{$this->id}_meta_boxes", $type, $user );
+	}
+
+	/**
+	 * Contextual help for this section?
+	 *
+	 * @since 0.2.0
+	 */
+	public function add_contextual_help() {
+		do_action( "wp_user_profiles_add_{$this->id}_contextual_help" );
 	}
 }
