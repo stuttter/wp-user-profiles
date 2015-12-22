@@ -88,4 +88,21 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
+
+	/**
+	 * Contextual help for this section
+	 *
+	 * @since 0.2.0
+	 */
+	public function add_contextual_help() {
+		get_current_screen()->add_help_tab( array(
+			'id'		=> $this->id,
+			'title'		=> $this->name,
+			'content'	=>
+				'<p>'  . esc_html__( 'This is where role & capability settings can be found.', 'wp-user-profiles' ) . '</p><ul>' .
+				'<li>' . esc_html__( 'Your role determines what you are able to do',           'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'In some cases, you may have more than one role',         'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Some capabilities may be uniquely granted',              'wp-user-profiles' ) . '</li></ul>'
+		) );
+	}
 }

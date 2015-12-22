@@ -128,4 +128,21 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
+
+	/**
+	 * Contextual help for this section
+	 *
+	 * @since 0.2.0
+	 */
+	public function add_contextual_help() {
+		get_current_screen()->add_help_tab( array(
+			'id'		=> $this->id,
+			'title'		=> $this->name,
+			'content'	=>
+				'<p>'  . esc_html__( 'This is where important account information can be found.',                'wp-user-profiles' ) . '</p><ul>' .
+				'<li>' . esc_html__( 'Your email address is used for receiving notifications from this site',    'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Passwords should be lengthy and complex to help keep your account secure', 'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li></ul>'
+		) );
+	}
 }

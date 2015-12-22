@@ -164,4 +164,21 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
+
+	/**
+	 * Contextual help for this section
+	 *
+	 * @since 0.2.0
+	 */
+	public function add_contextual_help() {
+		get_current_screen()->add_help_tab( array(
+			'id'		=> $this->id,
+			'title'		=> $this->name,
+			'content'	=>
+				'<p>'  . esc_html__( 'This is where most biographical information can be found.', 'wp-user-profiles' ) . '</p><ul>' .
+				'<li>' . esc_html__( 'First and Last Name',                                       'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Nickname and Display Name',                                 'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Website and Biography',                                     'wp-user-profiles' ) . '</li></ul>'
+		) );
+	}
 }
