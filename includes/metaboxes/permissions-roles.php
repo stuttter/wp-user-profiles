@@ -18,8 +18,18 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_roles_metabox( $user = null ) {
 
-	// Get the roles global
-	$sites = get_blogs_of_user( $user->ID, true ); ?>
+	// When viewing blog admin, only show roles for that blog
+	if ( is_blog_admin() ) {
+
+		// This part is pretty backwards
+		$sites = is_multisite()
+			? array( get_blog_details( get_current_blog_id() ) )
+			: get_blogs_of_user( $user->ID, true );
+
+	// Show all sites when not in blog admin
+	} else {
+		$sites = get_blogs_of_user( $user->ID, true );
+	} ?>
 
 	<table class="form-table">
 
