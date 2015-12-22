@@ -71,6 +71,15 @@ class WP_User_Profile_Section {
 	public $order = '70';
 
 	/**
+	 * Errors
+	 *
+	 * @since 0.2.0
+	 *
+	 * @var WP_Error
+	 */
+	public $errors = null;
+
+	/**
 	 * Maybe add new section to global
 	 *
 	 * @since 0.2.0
@@ -99,6 +108,9 @@ class WP_User_Profile_Section {
 		if ( empty( $args[0]['id'] ) || empty( $args[0]['slug'] ) || empty( $args[0]['name'] ) || empty( $args[0]['icon'] ) ) {
 			return;
 		}
+
+		// Setup the errors
+		$this->errors = new WP_Error();
 
 		// Set object properties
 		$this->id    = isset( $args[0]['id']    ) ? $args[0]['id']    : '';
