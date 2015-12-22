@@ -78,15 +78,38 @@ function wp_user_profiles_sections( $args = array() ) {
 	// Parse arguments
 	$sections = apply_filters( 'wp_user_profiles_sections', $r, $args );
 
-	// Backwards compatibility for sections as arrays
+	// Fix some common section issues
 	foreach ( $sections as $section_id => $section ) {
+
+		// Backwards compatibility for sections as arrays
 		if ( is_array( $section ) ) {
 			$sections[ $section_id ] = (object) $section;
 		}
+
+		// Backwards compatibility for sections without IDs
+		if ( empty( $sections[ $section_id ]->id ) ) {
+			$sections[ $section_id ]->id = $section_id;
+		}
 	}
+
+	// Sort
+	usort( $sections, 'wp_user_profiles_sort_sections' );
 
 	// Return sections
 	return $sections;
+}
+
+/**
+ * Sort sections by order
+ *
+ * @since 0.2.0
+ *
+ * @param array $hip
+ * @param array $hop
+ * @return type
+ */
+function wp_user_profiles_sort_sections( $hip, $hop ) {
+	return ( $hip->order - $hop->order );
 }
 
 /**
