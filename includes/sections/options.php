@@ -53,4 +53,42 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			$user
 		);
 	}
+
+	/**
+	 * Save section data
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param WP_User $user
+	 */
+	public function save( $user = null ) {
+
+		// Color Scheme
+		$user->admin_color = isset( $_POST['admin_color'] )
+			? sanitize_text_field( $_POST['admin_color'] )
+			: 'fresh';
+
+		// Double negative visual editor
+		$user->rich_editing = isset( $_POST['rich_editing'] )
+			? 'false'
+			: 'true';
+
+		// Admin bar front
+		$user->show_admin_bar_front = isset( $_POST['admin_bar_front'] )
+			? 'true'
+			: 'false';
+
+		// Enable comments shortcuts
+		$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] ) && in_array( $_POST['comment_shortcuts'], array( 'true', '' ), true )
+			? 'true'
+			: 'false';
+
+		// Force SSL
+		$user->use_ssl = isset( $_POST['use_ssl'] )
+			? 1
+			: 0;
+
+		// Allow third party plugins to save data in this section
+		parent::save( $user );
+	}
 }
