@@ -57,7 +57,6 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 function wp_user_profiles_admin_menus() {
 
 	// Empty hooks array
-	$hooks    = array();
 	$file     = wp_user_profiles_get_file();
 	$sections = wp_user_profiles_sections();
 
@@ -69,20 +68,16 @@ function wp_user_profiles_admin_menus() {
 
 		// Add (and quickly remove) submenu pages
 		foreach ( $sections as $tab ) {
-			$hooks[] = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+			$hook = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+			add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
+			add_action( "load-{$hook}",       'wp_user_profiles_add_meta_boxes'       );
+			add_action( "load-{$hook}",       'wp_user_profiles_add_contextual_help'  );
+			add_action( "load-{$hook}",       'wp_user_profiles_show_screen_options'  );
 			remove_submenu_page( $file, $tab->slug );
 		}
 
 		// Re-add new "Your Profile" submenu
 		add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
-
-		// Fudge the highlighted subnav item
-		foreach ( $hooks as $hook ) {
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
-			add_action( "load-{$hook}",       'wp_user_profiles_add_meta_boxes'       );
-			add_action( "load-{$hook}",       'wp_user_profiles_add_contextual_help'  );
-			add_action( "load-{$hook}",       'wp_user_profiles_show_screen_options'  );
-		}
 
 	// User admin needs some coercing
 	} elseif ( is_user_admin() ) {
