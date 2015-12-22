@@ -79,7 +79,7 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			: 'false';
 
 		// Enable comments shortcuts
-		$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] ) && in_array( $_POST['comment_shortcuts'], array( 'true', '' ), true )
+		$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] )
 			? 'true'
 			: 'false';
 
