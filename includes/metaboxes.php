@@ -13,61 +13,42 @@ defined( 'ABSPATH' ) || exit;
  * Add all of the User Profile metaboxes
  *
  * @since 0.2.0
- *
- * @param  string  $type
- * @param  WP_User $user
  */
-function wp_user_profiles_add_meta_boxes( $type = '', $user = null ) {
+function wp_user_profiles_add_meta_boxes() {
 
-	// Bail if no user
-	if ( empty( $user ) ) {
-		return;
+	// Get the current user ID
+	$current_user_id = get_current_user_id();
+
+	// Get the user ID being edited
+	$user_id = ! empty( $_GET['user_id'] )
+		? (int) $_GET['user_id']
+		: (int) $current_user_id;
+
+	// Maybe set constant if editing oneself
+	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
+		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user_id ) );
 	}
 
-	// Get types
-	$types = wp_user_profiles_get_section_hooknames();
+	// Get the user being edited & bail if user does not exist
+	$user = get_userdata( $user_id );
+	if ( empty( $user ) ) {
+		wp_die( esc_html__( 'Invalid user.', 'wp-user-profiles' ) );
+	}
+
+	// Adjust the type for user/network dashboards
+	$hook = $GLOBALS['page_hook'];
+	_wp_user_profiles_walk_section_hooknames( $hook );
+
+	// Get possible hooknames
+	$hooks = wp_user_profiles_get_section_hooknames();
 
 	// Bail if not the correct type
-	if ( ! in_array( $type, $types, true ) ) {
+	if ( ! in_array( $hook, $hooks, true ) ) {
 		return;
 	}
 
 	// Do generic metaboxes
-	do_action( 'wp_user_profiles_add_meta_boxes', $type, $user );
-}
-
-/**
- * Backwards compatibility for array-based profile sections
- *
- * @since 0.2.0
- *
- * @param  string  $type
- * @param  WP_User $user
- */
-function wp_user_profiles_add_old_meta_boxes( $type = '', $user = null ) {
-
-	// Get sections
-	$sections = wp_user_profiles_sections();
-
-	// Loop through sections
-	foreach ( $sections as $section_id => $section ) {
-
-		// Classes are handled internally
-		if ( is_a( $section, 'WP_User_Profile_Section' ) ) {
-			continue;
-		}
-
-		// Get types
-		$types = wp_user_profiles_get_section_hooknames( $section_id );
-
-		// Bail if not user metaboxes
-		if ( ! in_array( $type, $types, true ) || ! current_user_can( $section->cap, $user->ID ) ) {
-			continue;
-		}
-
-		// Do the metaboxes
-		do_action( "wp_user_profiles_add_{$section_id}_meta_boxes", $type, $user );
-	}
+	do_action( 'wp_user_profiles_add_meta_boxes', $hook, $user );
 }
 
 /**

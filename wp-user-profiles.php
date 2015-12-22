@@ -49,7 +49,9 @@ function _wp_user_profiles() {
 	// Required Files
 	require_once $plugin_path . 'includes/admin.php';
 	require_once $plugin_path . 'includes/functions.php';
+	require_once $plugin_path . 'includes/help.php';
 	require_once $plugin_path . 'includes/metaboxes.php';
+	require_once $plugin_path . 'includes/screen-options.php';
 	require_once $plugin_path . 'includes/sections.php';
 	require_once $plugin_path . 'includes/hooks.php';
 }
