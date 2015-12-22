@@ -14,8 +14,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 0.2.0
  *
- * @param string $type
- * @param object $user
+ * @param  string  $type
+ * @param  WP_User $user
  */
 function wp_user_profiles_add_meta_boxes( $type = '', $user = null ) {
 
@@ -41,8 +41,8 @@ function wp_user_profiles_add_meta_boxes( $type = '', $user = null ) {
  *
  * @since 0.2.0
  *
- * @param string $type
- * @param object $user
+ * @param  string  $type
+ * @param  WP_User $user
  */
 function wp_user_profiles_add_old_meta_boxes( $type = '', $user = null ) {
 
@@ -75,8 +75,8 @@ function wp_user_profiles_add_old_meta_boxes( $type = '', $user = null ) {
  *
  * @since 0.1.9
  *
- * @param string $type
- * @param object $user
+ * @param  string  $type
+ * @param  WP_User $user
  */
 function wp_user_profiles_add_status_meta_box( $type = '', $user = null ) {
 

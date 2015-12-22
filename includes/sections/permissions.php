@@ -21,8 +21,8 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param string $type
-	 * @param object $user
+	 * @param  string  $type
+	 * @param  WP_User $user
 	 */
 	public function add_meta_boxes( $type = '', $user = null ) {
 

@@ -21,8 +21,8 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param string $type
-	 * @param object $user
+	 * @param  string  $type
+	 * @param  WP_User $user
 	 */
 	public function add_meta_boxes( $type = '', $user = null ) {
 
@@ -68,28 +68,21 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param WP_User $user
+	 * @param  WP_User  $user
 	 */
 	public function save( $user = null ) {
 
-		// Password changes
+		// Password (1)
 		$pass1 = isset( $_POST['pass1'] )
 			? $_POST['pass1']
 			: '';
 
+		// Password (2)
 		$pass2 = isset( $_POST['pass2'] )
 			? $_POST['pass2']
 			: '';
 
-		/**
-		 * Fires before the password and confirm password fields are checked for congruity.
-		 *
-		 * @since 1.5.1
-		 *
-		 * @param string $user_login The username.
-		 * @param string &$pass1     The password, passed by reference.
-		 * @param string &$pass2     The confirmed password, passed by reference.
-		 */
+		/** This filter is documented in wp-admin/includes/user.php */
 		do_action_ref_array( 'check_passwords', array( $user->user_login, &$pass1, &$pass2 ) );
 
 		// Check for "\" in password
