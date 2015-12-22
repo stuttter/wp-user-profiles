@@ -178,189 +178,6 @@ function wp_user_profiles_get_edit_user_url( $user_id = 0 ) {
 }
 
 /**
- * Edit user Profile settings
- *
- * @since 0.2.0
- *
- * @param int $user_id Optional. User ID.
- * @return int|WP_Error user id of the updated user
- */
-function wp_user_profiles_update_profile( $user_id = 0 ) {
-	
-}
-
-/**
- * Edit user settings based on contents of $_POST
- *
- * Largely based on the edit_user() function, this function only throws errors
- * when the user has posted invalid data, vs. when the mock user object does not
- * contain it.
- *
- * @since 0.1.0
- *
- * @param int $user_id Optional. User ID.
- * @return int|WP_Error user id of the updated user
- */
-function wp_user_profiles_edit_user( $user_id = 0 ) {
-
-	// Bail if no user ID
-	if ( empty( $user_id ) ) {
-		return;
-	}
-
-	// Setup the user being saved
-	$user     = new stdClass;
-	$user->ID = (int) $user_id;
-
-	// Setup the user login
-	if ( isset( $_POST['user_login'] ) ) {
-		$user->user_login = sanitize_user( $_POST['user_login'], true );
-	} else {
-		$user->user_login = wp_slash( get_userdata( $user_id )->user_login );
-	}
-
-	// Password changes
-	$pass1 = isset( $_POST['pass1'] )
-		? $_POST['pass1']
-		: '';
-
-	$pass2 = isset( $_POST['pass2'] )
-		? $_POST['pass2']
-		: '';
-
-	// Role changes
-	if ( isset( $_POST['role'] ) && current_user_can( 'edit_users' ) ) {
-
-		// New roles
-		$new_roles = $_POST['role'];
-
-		// Loop through new roles
-		foreach ( $new_roles as $blog_id => $new_role ) {
-
-			// Switch to the blog
-			switch_to_blog( $blog_id );
-
-			// If the new role isn't editable by the logged-in user die with error
-			$editable_roles = get_editable_roles();
-			if ( ! empty( $new_role ) && ! empty( $editable_roles[ $new_role ] ) ) {
-				$update_role = get_userdata( $user_id );
-				$update_role->set_role( $new_role );
-			}
-
-			// Switch back
-			restore_current_blog();
-		}
-	}
-
-	// Email
-	if ( isset( $_POST['email'] ) ) {
-		$user->user_email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
-	}
-
-	// Website
-	if ( isset( $_POST['url'] ) ) {
-		if ( empty ( $_POST['url'] ) || $_POST['url'] == 'http://' ) {
-			$user->user_url = '';
-		} else {
-			$user->user_url = esc_url_raw( $_POST['url'] );
-			$protocols      = implode( '|', array_map( 'preg_quote', wp_allowed_protocols() ) );
-			$user->user_url = preg_match( '/^(' . $protocols . '):/is', $user->user_url ) ? $user->user_url : 'http://'.$user->user_url;
-		}
-	}
-
-	// First
-	if ( isset( $_POST['first_name'] ) ) {
-		$user->first_name = sanitize_text_field( $_POST['first_name'] );
-	}
-
-	// Last
-	if ( isset( $_POST['last_name'] ) ) {
-		$user->last_name = sanitize_text_field( $_POST['last_name'] );
-	}
-
-	// Nick
-	if ( isset( $_POST['nickname'] ) ) {
-		$user->nickname = sanitize_text_field( $_POST['nickname'] );
-	}
-
-	// Display
-	if ( isset( $_POST['display_name'] ) ) {
-		$user->display_name = sanitize_text_field( $_POST['display_name'] );
-	}
-
-	// Description
-	if ( isset( $_POST['description'] ) ) {
-		$user->description = trim( $_POST['description'] );
-	}
-
-	// Contact methods
-	foreach ( wp_get_user_contact_methods( $user ) as $method => $name ) {
-		if ( isset( $_POST[ $method ] ) ) {
-			$user->$method = sanitize_text_field( $_POST[ $method ] );
-		}
-	}
-
-	// Error checking
-	$errors = new WP_Error();
-
-	// Checking that username has been typed
-	if ( isset( $_POST['user_login'] ) && empty( $user->user_login ) ) {
-		$errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.' ) );
-	}
-
-	// Checking that nickname has been typed
-	if ( isset( $_POST['nickname'] ) && empty( $user->nickname ) ) {
-		$errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.' ) );
-	}
-
-	/**
-	 * Fires before the password and confirm password fields are checked for congruity.
-	 *
-	 * @since 1.5.1
-	 *
-	 * @param string $user_login The username.
-	 * @param string &$pass1     The password, passed by reference.
-	 * @param string &$pass2     The confirmed password, passed by reference.
-	 */
-	do_action_ref_array( 'check_passwords', array( $user->user_login, &$pass1, &$pass2 ) );
-
-	// Check for "\" in password
-	if ( false !== strpos( wp_unslash( $pass1 ), "\\" ) ) {
-		$errors->add( 'pass', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".' ), array( 'form-field' => 'pass1' ) );
-	}
-
-	// Checking the password has been typed twice the same
-	if ( $pass1 !== $pass2 ) {
-		$errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter the same password in both password fields.' ), array( 'form-field' => 'pass1' ) );
-	}
-
-	if ( ! empty( $pass1 ) ) {
-		$user->user_pass = $pass1;
-	}
-
-	if ( isset( $_POST['user_login'] ) ) {
-		if ( ! validate_username( $_POST['user_login'] ) ) {
-			$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
-		}
-
-		if ( isset( $_POST['user_login'] ) && username_exists( $user->user_login ) ) {
-			$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
-		}
-	}
-
-	// Checking email address
-	if ( isset( $_POST['email'] ) ) {
-		if ( empty( $user->user_email ) ) {
-			$errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an email address.' ), array( 'form-field' => 'email' ) );
-		} elseif ( ! is_email( $user->user_email ) ) {
-			$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address is not correct.' ), array( 'form-field' => 'email' ) );
-		} elseif ( ( $owner_id = email_exists( $user->user_email ) ) && ( $owner_id !== $user->ID ) ) {
-			$errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.' ), array( 'form-field' => 'email' ) );
-		}
-	}
-}
-
-/**
  * Save the user when they click "Update"
  *
  * @since 0.1.0
@@ -561,15 +378,21 @@ function wp_user_profiles_transition_user_status( $new_status, $old_status, $use
  * @param  mixed $notice
  * @return array
  */
-function wp_user_profiles_save_user_notices( $notice = array() ) {
+function wp_user_profiles_save_user_notices() {
 
 	// Bail
 	if ( empty( $_GET['action'] ) || ( 'update' !== $_GET['action'] ) ) {
 		return;
 	}
 
+	// Return the dismissible notice
 	return array(
 		'message' => esc_html__( 'User updated.', 'wp-user-profiles' ),
-		'class'   => 'updated'
+		'classes' => array(
+			'updated',
+			'notice',
+			'notice-success',
+			'is-dismissible'
+		)
 	);
 }
