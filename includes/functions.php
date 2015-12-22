@@ -300,28 +300,6 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 		}
 	}
 
-	// Options
-	$user->rich_editing = isset( $_POST['rich_editing'] ) && ( 'false' === $_POST['rich_editing'] )
-		? 'false'
-		: 'true';
-
-	$user->admin_color = isset( $_POST['admin_color'] )
-		? sanitize_text_field( $_POST['admin_color'] )
-		: 'fresh';
-
-	$user->show_admin_bar_front = isset( $_POST['admin_bar_front'] )
-		? 'true'
-		: 'false';
-
-	$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] ) && ( 'true' === $_POST['comment_shortcuts'] )
-		? 'true'
-		: '';
-
-	$user->use_ssl = 0;
-	if ( ! empty( $_POST['use_ssl'] ) ) {
-		$user->use_ssl = 1;
-	}
-
 	// Error checking
 	$errors = new WP_Error();
 
@@ -380,29 +358,6 @@ function wp_user_profiles_edit_user( $user_id = 0 ) {
 			$errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.' ), array( 'form-field' => 'email' ) );
 		}
 	}
-
-	/**
-	 * Fires before user profile update errors are returned.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param WP_Error &$errors WP_Error object, passed by reference.
-	 * @param bool     $update  Whether this is a user update.
-	 * @param WP_User  &$user   WP_User object, passed by reference.
-	 */
-	do_action_ref_array( 'user_profile_update_errors', array( &$errors, true, &$user ) );
-
-	// Return errors if there are any
-	if ( $errors->get_error_codes() ) {
-		return $errors;
-	}
-
-	// Maybe save user status
-	if ( ! empty( $_POST['user_status'] ) ) {
-		wp_user_profiles_update_user_status( $user, sanitize_key( $_POST['user_status'] ) );
-	}
-
-	return wp_update_user( $user );
 }
 
 /**
@@ -442,8 +397,11 @@ function wp_user_profiles_save_user() {
 		do_action( 'edit_user_profile_update', $user_id );
 	}
 
+	// Get the userdata to compare it to
+	$user = get_userdata( $user_id );
+
 	// Do actions & return errors
-	$errors = do_action( 'wp_user_profiles_save', $user_id );
+	$errors = apply_filters( 'wp_user_profiles_save', $user );
 
 	// Grant or revoke super admin status if requested.
 	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
