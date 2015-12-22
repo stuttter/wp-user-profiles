@@ -71,9 +71,9 @@ class WP_User_Profile_Section {
 	public $order = '70';
 
 	/**
+	 * Maybe add new section to global
 	 *
 	 * @since 0.2.0
-	 * @return type
 	 */
 	public function __construct() {
 
@@ -112,7 +112,7 @@ class WP_User_Profile_Section {
 		$GLOBALS['wp_user_profile_sections'][ $this->id ] = $this;
 
 		// Saving
-		add_action( 'wp_user_profiles_save', array( $this, 'action_save' ) );
+		add_filter( 'wp_user_profiles_save', array( $this, 'action_save' ) );
 
 		// Meta Boxes
 		add_action( 'wp_user_profiles_add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 10, 2 );
@@ -125,26 +125,22 @@ class WP_User_Profile_Section {
 	 *
 	 * @return type
 	 */
-	public function action_save( $user_id = 0 ) {
+	public function action_save( $user = null ) {
 
-		// Bail if ID is empty
-		if ( empty( $this->id ) || empty( $user_id ) ) {
-			return;
+		// Bail if ID is empty or object is not a user
+		if ( empty( $this->id ) || ! is_a( $user, 'WP_User' ) ) {
+			return $user;
 		}
 
-		// Current page?
-		$current = ! empty( $_GET['page'] )
-			? sanitize_key( $_GET['page'] )
-			: 'profile';
+		// Bail if no page
+		if ( empty( $_GET['page'] ) ) {
+			return $user;
+		}
 
 		// Bail if not saving this section
-		if ( $current !== $this->slug ) {
-			return;
+		if ( sanitize_key( $_GET['page'] ) !== $this->slug ) {
+			return $user;
 		}
-
-		// Setup the user being saved
-		$user     = new stdClass;
-		$user->ID = (int) $user_id;
 
 		// Do the save action
 		return $this->save( $user );
@@ -184,8 +180,23 @@ class WP_User_Profile_Section {
 	 *
 	 * @param object $user
 	 */
-	public function save( $user = 0 ) {
-		return do_action( "wp_user_profiles_save_{$this->id}_section", $user );
+	public function save( $user = null ) {
+
+		// Allow third party plugins to hook into this sections saving process
+		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
+
+		// Return errors if there are any
+		if ( is_wp_error( $user ) && $user->get_error_codes() ) {
+			return $user;
+		}
+
+		// Maybe save user status
+		if ( ! empty( $_POST['user_status'] ) ) {
+			wp_user_profiles_update_user_status( $user, sanitize_key( $_POST['user_status'] ) );
+		}
+
+		// Update the user in the database
+		return wp_update_user( $user );
 	}
 
 	/**
