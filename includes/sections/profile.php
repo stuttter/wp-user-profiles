@@ -74,10 +74,34 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 	 */
 	public function save( $user = null ) {
 
-		// Setup the user login
-		$user->user_login = isset( $_POST['user_login'] )
-			? sanitize_user( $_POST['user_login'], true )
-			: $user->user_login;
+		// User Login
+		if ( isset( $_POST['user_login'] ) ) {
+
+			// Setup the error handler
+			$errors = new WP_Error();
+
+			// Invalid login
+			if ( ! validate_username( $_POST['user_login'] ) ) {
+				$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
+			}
+
+			// Login already exists
+			if ( username_exists( $_POST['user_login'] ) ) {
+				$errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
+			}
+
+			// Checking that username has been typed
+			if ( empty( $user->user_login ) ) {
+				$errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.' ) );
+			}
+
+			// No errors
+			if ( ! $errors->get_error_code() ) {
+				$user->user_login = sanitize_user( $_POST['user_login'], true );
+			} else {
+				return $errors;
+			}
+		}
 
 		// First
 		$user->first_name = isset( $_POST['first_name'] )
@@ -106,8 +130,12 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 
 		// Website
 		if ( isset( $_POST['url'] ) ) {
-			if ( empty ( $_POST['url'] ) || in_array( $_POST['url'], wp_allowed_protocols(), true ) ) {
+
+			// Emptying URL
+			if ( empty( $_POST['url'] ) || in_array( $_POST['url'], wp_allowed_protocols(), true ) ) {
 				$user->user_url = '';
+
+			// Validate
 			} else {
 				$user->user_url = esc_url_raw( $_POST['url'] );
 				$protocols      = implode( '|', array_map( 'preg_quote', wp_allowed_protocols() ) );
