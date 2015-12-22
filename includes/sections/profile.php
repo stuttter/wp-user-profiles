@@ -74,11 +74,11 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 	 */
 	public function save( $user = null ) {
 
+		// Setup the error handler
+		$errors = new WP_Error();
+
 		// User Login
 		if ( isset( $_POST['user_login'] ) ) {
-
-			// Setup the error handler
-			$errors = new WP_Error();
 
 			// Invalid login
 			if ( ! validate_username( $_POST['user_login'] ) ) {
@@ -113,10 +113,16 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 			? sanitize_text_field( $_POST['last_name'] )
 			: '';
 
-		// Nick
-		$user->nickname = isset( $_POST['nickname'] )
-			? sanitize_text_field( $_POST['nickname'] )
-			: '';
+		// Nickname
+		if ( isset( $_POST['nickname'] ) ) {
+			if ( empty( $_POST['nickname'] ) ) {
+				$errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.' ) );
+				return $errors;
+			}
+
+			// Set the nick
+			$user->nickname = sanitize_text_field( $_POST['nickname'] );
+		}
 
 		// Display
 		$user->display_name = isset( $_POST['display_name'] )
