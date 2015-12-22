@@ -79,6 +79,9 @@ function wp_user_profiles_admin_menus() {
 		// Fudge the highlighted subnav item
 		foreach ( $hooks as $hook ) {
 			add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
+			add_action( "load-{$hook}",       'wp_user_profiles_add_meta_boxes'       );
+			add_action( "load-{$hook}",       'wp_user_profiles_add_contextual_help'  );
+			add_action( "load-{$hook}",       'wp_user_profiles_show_screen_options'  );
 		}
 
 	// User admin needs some coercing
@@ -86,7 +89,10 @@ function wp_user_profiles_admin_menus() {
 		remove_menu_page( 'profile.php' );
 
 		foreach ( $sections as $tab ) {
-			add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
+			$hook = add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
+			add_action( "load-{$hook}", 'wp_user_profiles_add_meta_boxes'       );
+			add_action( "load-{$hook}", 'wp_user_profiles_add_contextual_help'  );
+			add_action( "load-{$hook}", 'wp_user_profiles_show_screen_options'  );
 		}
 	} else {
 		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
@@ -261,35 +267,19 @@ function wp_user_profiles_user_admin() {
 		? (int) $_GET['user_id']
 		: get_current_user_id();
 
-	// Get current user ID
-	$current_user = wp_get_current_user();
-	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
-		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user->ID ) );
-	}
-
-	// User and/or title
-	if ( empty( $user_id ) && IS_PROFILE_PAGE ) {
-		$user_id = $current_user->ID;
-	} elseif ( empty( $user_id ) && ! IS_PROFILE_PAGE ) {
-		$title = esc_html__( 'Invalid user ID', 'wp-user-profiles' );
-	} elseif ( ! get_userdata( $user_id ) ) {
-		$title = esc_html__( 'Invalid user ID', 'wp-user-profiles' );
-	}
-
 	// Get user
 	$user = get_user_to_edit( $user_id );
 
-	// Setup meta boxes
+	/**
+	 * Backwards compatibility for JIT metaboxes
+	 *
+	 * @since 0.2.0 Use `wp_user_profiles_add_meta_boxes` instead
+	 */
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
-
-	// Set title to user display name
-	if ( ! empty( $user ) ) {
-		$title = $user->display_name;
-	}
 
 	// Construct URL for form
 	$request_url     = remove_query_arg( array( 'action', 'error', 'updated', 'spam', 'ham' ), $_SERVER['REQUEST_URI'] );
-	$form_action_url = add_query_arg( 'action', 'update', $request_url );
+	$form_action_url = add_query_arg( array( 'action' => 'update' ), $request_url );
 
 	// Arbitrary notice execution point
 	do_action( 'wp_user_profiles_admin_notices' ); ?>
@@ -298,43 +288,35 @@ function wp_user_profiles_user_admin() {
 		<h1><?php
 
 			// The page title
-			echo esc_html( $title );
+			echo esc_html( $user->display_name );
 
 			// Any arbitrary "page-title-action" class links
 			do_action( 'wp_user_profiles_title_actions' );
 
 		?></h1>
 
-		<?php if ( ! empty( $user ) ) :
+		<?php wp_user_profiles_admin_nav( $user ); ?>
 
-			wp_user_profiles_admin_nav( $user ); ?>
+		<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
+			<div id="poststuff">
+				<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
+					<div id="postbox-container-1" class="postbox-container">
+						<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
+					</div>
 
-			<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
-				<div id="poststuff">
-					<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
-						<div id="postbox-container-1" class="postbox-container">
-							<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
-						</div>
-
-						<div id="postbox-container-2" class="postbox-container">
-							<?php do_meta_boxes( get_current_screen()->id, 'normal',   $user ); ?>
-							<?php do_meta_boxes( get_current_screen()->id, 'advanced', $user ); ?>
-						</div>
+					<div id="postbox-container-2" class="postbox-container">
+						<?php do_meta_boxes( get_current_screen()->id, 'normal',   $user ); ?>
+						<?php do_meta_boxes( get_current_screen()->id, 'advanced', $user ); ?>
 					</div>
 				</div>
+			</div>
 
-				<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
-				<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
-				<?php wp_nonce_field( 'edit-profile_' . $user->ID ); ?>
+			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
+			<?php wp_nonce_field( 'edit-profile_' . $user->ID ); ?>
 
-			</form>
-
-		<?php else : ?>
-
-			<p><?php esc_html_e( 'No user found with this ID.', 'wp-user-profiles' ); ?></p>
-
-		<?php endif; ?>
-
+		</form>
 	</div><!-- .wrap -->
+
 	<?php
 }
