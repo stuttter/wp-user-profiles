@@ -35,17 +35,9 @@ function wp_user_profiles_add_meta_boxes() {
 		wp_die( esc_html__( 'Invalid user ID.', 'wp-user-profiles' ) );
 	}
 
-	// Adjust the type for user/network dashboards
+	// Adjust the hoox for user/network dashboards and pass into the action
 	$hook = $GLOBALS['page_hook'];
-	_wp_user_profiles_walk_section_hooknames( $hook );
-
-	// Get possible hooknames
-	$hooks = wp_user_profiles_get_section_hooknames();
-
-	// Bail if not the correct type
-	if ( ! in_array( $hook, $hooks, true ) ) {
-		return;
-	}
+	wp_user_profiles_walk_section_hooknames( $hook );
 
 	// Do generic metaboxes
 	do_action( 'wp_user_profiles_add_meta_boxes', $hook, $user );

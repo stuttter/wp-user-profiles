@@ -174,11 +174,11 @@ class WP_User_Profile_Section {
 			return;
 		}
 
-		// Get types
-		$types = wp_user_profiles_get_section_hooknames( $this->id );
+		// Get hooknames
+		$hookname = wp_user_profiles_get_section_hooknames( $this->id );
 
 		// Bail if not these metaboxes
-		if ( ! in_array( $type, $types, true ) || ! current_user_can( $this->cap, $user->ID ) ) {
+		if ( ( $hookname[0] !== $type ) || ! current_user_can( $this->cap, $user->ID ) ) {
 			return;
 		}
 
