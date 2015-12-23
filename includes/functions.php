@@ -2,7 +2,7 @@
 
 /**
  * User Profile Functions
- * 
+ *
  * @package Plugins/Users/Profiles/Functions
  */
 
@@ -10,7 +10,11 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Return the file all menus will use as their parent
+ * Return the file that all top-level admin area menus will use as their parent
+ *
+ * This function exists because WordPress bounces between different files for
+ * different reasons in different admin area sections, and we need a way to
+ * predict what that will be ahead of time.
  *
  * @since 0.1.0
  *
@@ -52,8 +56,9 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 		$url = wp_user_profiles_get_admin_area_url( $user_id, $scheme );
 
 	// Theme side editing
+	// @todo?
 	} else {
-		$url = wp_user_profiles_get_edit_user_url( $user_id );
+		$url = wp_user_profiles_get_admin_area_url( $user_id, $scheme );
 	}
 
 	return add_query_arg( array( 'page' => 'profile' ), $url );
@@ -61,6 +66,9 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 
 /**
  * Return an array of profile sections
+ *
+ * This function attempts to do some just-in-time backwards compatibility checks,
+ * and prepares the return value for use through-out the plugin.
  *
  * @since 0.1.0
  *
@@ -102,6 +110,10 @@ function wp_user_profiles_sections( $args = array() ) {
 /**
  * Sort sections by order
  *
+ * This function exists to enable rapid sorting of sections by the `order` value
+ * of each section, allowing them to be located in any position regardless of
+ * the order they were registered in.
+ *
  * @since 0.2.0
  *
  * @param array $hip
@@ -114,6 +126,11 @@ function wp_user_profiles_sort_sections( $hip, $hop ) {
 
 /**
  * Get profile section slugs
+ *
+ * This function exists because hooknames change based on two unique factors:
+ * which admin dashboard is being used, and which file is used within that
+ * dashboard. Without this function, network & user dashboard integration
+ * would be impossible.
  *
  * @since 0.1.7
  */
@@ -135,7 +152,7 @@ function wp_user_profiles_get_section_hooknames( $section = '' ) {
 	}
 
 	// Network & user admin corrections
-	array_walk( $hooks, '_wp_user_profiles_walk_section_hooknames' );
+	array_walk( $hooks, 'wp_user_profiles_walk_section_hooknames' );
 
 	return $hooks;
 }
@@ -143,12 +160,15 @@ function wp_user_profiles_get_section_hooknames( $section = '' ) {
 /**
  * Walk array and add maybe add network or user suffix
  *
+ * This function exists to be used byref by array_walk() to manipulate screen
+ * hooks so that user & network dashboard integration is possible without a
+ * bunch of additional work.
+ *
  * @since 0.1.7
  *
  * @param string $value
- * @param string $key
  */
-function _wp_user_profiles_walk_section_hooknames( &$value = '' ) {
+function wp_user_profiles_walk_section_hooknames( &$value = '' ) {
 	if ( is_network_admin() && substr( $value, -8 ) !== '-network' ) {
 		$value .= '-network';
 	} elseif ( is_user_admin() && substr( $value, -5 ) != '-user' ) {
@@ -158,6 +178,10 @@ function _wp_user_profiles_walk_section_hooknames( &$value = '' ) {
 
 /**
  * Return the admin area URL for a user
+ *
+ * This function exists to make it easier to determine which admin area URL to
+ * use in what context. It also comes with its own filter to make it easier to
+ * target its usages.
  *
  * @since 0.1.0
  *
@@ -196,12 +220,11 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 	return apply_filters( 'wp_user_profiles_get_admin_area_url', $url, $user_id, $scheme, $args );
 }
 
-function wp_user_profiles_get_edit_user_url( $user_id = 0 ) {
-	return '';
-}
-
 /**
  * Save the user when they click "Update"
+ *
+ * This function exists to handle the posted user information, likely submitted
+ * by a user or administrator to edit an existing user account.
  *
  * @since 0.1.0
  */
@@ -221,55 +244,50 @@ function wp_user_profiles_save_user() {
 	$user_id = (int) $_POST['user_id'];
 
 	// Referring?
-	if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
-		$wp_http_referer = $_REQUEST['wp_http_referer'];
-	} else {
-		$wp_http_referer = false;
-	}
+	$wp_http_referer = ! empty( $_REQUEST['wp_http_referer'] )
+		? $_REQUEST['wp_http_referer']
+		: false;
 
 	// Setup constant for backpat
 	define( 'IS_PROFILE_PAGE', get_current_user_id() === $user_id );
 
 	// Fire WordPress core actions
-	if ( IS_PROFILE_PAGE ) {
-		do_action( 'personal_options_update', $user_id );
-	} else {
-		do_action( 'edit_user_profile_update', $user_id );
-	}
+	IS_PROFILE_PAGE
+		? do_action( 'personal_options_update',  $user_id )
+		: do_action( 'edit_user_profile_update', $user_id );
 
 	// Get the userdata to compare it to
 	$user = get_userdata( $user_id );
 
 	// Do actions & return errors
-	$errors = apply_filters( 'wp_user_profiles_save', $user );
-
-	// Grant or revoke super admin status if requested.
-	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
-		empty( $_POST['super_admin'] )
-			? revoke_super_admin( $user_id )
-			: grant_super_admin( $user_id );
-	}
+	$status = apply_filters( 'wp_user_profiles_save', $user );
 
 	// No errors
-	if ( ! is_wp_error( $errors ) ) {
+	if ( ! is_wp_error( $status ) ) {
+
+		// Add updated query arg to trigger success notice
 		$redirect = add_query_arg( 'updated', true );
 
+		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
 			$redirect = add_query_arg( 'wp_http_referer', urlencode( $wp_http_referer ), $redirect );
 		}
 
-		wp_redirect( $redirect );
-
+		// Redirect
+		wp_safe_redirect( $redirect );
 		exit;
 
 	// Errors
 	} else {
-		wp_die( $errors );
+		wp_die( $status );
 	}
 }
 
 /**
  * Add a notice when a profile is updated
+ *
+ * This function exists to provide visual confirmation that a users details were
+ * successfully saved.
  *
  * @since 0.1.0
  *
@@ -278,7 +296,7 @@ function wp_user_profiles_save_user() {
  */
 function wp_user_profiles_save_user_notices() {
 
-	// Bail
+	// Bail if not an update action
 	if ( empty( $_GET['action'] ) || ( 'update' !== $_GET['action'] ) ) {
 		return;
 	}
