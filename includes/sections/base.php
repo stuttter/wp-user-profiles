@@ -87,7 +87,7 @@ class WP_User_Profile_Section {
 	public function __construct() {
 
 		// Bail if no args
-		if ( empty( func_num_args() ) ) {
+		if ( ! func_num_args() ) {
 			return;
 		}
 
