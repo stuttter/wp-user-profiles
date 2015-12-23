@@ -292,7 +292,7 @@ function wp_user_profiles_save_user() {
 	if ( ! is_wp_error( $status ) ) {
 
 		// Add updated query arg to trigger success notice
-		$redirect = add_query_arg( 'updated', true );
+		$redirect = add_query_arg( array( 'updated' => true ), get_edit_user_link( $user_id ) );
 
 		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
