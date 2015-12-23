@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * User Profile Dependencies
+ *
+ * @package Plugins/Users/Profiles/Dependencies
+ */
+
+// Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
+
+/**
  * Subaction for doing the admin head action
  *
  * @since 0.2.0
