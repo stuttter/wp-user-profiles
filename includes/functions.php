@@ -231,7 +231,7 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, '', $scheme );
+		$url = get_dashboard_url( $user_id, $file, $scheme );
 	}
 
 	// Add user ID to args array for other users
@@ -292,7 +292,7 @@ function wp_user_profiles_save_user() {
 	if ( ! is_wp_error( $status ) ) {
 
 		// Add updated query arg to trigger success notice
-		$redirect = add_query_arg( array( 'updated' => true ), get_edit_user_link( $user_id ) );
+		$redirect = add_query_arg( 'updated', true );
 
 		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
