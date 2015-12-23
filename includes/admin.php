@@ -272,9 +272,13 @@ function wp_user_profiles_user_admin() {
 	 */
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
 
-	// Construct URL for form
-	$request_url     = remove_query_arg( array( 'action', 'error', 'updated', 'spam', 'ham' ), $_SERVER['REQUEST_URI'] );
-	$form_action_url = add_query_arg( array( 'action' => 'update' ), $request_url );
+	// Remove possible query arguments
+	$request_url = remove_query_arg( array( 'action', 'error', 'updated', 'spam', 'ham' ), $_SERVER['REQUEST_URI'] );
+
+	// Setup form action URL
+	$form_action_url = add_query_arg( array(
+		'action' => 'update'
+	), $request_url );
 
 	// Arbitrary notice execution point
 	do_action( 'wp_user_profiles_admin_notices' ); ?>

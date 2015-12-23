@@ -39,7 +39,7 @@ add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' )
 // Admin Saving
 add_action( 'admin_init',                         'wp_user_profiles_save_user'           );
 add_action( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_notices'   );
-add_action( 'wp_user_profiles_save',              'wp_user_profiles_update_global_admin' );
+add_filter( 'wp_user_profiles_save',              'wp_user_profiles_update_global_admin' );
 
 // Capabilities
 add_action( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );

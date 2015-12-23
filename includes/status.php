@@ -142,14 +142,17 @@ function wp_user_profiles_transition_user_status( $new_status, $old_status, $use
  *
  * @since 0.2.0
  *
- * @param int $user_id
+ * @param int $user
  */
-function wp_user_profiles_update_global_admin( $user_id = 0 ) {
+function wp_user_profiles_update_global_admin( $user = null ) {
 
 	// Grant or revoke super admin status if requested.
-	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
+	if ( is_a( $user, 'WP_User' ) && is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user->ID ) ) {
 		empty( $_POST['super_admin'] )
-			? revoke_super_admin( $user_id )
-			: grant_super_admin( $user_id );
+			? revoke_super_admin( $user->ID )
+			: grant_super_admin( $user->ID );
 	}
+
+	// Return the user
+	return $user;
 }

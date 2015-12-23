@@ -87,7 +87,9 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 		$url = wp_user_profiles_get_admin_area_url( $user_id, $scheme );
 	}
 
-	return add_query_arg( array( 'page' => 'profile' ), $url );
+	return add_query_arg( array(
+		'page' => 'profile'
+	), $url );
 }
 
 /**
@@ -305,7 +307,9 @@ function wp_user_profiles_save_user() {
 
 		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
-			$redirect = add_query_arg( array( 'wp_http_referer' => urlencode( $wp_http_referer ) ), $redirect );
+			$redirect = add_query_arg( array(
+				'wp_http_referer' => urlencode( $wp_http_referer )
+			), $redirect );
 		}
 
 		// Redirect
