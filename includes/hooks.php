@@ -20,8 +20,12 @@ add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );
 add_action( 'network_admin_menu', 'wp_user_profiles_admin_menus' );
 add_action( 'user_admin_menu',    'wp_user_profiles_admin_menus' );
 
-// Admin Scripts
-add_action( 'admin_enqueue_scripts', 'wp_user_profiles_admin_enqueue_scripts' );
+// Admin Dependencies
+add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_admin_enqueue_scripts' );
+add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_admin_menu_highlight'  );
+add_action( 'wp_user_profiles_do_admin_load', 'wp_user_profiles_add_meta_boxes'        );
+add_action( 'wp_user_profiles_do_admin_load', 'wp_user_profiles_add_contextual_help'   );
+add_action( 'wp_user_profiles_do_admin_load', 'wp_user_profiles_show_screen_options'   );
 
 // Admin Meta Boxes
 add_action( 'wp_user_profiles_add_meta_boxes', 'wp_user_profiles_add_status_meta_box', 10, 2 );

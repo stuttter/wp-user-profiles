@@ -48,6 +48,7 @@ function _wp_user_profiles() {
 
 	// Required Files
 	require_once $plugin_path . 'includes/admin.php';
+	require_once $plugin_path . 'includes/dependencies.php';
 	require_once $plugin_path . 'includes/functions.php';
 	require_once $plugin_path . 'includes/help.php';
 	require_once $plugin_path . 'includes/metaboxes.php';

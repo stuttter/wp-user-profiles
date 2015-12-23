@@ -14,23 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 0.1.0
  */
-function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
-
-	// Bail if not the correct page
-	if ( ! is_user_admin() && ( $GLOBALS['pagenow'] !== wp_user_profiles_get_file() ) ) {
-		return;
-	}
-
-	// Get hooknames
-	$sections = wp_user_profiles_get_section_hooknames();
-
-	// Maybe manipulate the hook based on dashboard
-	wp_user_profiles_walk_section_hooknames( $hook );
-
-	// Bail if not a user profile section
-	if ( ! in_array( $hook, $sections, true ) ) {
-		return;
-	}
+function wp_user_profiles_admin_enqueue_scripts() {
 
 	// Enqueue core scripts
 	wp_enqueue_script( 'jquery-ui-sortable' );
@@ -69,10 +53,8 @@ function wp_user_profiles_admin_menus() {
 		// Add (and quickly remove) submenu pages
 		foreach ( $sections as $tab ) {
 			$hook = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_admin_menu_highlight' );
-			add_action( "load-{$hook}",       'wp_user_profiles_add_meta_boxes'       );
-			add_action( "load-{$hook}",       'wp_user_profiles_add_contextual_help'  );
-			add_action( "load-{$hook}",       'wp_user_profiles_show_screen_options'  );
+			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
+			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 			remove_submenu_page( $file, $tab->slug );
 		}
 
@@ -85,9 +67,8 @@ function wp_user_profiles_admin_menus() {
 
 		foreach ( $sections as $tab ) {
 			$hook = add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
-			add_action( "load-{$hook}", 'wp_user_profiles_add_meta_boxes'      );
-			add_action( "load-{$hook}", 'wp_user_profiles_add_contextual_help' );
-			add_action( "load-{$hook}", 'wp_user_profiles_show_screen_options' );
+			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
+			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 		}
 	} else {
 		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
@@ -104,6 +85,11 @@ function wp_user_profiles_admin_menus() {
  */
 function wp_user_profiles_admin_menu_highlight() {
 	global $plugin_page, $submenu_file;
+
+	// Bail if in user dashboard area
+	if ( is_user_admin() ) {
+		return;
+	}
 
 	// If not current user's profile page, set to Users and bail
 	if ( ! empty( $_GET['user_id'] ) && ( get_current_user_id() !== (int) $_GET['user_id'] ) ) {
