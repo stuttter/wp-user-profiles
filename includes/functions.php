@@ -275,7 +275,12 @@ function wp_user_profiles_save_user() {
 		: false;
 
 	// Setup constant for backpat
-	define( 'IS_PROFILE_PAGE', get_current_user_id() === $user_id );
+	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
+		define( 'IS_PROFILE_PAGE', get_current_user_id() === $user_id );
+	}
+
+	// Remove the multisite email change action for now to prevent notices
+	remove_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
 
 	// Fire WordPress core actions
 	IS_PROFILE_PAGE
@@ -292,11 +297,15 @@ function wp_user_profiles_save_user() {
 	if ( ! is_wp_error( $status ) ) {
 
 		// Add updated query arg to trigger success notice
-		$redirect = add_query_arg( 'updated', true );
+		$redirect = add_query_arg( array(
+			'action'  => 'update',
+			'updated' => 'true',
+			'page'    => isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : 'profile'
+		), get_edit_user_link( $user_id ) );
 
 		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
-			$redirect = add_query_arg( 'wp_http_referer', urlencode( $wp_http_referer ), $redirect );
+			$redirect = add_query_arg( array( 'wp_http_referer' => urlencode( $wp_http_referer ) ), $redirect );
 		}
 
 		// Redirect
