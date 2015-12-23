@@ -30,8 +30,9 @@ add_action( 'wp_user_profiles_add_meta_boxes', 'wp_user_profiles_add_status_meta
 add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' );
 
 // Admin Saving
-add_action( 'admin_init',                         'wp_user_profiles_save_user'         );
-add_action( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_notices' );
+add_action( 'admin_init',                         'wp_user_profiles_save_user'           );
+add_action( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_notices'   );
+add_action( 'wp_user_profiles_save',              'wp_user_profiles_update_global_admin' );
 
 // Links
 add_filter( 'edit_profile_url',   'wp_user_profiles_edit_user_url_filter', 10, 3 );

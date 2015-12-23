@@ -2,7 +2,7 @@
 
 /**
  * User Profile Statuses
- * 
+ *
  * @package Plugins/Users/Profiles/Status
  */
 
@@ -132,4 +132,24 @@ function wp_user_profiles_transition_user_status( $new_status, $old_status, $use
 	 * @param WP_User $user    User object.
 	 */
 	do_action( "{$new_status}_{$user->user_type}", $user->ID, $user );
+}
+
+/**
+ * Grant or revoke super admin status
+ *
+ * This function exists to assist with updating whether a user is an
+ * administrator to the entire installation.
+ *
+ * @since 0.2.0
+ *
+ * @param int $user_id
+ */
+function wp_user_profiles_update_global_admin( $user_id = 0 ) {
+
+	// Grant or revoke super admin status if requested.
+	if ( is_multisite() && is_network_admin() && ! IS_PROFILE_PAGE && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user_id ) ) {
+		empty( $_POST['super_admin'] )
+			? revoke_super_admin( $user_id )
+			: grant_super_admin( $user_id );
+	}
 }
