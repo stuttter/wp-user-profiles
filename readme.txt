@@ -64,6 +64,11 @@ http://github.com/stuttter/wp-user-profiles
 = 0.2.0 =
 * Simplify metabox registration
 * Add actions for metabox sections
+* Introduce `edit_profile` meta capability
+* Improve load order of files
+* Improve support for IS_PROFILE_PAGE
+* Improve support for network & user dashboards
+* Prevent access to old profile pages (user-edit.php, profile.php, etc...)
 
 = 0.1.10 =
 * Improve user dashboard support
