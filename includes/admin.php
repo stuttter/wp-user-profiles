@@ -2,7 +2,7 @@
 
 /**
  * User Profile Admin
- * 
+ *
  * @package Plugins/Users/Profiles/Admin
  */
 
@@ -25,7 +25,7 @@ function wp_user_profiles_admin_enqueue_scripts( $hook = '' ) {
 	$sections = wp_user_profiles_get_section_hooknames();
 
 	// Maybe manipulate the hook based on dashboard
-	_wp_user_profiles_walk_section_hooknames( $hook );
+	wp_user_profiles_walk_section_hooknames( $hook );
 
 	// Bail if not a user profile section
 	if ( ! in_array( $hook, $sections, true ) ) {
@@ -85,9 +85,9 @@ function wp_user_profiles_admin_menus() {
 
 		foreach ( $sections as $tab ) {
 			$hook = add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
-			add_action( "load-{$hook}", 'wp_user_profiles_add_meta_boxes'       );
-			add_action( "load-{$hook}", 'wp_user_profiles_add_contextual_help'  );
-			add_action( "load-{$hook}", 'wp_user_profiles_show_screen_options'  );
+			add_action( "load-{$hook}", 'wp_user_profiles_add_meta_boxes'      );
+			add_action( "load-{$hook}", 'wp_user_profiles_add_contextual_help' );
+			add_action( "load-{$hook}", 'wp_user_profiles_show_screen_options' );
 		}
 	} else {
 		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
