@@ -9,6 +9,9 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
+// Set constants early
+add_action( 'init', 'wp_user_profiles_set_constants' );
+
 // Initialize core profile sections
 add_action( 'init', 'wp_user_profiles_register_profile_section'     );
 add_action( 'init', 'wp_user_profiles_register_account_section'     );
@@ -37,6 +40,12 @@ add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' )
 add_action( 'admin_init',                         'wp_user_profiles_save_user'           );
 add_action( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_notices'   );
 add_action( 'wp_user_profiles_save',              'wp_user_profiles_update_global_admin' );
+
+// Capabilities
+add_action( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );
+
+// Redirect
+add_filter( 'load-profile.php', 'wp_user_profiles_old_url_redirect' );
 
 // Links
 add_filter( 'edit_profile_url',   'wp_user_profiles_edit_user_url_filter', 10, 3 );

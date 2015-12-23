@@ -50,7 +50,7 @@ class WP_User_Profile_Section {
 	 *
 	 * @var string
 	 */
-	public $cap = 'edit_user';
+	public $cap = 'edit_profile';
 
 	/**
 	 * Dashicon used to identify the section

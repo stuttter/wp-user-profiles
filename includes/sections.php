@@ -21,7 +21,7 @@ function wp_user_profiles_register_profile_section() {
 		'id'    => 'profile',
 		'slug'  => 'profile',
 		'name'  => esc_html__( 'Profile', 'wp-user-profiles' ),
-		'cap'   => 'edit_user',
+		'cap'   => 'edit_profile',
 		'icon'  => 'dashicons-admin-users',
 		'order' => 70
 	) );
@@ -39,7 +39,7 @@ function wp_user_profiles_register_account_section() {
 		'id'    => 'account',
 		'slug'  => 'account',
 		'name'  => esc_html__( 'Account', 'wp-user-profiles' ),
-		'cap'   => 'edit_user',
+		'cap'   => 'edit_profile',
 		'icon'  => 'dashicons-admin-generic',
 		'order' => 75
 	) );
@@ -57,7 +57,7 @@ function wp_user_profiles_register_options_section() {
 		'id'    => 'options',
 		'slug'  => 'options',
 		'name'  => esc_html__( 'Options', 'wp-user-profiles' ),
-		'cap'   => 'edit_user',
+		'cap'   => 'edit_profile',
 		'icon'  => 'dashicons-admin-settings',
 		'order' => 80
 	) );
@@ -74,7 +74,7 @@ function wp_user_profiles_register_permissions_section() {
 		'id'    => 'permissions',
 		'slug'  => 'permissions',
 		'name'  => esc_html__( 'Permissions', 'wp-user-profiles' ),
-		'cap'   => 'edit_user',
+		'cap'   => 'edit_profile',
 		'icon'  => 'dashicons-hidden',
 		'order' => 85
 	) );

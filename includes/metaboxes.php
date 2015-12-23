@@ -16,18 +16,10 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_add_meta_boxes() {
 
-	// Get the current user ID
-	$current_user_id = get_current_user_id();
-
 	// Get the user ID being edited
 	$user_id = ! empty( $_GET['user_id'] )
 		? (int) $_GET['user_id']
-		: (int) $current_user_id;
-
-	// Maybe set constant if editing oneself
-	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
-		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user_id ) );
-	}
+		: get_current_user_id();
 
 	// Get the user being edited & bail if user does not exist
 	$user = get_userdata( $user_id );

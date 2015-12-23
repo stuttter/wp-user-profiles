@@ -66,12 +66,22 @@ function wp_user_profiles_admin_menus() {
 		remove_menu_page( 'profile.php' );
 
 		foreach ( $sections as $tab ) {
-			$hook = add_menu_page( $tab->name, $tab->name, 'exist', $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
+			$hook = add_menu_page( $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
 			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
 			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 		}
+
+	// Blog admin, but "Profile Mode" is en effect
 	} else {
-		add_submenu_page( $file, esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+		remove_menu_page( 'profile.php' );
+
+		add_menu_page( esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin', 'dashicons-admin-users', 5 );
+
+		foreach ( $sections as $tab ) {
+			$hook = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
+			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+		}
 	}
 }
 
@@ -102,7 +112,11 @@ function wp_user_profiles_admin_menu_highlight() {
 
 	// Maybe tweak the highlighted submenu
 	if ( ! in_array( $plugin_page, array( $plucked ), true ) ) {
-		$submenu_file = 'profile';
+		if ( current_user_can( 'list_users' ) ) {
+			$submenu_file = 'profile';
+		} elseif ( is_blog_admin() ) {
+			$plugin_page  = 'profile';
+		}
 	}
 }
 
