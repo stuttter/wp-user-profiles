@@ -10,6 +10,32 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Set the `IS_PROFILE_PAGE` constant early
+ *
+ * This function exists because the `IS_PROFILE_PAGE` constant is used in core
+ * and by thousands of plugins to signify that a user is being edited. If it's
+ * not set as early as possible, third party plugins are unable to predict what
+ * to do early enough to hook in properly.
+ *
+ * @since 0.2.0
+ */
+function wp_user_profiles_set_constants() {
+
+	// Get the current user ID
+	$current_user_id = get_current_user_id();
+
+	// Get the user ID being edited
+	$user_id = ! empty( $_GET['user_id'] )
+		? (int) $_GET['user_id']
+		: (int) $current_user_id;
+
+	// Maybe set constant if editing oneself
+	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
+		define( 'IS_PROFILE_PAGE', ! empty( $current_user_id ) && ( $user_id === $current_user_id ) );
+	}
+}
+
+/**
  * Return the file that all top-level admin area menus will use as their parent
  *
  * This function exists because WordPress bounces between different files for
@@ -27,7 +53,7 @@ function wp_user_profiles_get_file() {
 
 	// Maybe override to profile.php
 	if ( is_user_admin() || ! current_user_can( 'list_users' ) ) {
-		$file = 'profile.php';
+		$file = 'admin.php';
 	}
 
 	// Filter & return
@@ -205,7 +231,7 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, $file, $scheme );
+		$url = get_dashboard_url( $user_id, '', $scheme );
 	}
 
 	// Add user ID to args array for other users
