@@ -69,6 +69,6 @@ function wp_user_profiles_map_meta_cap( $caps = array(), $cap = '', $user_id = 0
  * @param type $user
  */
 function wp_user_profiles_old_url_redirect() {
-	wp_safe_redirect( wp_user_profiles_get_admin_area_url() );
+	wp_safe_redirect( get_dashboard_url() );
 	exit;
 }
