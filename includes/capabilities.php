@@ -60,7 +60,7 @@ function wp_user_profiles_map_meta_cap( $caps = array(), $cap = '', $user_id = 0
 }
 
 /**
- * Prevent redirection to `profile.php`
+ * Prevent access to `profile.php`
  *
  * @since 0.2.0
  *
@@ -68,7 +68,33 @@ function wp_user_profiles_map_meta_cap( $caps = array(), $cap = '', $user_id = 0
  * @param type $requested_redirect_to
  * @param type $user
  */
-function wp_user_profiles_old_url_redirect() {
+function wp_user_profiles_old_profile_redirect() {
 	wp_safe_redirect( get_dashboard_url() );
 	exit;
+}
+
+/**
+ * Prevent access to `user-edit.php`
+ *
+ * @since 0.2.0
+ *
+ * @param type $redirect_to
+ * @param type $requested_redirect_to
+ * @param type $user
+ */
+function wp_user_profiles_old_user_edit_redirect() {
+
+	// Get the user ID
+    $user_id = ! empty( $_REQUEST['user_id'] )
+		? absint( $_REQUEST['user_id'] )
+		: get_current_user_id();
+
+	// Get the redirect URL
+    $user_edit_url = add_query_arg( array(
+		'page' => 'profile'
+	), wp_user_profiles_get_admin_area_url( $user_id ) );
+
+	// Do the redirect
+    wp_safe_redirect( $user_edit_url );
+    exit;
 }

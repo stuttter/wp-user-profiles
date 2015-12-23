@@ -45,7 +45,8 @@ add_filter( 'wp_user_profiles_save',              'wp_user_profiles_update_globa
 add_action( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );
 
 // Redirect
-add_filter( 'load-profile.php', 'wp_user_profiles_old_url_redirect' );
+add_filter( 'load-profile.php',   'wp_user_profiles_old_profile_redirect'   );
+add_filter( 'load-user-edit.php', 'wp_user_profiles_old_user_edit_redirect' );
 
 // Links
 add_filter( 'edit_profile_url',   'wp_user_profiles_edit_user_url_filter', 10, 3 );
