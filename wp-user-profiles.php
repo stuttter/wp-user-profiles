@@ -53,6 +53,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/metaboxes.php';
 	require_once $plugin_path . 'includes/screen-options.php';
 	require_once $plugin_path . 'includes/sections.php';
+	require_once $plugin_path . 'includes/status.php';
 	require_once $plugin_path . 'includes/hooks.php';
 }
 add_action( 'plugins_loaded', '_wp_user_profiles' );
