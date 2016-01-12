@@ -52,6 +52,19 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			'core',
 			$user
 		);
+
+		// Primary Site
+		if ( is_multisite() ) {
+			add_meta_box(
+				'options',
+				_x( 'Primary Site', 'users user-admin edit screen', 'wp-user-profiles' ),
+				'wp_user_profiles_primary_site_metabox',
+				$type,
+				'normal',
+				'core',
+				$user
+			);
+		}
 	}
 
 	/**
