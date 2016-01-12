@@ -101,6 +101,11 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			? 1
 			: 0;
 
+		// Primary Site
+		$user->primary_blog = isset( $_POST['primary_blog'] )
+			? (int) $_POST['primary_blog']
+			: null;
+
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
