@@ -106,6 +106,11 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			? (int) $_POST['primary_blog']
 			: null;
 
+		// Temporarily save this here, because it's not handled by WordPress
+		if ( ! empty( $user->primary_blog ) ) {
+			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
+		}
+
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
