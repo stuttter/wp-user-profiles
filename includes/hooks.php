@@ -42,7 +42,7 @@ add_action( 'wp_user_profiles_get_admin_notices', 'wp_user_profiles_save_user_no
 add_filter( 'wp_user_profiles_save',              'wp_user_profiles_update_global_admin' );
 
 // Capabilities
-add_action( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );
+add_filter( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );
 
 // Redirect
 add_filter( 'load-profile.php',   'wp_user_profiles_old_profile_redirect'   );
