@@ -236,13 +236,17 @@ function wp_user_profiles_admin_nav( $user = null ) {
  * @since 0.1.0
  */
 function wp_user_profiles_title_actions() {
+	$add_url = is_network_admin()
+		? network_adminrl( 'user-new.php' )
+		: admin_url( 'user-new.php' );
+
 	if ( current_user_can( 'create_users' ) ) : ?>
 
-		<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add New', 'user', 'wp-user-profiles' ); ?></a>
+		<a href="<?php echo esc_url( $add_url ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add New', 'user', 'wp-user-profiles' ); ?></a>
 
 	<?php elseif ( is_multisite() && current_user_can( 'promote_users' ) ) : ?>
 
-		<a href="user-new.php" class="page-title-action"><?php echo esc_html_x( 'Add Existing', 'user', 'wp-user-profiles' ); ?></a>
+		<a href="<?php echo esc_url( $add_url ); ?>" class="page-title-action"><?php echo esc_html_x( 'Add Existing', 'user', 'wp-user-profiles' ); ?></a>
 
 	<?php endif;
 }
