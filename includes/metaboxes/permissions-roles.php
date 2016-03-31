@@ -2,7 +2,7 @@
 
 /**
  * User Profile Roles Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/Roles
  */
 
@@ -35,6 +35,9 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 
 		<?php foreach ( $sites as $site_id => $site ) :
 
+			// Cast for strict checks
+			$site_id = (int) $site_id;
+
 			// Switch to this site
 			if ( is_multisite() ) {
 
@@ -44,16 +47,19 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 				}
 
 				switch_to_blog( $site_id );
-			} ?>
+			}
+
+			// Should dropdown be disabled
+			$is_disabled = IS_PROFILE_PAGE; ?>
 
 			<tr class="user-role-wrap">
 				<th>
 					<label for="role[<?php echo $site_id; ?>]">
-						<?php echo $site->blogname; ?><br>
+						<?php echo esc_html( $site->blogname ); ?><br>
 						<span class="description"><?php echo $site->siteurl; ?></span>
 					</label>
 				</th>
-				<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( ! IS_PROFILE_PAGE && ! is_network_admin(), false ); ?>>
+				<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( $is_disabled, false ); ?>>
 						<?php
 
 						// Compare user role against currently editable roles
@@ -64,7 +70,7 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 						wp_dropdown_roles( $user_role );
 
 						// print the 'no role' option. Make it selected if the user has no role yet.
-						if ( $user_role ) : ?>
+						if ( ! empty( $user_role ) ) : ?>
 
 							<option value=""><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
 
