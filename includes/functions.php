@@ -30,8 +30,8 @@ function wp_user_profiles_set_constants() {
 		: (int) $current_user_id;
 
 	// Maybe set constant if editing oneself
-	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
-		define( 'IS_PROFILE_PAGE', ! empty( $current_user_id ) && ( $user_id === $current_user_id ) );
+	if ( ! defined( 'IS_PROFILE_PAGE' ) && ! empty( $current_user_id ) ) {
+		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user_id ) );
 	}
 }
 
