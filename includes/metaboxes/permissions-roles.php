@@ -42,7 +42,7 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 			if ( is_multisite() ) {
 
 				// Skip if user cannot manage
-				if ( ( get_current_blog_id() !== $site_id ) && ! current_user_can( 'manage_sites' ) ) {
+				if ( ( get_current_blog_id() !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
 					continue;
 				}
 
