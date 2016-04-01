@@ -59,7 +59,7 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 						<span class="description"><?php echo $site->siteurl; ?></span>
 					</label>
 				</th>
-				<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( $is_disabled, false ); ?>>
+				<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( $is_disabled, true ); ?>>
 						<?php
 
 						// Compare user role against currently editable roles
