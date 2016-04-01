@@ -50,7 +50,7 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 			}
 
 			// Should dropdown be disabled
-			$is_disabled = IS_PROFILE_PAGE; ?>
+			$is_disabled = defined( 'IS_PROFILE_PAGE' ) && ( IS_PROFILE_PAGE === true ); ?>
 
 			<tr class="user-role-wrap">
 				<th>
