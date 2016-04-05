@@ -2,7 +2,7 @@
 
 /**
  * User Profile About Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/About
  */
 
@@ -17,9 +17,14 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_about_metabox( $user = null ) {
-?>
 
-	<table class="form-table">
+	// Start
+	ob_start();
+
+	// Before
+	do_action( 'wp_user_profiles_about_metabox_before', $user );
+
+	?><table class="form-table">
 		<tr class="user-url-wrap">
 			<th><label for="url"><?php esc_html_e( 'Website', 'wp-user-profiles' ) ?></label></th>
 			<td><input type="url" name="url" id="url" value="<?php echo esc_attr( $user->user_url ) ?>" class="regular-text code" /></td>
@@ -33,7 +38,11 @@ function wp_user_profiles_about_metabox( $user = null ) {
 				</p>
 			</td>
 		</tr>
-	</table>
+	</table><?php
 
-	<?php
+	// After
+	do_action( 'wp_user_profiles_about_metabox_after', $user );
+
+	// End
+	ob_end_flush();
 }
