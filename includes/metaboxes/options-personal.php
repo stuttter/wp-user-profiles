@@ -17,9 +17,11 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_personal_options_metabox( $user = null ) {
-?>
 
-	<table class="form-table">
+	// Start a buffer
+	ob_start();
+
+	?><table class="form-table">
 
 		<tr class="user-rich-editing-wrap">
 			<th scope="row"><?php esc_html_e( 'Visual Editor', 'wp-user-profiles' ); ?></th>
@@ -28,16 +30,21 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 					<?php esc_html_e( 'Disable the visual editor when writing', 'wp-user-profiles' ); ?>
 				</label>
 			</td>
-		</tr>
-
-		<tr class="user-comment-shortcuts-wrap">
-			<th scope="row"><?php esc_html_e( 'Keyboard Shortcuts', 'wp-user-profiles' ); ?></th>
-			<td>
-				<label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php checked( 'true', $user->comment_shortcuts ); ?> />
-					<?php esc_html_e( 'Enable keyboard shortcuts for comment moderation.', 'wp-user-profiles' ); ?>
-				</label>
-			</td>
 		</tr><?php
+
+		// Only show if user can moderate comments
+		if ( user_can( $user->ID, 'moderate_comments' ) ) :
+
+			?><tr class="user-comment-shortcuts-wrap">
+				<th scope="row"><?php esc_html_e( 'Keyboard Shortcuts', 'wp-user-profiles' ); ?></th>
+				<td>
+					<label for="comment_shortcuts"><input type="checkbox" name="comment_shortcuts" id="comment_shortcuts" value="true" <?php checked( 'true', $user->comment_shortcuts ); ?> />
+						<?php esc_html_e( 'Enable keyboard shortcuts for comment moderation.', 'wp-user-profiles' ); ?>
+					</label>
+				</td>
+			</tr><?php
+
+		endif;
 
 		// Only show setting if admin var can be visible
 		if ( apply_filters( 'show_admin_bar', true ) ) :
@@ -65,9 +72,9 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 		 * @param WP_User $user The current WP_User object.
 		 */
 		do_action( 'personal_options', $user );
-		?>
 
-	</table>
+	?></table><?php
 
-	<?php
+	// Output contents of buffer
+	ob_end_flush();
 }
