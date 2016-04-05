@@ -37,22 +37,26 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 					<?php esc_html_e( 'Enable keyboard shortcuts for comment moderation.', 'wp-user-profiles' ); ?>
 				</label>
 			</td>
-		</tr>
+		</tr><?php
 
-		<tr class="show-admin-bar user-admin-bar-front-wrap">
-			<th scope="row"><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ); ?></th>
-			<td>
-				<fieldset>
-					<legend class="screen-reader-text"><span><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ) ?></span></legend>
-					<label for="admin_bar_front">
-						<input name="admin_bar_front" type="checkbox" id="admin_bar_front" value="1" <?php checked( _get_admin_bar_pref( 'front', $user->ID ) ); ?> />
-						<?php esc_html_e( 'Show Toolbar when viewing site', 'wp-user-profiles' ); ?>
-					</label>
-				</fieldset>
-			</td>
-		</tr>
+		// Only show setting if admin var can be visible
+		if ( show_admin_bar() ) :
 
-		<?php
+			?><tr class="show-admin-bar user-admin-bar-front-wrap">
+				<th scope="row"><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ); ?></th>
+				<td>
+					<fieldset>
+						<legend class="screen-reader-text"><span><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ) ?></span></legend>
+						<label for="admin_bar_front">
+							<input name="admin_bar_front" type="checkbox" id="admin_bar_front" value="1" <?php checked( _get_admin_bar_pref( 'front', $user->ID ) ); ?> />
+							<?php esc_html_e( 'Show Toolbar when viewing site', 'wp-user-profiles' ); ?>
+						</label>
+					</fieldset>
+				</td>
+			</tr><?php
+
+		endif;
+
 		/**
 		 * Fires at the end of the 'Personal Options' settings table on the user editing screen.
 		 *
