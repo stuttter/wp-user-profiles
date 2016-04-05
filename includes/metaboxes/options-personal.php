@@ -40,7 +40,7 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 		</tr><?php
 
 		// Only show setting if admin var can be visible
-		if ( show_admin_bar() ) :
+		if ( apply_filters( 'show_admin_bar', true ) ) :
 
 			?><tr class="show-admin-bar user-admin-bar-front-wrap">
 				<th scope="row"><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ); ?></th>
