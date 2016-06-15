@@ -76,7 +76,9 @@ function wp_user_profiles_session_metabox( $user = null ) {
 				</td>
 			</tr>
 
-		<?php endif; ?>
+		<?php endif;
+
+		do_action( 'wp_user_profiles_session_metabox', $user ); ?>
 
 	</table>
 
