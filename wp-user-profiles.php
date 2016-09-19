@@ -8,9 +8,8 @@
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: A sophisticated way to edit users in WordPress
- * Version:     0.2.0
+ * Version:     1.0.0
  * Text Domain: wp-user-profiles
- * Domain Path: /assets/lang/
  */
 
 // Exit if accessed directly
@@ -24,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 function _wp_user_profiles() {
 
 	// Get the plugin path
-	$plugin_path = plugin_dir_path( __FILE__ );
+	$plugin_path = plugin_dir_path( __FILE__ ) . 'wp-user-profiles/';
 
 	// Sections
 	require_once $plugin_path . 'includes/sections/base.php';
@@ -71,7 +70,7 @@ add_action( 'plugins_loaded', '_wp_user_profiles' );
  * @return string
  */
 function wp_user_profiles_get_plugin_url() {
-	return plugin_dir_url( __FILE__ );
+	return plugin_dir_url( __FILE__ ) . 'wp-user-profiles/';
 }
 
 /**
@@ -82,5 +81,5 @@ function wp_user_profiles_get_plugin_url() {
  * @return int
  */
 function wp_user_profiles_get_asset_version() {
-	return 201512230001;
+	return 201609190001;
 }
