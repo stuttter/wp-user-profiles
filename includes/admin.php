@@ -316,7 +316,7 @@ function wp_user_profiles_user_admin() {
 
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
-			<?php wp_nonce_field( 'edit-profile_' . $user->ID ); ?>
+			<?php wp_nonce_field( 'update-user_' . $user->ID ); ?>
 
 		</form>
 	</div><!-- .wrap -->
