@@ -314,6 +314,8 @@ function wp_user_profiles_user_admin() {
 				</div>
 			</div>
 
+			<input type="hidden" name="checkuser_id" value="<?php echo get_current_user_id(); ?>" />
+
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
 			<?php wp_nonce_field( 'update-user_' . $user->ID ); ?>
