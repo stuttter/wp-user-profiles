@@ -32,6 +32,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/sections/account.php';
 	require_once $plugin_path . 'includes/sections/options.php';
 	require_once $plugin_path . 'includes/sections/permissions.php';
+	require_once $plugin_path . 'includes/sections/sites.php';
 
 	// Meta Boxes
 	require_once $plugin_path . 'includes/metaboxes/all-status.php';
@@ -46,6 +47,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/metaboxes/permissions-roles.php';	
 	require_once $plugin_path . 'includes/metaboxes/profile-about.php';
 	require_once $plugin_path . 'includes/metaboxes/profile-name.php';
+	require_once $plugin_path . 'includes/metaboxes/sites-list.php';
 
 	// Required Files
 	require_once $plugin_path . 'includes/admin.php';

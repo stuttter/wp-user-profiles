@@ -62,6 +62,7 @@ function wp_user_profiles_register_options_section() {
 		'order' => 80
 	) );
 }
+
 /**
  * Register the "Options" section
  *
@@ -78,4 +79,24 @@ function wp_user_profiles_register_permissions_section() {
 		'icon'  => 'dashicons-hidden',
 		'order' => 85
 	) );
+}
+
+/**
+ * Register the "Sites" section
+ *
+ * @since 1.0.0
+ *
+ * @return WP_User_Profile_Section
+ */
+function wp_user_profiles_register_sites_section() {
+	if ( is_multisite() ) {
+		new WP_User_Profile_Sites_Section( array(
+			'id'    => 'sites',
+			'slug'  => 'sites',
+			'name'  => esc_html__( 'Sites', 'wp-user-profiles' ),
+			'cap'   => 'edit_profile',
+			'icon'  => 'dashicons-world',
+			'order' => 90
+		) );
+	}
 }

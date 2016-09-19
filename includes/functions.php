@@ -158,7 +158,7 @@ function wp_user_profiles_sort_sections( $hip, $hop ) {
  * This function exists because hooknames change based on two unique factors:
  * which admin dashboard is being used, and which file is used within that
  * dashboard. Without this function, network & user dashboard integration
- * would be impossible.
+ * would be impossible, so be sure to use this when trying to narrow your scope.
  *
  * @since 0.1.7
  */
