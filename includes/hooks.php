@@ -17,6 +17,7 @@ add_action( 'init', 'wp_user_profiles_register_profile_section'     );
 add_action( 'init', 'wp_user_profiles_register_account_section'     );
 add_action( 'init', 'wp_user_profiles_register_options_section'     );
 add_action( 'init', 'wp_user_profiles_register_permissions_section' );
+add_action( 'init', 'wp_user_profiles_register_sites_section'       );
 
 // Admin Menus
 add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );
