@@ -32,18 +32,7 @@ function wp_user_profiles_about_metabox( $user = null ) {
 		<tr class="user-description-wrap">
 			<th><label for="description"><?php esc_html_e( 'Biographical Info', 'wp-user-profiles' ); ?></label></th>
 			<td>
-				<?php
-				wp_editor( $user->description, 'description',
-					array(
-						'media_buttons' => false,
-						'quicktags'     => false,
-						'tinymce'       => array(
-							'toolbar1' => 'bold,italic,strikethrough,bullist,numlist,blockquote,hr,alignleft,aligncenter,alignright,link,unlink,spellchecker,fullscreen,wp_adv',
-							'toolbar2' => 'formatselect,underline,alignjustify,forecolor,pastetext,removeformat,charmap,outdent,indent,undo,redo,wp_help'
-						)
-					)
-				);
-				?>
+				<textarea name="description" id="description" rows="5" cols="30"><?php echo $user->description; // textarea_escaped ?></textarea>
 				<p class="description">
 					<?php esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wp-user-profiles' ); ?>
 				</p>
