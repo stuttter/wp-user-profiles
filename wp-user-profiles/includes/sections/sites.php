@@ -49,32 +49,6 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	 * @param WP_User $user
 	 */
 	public function save( $user = null ) {
-
-		// Role changes
-		if ( isset( $_POST['sit'] ) && is_array( $_POST['role'] ) && current_user_can( $this->cap, $user->ID ) ) {
-
-			// Loop through new roles
-			foreach ( $_POST['role'] as $blog_id => $new_role ) {
-
-				// Switch to the blog
-				if ( is_multisite() ) {
-					switch_to_blog( $blog_id );
-				}
-
-				// Only allow switching to to editable role for site
-				$editable_roles = get_editable_roles();
-				if ( ! empty( $new_role ) && ! empty( $editable_roles[ $new_role ] ) ) {
-					$user->set_role( $new_role );
-				}
-
-				// Switch back
-				if ( is_multisite() ) {
-					restore_current_blog();
-				}
-			}
-		}
-
-		// Allow third party plugins to save data in this section
 		parent::save( $user );
 	}
 
