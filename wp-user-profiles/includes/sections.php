@@ -95,7 +95,7 @@ function wp_user_profiles_register_sites_section() {
 			'slug'  => 'sites',
 			'name'  => esc_html__( 'Sites', 'wp-user-profiles' ),
 			'cap'   => 'edit_profile',
-			'icon'  => 'dashicons-world',
+			'icon'  => 'dashicons-admin-multisite',
 			'order' => 90
 		) );
 	}
