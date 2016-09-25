@@ -84,10 +84,10 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			'id'		=> $this->id,
 			'title'		=> $this->name,
 			'content'	=>
-				'<p>'  . esc_html__( 'This is where role & capability settings can be found.', 'wp-user-profiles' ) . '</p><ul>' .
-				'<li>' . esc_html__( 'Your role determines what you are able to do',           'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'In some cases, you may have more than one role',         'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'Some capabilities may be uniquely granted',              'wp-user-profiles' ) . '</li></ul>'
+				'<p>'  . esc_html__( 'This is where sites & the primary set setting can be found.', 'wp-user-profiles' ) . '</p><ul>' .
+				'<li>' . esc_html__( 'Your sites are determined by having a role on each one',      'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'You may be able to navigate between these sites',             'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'You may be able to take action on these sites',               'wp-user-profiles' ) . '</li></ul>'
 		) );
 	}
 }
