@@ -75,7 +75,9 @@ function wp_user_profiles_filter_sites_table_query_args( $args = array() ) {
 
 	// Set site__in to site ID's of the user
 	if ( isset( $GLOBALS['wp_user_profiles_site_in'] ) ) {
-		$args['site__in'] = $GLOBALS['wp_user_profiles_site_in'];
+		$args['site__in'] = ! empty( $GLOBALS['wp_user_profiles_site_in'] )
+			? $GLOBALS['wp_user_profiles_site_in']
+			: array( '-1' ); // To return no sites
 
 		// Unset network_id to show all sites in all networks
 		unset( $args['network_id'] );
