@@ -19,28 +19,28 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_sites_metabox( $user = null ) {
 
 	// Get sites for user
-	$sites         = get_blogs_of_user( $user->ID, true );
+	$sites  = get_blogs_of_user( $user->ID, true );
+	$screen = get_current_screen();
+
+	// Force screen to setup list table
+	set_current_screen( 'network-sites' );
 	$wp_list_table = _get_list_table( 'WP_MS_Sites_List_Table' );
 
-	// User has sites
+	// Override sites query
 	if ( ! empty( $sites ) ) {
 		$GLOBALS['wp_user_profiles_site_in'] = array_keys( $sites );
-		$screen = get_current_screen();
-		set_current_screen( 'network-sites' );
 		add_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
 
 		// Get the list table & items
 		$wp_list_table->prepare_items();
 
-		// Reset
+		// Reset sites query
 		remove_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
 		unset( $GLOBALS['wp_user_profiles_site_in'] );
-		set_current_screen( $screen->id );
-
-	// User has no sites
-	} else {
-		$wp_list_table->items = array();
 	}
+
+	// Reset screen
+	set_current_screen( $screen->id );
 
 	// No bulk actions
 	$wp_list_table->_actions = false;

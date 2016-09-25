@@ -39,8 +39,10 @@ function wp_user_profiles_primary_site_metabox( $user = null ) {
 					<?php _e( 'Primary Site', 'wp-user-profiles' ); ?>
 				</label>
 			</th>
-			<td>
-				<select name="primary_blog" id="primary_blog"><?php
+			<td><?php if ( ! empty( $sites ) ) :
+
+				// Sites
+				?><select name="primary_blog" id="primary_blog"><?php
 
 					foreach ( $sites as $site ) :
 
@@ -48,8 +50,16 @@ function wp_user_profiles_primary_site_metabox( $user = null ) {
 
 					endforeach;
 
-				?></select>
-			</td>
+				?></select><?php
+
+				// No sites
+				else :
+					( $user->ID === get_current_user_id() )
+						? esc_html_e( 'You are not a member of any sites.',      'wp-user-profiles' )
+						: esc_html_e( 'This user is not a member of any sites.', 'wp-user-profiles' );
+				endif;
+
+			?></td>
 		</tr>
 	</table>
 
