@@ -19,23 +19,31 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_sites_metabox( $user = null ) {
 
 	// Get sites for user
-	$sites = get_blogs_of_user( $user->ID, true );
-
-	// Temporary
-	$GLOBALS['wp_user_profiles_site_in'] = array_keys( $sites );
-	$screen = get_current_screen();
-	set_current_screen( 'network-sites' );
-	add_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
-
-	// Get the list table & items
+	$sites         = get_blogs_of_user( $user->ID, true );
 	$wp_list_table = _get_list_table( 'WP_MS_Sites_List_Table' );
-	$wp_list_table->prepare_items();
-	$wp_list_table->_actions = false;
 
-	// Reset
-	remove_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
-	unset( $GLOBALS['wp_user_profiles_site_in'] );
-	set_current_screen( $screen->id );
+	// User has sites
+	if ( ! empty( $sites ) ) {
+		$GLOBALS['wp_user_profiles_site_in'] = array_keys( $sites );
+		$screen = get_current_screen();
+		set_current_screen( 'network-sites' );
+		add_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
+
+		// Get the list table & items
+		$wp_list_table->prepare_items();
+
+		// Reset
+		remove_filter( 'ms_sites_list_table_query_args', 'wp_user_profiles_filter_sites_table_query_args' );
+		unset( $GLOBALS['wp_user_profiles_site_in'] );
+		set_current_screen( $screen->id );
+
+	// User has no sites
+	} else {
+		$wp_list_table->items = array();
+	}
+
+	// No bulk actions
+	$wp_list_table->_actions = false;
 
 	// Start
 	ob_start();
@@ -75,9 +83,7 @@ function wp_user_profiles_filter_sites_table_query_args( $args = array() ) {
 
 	// Set site__in to site ID's of the user
 	if ( isset( $GLOBALS['wp_user_profiles_site_in'] ) ) {
-		$args['site__in'] = ! empty( $GLOBALS['wp_user_profiles_site_in'] )
-			? $GLOBALS['wp_user_profiles_site_in']
-			: array( '-1' ); // To return no sites
+		$args['site__in'] = $GLOBALS['wp_user_profiles_site_in'];
 
 		// Unset network_id to show all sites in all networks
 		unset( $args['network_id'] );
