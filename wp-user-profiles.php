@@ -41,12 +41,12 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/metaboxes/options-color-scheme.php';
 	require_once $plugin_path . 'includes/metaboxes/options-contact.php';
 	require_once $plugin_path . 'includes/metaboxes/options-personal.php';
-	require_once $plugin_path . 'includes/metaboxes/options-primary-site.php';
 	require_once $plugin_path . 'includes/metaboxes/permissions-capabilities.php';
 	require_once $plugin_path . 'includes/metaboxes/permissions-roles.php';	
 	require_once $plugin_path . 'includes/metaboxes/profile-about.php';
 	require_once $plugin_path . 'includes/metaboxes/profile-name.php';
 	require_once $plugin_path . 'includes/metaboxes/sites-list.php';
+	require_once $plugin_path . 'includes/metaboxes/sites-primary.php';
 
 	// Required Files
 	require_once $plugin_path . 'includes/admin.php';

@@ -29,6 +29,17 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 		// Allow third party plugins to add metaboxes
 		parent::add_meta_boxes( $type, $user );
 
+		// Primary Site
+		add_meta_box(
+			'primary-site',
+			_x( 'Primary Site', 'users user-admin edit screen', 'wp-user-profiles' ),
+			'wp_user_profiles_primary_site_metabox',
+			$type,
+			'normal',
+			'high',
+			$user
+		);
+
 		// Sites
 		add_meta_box(
 			'sites',
@@ -36,7 +47,7 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			'wp_user_profiles_sites_metabox',
 			$type,
 			'normal',
-			'high',
+			'core',
 			$user
 		);
 	}
@@ -49,6 +60,17 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	 * @param WP_User $user
 	 */
 	public function save( $user = null ) {
+
+		// Primary Site
+		$user->primary_blog = isset( $_POST['primary_blog'] )
+			? (int) $_POST['primary_blog']
+			: null;
+
+		// Temporarily save this here, because it's not handled by WordPress
+		if ( ! empty( $user->primary_blog ) ) {
+			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
+		}
+
 		parent::save( $user );
 	}
 

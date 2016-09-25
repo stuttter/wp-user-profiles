@@ -52,19 +52,6 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			'core',
 			$user
 		);
-
-		// Primary Site
-		if ( is_multisite() ) {
-			add_meta_box(
-				'primary-site',
-				_x( 'Primary Site', 'users user-admin edit screen', 'wp-user-profiles' ),
-				'wp_user_profiles_primary_site_metabox',
-				$type,
-				'normal',
-				'core',
-				$user
-			);
-		}
 	}
 
 	/**
@@ -100,16 +87,6 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 		$user->use_ssl = isset( $_POST['use_ssl'] )
 			? 1
 			: 0;
-
-		// Primary Site
-		$user->primary_blog = isset( $_POST['primary_blog'] )
-			? (int) $_POST['primary_blog']
-			: null;
-
-		// Temporarily save this here, because it's not handled by WordPress
-		if ( ! empty( $user->primary_blog ) ) {
-			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
-		}
 
 		// Allow third party plugins to save data in this section
 		parent::save( $user );
