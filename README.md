@@ -12,7 +12,7 @@ WP User Profiles is a sophisticated way to edit users in WordPress.
 
 ### Does this work with multisite?
 
-Yes.
+Yes. It works awesome with the User Dashboard, too!
 
 ### Can I add my own sections?
 
@@ -20,7 +20,8 @@ Yes. There are a filters you can use to add or remove sections and their metabox
 
 ### Where can I get support?
 
-The WordPress support forums: https://wordpress.org/support/plugin/wp-user-profiles.
+* Basic: https://wordpress.org/support/plugin/wp-user-profiles/
+* Priority: https://chat.flox.io/support/channels/wp-user-profiles/
 
 ### Can I contribute?
 

@@ -62,6 +62,13 @@ http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
 
+= [1.0.0]- 2016-10-30 =
+* Support mu-plugins installation location
+* Support for WordPress 4.7
+* Improved section/metabox/field key sanitization
+* Add multisite "Sites" support
+* Add "Language" account setting
+
 = [0.2.0]- 2015-12-21 =
 * Simplify metabox registration
 * Add actions for metabox sections
