@@ -36,6 +36,7 @@ function _wp_user_profiles() {
 	// Meta Boxes
 	require_once $plugin_path . 'includes/metaboxes/all-status.php';
 	require_once $plugin_path . 'includes/metaboxes/account-email.php';
+	require_once $plugin_path . 'includes/metaboxes/account-language.php';
 	require_once $plugin_path . 'includes/metaboxes/account-password.php';
 	require_once $plugin_path . 'includes/metaboxes/account-sessions.php';
 	require_once $plugin_path . 'includes/metaboxes/options-color-scheme.php';

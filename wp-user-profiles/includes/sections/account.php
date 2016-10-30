@@ -51,6 +51,17 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			$user
 		);
 
+		// Language
+		add_meta_box(
+			'language',
+			_x( 'Language', 'users user-admin edit screen', 'wp-user-profiles' ),
+			'wp_user_profiles_language_metabox',
+			$type,
+			'normal',
+			'core',
+			$user
+		);
+
 		// Sessions
 		add_meta_box(
 			'sessions',
@@ -100,6 +111,11 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			$user->user_pass = $pass1;
 		}
 
+		// Checking locale
+		if ( isset( $_POST['locale'] ) ) {
+			$user->locale = sanitize_text_field( wp_unslash( $_POST['locale'] ) );
+		}
+
 		// Checking email address
 		if ( isset( $_POST['email'] ) ) {
 
@@ -142,6 +158,7 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 				'<p>'  . esc_html__( 'This is where important account information can be found.',                'wp-user-profiles' ) . '</p><ul>' .
 				'<li>' . esc_html__( 'Your email address is used for receiving notifications from this site',    'wp-user-profiles' ) . '</li>' .
 				'<li>' . esc_html__( 'Passwords should be lengthy and complex to help keep your account secure', 'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'The language you pick will be used wherever it is supported.',             'wp-user-profiles' ) . '</li>' .
 				'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li></ul>'
 		) );
 	}
