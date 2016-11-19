@@ -3,7 +3,7 @@ Contributors: johnjamesjacoby, stuttter
 Tags: users, user, profile, edit, metabox
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
@@ -61,6 +61,9 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= [1.1.0]- 2016-11-18 =
+* Improve security of profile saving (thanks Brady Vercher)
 
 = [1.0.0]- 2016-10-30 =
 * Support mu-plugins installation location
