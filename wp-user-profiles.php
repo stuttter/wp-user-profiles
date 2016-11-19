@@ -60,6 +60,9 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/sections.php';
 	require_once $plugin_path . 'includes/status.php';
 	require_once $plugin_path . 'includes/hooks.php';
+
+	// Load translations
+	load_plugin_textdomain( 'wp-user-profiles', false, $plugin_path . 'assets/languages/' );
 }
 add_action( 'plugins_loaded', '_wp_user_profiles' );
 
