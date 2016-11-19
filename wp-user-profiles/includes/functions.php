@@ -268,13 +268,21 @@ function wp_user_profiles_save_user() {
 		return;
 	}
 
+	// Bail if user is not logged in
+	if ( ! is_user_logged_in() ) {
+		return;
+	}
+
 	// Set the user ID
 	$user_id = (int) $_POST['user_id'];
 
-	// Referring?
-	$wp_http_referer = ! empty( $_REQUEST['wp_http_referer'] )
-		? $_REQUEST['wp_http_referer']
-		: false;
+	// Nonce check
+	check_admin_referer( 'update-user_' . $user_id );
+
+	// Bail if user cannot edit this user
+	if ( ! current_user_can( 'edit_user', $user_id ) ) {
+		return;
+	}
 
 	// Setup constant for backpat
 	if ( ! defined( 'IS_PROFILE_PAGE' ) ) {
@@ -304,6 +312,11 @@ function wp_user_profiles_save_user() {
 			'updated' => 'true',
 			'page'    => isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : 'profile'
 		), get_edit_user_link( $user_id ) );
+
+		// Referring?
+		$wp_http_referer = ! empty( $_REQUEST['wp_http_referer'] )
+			? $_REQUEST['wp_http_referer']
+			: false;
 
 		// Add referer query arg to redirect to next
 		if ( ! empty( $wp_http_referer ) ) {
