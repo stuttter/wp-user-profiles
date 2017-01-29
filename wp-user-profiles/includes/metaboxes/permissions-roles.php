@@ -75,7 +75,7 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 					<th scope="row">
 						<label for="role[<?php echo $site_id; ?>]">
 							<?php echo esc_html( $site->blogname ); ?><br>
-							<span class="description"><?php echo $site->siteurl; ?></span>
+							<span class="description"><?php echo $site->home; ?></span>
 						</label>
 					</th>
 					<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( $is_self, true ); ?>>
