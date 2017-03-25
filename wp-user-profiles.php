@@ -30,6 +30,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/sections/profile.php';
 	require_once $plugin_path . 'includes/sections/account.php';
 	require_once $plugin_path . 'includes/sections/options.php';
+	require_once $plugin_path . 'includes/sections/other.php';
 	require_once $plugin_path . 'includes/sections/permissions.php';
 	require_once $plugin_path . 'includes/sections/sites.php';
 
@@ -42,6 +43,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/metaboxes/options-color-scheme.php';
 	require_once $plugin_path . 'includes/metaboxes/options-contact.php';
 	require_once $plugin_path . 'includes/metaboxes/options-personal.php';
+	require_once $plugin_path . 'includes/metaboxes/other-all.php';
 	require_once $plugin_path . 'includes/metaboxes/permissions-capabilities.php';
 	require_once $plugin_path . 'includes/metaboxes/permissions-roles.php';	
 	require_once $plugin_path . 'includes/metaboxes/profile-about.php';

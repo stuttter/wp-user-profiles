@@ -11,3 +11,11 @@
 	font-weight: normal;
 	font-size: 12px;
 }
+
+/* Plugin/Legacy Support */
+#wp-user-profiles-page #other .inside h2 {
+	margin: -6px -12px;
+	padding: 7px 12px 10px;
+	background-color: #f7f7f7;
+	font-weight: 600;
+}
