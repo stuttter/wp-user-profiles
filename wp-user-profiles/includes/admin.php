@@ -237,7 +237,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
  */
 function wp_user_profiles_title_actions() {
 	$add_url = is_network_admin()
-		? network_adminrl( 'user-new.php' )
+		? network_admin_url( 'user-new.php' )
 		: admin_url( 'user-new.php' );
 
 	if ( current_user_can( 'create_users' ) ) : ?>
