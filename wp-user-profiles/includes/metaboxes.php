@@ -16,18 +16,13 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_add_meta_boxes() {
 
-	// Get the user ID being edited
-	$user_id = ! empty( $_GET['user_id'] )
-		? (int) $_GET['user_id']
-		: get_current_user_id();
+	// Try to get the user being edited
+	$user = wp_user_profiles_get_user_to_edit();
 
-	// Get the user being edited & bail if user does not exist
-	$user = get_userdata( $user_id );
-	if ( empty( $user ) ) {
-		wp_die( esc_html__( 'Invalid user ID.', 'wp-user-profiles' ) );
-	}
+	// Maybe die if user cannot be edited
+	wp_user_profiles_current_user_can_edit( $user->ID );
 
-	// Adjust the hoox for user/network dashboards and pass into the action
+	// Adjust the hook for user/network dashboards and pass into the action
 	$hook = $GLOBALS['page_hook'];
 	wp_user_profiles_walk_section_hooknames( $hook );
 

@@ -261,13 +261,8 @@ function wp_user_profiles_user_admin() {
 	// Reset a bunch of global values
 	wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
 
-	// Get the user ID
-	$user_id = ! empty( $_GET['user_id'] )
-		? (int) $_GET['user_id']
-		: get_current_user_id();
-
-	// Get user
-	$user = get_user_to_edit( $user_id );
+	// Get user to edit
+	$user = wp_user_profiles_get_user_to_edit();
 
 	/**
 	 * Backwards compatibility for JIT metaboxes

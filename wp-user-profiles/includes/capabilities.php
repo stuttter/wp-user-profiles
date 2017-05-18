@@ -60,6 +60,46 @@ function wp_user_profiles_map_meta_cap( $caps = array(), $cap = '', $user_id = 0
 }
 
 /**
+ * Check that the current user can actually edit the user being requested
+ *
+ * @since 2.0.0
+ *
+ * @param int $user_id
+ *
+ * @return void Will wp_die() with traditional WordPress messaging on failure
+ */
+function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
+
+	// Bail if user does not exist
+	$user = get_userdata( $user_id );
+	if ( empty( $user ) ) {
+		wp_die( esc_html__( 'Invalid user ID.', 'wp-user-profiles' ) );
+	}
+
+	// Can the current user edit the requested user ID?
+	if (
+
+		// Allow administrators on Multisite to edit every user?
+		(
+			is_multisite()
+				&& ! current_user_can( 'manage_network_users' )
+				&& ( $user->ID !== get_current_user_id() )
+				&& ! apply_filters( 'enable_edit_any_user_configuration', true )
+		)
+
+		// OR
+		||
+
+		// Explicitly check the current user against the requested one
+		(
+			! current_user_can( 'edit_user', $user->ID )
+		)
+	) {
+		wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.', 'wp-user-profiles' ) );
+	}
+}
+
+/**
  * Prevent access to `profile.php`
  *
  * @since 0.2.0

@@ -8,7 +8,7 @@
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: A sophisticated way to edit users in WordPress
- * Version:     1.2.0
+ * Version:     2.0.0
  * Text Domain: wp-user-profiles
  */
 
@@ -55,7 +55,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/admin.php';
 	require_once $plugin_path . 'includes/capabilities.php';
 	require_once $plugin_path . 'includes/dependencies.php';
-	require_once $plugin_path . 'includes/functions.php';
+	require_once $plugin_path . 'includes/common.php';
 	require_once $plugin_path . 'includes/help.php';
 	require_once $plugin_path . 'includes/metaboxes.php';
 	require_once $plugin_path . 'includes/screen-options.php';

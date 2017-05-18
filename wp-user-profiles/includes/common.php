@@ -249,6 +249,39 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 }
 
 /**
+ * Get the data of the user being edit
+ *
+ * @since 2.0.0
+ *
+ * @param int $user_id ID of user to get for editing
+ *
+ * @return WP_User
+ */
+function wp_user_profiles_get_user_to_edit( $user_id = 0 ) {
+
+	// Get the user ID being edited
+	if ( empty( $user_id ) ) {
+		$user_id = ! empty( $_GET['user_id'] )
+			? $_GET['user_id']
+			: get_current_user_id();
+	}
+
+	// Cast to INT because we can't be sure where this came from
+	$user_id = (int) $user_id;
+
+	// Get the user to edit
+	$user = get_userdata( $user_id );
+
+	// Set user filter to 'edit'
+	if ( ! empty( $user ) ) {
+		$user->filter = 'edit';
+	}
+
+	// Return the user to edit
+	return $user;
+}
+
+/**
  * Save the user when they click "Update"
  *
  * This function exists to handle the posted user information, likely submitted
@@ -298,7 +331,7 @@ function wp_user_profiles_save_user() {
 		: do_action( 'edit_user_profile_update', $user_id );
 
 	// Get the userdata to compare it to
-	$user = get_userdata( $user_id );
+	$user = wp_user_profiles_get_user_to_edit( $user_id, false );
 
 	// Do actions & return errors
 	$status = apply_filters( 'wp_user_profiles_save', $user );
