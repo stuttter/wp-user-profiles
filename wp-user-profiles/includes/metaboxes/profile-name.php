@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_name_metabox( $user = null ) {
 
-	if ( IS_PROFILE_PAGE ) {
+	if ( wp_is_profile_page() ) {
 		/**
 		 * Fires after the 'Personal Options' settings table on the 'Your Profile' editing screen.
 		 *
@@ -92,8 +92,7 @@ function wp_user_profiles_name_metabox( $user = null ) {
 					}
 
 					// Trim & tidy
-					$public_display = array_map( 'trim', $public_display );
-					$public_display = array_unique( $public_display );
+					$public_display = array_unique( array_map( 'trim', $public_display ) );
 
 					// Show options
 					foreach ( $public_display as $item ) : ?>

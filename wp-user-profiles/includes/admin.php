@@ -192,7 +192,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
 	}
 
 	// Add the user ID to query arguments when not editing yourself
-	$query_args = ! IS_PROFILE_PAGE
+	$query_args = ! wp_is_profile_page()
 		? array( 'user_id' => $user->ID )
 		: array();
 

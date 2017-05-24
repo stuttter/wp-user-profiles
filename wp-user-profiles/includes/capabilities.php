@@ -29,7 +29,7 @@ function wp_user_profiles_map_meta_cap( $caps = array(), $cap = '', $user_id = 0
 			$authed = false;
 
 			// Authed when looking at own profile
-			if ( defined( 'IS_PROFILE_PAGE' ) && ( true === IS_PROFILE_PAGE ) ) {
+			if ( wp_is_profile_page() ) {
 				$authed = true;
 
 			// Other cases

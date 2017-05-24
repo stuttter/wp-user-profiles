@@ -10,7 +10,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Set the `IS_PROFILE_PAGE` constant early
+ * Are we looking at the currently logged in user's profile page?
+ *
+ * @since 2.1.0
+ *
+ * @return boolean
+ */
+function wp_is_profile_page() {
+	$retval = defined( 'IS_PROFILE_PAGE' ) && IS_PROFILE_PAGE;
+
+	return (bool) apply_filters( 'wp_is_profile_page', $retval );
+}
+
+/**
+ * Set the `IS_PROFILE_PAGE` constant early.
  *
  * This function exists because the `IS_PROFILE_PAGE` constant is used in core
  * and by thousands of plugins to signify that a user is being edited. If it's
@@ -25,13 +38,15 @@ function wp_user_profiles_set_constants() {
 	$current_user_id = get_current_user_id();
 
 	// Get the user ID being edited
-	$user_id = ! empty( $_GET['user_id'] )
-		? (int) $_GET['user_id']
-		: (int) $current_user_id;
+	$user_id = ! empty( $_REQUEST['user_id'] )
+		? absint( $_REQUEST['user_id'] )
+		: $current_user_id;
 
 	// Maybe set constant if editing oneself
-	if ( ! defined( 'IS_PROFILE_PAGE' ) && ! empty( $current_user_id ) ) {
-		define( 'IS_PROFILE_PAGE', ( $user_id === $current_user_id ) );
+	if ( ! wp_is_profile_page() ) {
+		is_user_logged_in()
+			? define( 'IS_PROFILE_PAGE', ( $user_id === $current_user_id ) )
+			: define( 'IS_PROFILE_PAGE', false );
 	}
 }
 
@@ -326,7 +341,7 @@ function wp_user_profiles_save_user() {
 	remove_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
 
 	// Fire WordPress core actions
-	IS_PROFILE_PAGE
+	wp_is_profile_page()
 		? do_action( 'personal_options_update',  $user_id )
 		: do_action( 'edit_user_profile_update', $user_id );
 
@@ -343,7 +358,9 @@ function wp_user_profiles_save_user() {
 		$redirect = add_query_arg( array(
 			'action'  => 'update',
 			'updated' => 'true',
-			'page'    => isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : 'profile'
+			'page'    => isset( $_GET['page'] )
+				? sanitize_key( $_GET['page'] )
+				: 'profile'
 		), get_edit_user_link( $user_id ) );
 
 		// Referring?

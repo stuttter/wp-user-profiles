@@ -19,8 +19,7 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_other_metabox( $user = null ) {
 
 	// Fire legacy WordPress actions
-	IS_PROFILE_PAGE
+	wp_is_profile_page()
 		? do_action( 'show_user_profile', $user )
 		: do_action( 'edit_user_profile', $user );
-
 }

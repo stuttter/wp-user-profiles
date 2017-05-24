@@ -19,11 +19,12 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_session_metabox( $user = null ) {
 
 	// Get session
-	$sessions = WP_Session_Tokens::get_instance( $user->ID ); ?>
+	$sessions = WP_Session_Tokens::get_instance( $user->ID );
+	$profile  = wp_is_profile_page(); ?>
 
 	<table class="form-table">
 
-		<?php if ( IS_PROFILE_PAGE && count( $sessions->get_all() ) === 1 ) : ?>
+		<?php if ( ( true === $profile ) && count( $sessions->get_all() ) === 1 ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
 				<th><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
@@ -35,7 +36,7 @@ function wp_user_profiles_session_metabox( $user = null ) {
 				</td>
 			</tr>
 
-		<?php elseif ( IS_PROFILE_PAGE && count( $sessions->get_all() ) > 1 ) : ?>
+		<?php elseif ( ( true === $profile ) && count( $sessions->get_all() ) > 1 ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
 				<th><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
@@ -47,7 +48,7 @@ function wp_user_profiles_session_metabox( $user = null ) {
 				</td>
 			</tr>
 
-		<?php elseif ( ! IS_PROFILE_PAGE && $sessions->get_all() ) : ?>
+		<?php elseif ( ( false === $profile ) && $sessions->get_all() ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
 				<th><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
@@ -62,7 +63,7 @@ function wp_user_profiles_session_metabox( $user = null ) {
 				</td>
 			</tr>
 
-		<?php elseif ( ! IS_PROFILE_PAGE && ! $sessions->get_all() ) : ?>
+		<?php elseif ( ( false === $profile ) && ! $sessions->get_all() ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
 				<th><?php esc_html_e( 'Inactive', 'wp-user-profiles' ); ?></th>

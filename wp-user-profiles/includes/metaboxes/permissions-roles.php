@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_roles_metabox( $user = null ) {
 
 	// Should dropdown be disabled
-	$is_self = defined( 'IS_PROFILE_PAGE' ) && ( IS_PROFILE_PAGE === true );
+	$is_self = wp_is_profile_page();
 
 	// When viewing blog admin, only show roles for that blog
 	if ( is_blog_admin() ) {

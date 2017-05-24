@@ -73,7 +73,7 @@ function wp_user_profiles_register_options_section() {
 function wp_user_profiles_register_other_section() {
 
 	// Which hook to check for actions
-	$action = IS_PROFILE_PAGE
+	$action = wp_is_profile_page()
 		? 'show_user_profile'
 		: 'edit_user_profile';
 
