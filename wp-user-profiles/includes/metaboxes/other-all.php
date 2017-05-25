@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Render the other-all metabox for other screen
  *
- * @since 0.3.0
+ * @since 1.3.0
  *
  * @param WP_User $user The WP_User object to be edited.
  */
