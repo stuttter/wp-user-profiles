@@ -29,7 +29,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	wp_enqueue_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
 
 	// Ugh... this is terrible
-	wp_enqueue_script( 'user-profile', $src . 'assets/css/user-profiles.css', array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' ), $ver );
+	wp_enqueue_script( 'user-profile', $src . 'assets/js/user-profiles.js', array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' ), $ver );
 	wp_scripts()->registered['user-profile']->src = $src . 'assets/js/user-profiles.js';
 }
 
