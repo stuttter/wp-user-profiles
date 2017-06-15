@@ -265,7 +265,7 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 
 	$cached = wp_cache_get( $cache_key, 'wp-user-profiles' );
 	if ( $cached && is_array( $cached ) ) {
-//		return $cached;
+		return $cached;
 	}
 
 	// Store a nonce network-wide
@@ -366,13 +366,3 @@ function wp_user_profiles_export_user_roles_ajax() {
 	$roles = wp_list_pluck( $wp_roles->roles, 'name' );
 	wp_send_json_success( $roles );
 }
-
-
-// tempo for testing
-add_action( 'init', function() {
-	add_role( 'new-role-network-wide', 'Network Wide role' );
-
-	if ( in_array( get_current_blog_id(), [1,2] ) ) {
-		add_role( 'site1and2', 'Site1and2' );
-	}
-});
