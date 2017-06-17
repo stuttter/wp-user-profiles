@@ -71,6 +71,24 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
 		}
 
+		// Update user sites membership through bulk actions
+		if ( isset( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) {
+			$blog_ids = array_map( 'absint', (array) $_POST['allblogs'] );
+			if ( 'remove' === $_POST['action'] ) {
+				// do something
+				foreach ( $blog_ids as $blog_id ) {
+					// TODO: Come up with a flow for reassigning content
+					remove_user_from_blog( $user->ID, $blog_id );
+				}
+			} elseif ( false !== strpos( $_POST['action'], 'add_as_' ) ) {
+				$role = substr_replace( $_POST['action'], '', 0, 7 );
+				foreach ( $blog_ids as $blog_id ) {
+					// TODO Handle default role selection
+					add_user_to_blog( $blog_id, $user->ID, $role );
+				}
+			}
+		}
+
 		parent::save( $user );
 	}
 

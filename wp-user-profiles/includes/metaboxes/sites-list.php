@@ -308,7 +308,11 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 		}, [] );
 
 		// Get intersected roles between all sites
-		$common_roles = call_user_func_array( 'array_intersect_key', $roles );
+		$common_roles = [
+			'__default__' => __( 'Default site role', 'wp-user-profiles' ),
+		] + call_user_func_array( 'array_intersect_key', $roles );
+
+
 	}
 
 	set_site_transient( $cache_key, $common_roles, $cache_ttl );
