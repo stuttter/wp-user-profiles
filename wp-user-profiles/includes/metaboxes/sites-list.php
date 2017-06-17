@@ -115,14 +115,6 @@ function wp_user_profiles_filter_sites_action_links( $links = array(), $blog_id 
 
 	if ( current_user_can( 'manage_sites' ) ) {
 		$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : get_current_user_id();
-
-		if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
-			$links['remove'] = sprintf(
-				'<br/><a href="%s">%s</a>',
-				add_query_arg( array( 'action' => 'remove', 'site' => $blog_id, 'user' => $user_id ) ),
-				esc_html__( 'Remove as a member', 'wp-user-profiles' )
-			);
-		}
 	} else {
 		// Unset actionable links
 		unset(
