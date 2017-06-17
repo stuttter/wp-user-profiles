@@ -183,15 +183,20 @@ function wp_user_profiles_filter_views( $views = array() ) {
  * @return array
  */
 function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
-	$actions = [
-		'remove' => esc_html__( 'Remove', 'wp-user-profiles' ),
-		'add' => esc_html__( 'Add as..', 'wp-user-profiles' ),
-	];
+	$actions = [];
 
-	foreach ( wp_user_profiles_get_common_user_roles() as $role => $name ) {
-		// translators: prefix for roles dropdown
-		$actions[ 'add_as_' . $role ] = sprintf( esc_html_x( '- %s', 'translators: prefix for roles dropdown', 'wp-user-profile' ), $name );
-	};
+	$all_sites = isset( $_GET['all_sites'] ) ? absint( $_GET['all_sites'] ) : 0;
+
+	$actions['remove'] = esc_html__( 'Remove', 'wp-user-profiles' );
+
+	if ( $all_sites ) {
+		$actions['add'] = esc_html__( 'Assign as (Choose a Role)', 'wp-user-profiles' );
+
+		foreach ( wp_user_profiles_get_common_user_roles() as $role => $name ) {
+			// translators: prefix for roles dropdown
+			$actions[ 'add_as_' . $role ] = sprintf( esc_html_x( '- %s', 'translators: prefix for roles dropdown', 'wp-user-profile' ), $name );
+		};
+	}
 
 	return $actions;
 }
