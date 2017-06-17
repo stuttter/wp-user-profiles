@@ -311,11 +311,6 @@ function wp_user_profiles_save_user() {
 		return;
 	}
 
-	// Bail if not updating a user
-	if ( 'update' !== $_POST['action'] ) {
-		return;
-	}
-
 	// Bail if user is not logged in
 	if ( ! is_user_logged_in() ) {
 		return;
