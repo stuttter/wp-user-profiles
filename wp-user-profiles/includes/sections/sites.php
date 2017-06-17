@@ -83,8 +83,12 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			} elseif ( false !== strpos( $_POST['action'], 'add_as_' ) ) {
 				$role = substr_replace( $_POST['action'], '', 0, 7 );
 				foreach ( $blog_ids as $blog_id ) {
-					// TODO Handle default role selection
-					add_user_to_blog( $blog_id, $user->ID, $role );
+					// TODO Possibility of not hitting custom filters here ? maybe do it via REST ? :/ but then reachability concerns
+					$_role = $role;
+					if ( '__default__' === $role ) {
+						$_role = get_blog_option( $blog_id, 'default_role' );
+					}
+					add_user_to_blog( $blog_id, $user->ID, $_role );
 				}
 			}
 		}
