@@ -169,8 +169,8 @@ function wp_user_profiles_filter_sites_columns( $columns = array() ) {
 function wp_user_profiles_filter_views( $views = array() ) {
 	$all_sites = ! empty( $_GET['all_sites'] );
 
-	$views['assigned'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 0 ) ) . "'" . ( ! $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'Assigned', 'wp-user-profiles' ) . '</a>';
-	$views['all'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 1 ) ) . "'" . ( $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'All Sites', 'wp-user-profiles' ) . '</a>';
+	$views['assigned'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 0 ) ) . "#sites'" . ( ! $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'Assigned', 'wp-user-profiles' ) . '</a>';
+	$views['all'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 1 ) ) . "#sites'" . ( $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'All Sites', 'wp-user-profiles' ) . '</a>';
 
 	return $views;
 }
