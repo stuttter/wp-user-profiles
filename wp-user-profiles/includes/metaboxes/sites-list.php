@@ -122,12 +122,6 @@ function wp_user_profiles_filter_sites_action_links( $links = array(), $blog_id 
 				add_query_arg( array( 'action' => 'remove', 'site' => $blog_id, 'user' => $user_id ) ),
 				esc_html__( 'Remove as a member', 'wp-user-profiles' )
 			);
-		} else {
-			$links['add'] = sprintf(
-				'<br/><a href="%s">%s</a>',
-				add_query_arg( array( 'action' => 'add', 'site' => $blog_id, 'user' => $user_id ) ),
-				esc_html__( 'Add as member', 'wp-user-profiles' )
-			);
 		}
 	} else {
 		// Unset actionable links
