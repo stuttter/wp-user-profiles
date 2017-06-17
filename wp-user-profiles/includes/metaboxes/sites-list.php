@@ -255,9 +255,9 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 	}
 
 	$cache_ttl = apply_filters( 'wp_common_user_roles_cache_ttl', DAY_IN_SECONDS );
-	$cache_key = 'wp_common_user_roles';
+	$cache_key = 'wp_user_profiles_common_user_roles';
 
-	$cached = wp_cache_get( $cache_key, 'wp-user-profiles' );
+	$cached = get_site_transient( $cache_key );
 	if ( $cached && is_array( $cached ) ) {
 		return $cached;
 	}
@@ -319,7 +319,7 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 		$common_roles = call_user_func_array( 'array_intersect_key', $roles );
 	}
 
-	wp_cache_set( $cache_key, $common_roles, 'wp-user-profiles', $cache_ttl );
+	set_site_transient( $cache_key, $common_roles, $cache_ttl );
 
 	delete_site_option( 'wp-user-profiles-nonce-' . get_current_user_id() );
 
