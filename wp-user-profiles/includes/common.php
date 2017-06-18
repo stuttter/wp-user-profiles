@@ -248,7 +248,9 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, $file, $scheme );
+		// Using the current user id and changing it later, as using a user that does not belong to the site will
+		// trigger a 404 redirect to on the main site of the network
+		$url = get_dashboard_url( get_current_user_id(), $file, $scheme );
 	}
 
 	// Add user ID to args array for other users
