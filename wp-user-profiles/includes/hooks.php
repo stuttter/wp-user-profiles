@@ -53,3 +53,8 @@ add_filter( 'load-user-edit.php', 'wp_user_profiles_old_user_edit_redirect' );
 // Links
 add_filter( 'edit_profile_url',   'wp_user_profiles_edit_user_url_filter', 10, 3 );
 add_filter( 'get_edit_user_link', 'wp_user_profiles_edit_user_url_filter', 10, 3 );
+
+// Ajax Calls
+add_action( 'wp_ajax_wp_user_profiles_common_roles',        'wp_user_profiles_get_common_user_roles_ajax' );
+add_action( 'wp_ajax_wp_user_profiles_export_roles',        'wp_user_profiles_export_user_roles_ajax' );
+add_action( 'wp_ajax_nopriv_wp_user_profiles_export_roles', 'wp_user_profiles_export_user_roles_ajax' );

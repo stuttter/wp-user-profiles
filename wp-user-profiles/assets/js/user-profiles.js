@@ -452,4 +452,7 @@
 		}
 	} );
 
+	// Disable the add dummy entry
+	$( '.postbox#sites .bulkactions select[name=action] > option[value=add]' ).attr( 'disabled', 'disabled' );
+
 })(jQuery);
