@@ -303,8 +303,10 @@ function wp_user_profiles_get_user_to_edit( $user_id = 0 ) {
  * by a user or administrator to edit an existing user account.
  *
  * @since 0.1.0
+ * @global $pagenow Current admin page.
  */
 function wp_user_profiles_save_user() {
+	global $pagenow;
 
 	// Bail if not updating a user
 	if ( empty( $_POST['user_id'] ) || empty( $_POST['action'] ) ) {
@@ -318,6 +320,12 @@ function wp_user_profiles_save_user() {
 
 	// Bail if user is not logged in
 	if ( ! is_user_logged_in() ) {
+		return;
+	}
+
+	// Bail if not a registered section
+	$sections = wp_list_pluck( wp_user_profiles_sections(), 'id' );
+	if ( ! ( 'users.php' === $pagenow && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
 		return;
 	}
 
