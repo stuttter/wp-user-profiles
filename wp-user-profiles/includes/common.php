@@ -419,3 +419,47 @@ function wp_user_profiles_save_user_notices() {
 		)
 	);
 }
+
+/**
+ * Do the core show/edit actions have output associated with them?
+ *
+ * By default, this is hooked to `wp_user_profiles_show_other_section` but can
+ * be used anywhere as needed (in your custom sections, etc...)
+ *
+ * @since 2.2.0
+ *
+ * @return bool
+ */
+function wp_user_profiles_has_profile_actions() {
+
+	// Which hook to check for actions
+	$action = wp_is_profile_page()
+		? 'show_user_profile'
+		: 'edit_user_profile';
+
+	// Bail if no other section-specific fields are registered
+	if ( ! has_action( $action ) ) {
+		return false;
+	}
+
+	// Get the user to edit
+	$user = wp_user_profiles_get_user_to_edit();
+
+	// Bail if there is no user to edit
+	if ( empty( $user ) ) {
+		return false;
+	}
+
+	// Start an output buffer
+	ob_start();
+
+	// Do the action
+	do_action( $action, $user );
+
+	// Get the output
+	$output = ob_get_clean();
+	$output = trim( $output );
+
+	// To show or not to show...
+	return ! empty( $output );
+}

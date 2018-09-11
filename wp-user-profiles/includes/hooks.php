@@ -58,3 +58,6 @@ add_filter( 'get_edit_user_link', 'wp_user_profiles_edit_user_url_filter', 10, 3
 add_action( 'wp_ajax_wp_user_profiles_common_roles',        'wp_user_profiles_get_common_user_roles_ajax' );
 add_action( 'wp_ajax_wp_user_profiles_export_roles',        'wp_user_profiles_export_user_roles_ajax' );
 add_action( 'wp_ajax_nopriv_wp_user_profiles_export_roles', 'wp_user_profiles_export_user_roles_ajax' );
+
+// Back compat ("Other" section)
+add_filter( 'wp_user_profiles_show_other_section', 'wp_user_profiles_has_profile_actions' );
