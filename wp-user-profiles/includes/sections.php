@@ -66,7 +66,7 @@ function wp_user_profiles_register_options_section() {
 /**
  * Register the "Other" section
  *
- * @since 0.2.0
+ * @since 1.3.0
  *
  * @return WP_User_Profile_Section
  */

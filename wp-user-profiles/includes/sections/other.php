@@ -12,14 +12,14 @@ defined( 'ABSPATH' ) || exit;
 /**
  * User Profiles "Other" class
  *
- * @since 0.2.0
+ * @since 1.3.0
  */
 class WP_User_Profile_Other_Section extends WP_User_Profile_Section {
 
 	/**
 	 * Add the meta boxes for this section
 	 *
-	 * @since 0.2.0
+	 * @since 1.3.0
 	 *
 	 * @param string $type
 	 * @param object $user
@@ -44,7 +44,7 @@ class WP_User_Profile_Other_Section extends WP_User_Profile_Section {
 	/**
 	 * Save section data
 	 *
-	 * @since 0.2.0
+	 * @since 1.3.0
 	 *
 	 * @param WP_User $user
 	 */
@@ -57,7 +57,7 @@ class WP_User_Profile_Other_Section extends WP_User_Profile_Section {
 	/**
 	 * Contextual help for this section
 	 *
-	 * @since 0.2.0
+	 * @since 1.3.0
 	 */
 	public function add_contextual_help() {
 		get_current_screen()->add_help_tab( array(
