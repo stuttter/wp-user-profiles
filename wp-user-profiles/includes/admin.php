@@ -313,6 +313,7 @@ function wp_user_profiles_user_admin() {
 			do_action( 'wp_user_profiles_title_actions' );
 
 		?></h1>
+		<hr class="wp-header-end">
 
 		<?php wp_user_profiles_admin_nav( $user ); ?>
 
