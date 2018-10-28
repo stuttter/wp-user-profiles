@@ -292,6 +292,8 @@ function wp_user_profiles_get_user_to_edit( $user_id = 0 ) {
 	// Set user filter to 'edit'
 	if ( ! empty( $user ) ) {
 		$user->filter = 'edit';
+	} else {
+		$user = new WP_User();
 	}
 
 	// Return the user to edit
