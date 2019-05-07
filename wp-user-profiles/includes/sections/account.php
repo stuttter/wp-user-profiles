@@ -114,6 +114,11 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		// Checking locale
 		if ( isset( $_POST['locale'] ) ) {
 			$user->locale = sanitize_text_field( wp_unslash( $_POST['locale'] ) );
+
+			//empty is en_US
+			if ( empty( $user->locale ) ) {
+				$user->locale = 'en_US';
+			}
 		}
 
 		// Checking email address
