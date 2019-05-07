@@ -165,9 +165,9 @@ class WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param  string  $type
-	 * @param  WP_User $user
+	 * @param  array   $args
 	 */
-	public function action_add_meta_boxes( $type = '', $user = null ) {
+	public function action_add_meta_boxes( $type = '', $args = null ) {
 
 		// Bail if ID is empty
 		if ( empty( $this->id ) ) {
@@ -177,13 +177,18 @@ class WP_User_Profile_Section {
 		// Get hooknames
 		$hookname = wp_user_profiles_get_section_hooknames( $this->id );
 
+		// Maybe get user ID from array
+		$user_id = ! empty( $args['user']->ID )
+			? (int) $args['user']->ID
+			: 0;
+
 		// Bail if not these metaboxes
-		if ( ( $hookname[0] !== $type ) || ! current_user_can( $this->cap, $user->ID ) ) {
+		if ( ( $hookname[0] !== $type ) || ! current_user_can( $this->cap, $user_id ) ) {
 			return;
 		}
 
 		// Do the metabox action
-		$this->add_meta_boxes( $type, $user );
+		$this->add_meta_boxes( $type, $args );
 	}
 
 	/**

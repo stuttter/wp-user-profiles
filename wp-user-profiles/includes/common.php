@@ -248,7 +248,9 @@ function wp_user_profiles_get_admin_area_url( $user_id = 0, $scheme = '', $args 
 
 	// Fallback dashboard
 	} else {
-		$url = get_dashboard_url( $user_id, $file, $scheme );
+		// Using the current user id and changing it later, as using a user that does not belong to the site will
+		// trigger a 404 redirect to on the main site of the network
+		$url = get_dashboard_url( get_current_user_id(), $file, $scheme );
 	}
 
 	// Add user ID to args array for other users
@@ -290,6 +292,8 @@ function wp_user_profiles_get_user_to_edit( $user_id = 0 ) {
 	// Set user filter to 'edit'
 	if ( ! empty( $user ) ) {
 		$user->filter = 'edit';
+	} else {
+		$user = new WP_User();
 	}
 
 	// Return the user to edit
@@ -303,21 +307,24 @@ function wp_user_profiles_get_user_to_edit( $user_id = 0 ) {
  * by a user or administrator to edit an existing user account.
  *
  * @since 0.1.0
+ * @global $pagenow Current admin page.
  */
 function wp_user_profiles_save_user() {
+	global $pagenow;
 
 	// Bail if not updating a user
 	if ( empty( $_POST['user_id'] ) || empty( $_POST['action'] ) ) {
 		return;
 	}
 
-	// Bail if not updating a user
-	if ( 'update' !== $_POST['action'] ) {
+	// Bail if user is not logged in
+	if ( ! is_user_logged_in() ) {
 		return;
 	}
 
-	// Bail if user is not logged in
-	if ( ! is_user_logged_in() ) {
+	// Bail if not a registered section
+	$sections = wp_list_pluck( wp_user_profiles_sections(), 'id' );
+	if ( ! ( 'users.php' === $pagenow && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
 		return;
 	}
 
@@ -413,4 +420,48 @@ function wp_user_profiles_save_user_notices() {
 			'is-dismissible'
 		)
 	);
+}
+
+/**
+ * Do the core show/edit actions have output associated with them?
+ *
+ * By default, this is hooked to `wp_user_profiles_show_other_section` but can
+ * be used anywhere as needed (in your custom sections, etc...)
+ *
+ * @since 2.2.0
+ *
+ * @return bool
+ */
+function wp_user_profiles_has_profile_actions() {
+
+	// Which hook to check for actions
+	$action = wp_is_profile_page()
+		? 'show_user_profile'
+		: 'edit_user_profile';
+
+	// Bail if no other section-specific fields are registered
+	if ( ! has_action( $action ) ) {
+		return false;
+	}
+
+	// Get the user to edit
+	$user = wp_user_profiles_get_user_to_edit();
+
+	// Bail if there is no user to edit
+	if ( empty( $user ) ) {
+		return false;
+	}
+
+	// Start an output buffer
+	ob_start();
+
+	// Do the action
+	do_action( $action, $user );
+
+	// Get the output
+	$output = ob_get_clean();
+	$output = trim( $output );
+
+	// To show or not to show...
+	return ! empty( $output );
 }

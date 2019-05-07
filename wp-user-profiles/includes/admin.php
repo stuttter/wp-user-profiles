@@ -258,7 +258,7 @@ function wp_user_profiles_title_actions() {
  */
 function wp_user_profiles_user_admin() {
 
-	// Reset a bunch of global values
+	// Reset some global values
 	wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
 
 	// Get user to edit
@@ -272,12 +272,33 @@ function wp_user_profiles_user_admin() {
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
 
 	// Remove possible query arguments
-	$request_url = remove_query_arg( array( 'action', 'error', 'updated', 'spam', 'ham' ), $_SERVER['REQUEST_URI'] );
+	$request_url = remove_query_arg( array(
+		'action',
+		'error',
+		'updated',
+		'spam',
+		'ham'
+	), $_SERVER['REQUEST_URI'] );
 
 	// Setup form action URL
 	$form_action_url = add_query_arg( array(
 		'action' => 'update'
 	), $request_url );
+
+	// Display name
+	$display_name = ! empty( $user )
+		? $user->display_name
+		: esc_html__( 'Anonymous', 'wp-user-profiles' );
+
+	// User ID
+	$user_id = ! empty( $user )
+		? $user->ID
+		: 0;
+
+	// Columns
+	$columns = ( 1 === (int) get_current_screen()->get_columns() )
+		? '1'
+		: '2';
 
 	// Arbitrary notice execution point
 	do_action( 'wp_user_profiles_admin_notices' ); ?>
@@ -286,18 +307,19 @@ function wp_user_profiles_user_admin() {
 		<h1><?php
 
 			// The page title
-			echo esc_html( $user->display_name );
+			echo esc_html( $display_name );
 
 			// Any arbitrary "page-title-action" class links
 			do_action( 'wp_user_profiles_title_actions' );
 
 		?></h1>
+		<hr class="wp-header-end">
 
 		<?php wp_user_profiles_admin_nav( $user ); ?>
 
 		<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
 			<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-<?php echo 1 == get_current_screen()->get_columns() ? '1' : '2'; ?>">
+				<div id="post-body" class="metabox-holder columns-<?php echo $columns; ?>">
 					<div id="postbox-container-1" class="postbox-container">
 						<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
 					</div>
@@ -313,7 +335,7 @@ function wp_user_profiles_user_admin() {
 
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
-			<?php wp_nonce_field( 'update-user_' . $user->ID ); ?>
+			<?php wp_nonce_field( 'update-user_' .$user_id ); ?>
 
 		</form>
 	</div><!-- .wrap -->

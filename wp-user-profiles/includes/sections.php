@@ -72,13 +72,8 @@ function wp_user_profiles_register_options_section() {
  */
 function wp_user_profiles_register_other_section() {
 
-	// Which hook to check for actions
-	$action = wp_is_profile_page()
-		? 'show_user_profile'
-		: 'edit_user_profile';
-
-	// Bail if no other section-specific fields are registered
-	if ( ! has_action( $action ) ) {
+	// Bail if no profile actions are registered
+	if ( ! apply_filters( 'wp_user_profiles_show_other_section', false ) ) {
 		return;
 	}
 

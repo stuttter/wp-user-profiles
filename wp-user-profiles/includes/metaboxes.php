@@ -22,12 +22,18 @@ function wp_user_profiles_add_meta_boxes() {
 	// Maybe die if user cannot be edited
 	wp_user_profiles_current_user_can_edit( $user->ID );
 
+	// Get the 
+	$hook = isset( $GLOBALS['page_hook'] )
+		? sanitize_key( $GLOBALS['page_hook'] )
+		: null;
+
 	// Adjust the hook for user/network dashboards and pass into the action
-	$hook = $GLOBALS['page_hook'];
 	wp_user_profiles_walk_section_hooknames( $hook );
 
 	// Do generic metaboxes
-	do_action( 'wp_user_profiles_add_meta_boxes', $hook, $user );
+	do_action( 'wp_user_profiles_add_meta_boxes', $hook, array(
+		'user' => $user
+	) );
 }
 
 /**
