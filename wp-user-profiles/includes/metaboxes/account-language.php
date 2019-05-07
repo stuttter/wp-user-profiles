@@ -19,6 +19,7 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_language_metabox( $user = null ) {
 
 	// Defaults
+	$languages = get_available_languages();
 	$user_locale = $user->locale;
 	if ( 'en_US' === $user_locale ) {
 		$user_locale = '';
@@ -31,7 +32,7 @@ function wp_user_profiles_language_metabox( $user = null ) {
 	<table class="form-table">
 		<tr class="user-language-wrap">
 			<th scope="row">
-				<label for="locale"><?php esc_html_e( 'Language', 'wp-user-profiles' ); ?></label>
+				<label for="locale"><?php _e( 'Language' ); ?></label>
 			</th>
 			<td><?php
 
