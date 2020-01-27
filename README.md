@@ -20,8 +20,7 @@ Yes. There are a filters you can use to add or remove sections and their metabox
 
 ### Where can I get support?
 
-* Basic: https://wordpress.org/support/plugin/wp-user-profiles/
-* Priority: https://chat.flox.io/support/channels/wp-user-profiles/
+* https://wordpress.org/support/plugin/wp-user-profiles/
 
 ### Can I contribute?
 
