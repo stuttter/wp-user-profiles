@@ -2,7 +2,7 @@
 
 /**
  * User Profile Language Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/Laguage
  */
 
@@ -19,17 +19,12 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_language_metabox( $user = null ) {
 
 	// Defaults
-	$languages   = get_available_languages();
+	$languages = get_available_languages();
 	$user_locale = $user->locale;
-	$fallback    = get_locale();
-
-	// Already en_US
-	if ( 'en_US' === $user->locale ) { 
-		$user_locale = false;
-
-	// Language not available
-	} elseif ( ! in_array( $user->locale, $languages, true ) ) {
-		$user_locale = $fallback;
+	if ( 'en_US' === $user_locale ) {
+		$user_locale = '';
+	} elseif ( '' === $user_locale || ! in_array( $user_locale, $languages, true ) ) {
+		$user_locale = 'site-default';
 	}
 
 	?>
@@ -37,18 +32,21 @@ function wp_user_profiles_language_metabox( $user = null ) {
 	<table class="form-table">
 		<tr class="user-language-wrap">
 			<th scope="row">
-				<label for="locale"><?php esc_html_e( 'Language', 'wp-user-profiles' ); ?></label>
+				<label for="locale"><?php _e( 'Language' ); ?></label>
 			</th>
 			<td><?php
 
 				// Drop it down
-				wp_dropdown_languages( array(
-					'name'                        => 'locale',
-					'id'                          => 'locale',
-					'selected'                    => $user_locale,
-					'languages'                   => $languages,
-					'show_available_translations' => false
-				) );
+				wp_dropdown_languages(
+					array(
+						'name'                        => 'locale',
+						'id'                          => 'locale',
+						'selected'                    => $user_locale,
+						'languages'                   => $languages,
+						'show_available_translations' => false,
+						'show_option_site_default'    => true,
+					)
+				);
 
 				?>
 			</td>

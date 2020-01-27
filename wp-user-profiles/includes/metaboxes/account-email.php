@@ -2,7 +2,7 @@
 
 /**
  * User Profile Email Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/Email
  */
 
@@ -23,8 +23,8 @@ function wp_user_profiles_email_metabox( $user = null ) {
 	<table class="form-table">
 		<tr class="user-email-wrap">
 			<th>
-				<label for="email"><?php esc_html_e( 'Email', 'wp-user-profiles' ); ?>
-					<span class="description"><?php esc_html_e( '(required)', 'wp-user-profiles' ); ?></span>
+				<label for="email"><?php _e( 'Email' ); ?>
+					<span class="description"><?php _e( '(required)' ); ?></span>
 				</label>
 			</th>
 			<td>
