@@ -318,7 +318,7 @@ function wp_user_profiles_user_admin() {
 		<?php wp_user_profiles_admin_nav( $user ); ?>
 
 		<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
-			<div id="poststuff">
+			<div id="poststuff" class="poststuff">
 				<div id="post-body" class="metabox-holder columns-<?php echo $columns; ?>">
 					<div id="postbox-container-1" class="postbox-container">
 						<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
