@@ -291,6 +291,10 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 		]);
 	}
 
+	$common_roles = [
+		'__default__' => __( 'Default site role', 'wp-user-profiles' ),
+	];
+
 	// Batch request roles from each site
 	if ( $sites ) {
 		$roles = array_reduce( $sites->sites, function ( $roles, $blog_id ) use ( $nonce ) {
@@ -313,14 +317,11 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 		}, [] );
 
 		// Get intersected roles between all sites
-		$common_roles = [
-			'__default__' => __( 'Default site role', 'wp-user-profiles' ),
-		] + call_user_func_array( 'array_intersect_key', $roles );
-
-
+		if ( ! empty( $roles ) ) {
+			$common_roles = $common_roles + call_user_func_array( 'array_intersect_key', $roles );
+			set_site_transient( $cache_key, $common_roles, $cache_ttl );
+		}
 	}
-
-	set_site_transient( $cache_key, $common_roles, $cache_ttl );
 
 	delete_site_option( 'wp-user-profiles-nonce-' . get_current_user_id() );
 
