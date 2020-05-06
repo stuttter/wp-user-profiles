@@ -1,9 +1,10 @@
 === WP User Profiles ===
 Contributors: johnjamesjacoby, stuttter, baden03
 Tags: users, user, profile, edit, metabox
-Requires at least: 4.4
-Tested up to: 5.1.1
-Stable tag: 2.1.0
+Requires PHP: 7.2
+Requires at least: 5.2
+Tested up to: 5.4
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
@@ -16,9 +17,7 @@ WP User Profiles is a sophisticated way to edit users in WordPress.
 
 * [WP Chosen](https://wordpress.org/plugins/wp-chosen/ "Make long, unwieldy select boxes much more user-friendly.")
 * [WP Pretty Filters](https://wordpress.org/plugins/wp-pretty-filters/ "Makes post filters better match what's already in Media & Attachments.")
-* [WP Event Calendar](https://wordpress.org/plugins/wp-event-calendar/ "The best way to manage events in WordPress.")
 * [WP Media Categories](https://wordpress.org/plugins/wp-media-categories/ "Add categories to media & attachments.")
-* [WP Term Meta](https://wordpress.org/plugins/wp-term-meta/ "Metadata, for taxonomy terms.")
 * [WP Term Order](https://wordpress.org/plugins/wp-term-order/ "Sort taxonomy terms, your way.")
 * [WP Term Authors](https://wordpress.org/plugins/wp-term-authors/ "Authors for categories, tags, and other taxonomy terms.")
 * [WP Term Colors](https://wordpress.org/plugins/wp-term-colors/ "Pretty colors for categories, tags, and other taxonomy terms.")
@@ -53,14 +52,16 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 
 = Where can I get support? =
 
-* Basic: https://wordpress.org/support/plugin/wp-user-profiles/
-* Priority: https://chat.flox.io/support/channels/wp-user-profiles/
+* https://wordpress.org/support/plugin/wp-user-profiles/
 
 = Where can I find documentation? =
 
 http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= [2.2.0]- 2020-05-05 =
+* General code improvements
 
 = [2.1.0]- 2017-05-24 =
 * Fix bug with IS_PROFILE_PAGE constant
@@ -107,7 +108,7 @@ http://github.com/stuttter/wp-user-profiles
 * Improve support for WordPress 4.3 & 4.4
 
 = [0.1.6]- 2015-11-09 =
-* Improve metaboxes for 
+* Improve metaboxes for
 
 = [0.1.5] - 2015-10-23 =
 * Add support for third party sections

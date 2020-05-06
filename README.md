@@ -12,7 +12,7 @@ WP User Profiles is a sophisticated way to edit users in WordPress.
 
 ### Does this work with multisite?
 
-Yes. It works awesome with the User Dashboard, too!
+Yes. It works super awesome with the multisite-only User Dashboard!
 
 ### Can I add my own sections?
 
