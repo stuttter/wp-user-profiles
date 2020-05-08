@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * User Profile Sites List Table
+ *
+ * @package Plugins/Users/Profiles/SitesList
+ */
+
+require_once ABSPATH . 'wp-admin/includes/class-wp-ms-sites-list-table.php';
+
+/**
+ * Core class used to implement displaying sites in a list table within a user profile.
+ */
+class WP_User_Profiles_Sites_List_Table extends WP_MS_Sites_List_Table {
+
+	/**
+	 * Handles the checkbox column output.
+	 *
+	 * @param array $blog Current site.
+	 */
+	public function column_cb( $blog ) {
+		$blogname = untrailingslashit( $blog['domain'] . $blog['path'] );
+		?>
+		<label class="screen-reader-text" for="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>">
+			<?php
+			/* translators: %s: Site URL. */
+			printf( __( 'Select %s' ), $blogname );
+			?>
+		</label>
+		<input type="checkbox" id="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>" name="allblogs[]" value="<?php echo esc_attr( $blog['blog_id'] ); ?>" />
+		<?php
+	}
+
+}

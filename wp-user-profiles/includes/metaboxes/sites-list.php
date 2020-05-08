@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_sites_metabox( $user = null ) {
+	require_once dirname( __DIR__ ) . '/sites-list-table.php';
 
 	$is_network_admin = current_user_can( 'manage_sites' );
 	$all_sites = $is_network_admin && ! empty( $_GET['all_sites'] );
@@ -27,7 +28,9 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 
 	// Force screen to setup list table
 	set_current_screen( 'network-sites' );
-	$wp_list_table = _get_list_table( 'WP_MS_Sites_List_Table' );
+	$wp_list_table = new WP_User_Profiles_Sites_List_Table( array(
+		'screen' => get_current_screen(),
+	) );
 
 	// Override sites query
 	if ( $all_sites || ! empty( $sites ) ) {
