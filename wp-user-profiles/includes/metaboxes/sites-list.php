@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_sites_metabox( $user = null ) {
+	require_once dirname( __DIR__ ) . '/sites-list-table.php';
 
 	$is_network_admin = current_user_can( 'manage_sites' );
 	$all_sites = $is_network_admin && ! empty( $_GET['all_sites'] );
@@ -27,7 +28,9 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 
 	// Force screen to setup list table
 	set_current_screen( 'network-sites' );
-	$wp_list_table = _get_list_table( 'WP_MS_Sites_List_Table' );
+	$wp_list_table = new WP_User_Profiles_Sites_List_Table( array(
+		'screen' => get_current_screen(),
+	) );
 
 	// Override sites query
 	if ( $all_sites || ! empty( $sites ) ) {
@@ -166,6 +169,8 @@ function wp_user_profiles_filter_sites_columns( $columns = array() ) {
  */
 function wp_user_profiles_filter_views( $views = array() ) {
 	$all_sites = ! empty( $_GET['all_sites'] );
+
+	$views = array();
 
 	$views['assigned'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 0 ) ) . "#sites'" . ( ! $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'Assigned', 'wp-user-profiles' ) . '</a>';
 	$views['all'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 1 ) ) . "#sites'" . ( $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'All Sites', 'wp-user-profiles' ) . '</a>';
