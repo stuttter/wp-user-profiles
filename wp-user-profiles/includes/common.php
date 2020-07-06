@@ -439,29 +439,9 @@ function wp_user_profiles_has_profile_actions() {
 		? 'show_user_profile'
 		: 'edit_user_profile';
 
-	// Bail if no other section-specific fields are registered
-	if ( ! has_action( $action ) ) {
-		return false;
-	}
+	// Check if hooks have been added
+	$retval = (bool) has_action( $action );
 
-	// Get the user to edit
-	$user = wp_user_profiles_get_user_to_edit();
-
-	// Bail if there is no user to edit
-	if ( empty( $user ) ) {
-		return false;
-	}
-
-	// Start an output buffer
-	ob_start();
-
-	// Do the action
-	do_action( $action, $user );
-
-	// Get the output
-	$output = ob_get_clean();
-	$output = trim( $output );
-
-	// To show or not to show...
-	return ! empty( $output );
+	// Return true/false
+	return $retval;
 }
