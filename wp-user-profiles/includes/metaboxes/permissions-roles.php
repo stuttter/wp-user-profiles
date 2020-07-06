@@ -21,12 +21,15 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 	// Should dropdown be disabled
 	$is_self = wp_is_profile_page();
 
+	// Stash the current Site ID for later reuse
+	$current_site_id = get_current_blog_id();
+
 	// When viewing blog admin, only show roles for that blog
 	if ( is_blog_admin() ) {
 
 		// This part is pretty backwards
 		$sites = is_multisite()
-			? array( get_blog_details( get_current_blog_id() ) )
+			? array( get_blog_details( $current_site_id ) )
 			: get_blogs_of_user( $user->ID, true );
 
 	// Show all sites when not in blog admin
@@ -58,17 +61,20 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 			foreach ( $sites as $site_id => $site ) :
 
 				// Cast for strict checks
-				$site_id = (int) $site_id;
+				$site_id = absint( $site_id );
 
 				// Switch to this site
 				if ( is_multisite() ) {
 
 					// Skip if user cannot manage
-					if ( ( get_current_blog_id() !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
+					if ( ( $current_site_id !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
 						continue;
 					}
 
 					switch_to_blog( $site_id );
+
+					// Reinitialize the User roles & caps for this Site ID
+					$user->for_site( $site_id );
 				} ?>
 
 				<tr class="user-role-wrap">
@@ -86,29 +92,22 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 							$user_role  = reset( $user_roles );
 
 							// Print the full list of roles
-							wp_dropdown_roles( $user_role );
+							wp_dropdown_roles( $user_role ); ?>
 
-							// print the 'no role' option. Make it selected if the user has no role yet.
-							if ( ! empty( $user_role ) ) : ?>
-
-								<option value=""><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
-
-							<?php else : ?>
-
-								<option value="" selected="selected"><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
-
-							<?php endif; ?>
-
+							<option value="" <?php selected( empty( $user_role ) ); ?>><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
 						</select>
 					</td>
 				</tr>
 
-			<?php
+				<?php
 
-			// Switch back to this site
-			if ( is_multisite() ) {
-				restore_current_blog();
-			}
+				// Switch back to this site
+				if ( is_multisite() ) {
+					restore_current_blog();
+
+					// Reset the user's role & capabilities
+					$user->for_site( $current_site_id );
+				}
 
 			endforeach;
 
