@@ -3,8 +3,8 @@ Contributors: johnjamesjacoby, stuttter, baden03
 Tags: users, user, profile, edit, metabox
 Requires PHP: 7.2
 Requires at least: 5.2
-Tested up to: 5.4
-Stable tag: 2.2.0
+Tested up to: 5.5
+Stable tag: 2.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
@@ -59,6 +59,9 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= [2.2.1]- 2020-07-07 =
+* Fix plugin conflict with Genesis theme
 
 = [2.2.0]- 2020-05-05 =
 * General code improvements
