@@ -322,9 +322,14 @@ function wp_user_profiles_save_user() {
 		return;
 	}
 
+	// Bail if not processing the user editing page
+	if ( ! in_array( $pagenow, array( 'users.php', 'admin.php' ), true ) ) {
+		return;
+	}
+
 	// Bail if not a registered section
 	$sections = wp_list_pluck( wp_user_profiles_sections(), 'id' );
-	if ( ! ( 'users.php' === $pagenow && isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
+	if ( ! ( isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
 		return;
 	}
 
