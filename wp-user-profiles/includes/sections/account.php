@@ -113,12 +113,17 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 
 		// Checking locale
 		if ( isset( $_POST['locale'] ) ) {
-			$user->locale = sanitize_text_field( wp_unslash( $_POST['locale'] ) );
+			$locale = sanitize_text_field( $_POST['locale'] );
 
-			//empty is en_US
-			if ( empty( $user->locale ) ) {
-				$user->locale = 'en_US';
+			if ( 'site-default' === $locale ) {
+				$locale = '';
+			} elseif ( '' === $locale ) {
+				$locale = 'en_US';
+			} elseif ( ! in_array( $locale, get_available_languages(), true ) ) {
+				$locale = '';
 			}
+
+			$user->locale = $locale;
 		}
 
 		// Checking email address
