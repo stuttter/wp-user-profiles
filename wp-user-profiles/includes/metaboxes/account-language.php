@@ -32,7 +32,10 @@ function wp_user_profiles_language_metabox( $user = null ) {
 	<table class="form-table">
 		<tr class="user-language-wrap">
 			<th scope="row">
-				<label for="locale"><?php _e( 'Language' ); ?></label>
+				<label for="locale">
+					<?php _e( 'Language' ); ?>
+					<span class="dashicons dashicons-translation" aria-hidden="true"></span>
+				</label>
 			</th>
 			<td><?php
 
