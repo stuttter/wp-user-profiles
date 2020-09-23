@@ -31,4 +31,15 @@ class WP_User_Profiles_Sites_List_Table extends WP_MS_Sites_List_Table {
 		<?php
 	}
 
+	/**
+	 * Removes all row action links as they're not needed for this context.
+	 *
+	 * @param object $blog        Site being acted upon.
+	 * @param string $column_name Current column name.
+	 * @param string $primary     Primary column name.
+	 * @return string Row actions output for sites.
+	 */
+	protected function handle_row_actions( $blog, $column_name, $primary ) {
+		return '';
+	}
 }
