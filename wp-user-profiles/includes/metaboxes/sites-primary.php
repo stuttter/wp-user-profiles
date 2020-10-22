@@ -30,7 +30,10 @@ function wp_user_profiles_primary_site_metabox( $user = null ) {
 		if ( $primary !== $site->userblog_id ) {
 			update_user_meta( $user->ID, 'primary_blog', $site->userblog_id );
 		}
-	} ?>
+	}
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 		<tr>
@@ -64,4 +67,7 @@ function wp_user_profiles_primary_site_metabox( $user = null ) {
 	</table>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

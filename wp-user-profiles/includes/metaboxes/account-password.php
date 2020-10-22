@@ -16,8 +16,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * @param WP_User $user The WP_User object to be edited.
  */
-function wp_user_profiles_password_metabox() {
-?>
+function wp_user_profiles_password_metabox( $user = null ) {
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 		<tr id="password" class="user-pass1-wrap">
@@ -58,5 +60,8 @@ function wp_user_profiles_password_metabox() {
 		</tr>
 	</table>
 
-<?php
+	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

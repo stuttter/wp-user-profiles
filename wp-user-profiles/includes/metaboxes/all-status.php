@@ -21,7 +21,10 @@ function wp_user_profiles_status_metabox( $user = null ) {
 	// Bail if no user id or if the user has not activated their account yet
 	if ( empty( $user->ID ) ) {
 		return;
-	} ?>
+	}
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<div class="submitbox">
 		<div id="minor-publishing">
@@ -64,4 +67,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 	</div>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

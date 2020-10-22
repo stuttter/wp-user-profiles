@@ -26,8 +26,14 @@ function wp_user_profiles_other_metabox( $user = null ) {
 		? 'show_user_profile'
 		: 'edit_user_profile';
 
+	// Before
+	do_action( __FUNCTION__ . '_before', $user );
+
 	// Fire extra WordPress actions
 	do_action( $action, $user );
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 
 	// Get (and clean) the current output buffer
 	$output = ob_get_clean();

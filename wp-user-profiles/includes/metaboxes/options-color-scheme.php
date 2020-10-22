@@ -2,7 +2,7 @@
 
 /**
  * User Profile Color-Scheme Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/ColorScheme
  */
 
@@ -17,7 +17,9 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_color_scheme_metabox( $user = null ) {
-?>
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 		<tr class="user-admin-color-wrap">
@@ -40,4 +42,7 @@ function wp_user_profiles_color_scheme_metabox( $user = null ) {
 	</table>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

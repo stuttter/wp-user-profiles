@@ -20,7 +20,10 @@ function wp_user_profiles_session_metabox( $user = null ) {
 
 	// Get session
 	$sessions = WP_Session_Tokens::get_instance( $user->ID );
-	$profile  = wp_is_profile_page(); ?>
+	$profile  = wp_is_profile_page();
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 
@@ -83,5 +86,8 @@ function wp_user_profiles_session_metabox( $user = null ) {
 
 	</table>
 
-<?php
+	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

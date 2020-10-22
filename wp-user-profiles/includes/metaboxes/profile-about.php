@@ -22,7 +22,7 @@ function wp_user_profiles_about_metabox( $user = null ) {
 	ob_start();
 
 	// Before
-	do_action( 'wp_user_profiles_about_metabox_before', $user );
+	do_action( __FUNCTION__ . '_before', $user );
 
 	?><table class="form-table">
 		<tr class="user-url-wrap">
@@ -41,7 +41,7 @@ function wp_user_profiles_about_metabox( $user = null ) {
 	</table><?php
 
 	// After
-	do_action( 'wp_user_profiles_about_metabox_after', $user );
+	do_action( __FUNCTION__ . '_after', $user );
 
 	// End
 	ob_end_flush();

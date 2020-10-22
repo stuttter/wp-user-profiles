@@ -21,6 +21,9 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 	// Start a buffer
 	ob_start();
 
+	// Before
+	do_action( __FUNCTION__ . '_before', $user );
+
 	?><table class="form-table">
 
 		<tr class="user-rich-editing-wrap">
@@ -74,6 +77,9 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 		do_action( 'personal_options', $user );
 
 	?></table><?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 
 	// Output contents of buffer
 	ob_end_flush();

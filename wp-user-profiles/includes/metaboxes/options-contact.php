@@ -2,7 +2,7 @@
 
 /**
  * User Profile Contact Metabox
- * 
+ *
  * @package Plugins/Users/Profiles/Metaboxes/Contact
  */
 
@@ -19,7 +19,10 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_contact_metabox( $user = null ) {
 
 	// Get methods
-	$methods = wp_get_user_contact_methods( $user ); ?>
+	$methods = wp_get_user_contact_methods( $user );
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 
@@ -50,4 +53,7 @@ function wp_user_profiles_contact_metabox( $user = null ) {
 	</table>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

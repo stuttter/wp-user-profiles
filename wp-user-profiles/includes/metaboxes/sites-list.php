@@ -57,7 +57,7 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 	ob_start();
 
 	// Before
-	do_action( 'wp_user_profiles_sites_metabox_before', $user );
+	do_action( __FUNCTION__ . '_before', $user );
 
 	// Filter action links
 	add_filter( 'manage_sites_action_links',   'wp_user_profiles_filter_sites_action_links', 10, 2 );
@@ -76,7 +76,7 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 	remove_filter( 'wpmu_blogs_columns',        'wp_user_profiles_filter_sites_columns'      );
 
 	// After
-	do_action( 'wp_user_profiles_sites_metabox_after', $user );
+	do_action( __FUNCTION__ . '_after', $user );
 
 	// Output the buffer
 	echo ob_get_clean();
