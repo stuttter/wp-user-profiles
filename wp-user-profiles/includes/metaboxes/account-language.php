@@ -27,7 +27,8 @@ function wp_user_profiles_language_metabox( $user = null ) {
 		$user_locale = 'site-default';
 	}
 
-	?>
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 		<tr class="user-language-wrap">
@@ -57,4 +58,7 @@ function wp_user_profiles_language_metabox( $user = null ) {
 	</table>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

@@ -35,7 +35,10 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 	// Show all sites when not in blog admin
 	} else {
 		$sites = get_blogs_of_user( $user->ID, true );
-	} ?>
+	}
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table"><?php
 
@@ -115,5 +118,8 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 
 	?></table>
 
-<?php
+	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

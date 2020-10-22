@@ -29,7 +29,10 @@ function wp_user_profiles_name_metabox( $user = null ) {
 		 * @param WP_User $user The current WP_User object.
 		 */
 		do_action( 'profile_personal_options', $user );
-	} ?>
+	}
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 		<tr class="user-user-login-wrap">
@@ -107,4 +110,7 @@ function wp_user_profiles_name_metabox( $user = null ) {
 	</table>
 
 	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }

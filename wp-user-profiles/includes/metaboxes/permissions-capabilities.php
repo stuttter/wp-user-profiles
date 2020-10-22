@@ -19,7 +19,10 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_additional_capabilities_metabox( $user = null ) {
 
 	// Get the roles global
-	$wp_roles = new WP_Roles();?>
+	$wp_roles = new WP_Roles();
+
+	// Before
+	do_action( __FUNCTION__ . '_before', $user ); ?>
 
 	<table class="form-table">
 
@@ -75,5 +78,8 @@ function wp_user_profiles_additional_capabilities_metabox( $user = null ) {
 		</tr>
 	</table>
 
-<?php
+	<?php
+
+	// After
+	do_action( __FUNCTION__ . '_after', $user );
 }
