@@ -51,11 +51,11 @@ function wp_user_profiles_admin_menus() {
 		unset( $GLOBALS['submenu']['users.php'][15] );
 
 		// Add (and quickly remove) submenu pages
-		foreach ( $sections as $tab ) {
-			$hook = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+		foreach ( $sections as $nav ) {
+			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
 			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
 			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
-			remove_submenu_page( $file, $tab->slug );
+			remove_submenu_page( $file, $nav->slug );
 		}
 
 		// Re-add new "Your Profile" submenu
@@ -65,8 +65,8 @@ function wp_user_profiles_admin_menus() {
 	} elseif ( is_user_admin() ) {
 		remove_menu_page( 'profile.php' );
 
-		foreach ( $sections as $tab ) {
-			$hook = add_menu_page( $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin', $tab->icon, $tab->order );
+		foreach ( $sections as $nav ) {
+			$hook = add_menu_page( $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin', $nav->icon, $nav->order );
 			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
 			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 		}
@@ -77,8 +77,8 @@ function wp_user_profiles_admin_menus() {
 
 		add_menu_page( esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin', 'dashicons-admin-users', 5 );
 
-		foreach ( $sections as $tab ) {
-			$hook = add_submenu_page( $file, $tab->name, $tab->name, $tab->cap, $tab->slug, 'wp_user_profiles_user_admin' );
+		foreach ( $sections as $nav ) {
+			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
 			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
 			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 		}
@@ -207,25 +207,49 @@ function wp_user_profiles_admin_nav( $user = null ) {
 		: 'profile';
 
 	// Get tabs
-	$tabs     = wp_user_profiles_sections();
-	$user_url = wp_user_profiles_edit_user_url_filter(); ?>
+	$sections = wp_user_profiles_sections();
+	$user_url = wp_user_profiles_edit_user_url_filter();
 
-	<h2 id="profile-nav" class="nav-tab-wrapper">
+	// Output the navigation
+	?><nav id="profile-nav" class="nav-tab-wrapper" aria-label="<?php esc_html_e( 'Secondary menu', 'wp-user-profiles' ); ?>"><?php
 
-		<?php foreach ( $tabs as $tab ) : ?>
+		// Loop through sections
+		foreach ( $sections as $nav ) {
 
-			<?php if ( current_user_can( $tab->cap, $user->ID ) ) :
-				$query_args['page'] = $tab->slug; ?>
+			// Maybe skip if user cannot view it
+			if ( ! current_user_can( $nav->cap, $user->ID ) ) {
+				continue;
+			}
 
-				<a class="nav-tab<?php echo ( $tab->id === $current ) ? ' nav-tab-active' : ''; ?>" href="<?php echo esc_url( add_query_arg( $query_args, $user_url ) );?>">
-					<?php echo esc_html( $tab->name ); ?>
-				</a>
+			// Nav URL
+			$query_args['page'] = $nav->slug;
+			$url                = add_query_arg( $query_args, $user_url );
 
-			<?php endif; ?>
+			// Nav class
+			$class = ( $nav->id === $current )
+				? ' nav-tab-active'
+				: '';
 
-		<?php endforeach; ?>
+			// Aria current page
+			$aria = ( $nav->id === $current )
+				? ' aria-current="page"'
+				: '';
 
-	</h2>
+			// Output the link
+			?><a class="nav-tab<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url );?>"<?php echo $aria; // Do not escape ?>><?php
+
+				/**
+				 * This text is intentionally not escaped to allow HTML, for
+				 * things like badges, labels, or whatever else.
+				 *
+				 * Please make sure to escape your own strings as needed.
+				 */
+				echo $nav->name;
+
+			?></a><?php
+		}
+
+	?></nav>
 
 	<?php
 }
@@ -319,7 +343,7 @@ function wp_user_profiles_user_admin() {
 
 		<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
 			<div id="poststuff" class="poststuff">
-				<div id="post-body" class="metabox-holder columns-<?php echo $columns; ?>">
+				<div id="post-body" class="metabox-holder columns-<?php echo esc_attr( $columns ); ?>">
 					<div id="postbox-container-1" class="postbox-container">
 						<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
 					</div>
@@ -335,7 +359,7 @@ function wp_user_profiles_user_admin() {
 
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>
-			<?php wp_nonce_field( 'update-user_' .$user_id ); ?>
+			<?php wp_nonce_field( 'update-user_' . $user_id ); ?>
 
 		</form>
 	</div><!-- .wrap -->
