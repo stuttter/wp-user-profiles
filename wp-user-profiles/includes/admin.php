@@ -10,6 +10,21 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Register admin scripts
+ *
+ * @since 0.1.0
+ */
+function wp_user_profiles_admin_register_scripts() {
+
+	// Set location & version for scripts & styles
+	$src = wp_user_profiles_get_plugin_url();
+	$ver = wp_user_profiles_get_asset_version();
+
+	// Styles
+	wp_register_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
+}
+
+/**
  * Enqueue admin scripts
  *
  * @since 0.1.0
@@ -21,16 +36,20 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	wp_enqueue_script( 'postbox' );
 	wp_enqueue_script( 'dashboard' );
 
-	// Set location & version for scripts & styles
-	$src = wp_user_profiles_get_plugin_url();
-	$ver = wp_user_profiles_get_asset_version();
-
 	// Styles
-	wp_enqueue_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
+	wp_enqueue_style( 'wp-user-profiles' );
 
-	// Ugh... this is terrible
-	wp_enqueue_script( 'user-profile', $src . 'assets/js/user-profiles.js', array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' ), $ver );
-	wp_scripts()->registered['user-profile']->src = $src . 'assets/js/user-profiles.js';
+	// Set location & version for scripts & styles
+	$src    = wp_user_profiles_get_plugin_url();
+	$ver    = wp_user_profiles_get_asset_version();
+	$handle = 'user-profile';
+	$url    = $src . 'assets/js/user-profiles.js';
+	$deps   = array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' );
+
+	// Replace the user-profile script with our own
+	wp_enqueue_script( $handle, $url, $deps, $ver );
+	wp_scripts()->registered[ $handle ]->src = $url;
+	wp_scripts()->set_translations( $handle );
 }
 
 /**

@@ -2,7 +2,7 @@
 
 /**
  * User Profile Hooks
- * 
+ *
  * @package Plugins/Users/Profiles/Hooks
  */
 
@@ -19,6 +19,9 @@ add_action( 'init', 'wp_user_profiles_register_options_section'     );
 add_action( 'init', 'wp_user_profiles_register_other_section'       );
 add_action( 'init', 'wp_user_profiles_register_permissions_section' );
 add_action( 'init', 'wp_user_profiles_register_sites_section'       );
+
+// Initialize registered scripts
+add_action( 'init', 'wp_user_profiles_admin_register_scripts' );
 
 // Admin Menus
 add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );

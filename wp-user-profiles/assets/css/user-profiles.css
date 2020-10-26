@@ -14,3 +14,10 @@
 	background-color: #f7f7f7;
 	font-weight: 600;
 }
+
+#wp-user-profiles-page #pass-strength-result,
+#wp-user-profiles-page #pass1,
+#wp-user-profiles-page #pass2,
+#wp-user-profiles-page #pass1-text {
+	width: 20em;
+}
