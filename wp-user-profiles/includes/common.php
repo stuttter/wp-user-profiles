@@ -168,6 +168,32 @@ function wp_user_profiles_sort_sections( $hip, $hop ) {
 }
 
 /**
+ * Filter sections
+ *
+ * @since 3.0.0
+ *
+ * @param array $args
+ * @param string $operator
+ * @return object|array
+ */
+function wp_user_profiles_filter_sections( $args = array(), $operator = 'AND' ) {
+
+	// Get all sections
+	$all    = wp_user_profiles_sections();
+
+	// Filter sections
+	$retval = wp_list_filter( $all, $args, $operator );
+
+	// Return the object if only 1 item was found and filtering by ID
+	if ( ( 1 === count( $retval ) ) && array_key_exists( 'id', $args ) ) {
+		$retval = reset( $retval );
+	}
+
+	// Filter & return
+	return apply_filters( 'wp_user_profiles_filter_sections', $retval, $args, $operator, $all );
+}
+
+/**
  * Get profile section slugs
  *
  * This function exists because hooknames change based on two unique factors:

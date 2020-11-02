@@ -64,3 +64,7 @@ add_action( 'wp_ajax_nopriv_wp_user_profiles_export_roles', 'wp_user_profiles_ex
 
 // Back compat ("Other" section)
 add_filter( 'wp_user_profiles_show_other_section', 'wp_user_profiles_has_profile_actions' );
+
+// Nav & Subnav
+add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_nav',    12 );
+add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 );
