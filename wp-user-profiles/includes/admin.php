@@ -62,6 +62,7 @@ function wp_user_profiles_admin_menus() {
 	// Empty hooks array
 	$file     = wp_user_profiles_get_file();
 	$sections = wp_user_profiles_sections();
+	$callback = 'wp_user_profiles_user_admin';
 
 	// Add a visbile "Your Profile" link
 	if ( 'users.php' === $file ) {
@@ -71,37 +72,141 @@ function wp_user_profiles_admin_menus() {
 
 		// Add (and quickly remove) submenu pages
 		foreach ( $sections as $nav ) {
-			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Add the page
+			$hook = add_submenu_page(
+				$file,
+				$nav->name,
+				$nav->name,
+				$nav->cap,
+				$nav->slug,
+				$callback
+			);
+
+			// Add the actions
+			wp_user_profiles_admin_menu_hooks( $hook );
+
+			// Now remove the page, so they don't appear in the menu
 			remove_submenu_page( $file, $nav->slug );
 		}
 
 		// Re-add new "Your Profile" submenu
-		add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+		add_submenu_page(
+			$file,
+			esc_html__( 'Your Profile', 'wp-user-profiles' ),
+			esc_html__( 'Your Profile', 'wp-user-profiles' ),
+			'read',
+			'profile',
+			$callback
+		);
 
 	// User admin needs some coercing
 	} elseif ( is_user_admin() ) {
+
+		// Remove the original page, so it doesn't appear in the menu
 		remove_menu_page( 'profile.php' );
 
+		// Loop through sections
 		foreach ( $sections as $nav ) {
-			$hook = add_menu_page( $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin', $nav->icon, $nav->order );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Top level menu
+			if ( empty( $nav->parent ) ) {
+
+				// Add the page
+				$hook = add_menu_page(
+					$nav->name,
+					$nav->name,
+					$nav->cap,
+					$nav->slug,
+					$callback,
+					$nav->icon,
+					$nav->order
+				);
+
+				// Add the actions
+				wp_user_profiles_admin_menu_hooks( $hook );
+			}
+
+			// Get subsections
+			$subsections = wp_user_profiles_filter_sections( array(
+				'parent' => $nav->id
+			) );
+
+			// Maybe add subsections
+			if ( ! empty( $subsections ) ) {
+
+				// Loop through subsections
+				foreach ( $subsections as $submenu ) {
+
+					// Add the submenu page
+					$hook = add_submenu_page(
+						$nav->slug,
+						$submenu->name,
+						$submenu->name,
+						$submenu->cap,
+						$submenu->slug,
+						$callback
+					);
+
+					// Add the actions
+					wp_user_profiles_admin_menu_hooks( $hook );
+				}
+			}
 		}
 
 	// Blog admin, but "Profile Mode" is en effect
 	} else {
+
+		// Remove the original page, so it doesn't appear in the menu
 		remove_menu_page( 'profile.php' );
 
-		add_menu_page( esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin', 'dashicons-admin-users', 5 );
+		// Add the main page
+		add_menu_page(
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			'read',
+			'profile',
+			$callback,
+			'dashicons-admin-users',
+			5
+		);
 
+		// Loop through sections
 		foreach ( $sections as $nav ) {
-			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Add the submenu page
+			$hook = add_submenu_page(
+				$file,
+				$nav->name,
+				$nav->name,
+				$nav->cap,
+				$nav->slug,
+				$callback
+			);
+
+			// Add the actions
+			wp_user_profiles_admin_menu_hooks( $hook );
 		}
 	}
+}
+
+/**
+ * Add the admin menu hooks
+ *
+ * @since 3.0.0
+ *
+ * @param string $hook
+ */
+function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
+
+	// Bail if hook is empty
+	if ( empty( $hook ) ) {
+		return;
+	}
+
+	// Add hooks
+	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
+	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 }
 
 /**
@@ -281,10 +386,14 @@ function wp_user_profiles_admin_nav( $user = null ) {
 	$current    = wp_user_profiles_admin_current_page();
 
 	// Get sections
-	$section    = wp_user_profiles_filter_sections( array( 'id' => $current ) );
+	$section    = wp_user_profiles_filter_sections( array(
+		'id' => $current
+	) );
 
 	// Get sections
-	$sections   = wp_user_profiles_filter_sections( array( 'parent' => null ) );
+	$sections   = wp_user_profiles_filter_sections( array(
+		'parent' => null
+	) );
 
 	// Get the base profile URL
 	$user_url   = wp_user_profiles_edit_user_url_filter();
@@ -372,7 +481,9 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 	$page       = wp_user_profiles_admin_current_page();
 
 	// Get the current section
-	$section    = wp_user_profiles_filter_sections( array( 'id' => $page ) );
+	$section    = wp_user_profiles_filter_sections( array(
+		'id' => $page
+	) );
 
 	// Bail if section cannot be found
 	if ( empty( $section ) ) {
@@ -385,7 +496,9 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 		: $section;
 
 	// Get subsections
-	$subsections = wp_user_profiles_filter_sections( array( 'parent' => $prepend->id ) );
+	$subsections = wp_user_profiles_filter_sections( array(
+		'parent' => $prepend->id
+	) );
 
 	// Prepend the parent section to the beginning of the subsections
 	array_unshift( $subsections, $prepend );
