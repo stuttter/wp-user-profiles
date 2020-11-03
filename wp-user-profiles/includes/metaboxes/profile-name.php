@@ -20,7 +20,7 @@ function wp_user_profiles_name_metabox( $user = null ) {
 
 	if ( wp_is_profile_page() ) {
 		/**
-		 * Fires after the 'Personal Options' settings table on the 'Your Profile' editing screen.
+		 * Fires after the 'Personal Options' settings table on the 'Profile' editing screen.
 		 *
 		 * The action only fires if the current user is editing their own profile.
 		 *

@@ -93,8 +93,8 @@ function wp_user_profiles_admin_menus() {
 		// Re-add new "Your Profile" submenu
 		add_submenu_page(
 			$file,
-			esc_html__( 'Your Profile', 'wp-user-profiles' ),
-			esc_html__( 'Your Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
 			'read',
 			'profile',
 			$callback
