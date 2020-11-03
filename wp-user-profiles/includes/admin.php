@@ -475,7 +475,7 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 	}
 
 	// Add the user ID to query arguments when not editing yourself
-	$query_args = wp_user_profiles_admin_default_query_args();
+	$query_args = wp_user_profiles_admin_default_query_args( $user );
 
 	// Get the current page
 	$page       = wp_user_profiles_admin_current_page();
