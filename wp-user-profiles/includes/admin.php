@@ -62,6 +62,7 @@ function wp_user_profiles_admin_menus() {
 	// Empty hooks array
 	$file     = wp_user_profiles_get_file();
 	$sections = wp_user_profiles_sections();
+	$callback = 'wp_user_profiles_user_admin';
 
 	// Add a visbile "Your Profile" link
 	if ( 'users.php' === $file ) {
@@ -71,37 +72,141 @@ function wp_user_profiles_admin_menus() {
 
 		// Add (and quickly remove) submenu pages
 		foreach ( $sections as $nav ) {
-			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Add the page
+			$hook = add_submenu_page(
+				$file,
+				$nav->name,
+				$nav->name,
+				$nav->cap,
+				$nav->slug,
+				$callback
+			);
+
+			// Add the actions
+			wp_user_profiles_admin_menu_hooks( $hook );
+
+			// Now remove the page, so they don't appear in the menu
 			remove_submenu_page( $file, $nav->slug );
 		}
 
 		// Re-add new "Your Profile" submenu
-		add_submenu_page( $file, esc_html__( 'Your Profile', 'wp-user-profiles' ), esc_html__( 'Your Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin' );
+		add_submenu_page(
+			$file,
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			'read',
+			'profile',
+			$callback
+		);
 
 	// User admin needs some coercing
 	} elseif ( is_user_admin() ) {
+
+		// Remove the original page, so it doesn't appear in the menu
 		remove_menu_page( 'profile.php' );
 
+		// Loop through sections
 		foreach ( $sections as $nav ) {
-			$hook = add_menu_page( $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin', $nav->icon, $nav->order );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Top level menu
+			if ( empty( $nav->parent ) ) {
+
+				// Add the page
+				$hook = add_menu_page(
+					$nav->name,
+					$nav->name,
+					$nav->cap,
+					$nav->slug,
+					$callback,
+					$nav->icon,
+					$nav->order
+				);
+
+				// Add the actions
+				wp_user_profiles_admin_menu_hooks( $hook );
+			}
+
+			// Get subsections
+			$subsections = wp_user_profiles_filter_sections( array(
+				'parent' => $nav->id
+			) );
+
+			// Maybe add subsections
+			if ( ! empty( $subsections ) ) {
+
+				// Loop through subsections
+				foreach ( $subsections as $submenu ) {
+
+					// Add the submenu page
+					$hook = add_submenu_page(
+						$nav->slug,
+						$submenu->name,
+						$submenu->name,
+						$submenu->cap,
+						$submenu->slug,
+						$callback
+					);
+
+					// Add the actions
+					wp_user_profiles_admin_menu_hooks( $hook );
+				}
+			}
 		}
 
 	// Blog admin, but "Profile Mode" is en effect
 	} else {
+
+		// Remove the original page, so it doesn't appear in the menu
 		remove_menu_page( 'profile.php' );
 
-		add_menu_page( esc_html__( 'Profile', 'wp-user-profiles' ), esc_html__( 'Profile', 'wp-user-profiles' ), 'read', 'profile', 'wp_user_profiles_user_admin', 'dashicons-admin-users', 5 );
+		// Add the main page
+		add_menu_page(
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			'read',
+			'profile',
+			$callback,
+			'dashicons-admin-users',
+			5
+		);
 
+		// Loop through sections
 		foreach ( $sections as $nav ) {
-			$hook = add_submenu_page( $file, $nav->name, $nav->name, $nav->cap, $nav->slug, 'wp_user_profiles_user_admin' );
-			add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-			add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+
+			// Add the submenu page
+			$hook = add_submenu_page(
+				$file,
+				$nav->name,
+				$nav->name,
+				$nav->cap,
+				$nav->slug,
+				$callback
+			);
+
+			// Add the actions
+			wp_user_profiles_admin_menu_hooks( $hook );
 		}
 	}
+}
+
+/**
+ * Add the admin menu hooks
+ *
+ * @since 3.0.0
+ *
+ * @param string $hook
+ */
+function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
+
+	// Bail if hook is empty
+	if ( empty( $hook ) ) {
+		return;
+	}
+
+	// Add hooks
+	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
+	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
 }
 
 /**
@@ -188,12 +293,76 @@ function wp_user_profiles_admin_notices() {
 }
 
 /**
+ * Get the default query arguments.
+ *
+ * @since 3.0.0
+ *
+ * @param WP_User $user
+ *
+ * @return array
+ */
+function wp_user_profiles_admin_default_query_args( $user = null ) {
+
+	// Default return value
+	$retval = ! wp_is_profile_page()
+		? array( 'user_id' => $user->ID )
+		: array();
+
+	// Conditionally add a referer if it exists in the existing request
+	if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
+		$retval['wp_http_referer'] = urlencode( stripslashes_deep( $_REQUEST['wp_http_referer'] ) );
+	}
+
+	return $retval;
+}
+
+/**
+ * Get the current admin user profile page.
+ *
+ * @since 3.0.0
+ *
+ * @return string
+ */
+function wp_user_profiles_admin_current_page() {
+	return ! empty( $_GET['page'] )
+		? sanitize_key( $_GET['page'] )
+		: 'profile';
+}
+
+/**
+ * Whether or not to show a sub-navigation.
+ *
+ * @since 3.0.0
+ *
+ * @return bool
+ */
+function wp_user_profiles_admin_show_subnav( $parent = '' ) {
+
+	// Default return value
+	$retval = false;
+
+	// Get all sections
+	$sections = ! empty( $parent )
+		? wp_user_profiles_filter_sections( array( 'parent' => $parent ) )
+		: wp_user_profiles_sections();
+
+	// Loop through sections looking for any children
+	foreach ( $sections as $section ) {
+		if ( ! empty( $section->parent ) ) {
+			$retval = true;
+		}
+	}
+
+	// Filter & return
+	return (bool) apply_filters( 'wp_user_profiles_admin_show_subnav', $retval );
+}
+
+/**
  * Create the Profile navigation in Edit User & Edit Profile pages.
  *
  * @since 0.1.0
  *
- * @param  object|null  $user     User to create profile navigation for.
- * @param  string       $current  Which profile to highlight.
+ * @param object|null $user User to create profile navigation for.
  *
  * @return string
  */
@@ -211,51 +380,169 @@ function wp_user_profiles_admin_nav( $user = null ) {
 	}
 
 	// Add the user ID to query arguments when not editing yourself
-	$query_args = ! wp_is_profile_page()
-		? array( 'user_id' => $user->ID )
-		: array();
-
-	// Conditionally add a referer if it exists in the existing request
-	if ( ! empty( $_REQUEST['wp_http_referer'] ) ) {
-		$query_args['wp_http_referer'] = urlencode( stripslashes_deep( $_REQUEST['wp_http_referer'] ) );
-	}
+	$query_args = wp_user_profiles_admin_default_query_args( $user );
 
 	// Current page?
-	$current = ! empty( $_GET['page'] )
-		? sanitize_key( $_GET['page'] )
-		: 'profile';
+	$current    = wp_user_profiles_admin_current_page();
 
-	// Get tabs
-	$sections = wp_user_profiles_sections();
-	$user_url = wp_user_profiles_edit_user_url_filter();
+	// Get sections
+	$section    = wp_user_profiles_filter_sections( array(
+		'id' => $current
+	) );
+
+	// Get sections
+	$sections   = wp_user_profiles_filter_sections( array(
+		'parent' => null
+	) );
+
+	// Get the base profile URL
+	$user_url   = wp_user_profiles_edit_user_url_filter();
+
+	// Start a buffer
+	ob_start();
+
+	// Loop through sections
+	foreach ( $sections as $nav ) {
+
+		// Maybe skip if user cannot view it
+		if ( ! current_user_can( $nav->cap, $user->ID ) ) {
+			continue;
+		}
+
+		// Nav URL
+		$query_args['page'] = $nav->slug;
+		$url                = add_query_arg( $query_args, $user_url );
+
+		// Default class & aria
+		$class = $aria = '';
+
+		// Current
+		if ( ( $nav->id === $current ) || ( $nav->id === $section->parent ) ) {
+			$class = ' nav-tab-active';
+			$aria  = ' aria-current="page"';
+		}
+
+		// Output the link
+		?><a class="nav-tab<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url );?>"<?php echo $aria; // Do not escape ?>><?php
+
+			/**
+			 * This text is intentionally not escaped to allow HTML, for
+			 * things like badges, labels, or whatever else.
+			 *
+			 * Please make sure to escape your own strings as needed.
+			 */
+			echo apply_filters( 'wp_user_profiles_admin_nav_html', $nav->name, $nav );
+
+		?></a><?php
+	}
+
+	// Get the links
+	$links = ob_get_clean();
 
 	// Output the navigation
 	?><nav id="profile-nav" class="nav-tab-wrapper" aria-label="<?php esc_html_e( 'Secondary menu', 'wp-user-profiles' ); ?>"><?php
 
-		// Loop through sections
-		foreach ( $sections as $nav ) {
+		// Output the links
+		echo $links;
 
-			// Maybe skip if user cannot view it
-			if ( ! current_user_can( $nav->cap, $user->ID ) ) {
-				continue;
-			}
+	?></nav><?php
+}
 
-			// Nav URL
-			$query_args['page'] = $nav->slug;
-			$url                = add_query_arg( $query_args, $user_url );
+/**
+ * Output the secondary options page navigation
+ *
+ * @since 3.0.0
+ *
+ * @param object|null $user User to create profile navigation for.
+ *
+ * @return string
+ */
+function wp_user_profiles_admin_subnav( $user = null ) {
 
-			// Nav class
-			$class = ( $nav->id === $current )
-				? ' nav-tab-active'
-				: '';
+	// Bail if no user ID exists here
+	if ( empty( $user->ID ) ) {
+		return;
+	}
 
-			// Aria current page
-			$aria = ( $nav->id === $current )
-				? ' aria-current="page"'
-				: '';
+	// User admin is a special case where top-level menus replace tabulated ones.
+	if ( is_user_admin() ) {
+		return;
+	}
 
-			// Output the link
-			?><a class="nav-tab<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url );?>"<?php echo $aria; // Do not escape ?>><?php
+	// Bail if not showing any subsections
+	if ( ! wp_user_profiles_admin_show_subnav() ) {
+		return;
+	}
+
+	// Add the user ID to query arguments when not editing yourself
+	$query_args = wp_user_profiles_admin_default_query_args( $user );
+
+	// Get the current page
+	$page       = wp_user_profiles_admin_current_page();
+
+	// Get the current section
+	$section    = wp_user_profiles_filter_sections( array(
+		'id' => $page
+	) );
+
+	// Bail if section cannot be found
+	if ( empty( $section ) ) {
+		return;
+	}
+
+	// Which section to prepend (parent, or current)
+	$prepend = ! empty( $section->parent )
+		? wp_user_profiles_filter_sections( array( 'id' => $section->parent ) )
+		: $section;
+
+	// Get subsections
+	$subsections = wp_user_profiles_filter_sections( array(
+		'parent' => $prepend->id
+	) );
+
+	// Prepend the parent section to the beginning of the subsections
+	array_unshift( $subsections, $prepend );
+
+	// Get the base profile URL
+	$user_url = wp_user_profiles_edit_user_url_filter();
+
+	// Start a buffer
+	ob_start();
+
+	// Loop through sections
+	foreach ( $subsections as $sub ) {
+
+		// Maybe skip if user cannot view it
+		if ( ! current_user_can( $sub->cap, $user->ID ) ) {
+			continue;
+		}
+
+		// Get text to output
+		$text = ! empty( $sub->parent )
+			? $sub->name
+			: $sub->subname;
+
+		// Fallback if empty
+		if ( empty( $text ) ) {
+			$text = esc_html__( 'General', 'wp-user-profiles' );
+		}
+
+		// Nav URL
+		$query_args['page'] = $sub->id;
+		$url                = add_query_arg( $query_args, $user_url );
+
+		// Default class & aria
+		$class = $aria = '';
+
+		// Current
+		if ( $page === $sub->id ) {
+			$class = ' current';
+			$aria  = ' aria-current="page"';
+		}
+
+		// Output the link
+		?><li class="<?php echo esc_attr( $class ); ?>"<?php echo $aria; // Do not escape ?>>
+			<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url ); ?>"><?php
 
 				/**
 				 * This text is intentionally not escaped to allow HTML, for
@@ -263,14 +550,27 @@ function wp_user_profiles_admin_nav( $user = null ) {
 				 *
 				 * Please make sure to escape your own strings as needed.
 				 */
-				echo $nav->name;
+				echo apply_filters( 'wp_user_profiles_admin_subnav_html', $text, $sub );
 
-			?></a><?php
-		}
+			?></a>
+		<li><?php
+	}
 
-	?></nav>
+	// Get links
+	$links = ob_get_clean();
 
-	<?php
+	// Bail if no links (user not capable even though sections exist)
+	if ( empty( $links ) ) {
+		return;
+	}
+
+	// Output the subnavigation
+	?><ul id="profile-subnav" class="subsubsub"><?php
+
+		// Output the links
+		 echo $links;
+
+	?></ul><?php
 }
 
 /**
@@ -341,10 +641,7 @@ function wp_user_profiles_user_admin() {
 	// Columns
 	$columns = ( 1 === (int) get_current_screen()->get_columns() )
 		? '1'
-		: '2';
-
-	// Arbitrary notice execution point
-	do_action( 'wp_user_profiles_admin_notices' ); ?>
+		: '2'; ?>
 
 	<div class="wrap" id="wp-user-profiles-page">
 		<h1><?php
@@ -356,21 +653,39 @@ function wp_user_profiles_user_admin() {
 			do_action( 'wp_user_profiles_title_actions' );
 
 		?></h1>
-		<hr class="wp-header-end">
 
-		<?php wp_user_profiles_admin_nav( $user ); ?>
+		<hr class="wp-header-end"><?php
+
+		// Notices underneath H1 to avoid screen jumpiness
+		do_action( 'wp_user_profiles_admin_notices' );
+
+		// Navigation wrapper
+		?><div class="wp-user-profiles-nav-wrapper"><?php
+
+			// All nav & subnav actions
+			do_action( 'wp_user_profiles_nav_actions', $user );
+
+		?></div>
 
 		<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post" novalidate="novalidate" <?php do_action( 'user_edit_form_tag' ); ?>>
 			<div id="poststuff" class="poststuff">
 				<div id="post-body" class="metabox-holder columns-<?php echo esc_attr( $columns ); ?>">
-					<div id="postbox-container-1" class="postbox-container">
-						<?php do_meta_boxes( get_current_screen()->id, 'side', $user ); ?>
-					</div>
+					<div id="postbox-container-1" class="postbox-container"><?php
 
-					<div id="postbox-container-2" class="postbox-container">
-						<?php do_meta_boxes( get_current_screen()->id, 'normal',   $user ); ?>
-						<?php do_meta_boxes( get_current_screen()->id, 'advanced', $user ); ?>
-					</div>
+						// Side
+						do_meta_boxes( get_current_screen()->id, 'side', $user );
+
+					?></div>
+
+					<div id="postbox-container-2" class="postbox-container"><?php
+
+						// Normal
+						do_meta_boxes( get_current_screen()->id, 'normal',   $user );
+
+						// Advanced
+						do_meta_boxes( get_current_screen()->id, 'advanced', $user );
+
+					?></div>
 				</div>
 			</div>
 

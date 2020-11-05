@@ -71,6 +71,24 @@ class WP_User_Profile_Section {
 	public $order = '70';
 
 	/**
+	 * Parent page ID (if not a primary page)
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string
+	 */
+	public $parent = '';
+
+	/**
+	 * Name of the subsection if prepended.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @var string
+	 */
+	public $subname = '';
+
+	/**
 	 * Errors
 	 *
 	 * @since 0.2.0
@@ -113,12 +131,14 @@ class WP_User_Profile_Section {
 		$this->errors = new WP_Error();
 
 		// Set object properties
-		$this->id    = isset( $args[0]['id']    ) ? $args[0]['id']    : '';
-		$this->slug  = isset( $args[0]['slug']  ) ? $args[0]['slug']  : '';
-		$this->name  = isset( $args[0]['name']  ) ? $args[0]['name']  : '';
-		$this->icon  = isset( $args[0]['icon']  ) ? $args[0]['icon']  : '';
-		$this->order = isset( $args[0]['order'] ) ? $args[0]['order'] : '';
-		$this->cap   = isset( $args[0]['cap']   ) ? $args[0]['cap']   : '';
+		$this->id      = isset( $args[0]['id']      ) ? $args[0]['id']      : '';
+		$this->slug    = isset( $args[0]['slug']    ) ? $args[0]['slug']    : '';
+		$this->name    = isset( $args[0]['name']    ) ? $args[0]['name']    : '';
+		$this->icon    = isset( $args[0]['icon']    ) ? $args[0]['icon']    : '';
+		$this->order   = isset( $args[0]['order']   ) ? $args[0]['order']   : '';
+		$this->cap     = isset( $args[0]['cap']     ) ? $args[0]['cap']     : '';
+		$this->parent  = isset( $args[0]['parent']  ) ? $args[0]['parent']  : '';
+		$this->subname = isset( $args[0]['subname'] ) ? $args[0]['subname'] : '';
 
 		// Setup the profile section
 		$GLOBALS['wp_user_profile_sections'][ $this->id ] = $this;

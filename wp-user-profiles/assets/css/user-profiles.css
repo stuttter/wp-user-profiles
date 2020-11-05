@@ -21,3 +21,81 @@
 #wp-user-profiles-page #pass1-text {
 	width: 20em;
 }
+
+
+/* Secondary Nav
+-------------------------------------------------------------- */
+
+#profile-subnav {
+	margin: 0 0px 10px 0;
+	width: 100%;
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+#profile-subnav a {
+	padding: 13px;
+	display: block;
+}
+
+#profile-subnav a.current {
+	border-bottom: 4px solid #000;
+	padding-bottom: 9px;
+}
+
+/* Fresh */
+.admin-color-fresh #profile-subnav a.current {
+	border-bottom-color: #00a0d2;
+}
+
+/* Blue */
+.admin-color-blue #profile-subnav a.current {
+	border-bottom-color: #096484;
+}
+
+/* Coffee */
+.admin-color-coffee #profile-subnav a.current {
+	border-bottom-color: #096484;
+}
+
+/* Ectoplasm */
+.admin-color-ectoplasm #profile-subnav a.current {
+	border-bottom-color: #a3b745;
+}
+
+/* Midnight */
+.admin-color-midnight #profile-subnav a.current {
+	border-bottom-color: #26292c;
+}
+
+/* Modern */
+.admin-color-modern #profile-subnav a.current {
+	border-bottom-color: #3858e9;
+}
+
+/* Ocean */
+.admin-color-ocean #profile-subnav a.current {
+	border-bottom-color: #627c83;
+}
+
+/* Sunrise */
+.admin-color-sunrise #profile-subnav a.current {
+	border-bottom-color: #be3631;
+}
+
+/* Light */
+.admin-color-light #profile-subnav a.current {
+	border-bottom-color: #888;
+}
+
+/* bbPress Color Schemes */
+
+/* Evergreen */
+.admin-color-evergreen #profile-subnav a.current {
+	border-bottom-color: #36533f;
+}
+
+/* Mint */
+.admin-color-mint #profile-subnav a.current {
+	border-bottom-color: #4f6d59;
+}
