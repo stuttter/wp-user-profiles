@@ -72,10 +72,14 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 					switch_to_blog( $blog_id );
 				}
 
-				// Only allow switching to to editable role for site
+				// Only allow switching to editable role for site
 				$editable_roles = get_editable_roles();
 				if ( ! empty( $new_role ) && ! empty( $editable_roles[ $new_role ] ) ) {
 					$user->set_role( $new_role );
+
+				// Or remove all caps if no role for site
+				} elseif ( empty( $new_role ) ) {
+					$user->remove_all_caps();
 				}
 
 				// Switch back
