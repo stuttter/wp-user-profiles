@@ -56,7 +56,7 @@ function wp_user_profiles_name_metabox( $user = null ) {
 		<tr class="user-nickname-wrap">
 			<th>
 				<label for="nickname"><?php esc_html_e( 'Nickname', 'wp-user-profiles' ); ?>
-					<span class="description"><?php esc_html_e( '(required)', 'wp-use-profiles' ); ?></span>
+					<span class="description"><?php esc_html_e( '(required)', 'wp-user-profiles' ); ?></span>
 				</label>
 			</th>
 			<td><input type="text" name="nickname" id="nickname" value="<?php echo esc_attr( $user->nickname ) ?>" class="regular-text" /></td>
