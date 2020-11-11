@@ -476,3 +476,35 @@ function wp_user_profiles_has_profile_actions() {
 	// Return true/false
 	return $retval;
 }
+
+/**
+ * Maybe unhook the BuddyPress Profile Navigation hook
+ *
+ * BuddyPress hooks into 'show_user_profile' and 'edit_user_profile' for
+ * displaying its custom UI, it conflicts with ours, so the best thing we can do
+ * is avoid the situation completely.
+ *
+ * @since 2.4.0
+ */
+function wp_user_profiles_unhook_bp_profile_nav() {
+
+	// Bail if no BuddyPress
+	if ( ! function_exists( 'buddypress' ) ) {
+		return;
+	}
+
+	// Get BuddyPress Profile Navigation hook
+	$bp = buddypress();
+
+	// Bail if no Member Admin
+	if ( empty( $bp->members->admin ) ) {
+		return;
+	}
+
+	// Get the hook callback
+	$tag = array( $bp->members->admin, 'profile_nav' );
+
+	// Remove the actions
+	remove_action( 'show_user_profile', $tag, 99 );
+	remove_action( 'edit_user_profile', $tag, 99 );
+}

@@ -68,3 +68,6 @@ add_filter( 'wp_user_profiles_show_other_section', 'wp_user_profiles_has_profile
 // Nav & Subnav
 add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_nav',    12 );
 add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 );
+
+// BuddyPress
+add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );

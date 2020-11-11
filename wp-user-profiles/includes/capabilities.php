@@ -109,7 +109,12 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
  * @param type $user
  */
 function wp_user_profiles_old_profile_redirect() {
-	wp_safe_redirect( get_dashboard_url() );
+
+	// Get the redirect URL
+	$url = get_edit_profile_url( get_current_user_id() );
+
+	// Do the redirect
+	wp_safe_redirect( $url );
 	exit;
 }
 
