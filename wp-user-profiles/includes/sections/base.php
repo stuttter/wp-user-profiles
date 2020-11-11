@@ -73,16 +73,16 @@ class WP_User_Profile_Section {
 	/**
 	 * Parent page ID (if not a primary page)
 	 *
-	 * @since 3.0.0
+	 * @since 2.4.0
 	 *
 	 * @var string
 	 */
 	public $parent = '';
 
 	/**
-	 * Name of the subsection if prepended.
+	 * Name of the subsection (if prepended)
 	 *
-	 * @since 3.0.0
+	 * @since 2.4.0
 	 *
 	 * @var string
 	 */

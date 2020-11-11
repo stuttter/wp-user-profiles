@@ -170,7 +170,7 @@ function wp_user_profiles_sort_sections( $hip, $hop ) {
 /**
  * Filter sections
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @param array $args
  * @param string $operator

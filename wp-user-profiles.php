@@ -8,7 +8,7 @@
  * License:     GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Description: A sophisticated way to edit users in WordPress
- * Version:     2.3.1
+ * Version:     2.4.0
  * Text Domain: wp-user-profiles
  */
 
@@ -89,5 +89,5 @@ function wp_user_profiles_get_plugin_url() {
 function wp_user_profiles_get_asset_version() {
 	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG
 		? time()
-		: 202011020001;
+		: 202011110001;
 }

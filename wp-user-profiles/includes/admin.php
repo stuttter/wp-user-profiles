@@ -193,7 +193,7 @@ function wp_user_profiles_admin_menus() {
 /**
  * Add the admin menu hooks
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @param string $hook
  */
@@ -295,7 +295,7 @@ function wp_user_profiles_admin_notices() {
 /**
  * Get the default query arguments.
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @param WP_User $user
  *
@@ -319,7 +319,7 @@ function wp_user_profiles_admin_default_query_args( $user = null ) {
 /**
  * Get the current admin user profile page.
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @return string
  */
@@ -332,7 +332,7 @@ function wp_user_profiles_admin_current_page() {
 /**
  * Whether or not to show a sub-navigation.
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @return bool
  */
@@ -451,7 +451,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
 /**
  * Output the secondary options page navigation
  *
- * @since 3.0.0
+ * @since 2.0.0
  *
  * @param object|null $user User to create profile navigation for.
  *
