@@ -37,7 +37,7 @@ function wp_user_profiles_application_metabox( $user = null ) {
 	// Get the password field
 	$password = sprintf(
 		/* translators: %s: Application name. */
-		esc_html__( 'Your new password for %s is:', 'wp-user-profiles' ),
+		esc_html__( 'Your password for %s is:', 'wp-user-profiles' ),
 		'<strong>{{ data.name }}</strong>'
 	);
 
@@ -97,7 +97,7 @@ function wp_user_profiles_application_metabox( $user = null ) {
 
 			<p><?php
 
-				esc_html_e( 'Be sure to save this in a safe location. You will not be able to retrieve it.', 'wp-user-profiles' );
+				esc_html_e( 'Save this in a safe location. You cannot retrieve it again later.', 'wp-user-profiles' );
 
 			?></p>
 

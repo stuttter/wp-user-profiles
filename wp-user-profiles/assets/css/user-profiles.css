@@ -35,6 +35,10 @@
 	padding-right: 0;
 }
 
+#new-application-password-value {
+	cursor: pointer;
+}
+
 .application-passwords-list-table-wrapper .tablenav.top {
 	height: 0;
 	padding: 0;

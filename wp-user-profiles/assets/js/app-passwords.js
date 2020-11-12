@@ -134,6 +134,17 @@
 		} ).fail( handleErrorResponse );
 	} );
 
+	$appPassSection.on( 'click', '#new-application-password-value', function( e ) {
+		e.preventDefault();
+
+		// Select the text field
+		this.select();
+		this.setSelectionRange( 0, 99999 );
+
+		// Copy the text inside the text field
+		document.execCommand( 'copy' );
+	} );
+
 	$appPassSection.on( 'click', '.notice-dismiss', function( e ) {
 		e.preventDefault();
 		var $el = $( this ).parent();
