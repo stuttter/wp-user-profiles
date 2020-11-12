@@ -27,9 +27,16 @@ function wp_user_profiles_admin_register_scripts() {
 /**
  * Enqueue admin scripts
  *
+ * Also, override a few scripts that we need to fork & maintain separately, as
+ * they include minor tweaks for the changed markup.
+ *
  * @since 0.1.0
  */
 function wp_user_profiles_admin_enqueue_scripts() {
+
+	// Set location & version for scripts & styles
+	$src = wp_user_profiles_get_plugin_url();
+	$ver = wp_user_profiles_get_asset_version();
 
 	// Enqueue core scripts
 	wp_enqueue_script( 'jquery-ui-sortable' );
@@ -39,17 +46,38 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	// Styles
 	wp_enqueue_style( 'wp-user-profiles' );
 
-	// Set location & version for scripts & styles
-	$src    = wp_user_profiles_get_plugin_url();
-	$ver    = wp_user_profiles_get_asset_version();
+	// Replace the user-profile script with our own
 	$handle = 'user-profile';
 	$url    = $src . 'assets/js/user-profiles.js';
 	$deps   = array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' );
 
 	// Replace the user-profile script with our own
 	wp_enqueue_script( $handle, $url, $deps, $ver );
-	wp_scripts()->registered[ $handle ]->src = $url;
+	wp_scripts()->registered[ $handle ]->src  = $url;
+	wp_scripts()->registered[ $handle ]->ver  = $ver;
+	wp_scripts()->registered[ $handle ]->deps = $deps;
 	wp_scripts()->set_translations( $handle );
+
+	// Get the user ID
+	$user_id = ! empty( $_GET['user_id'] )
+		? absint( $_GET['user_id'] )
+		: get_current_user_id();
+
+	// Only enqueue;
+	if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && ! empty( $user_id ) && wp_is_application_passwords_available_for_user( $user_id ) ) {
+
+		// Replace the application-passwords script with our own
+		$handle = 'application-passwords';
+		$url    = $src . 'assets/js/app-passwords.js';
+		$deps   = array( 'jquery', 'wp-util', 'wp-api-request', 'wp-date', 'wp-i18n', 'wp-hooks' );
+
+		// Replace the application-passwords script with our own
+		wp_enqueue_script( $handle, $url, $deps, $ver, true );
+		wp_scripts()->registered[ $handle ]->src  = $url;
+		wp_scripts()->registered[ $handle ]->ver  = $ver;
+		wp_scripts()->registered[ $handle ]->deps = $deps;
+		wp_scripts()->set_translations( $handle );
+	}
 }
 
 /**
@@ -205,8 +233,8 @@ function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
 	}
 
 	// Add hooks
-	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head' );
+	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load' );
 }
 
 /**
@@ -600,12 +628,18 @@ function wp_user_profiles_title_actions() {
  * @since 0.1.0
  */
 function wp_user_profiles_user_admin() {
+	global $user_id;
 
 	// Reset some global values
 	wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
 
 	// Get user to edit
 	$user = wp_user_profiles_get_user_to_edit();
+
+	// User ID
+	$user_id = ! empty( $user )
+		? $user->ID
+		: 0;
 
 	/**
 	 * Backwards compatibility for JIT metaboxes
@@ -632,11 +666,6 @@ function wp_user_profiles_user_admin() {
 	$display_name = ! empty( $user )
 		? $user->display_name
 		: esc_html__( 'Anonymous', 'wp-user-profiles' );
-
-	// User ID
-	$user_id = ! empty( $user )
-		? $user->ID
-		: 0;
 
 	// Columns
 	$columns = ( 1 === (int) get_current_screen()->get_columns() )

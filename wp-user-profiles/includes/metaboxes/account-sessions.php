@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Render the password metabox for user profile screen
+ * Render the session metabox for user profile screen
  *
  * @since 0.1.0
  *

@@ -4,7 +4,7 @@ Tags: users, user, profile, edit, metabox
 Requires PHP: 7.2
 Requires at least: 5.2
 Tested up to: 5.6
-Stable tag: 2.4.0
+Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
@@ -59,6 +59,9 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= [2.5.0]- 2020-11-11 =
+* Add support for Application Passwords, in WordPress 5.6
 
 = [2.4.0]- 2020-11-11 =
 * Improve BuddyPress support
