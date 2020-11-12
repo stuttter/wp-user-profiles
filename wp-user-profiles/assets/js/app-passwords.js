@@ -46,8 +46,10 @@
 			path: '/wp/v2/users/' + userId + '/application-passwords',
 			method: 'POST',
 			data: request
+
 		} ).always( function() {
 			$newAppPassButton.removeProp( 'aria-disabled' ).removeClass( 'disabled' );
+
 		} ).done( function( response ) {
 			$newAppPassField.val( '' );
 			$newAppPassButton.prop( 'disabled', false );
@@ -56,12 +58,14 @@
 				name: name,
 				password: response.password
 			} ) );
+
 			$( '.new-application-password-notice' ).focus();
 
 			$appPassTbody.prepend( tmplAppPassRow( response ) );
 
 			$appPassTwrapper.show();
-			$appPassTrNoItems.remove();
+
+			hideElement( $appPassTrNoItems );
 
 			/**
 			 * Fires after an application password has been successfully created.
@@ -83,8 +87,8 @@
 		}
 
 		var $submitButton = $( this ),
-			$tr = $submitButton.closest( 'tr' ),
-			uuid = $tr.data( 'uuid' );
+			$tr           = $submitButton.closest( 'tr' ),
+			uuid          = $tr.data( 'uuid' );
 
 		clearNotices();
 		$submitButton.prop( 'disabled', true );
@@ -92,14 +96,17 @@
 		wp.apiRequest( {
 			path: '/wp/v2/users/' + userId + '/application-passwords/' + uuid,
 			method: 'DELETE'
+
 		} ).always( function() {
 			$submitButton.prop( 'disabled', false );
+
 		} ).done( function( response ) {
 			if ( response.deleted ) {
 				if ( 0 === $tr.siblings().length ) {
-					$appPassTwrapper.hide();
+					hideElement( $appPassTwrapper, false );
 				}
-				$tr.remove();
+
+				hideElement( $tr );
 
 				addNotice( wp.i18n.__( 'Application password revoked.' ), 'success' ).focus();
 			}
@@ -121,13 +128,16 @@
 		wp.apiRequest( {
 			path: '/wp/v2/users/' + userId + '/application-passwords',
 			method: 'DELETE'
+
 		} ).always( function() {
 			$submitButton.prop( 'disabled', false );
+
 		} ).done( function( response ) {
 			if ( response.deleted ) {
-				$appPassTbody.children().remove();
-				$appPassSection.children( '.new-application-password' ).remove();
-				$appPassTwrapper.hide();
+				hideElement( $appPassTbody.children() );
+				hideElement( $appPassSection.children( '.new-application-password' ) );
+
+				hideElement( $appPassTwrapper, false );
 
 				addNotice( wp.i18n.__( 'All application passwords revoked.' ), 'success' ).focus();
 			}
@@ -143,18 +153,16 @@
 
 		// Copy the text inside the text field
 		document.execCommand( 'copy' );
+
+		// Throb so it feels like something happened
+		$( this ).css( 'opacity', '0.2' ).fadeTo( 'fast', 1 );
 	} );
 
 	$appPassSection.on( 'click', '.notice-dismiss', function( e ) {
 		e.preventDefault();
 		var $el = $( this ).parent();
-		$el.removeAttr( 'role' );
-		$el.fadeTo( 100, 0, function () {
-			$el.slideUp( 100, function () {
-				$el.remove();
-				$newAppPassField.focus();
-			} );
-		} );
+
+		hideElement( $el );
 	} );
 
 	// If there are no items, don't display the table yet.  If there are, show it.
@@ -214,6 +222,30 @@
 	 * @since 5.6.0
 	 */
 	function clearNotices() {
-		$( '.notice', $appPassSection ).remove();
+		hideElement( $( '.notice', $appPassSection ) );
 	}
+
+	/**
+	 * Remove an HTML element with some animations.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param {element} e
+	 * @param {bool} remove
+	 */
+	function hideElement( e, remove ) {
+		var $el = $( e );
+
+		$el.removeAttr( 'role' );
+
+		$el.fadeTo( 100, 0, function () {
+			$el.slideUp( 100, function () {
+				if ( true === remove ) {
+					$el.remove();
+				}
+
+				$newAppPassField.focus();
+			} );
+		} );
+	};
 }( jQuery ) );

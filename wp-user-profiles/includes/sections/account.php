@@ -74,7 +74,7 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		);
 
 		// Application Passwords
-		if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && wp_is_application_passwords_available_for_user( $user['user'] ) ) {
+		if ( wp_user_profiles_user_supports( 'application-passwords', $user ) ) {
 			add_meta_box(
 				'application',
 				_x( 'Application Passwords', 'users user-admin edit screen', 'wp-user-profiles' ),
