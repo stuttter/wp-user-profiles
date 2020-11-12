@@ -58,17 +58,26 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	wp_scripts()->registered[ $handle ]->deps = $deps;
 	wp_scripts()->set_translations( $handle );
 
-	// Replace the application-passwords script with our own
-	$handle = 'application-passwords';
-	$url    = $src . 'assets/js/app-passwords.js';
-	$deps   = array( 'jquery', 'wp-util', 'wp-api-request', 'wp-date', 'wp-i18n', 'wp-hooks' );
+	// Get the user ID
+	$user_id = ! empty( $_GET['user_id'] )
+		? absint( $_GET['user_id'] )
+		: get_current_user_id();
 
-	// Replace the application-passwords script with our own
-	wp_enqueue_script( $handle, $url, $deps, $ver, true );
-	wp_scripts()->registered[ $handle ]->src  = $url;
-	wp_scripts()->registered[ $handle ]->ver  = $ver;
-	wp_scripts()->registered[ $handle ]->deps = $deps;
-	wp_scripts()->set_translations( $handle );
+	// Only enqueue;
+	if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && ! empty( $user_id ) && wp_is_application_passwords_available_for_user( $user_id ) ) {
+
+		// Replace the application-passwords script with our own
+		$handle = 'application-passwords';
+		$url    = $src . 'assets/js/app-passwords.js';
+		$deps   = array( 'jquery', 'wp-util', 'wp-api-request', 'wp-date', 'wp-i18n', 'wp-hooks' );
+
+		// Replace the application-passwords script with our own
+		wp_enqueue_script( $handle, $url, $deps, $ver, true );
+		wp_scripts()->registered[ $handle ]->src  = $url;
+		wp_scripts()->registered[ $handle ]->ver  = $ver;
+		wp_scripts()->registered[ $handle ]->deps = $deps;
+		wp_scripts()->set_translations( $handle );
+	}
 }
 
 /**
@@ -224,8 +233,8 @@ function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
 	}
 
 	// Add hooks
-	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head', $hook );
-	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load', $hook );
+	add_action( "admin_head-{$hook}", 'wp_user_profiles_do_admin_head' );
+	add_action( "load-{$hook}",       'wp_user_profiles_do_admin_load' );
 }
 
 /**
