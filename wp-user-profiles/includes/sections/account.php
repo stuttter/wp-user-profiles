@@ -72,6 +72,19 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			'low',
 			$user
 		);
+
+		// Application Passwords
+		if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && wp_is_application_passwords_available_for_user( $user['user'] ) ) {
+			add_meta_box(
+				'application',
+				_x( 'Application Passwords', 'users user-admin edit screen', 'wp-user-profiles' ),
+				'wp_user_profiles_application_metabox',
+				$type,
+				'normal',
+				'low',
+				$user
+			);
+		}
 	}
 
 	/**

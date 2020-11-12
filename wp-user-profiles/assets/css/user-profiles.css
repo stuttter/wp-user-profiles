@@ -22,6 +22,24 @@
 	width: 20em;
 }
 
+#application-passwords-section .notice {
+	margin: 0;
+	background-color: #fafafa;
+}
+
+#do_new_application_password {
+	float: right;
+}
+
+.create-application-password td {
+	padding-right: 0;
+}
+
+.application-passwords-list-table-wrapper .tablenav.top {
+	height: 0;
+	padding: 0;
+	margin: 20px 0 0 0;
+}
 
 /* Secondary Nav
 -------------------------------------------------------------- */
@@ -31,6 +49,7 @@
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	float: none;
 }
 
 #profile-subnav a {

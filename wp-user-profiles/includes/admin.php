@@ -27,9 +27,16 @@ function wp_user_profiles_admin_register_scripts() {
 /**
  * Enqueue admin scripts
  *
+ * Also, override a few scripts that we need to fork & maintain separately, as
+ * they include minor tweaks for the changed markup.
+ *
  * @since 0.1.0
  */
 function wp_user_profiles_admin_enqueue_scripts() {
+
+	// Set location & version for scripts & styles
+	$src = wp_user_profiles_get_plugin_url();
+	$ver = wp_user_profiles_get_asset_version();
 
 	// Enqueue core scripts
 	wp_enqueue_script( 'jquery-ui-sortable' );
@@ -39,16 +46,28 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	// Styles
 	wp_enqueue_style( 'wp-user-profiles' );
 
-	// Set location & version for scripts & styles
-	$src    = wp_user_profiles_get_plugin_url();
-	$ver    = wp_user_profiles_get_asset_version();
+	// Replace the user-profile script with our own
 	$handle = 'user-profile';
 	$url    = $src . 'assets/js/user-profiles.js';
 	$deps   = array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' );
 
 	// Replace the user-profile script with our own
 	wp_enqueue_script( $handle, $url, $deps, $ver );
-	wp_scripts()->registered[ $handle ]->src = $url;
+	wp_scripts()->registered[ $handle ]->src  = $url;
+	wp_scripts()->registered[ $handle ]->ver  = $ver;
+	wp_scripts()->registered[ $handle ]->deps = $deps;
+	wp_scripts()->set_translations( $handle );
+
+	// Replace the application-passwords script with our own
+	$handle = 'application-passwords';
+	$url    = $src . 'assets/js/app-passwords.js';
+	$deps   = array( 'jquery', 'wp-util', 'wp-api-request', 'wp-date', 'wp-i18n', 'wp-hooks' );
+
+	// Replace the application-passwords script with our own
+	wp_enqueue_script( $handle, $url, $deps, $ver, true );
+	wp_scripts()->registered[ $handle ]->src  = $url;
+	wp_scripts()->registered[ $handle ]->ver  = $ver;
+	wp_scripts()->registered[ $handle ]->deps = $deps;
 	wp_scripts()->set_translations( $handle );
 }
 

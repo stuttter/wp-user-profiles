@@ -1,4 +1,4 @@
-/* global ajaxurl, pwsL10n */
+/* global ajaxurl, pwsL10n, zxcvbn */
 (function($) {
 	var updateLock = false,
 		__ = wp.i18n.__,
