@@ -600,12 +600,18 @@ function wp_user_profiles_title_actions() {
  * @since 0.1.0
  */
 function wp_user_profiles_user_admin() {
+	global $user_id;
 
 	// Reset some global values
 	wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
 
 	// Get user to edit
 	$user = wp_user_profiles_get_user_to_edit();
+
+	// User ID
+	$user_id = ! empty( $user )
+		? $user->ID
+		: 0;
 
 	/**
 	 * Backwards compatibility for JIT metaboxes
@@ -632,11 +638,6 @@ function wp_user_profiles_user_admin() {
 	$display_name = ! empty( $user )
 		? $user->display_name
 		: esc_html__( 'Anonymous', 'wp-user-profiles' );
-
-	// User ID
-	$user_id = ! empty( $user )
-		? $user->ID
-		: 0;
 
 	// Columns
 	$columns = ( 1 === (int) get_current_screen()->get_columns() )
