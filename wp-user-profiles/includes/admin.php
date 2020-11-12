@@ -64,7 +64,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 		: get_current_user_id();
 
 	// Only enqueue;
-	if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && ! empty( $user_id ) && wp_is_application_passwords_available_for_user( $user_id ) ) {
+	if ( wp_user_profiles_user_supports( 'application-passwords', $user_id ) ) {
 
 		// Replace the application-passwords script with our own
 		$handle = 'application-passwords';

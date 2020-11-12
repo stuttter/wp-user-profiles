@@ -90,5 +90,5 @@ function wp_user_profiles_get_plugin_url() {
 function wp_user_profiles_get_asset_version() {
 	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG
 		? time()
-		: 202011120001;
+		: 202011120002;
 }

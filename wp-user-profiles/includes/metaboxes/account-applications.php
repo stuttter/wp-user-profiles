@@ -28,7 +28,7 @@ function wp_user_profiles_application_metabox( $user = null ) {
 
 	// Get the submit button
 	$button = get_submit_button(
-		esc_html__( 'Add New Application Password', 'wp-user-profiles' ),
+		esc_html__( 'Add Password', 'wp-user-profiles' ),
 		'secondary',
 		'do_new_application_password',
 		false
@@ -37,7 +37,7 @@ function wp_user_profiles_application_metabox( $user = null ) {
 	// Get the password field
 	$password = sprintf(
 		/* translators: %s: Application name. */
-		esc_html__( 'Your password for %s is:', 'wp-user-profiles' ),
+		esc_html__( 'The password for %s is:', 'wp-user-profiles' ),
 		'<strong>{{ data.name }}</strong>'
 	);
 
@@ -57,6 +57,9 @@ function wp_user_profiles_application_metabox( $user = null ) {
 
 						<?php
 
+						// Output the button
+						echo $button;
+
 						/**
 						 * Fires in the create Application Passwords form.
 						 *
@@ -65,9 +68,6 @@ function wp_user_profiles_application_metabox( $user = null ) {
 						 * @param WP_User $profileuser The current WP_User object.
 						 */
 						do_action( 'wp_create_application_password_form', $user );
-
-						// Output the button
-						echo $button;
 
 					?></td>
 				</tr>

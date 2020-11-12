@@ -143,3 +143,44 @@ function wp_user_profiles_old_user_edit_redirect() {
     wp_safe_redirect( $user_edit_url );
     exit;
 }
+
+/**
+ * Does a user account have support for a certain feature?
+ *
+ * @since 2.4.0
+ * @param string $thing
+ * @param int    $user_id
+ * @return bool
+ */
+function wp_user_profiles_user_supports( $thing = '', $user_id = 0 ) {
+
+	// Default return value
+	$retval = false;
+
+	// Use the first in an array
+	if ( is_array( $user_id ) ) {
+		$user_id = reset( $user_id );
+	}
+
+	// Use the ID of an object
+	if ( is_object( $user_id ) ) {
+		$user_id = $user_id->ID;
+	}
+
+	// Cast to absolute integer
+	$user_id = absint( $user_id );
+
+	// What thing?
+	switch ( $thing ) {
+
+		// Application Passwords in WordPress 5.6
+		case 'application-passwords' :
+			if ( function_exists( 'wp_is_application_passwords_available_for_user' ) && wp_is_application_passwords_available_for_user( $user_id ) ) {
+				$retval = true;
+			}
+			break;
+	}
+
+	// Filter & return
+	return apply_filters( '', $retval, $thing, $user_id );
+}
