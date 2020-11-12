@@ -182,7 +182,8 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 				'<li>' . esc_html__( 'Your email address is used for receiving notifications from this site',    'wp-user-profiles' ) . '</li>' .
 				'<li>' . esc_html__( 'Passwords should be lengthy and complex to help keep your account secure', 'wp-user-profiles' ) . '</li>' .
 				'<li>' . esc_html__( 'The language you pick will be used wherever it is supported.',             'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li></ul>'
+				'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li>' .
+				'<li>' . esc_html__( 'Application passwords allow authentication via non-interactive systems.',  'wp-user-profiles' ) . '</li></ul>'
 		) );
 	}
 }
