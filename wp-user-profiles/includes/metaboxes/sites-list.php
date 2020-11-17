@@ -114,7 +114,7 @@ function wp_user_profiles_filter_sites_table_query_args( $args = array() ) {
  * @param array $links
  * @return array
  */
-function wp_user_profiles_filter_sites_action_links( $links = array(), $blog_id ) {
+function wp_user_profiles_filter_sites_action_links( $links = array(), $blog_id = 0 ) {
 
 	if ( ! current_user_can( 'manage_sites' ) ) {
 		// Unset actionable links
@@ -170,10 +170,11 @@ function wp_user_profiles_filter_sites_columns( $columns = array() ) {
 function wp_user_profiles_filter_views( $views = array() ) {
 	$all_sites = ! empty( $_GET['all_sites'] );
 
-	$views = array();
-
-	$views['assigned'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 0 ) ) . "#sites'" . ( ! $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'Assigned', 'wp-user-profiles' ) . '</a>';
-	$views['all'] = "<a href='" . esc_url( add_query_arg( 'all_sites', 1 ) ) . "#sites'" . ( $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'All Sites', 'wp-user-profiles' ) . '</a>';
+	// Default views
+	$views = array(
+		'assigned' => "<a href='" . esc_url( add_query_arg( 'all_sites', 0 ) ) . "#sites'" . ( ! $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'Assigned',  'wp-user-profiles' ) . '</a>',
+		'all'      => "<a href='" . esc_url( add_query_arg( 'all_sites', 1 ) ) . "#sites'" . (   $all_sites ? 'class="current"' : '' ) . '>' . esc_html__( 'All Sites', 'wp-user-profiles' ) . '</a>'
+	);
 
 	return $views;
 }
@@ -186,18 +187,28 @@ function wp_user_profiles_filter_views( $views = array() ) {
  * @return array
  */
 function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
-	$actions = array();
 
-	$all_sites = isset( $_GET['all_sites'] ) ? absint( $_GET['all_sites'] ) : 0;
+	// Default actions
+	$actions = array(
+		'remove' => esc_html__( 'Remove', 'wp-user-profiles' ),
+	);
 
-	$actions['remove'] = esc_html__( 'Remove', 'wp-user-profiles' );
+	// Looking at "All Sites" or not
+	$all_sites = isset( $_GET['all_sites'] )
+		? absint( $_GET['all_sites'] )
+		: 0;
 
-	if ( $all_sites ) {
+	// Maybe add more if looking at "All Sites"
+	if ( ! empty( $all_sites ) ) {
+
+		// Add the "add" action
 		$actions['add'] = esc_html__( 'Assign as (Choose a Role)', 'wp-user-profiles' );
 
+		// Add combined roles
 		foreach ( wp_user_profiles_get_common_user_roles() as $role => $name ) {
+
 			// translators: prefix for roles dropdown
-			$actions[ 'add_as_' . $role ] = sprintf( esc_html_x( '- %s', 'translators: prefix for roles dropdown', 'wp-user-profile' ), $name );
+			$actions[ 'add_as_' . $role ] = sprintf( _x( '&mdash; %s', 'translators: prefix for roles dropdown', 'wp-user-profile' ), $name );
 		}
 	}
 
@@ -212,15 +223,17 @@ function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
  *
  * @return string
  */
-function wp_user_profiles_filter_role_column( $column_name, $blog_id ) {
-	if ( $column_name !== 'roles' ) {
+function wp_user_profiles_filter_role_column( $column_name = '', $blog_id = 0 ) {
+	static $wp_site_roles_cache = array();
+
+	// Bail if not the "Roles" column
+	if ( 'roles' !== $column_name ) {
 		return;
 	}
 
-	global $wp_site_roles_cache;
-	$wp_site_roles_cache = $wp_site_roles_cache ? $wp_site_roles_cache : array();
-
-	$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : get_current_user_id();
+	$user_id = isset( $_GET['user_id'] )
+		? absint( $_GET['user_id'] )
+		: get_current_user_id();
 
 	switch_to_blog( $blog_id );
 	$user = get_user_by( 'id', $user_id );
@@ -231,104 +244,149 @@ function wp_user_profiles_filter_role_column( $column_name, $blog_id ) {
 	if ( ! empty( $roles ) ) {
 		echo implode( ',', array_map( 'esc_html', $roles ) );
 	} else {
-		echo '<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">' . esc_html__( 'User is not a member of this site' ) . '</span>';
+		echo '<span aria-hidden="true">&#8212;</span><span class="screen-reader-text">' . esc_html__( 'User is not a member of this site', 'wp-user-profiles' ) . '</span>';
 	}
 }
 
 /**
  * Return a list of common user roles from a list of sites
  *
- * @param array|null $site_ids  List of site IDs to grab roles from
+ * @param array|null $site_ids List of site IDs to grab roles from
  *
  * @return array|bool|mixed
  */
 function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 
-	// nonce check
-	// catch list of site ids
-
 	// Allow filtering this to disable querying all sites for roles
 	$roles = apply_filters( 'pre_wp_user_profiles_common_user_roles', false );
 
-	if ( $roles ) {
+	// Use pre-fabbed roles
+	if ( false !== $roles ) {
 		return $roles;
 	}
 
+	// Transient cache info
 	$cache_ttl = apply_filters( 'wp_common_user_roles_cache_ttl', DAY_IN_SECONDS );
 	$cache_key = 'wp_user_profiles_common_user_roles';
 
+	// Use transient cache
 	$cached = get_site_transient( $cache_key );
-	if ( $cached && is_array( $cached ) ) {
+	if ( ! empty( $cached ) && is_array( $cached ) ) {
 		return $cached;
 	}
 
+	// Use the current user ID for caching
+	$user_id = get_current_user_id();
+
+	// Use the current network (for now)
+	$network_id = get_current_network_id();
+
 	// Store a nonce network-wide
-	$nonce = wp_create_nonce( 'wp-user-profiles' );
-	update_site_option( 'wp-user-profiles-nonce-' . get_current_user_id(), $nonce );
+	$nonce     = wp_create_nonce( 'wp-user-profiles' );
+	$nonce_key = 'wp-user-profiles-nonce-' . $user_id;
+	update_network_option( $network_id, $nonce_key, $nonce );
 
 	/**
-	 * Filter wp_user_roles_main_sites
-	 *
 	 * Filters what sites are queried for roles
 	 *
 	 * @param int Array of blog ids
 	 */
 	$roles_site_ids = apply_filters( 'wp_user_roles_main_sites', $site_ids );
-	if ( $roles_site_ids ) {
-		$sites = new WP_Site_Query( array(
-			'fields'   => 'ids', // Just to validate sites exists
-			'site__in' => (array) $roles_site_ids,
-		) );
 
-	} else {
-		/**
-		 * Filters the number of sites queried for roles
-		 *
-		 * @param int Number of blogs
-		 */
-		$site_query_limit = apply_filters( 'wp_user_roles_main_sites', 10 );
-		$sites = new WP_Site_Query( array(
+	/**
+	 * Filters the number of sites queried for roles
+	 *
+	 * @param int Number of blogs
+	 */
+	$site_query_limit = apply_filters( 'wp_user_roles_main_sites', 10 );
+
+	// Query by site IDs
+	if ( ! empty( $roles_site_ids ) ) {
+		$args = array(
 			'fields'   => 'ids',
-			'limit'    => $site_query_limit,
+			'site__in' => (array) $roles_site_ids,
 			'orderby'  => 'id',
-		) );
+		);
+
+	// Query by site IDs, limited to X number
+	} else {
+		$args = array(
+			'fields'   => 'ids',
+			'limit'    => absint( $site_query_limit ),
+			'orderby'  => 'id',
+		);
 	}
 
+	// Common roles
 	$common_roles = array(
-		'__default__' => __( 'Default site role', 'wp-user-profiles' ),
+		'__default__' => esc_html__( 'Default site role', 'wp-user-profiles' ),
 	);
 
+	// Initial reduction array
+	$reduced = array();
+
+	// Query for site IDs
+	$sites = new WP_Site_Query( $args );
+
 	// Batch request roles from each site
-	if ( $sites ) {
-		$roles = array_reduce( $sites->sites, function ( $roles, $blog_id ) use ( $nonce ) {
-			$url = add_query_arg( array(
+	if ( ! empty( $sites->sites ) ) {
+
+		// Initial roles array
+		$roles = array();
+
+		// Loop through sites
+		foreach ( $sites->sites as $site_id ) {
+
+			// Admin URL
+			$url = get_admin_url( $site_id ) . '/admin-ajax.php';
+
+			// Remote URL
+			$remote = add_query_arg( array(
 				'action' => 'wp_user_profiles_export_roles',
 				'nonce'  => $nonce,
-				'auth'   => get_current_user_id(),
-			), get_admin_url( $blog_id ) . '/admin-ajax.php' );
+				'auth'   => $user_id,
+			), $url );
 
-			$response = wp_remote_get( $url, array( 'timeout' => 20 ) );
+			// Remote request
+			$response = wp_remote_get( $remote, array(
+				'timeout' => 10
+			) );
 
-			if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
-				$data = json_decode( wp_remote_retrieve_body( $response ), true );
-				if ( isset( $data['data'] ) ) {
-					$roles[ $blog_id ] = $data['data'];
+			// Get response code
+			$code = wp_remote_retrieve_response_code( $response );
+
+			// Success
+			if ( 200 === $code ) {
+
+				// Get info
+				$body = wp_remote_retrieve_body( $response );
+				$data = json_decode( $body, true );
+
+				// Look for data
+				if ( ! empty( $data['data'] ) ) {
+					$roles[ $site_id ] = $data['data'];
 				}
 			}
-
-			return $roles;
-		}, array() );
-
-		// Get intersected roles between all sites
-		if ( ! empty( $roles ) ) {
-			$common_roles = $common_roles + call_user_func_array( 'array_intersect_key', $roles );
-			set_site_transient( $cache_key, $common_roles, $cache_ttl );
 		}
+
+		// Get all possible roles and reduce them
+		$all     = call_user_func_array( 'array_merge', $roles );
+		$reduced = array_reduce( $roles, 'array_intersect_key', $all );
 	}
 
-	delete_site_option( 'wp-user-profiles-nonce-' . get_current_user_id() );
+	// Setup the return value
+	$retval = ! empty( $reduced )
+		? $common_roles + $reduced
+		: $common_roles;
 
-	return $common_roles;
+	// Always stash the roles
+	set_site_transient( $cache_key, $retval, $cache_ttl );
+
+	// Always delete the nonce
+	delete_network_option( $network_id, $nonce_key );
+
+	// Return the roles
+	return $retval;
 }
 
 /**
@@ -356,22 +414,27 @@ function wp_user_profiles_get_common_user_roles_ajax() {
  */
 function wp_user_profiles_export_user_roles_ajax() {
 
-	$nonce   = isset( $_GET['nonce'] ) // wpcs: csrf input var okay
+	// Get the nonce
+	$nonce = isset( $_GET['nonce'] ) // wpcs: csrf input var okay
 		? sanitize_text_field( wp_unslash( $_GET['nonce'] ) ) // wpcs: csrf input var okay
 		: '';
 
+	// Get the user ID
 	$user_id = isset( $_GET['auth'] ) // wpcs: csrf input var okay
-		? sanitize_text_field( wp_unslash( $_GET['auth'] ) ) // wpcs: csrf input var okay
+		? absint( wp_unslash( $_GET['auth'] ) ) // wpcs: csrf input var okay
 		: '';
 
-	if ( empty( $nonce ) || $nonce !== get_site_option( 'wp-user-profiles-nonce-' . $user_id ) ) {
-		wp_send_json_error( esc_html__( 'Invalid nonce received', 'wp-user-profiles' ), 401 );
+	// Success
+	if ( ! empty( $user_id ) && ! empty( $nonce ) && ( $nonce === get_network_option( null, 'wp-user-profiles-nonce-' . $user_id ) ) ) {
+
+		/** @var $wp_roles \WP_Roles */
+		global $wp_roles;
+
+		$roles = wp_list_pluck( $wp_roles->roles, 'name' );
+
+		wp_send_json_success( $roles );
 	}
 
-	/** @var $wp_roles \WP_Roles */
-	global $wp_roles;
-
-	$roles = wp_list_pluck( $wp_roles->roles, 'name' );
-
-	wp_send_json_success( $roles );
+	// Default error
+	wp_send_json_error( esc_html__( 'Invalid nonce or user ID.', 'wp-user-profiles' ), 401 );
 }
