@@ -38,7 +38,9 @@
 		}
 
 		// Once zxcvbn loads, passwords strength is known.
-		$( '#pw-weak-text-label' ).text( __( 'Confirm use of weak password' ) );
+		$( '#pw-weak-text-label' ).text(
+			__( 'Confirm use of weak password', 'wp-user-profiles' )
+		);
 	}
 
 	function bindPass1() {
@@ -64,14 +66,25 @@
 	function resetToggle( show ) {
 		$toggleButton
 			.attr({
-				'aria-label': show ? __( 'Show password' ) : __( 'Hide password' )
+				'aria-label': show
+					? __( 'Show password', 'wp-user-profiles' )
+					: __( 'Hide password', 'wp-user-profiles' )
 			})
 			.find( '.text' )
-				.text( show ? __( 'Show' ) : __( 'Hide' ) )
+				.text( show
+					? __( 'Show', 'wp-user-profiles' )
+					: __( 'Hide', 'wp-user-profiles' )
+				)
 			.end()
 			.find( '.dashicons' )
-				.removeClass( show ? 'dashicons-hidden' : 'dashicons-visibility' )
-				.addClass( show ? 'dashicons-visibility' : 'dashicons-hidden' );
+				.removeClass( show
+					? 'dashicons-hidden'
+					: 'dashicons-visibility'
+				)
+				.addClass( show
+					? 'dashicons-visibility'
+					: 'dashicons-hidden'
+				);
 	}
 
 	function bindToggleButton() {
@@ -397,7 +410,7 @@
 	// Warn the user if password was generated but not saved.
 	$( window ).on( 'beforeunload', function () {
 		if ( true === updateLock ) {
-			return __( 'Your new password has not been saved.' );
+			return __( 'Your new password has not been saved.', 'wp-user-profiles' );
 		}
 	} );
 

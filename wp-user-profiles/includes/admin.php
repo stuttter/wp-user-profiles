@@ -49,7 +49,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	// Replace the user-profile script with our own
 	$handle = 'user-profile';
 	$url    = $src . 'assets/js/user-profiles.js';
-	$deps   = array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-util' );
+	$deps   = array( 'jquery', 'dashboard', 'password-strength-meter', 'wp-i18n', 'wp-util' );
 
 	// Replace the user-profile script with our own
 	wp_enqueue_script( $handle, $url, $deps, $ver );
