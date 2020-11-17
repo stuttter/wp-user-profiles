@@ -1,5 +1,6 @@
 ( function( $ ) {
-	var $appPassSection   = $( '#application-passwords-section' ),
+	var __                = wp.i18n.__,
+		$appPassSection   = $( '#application-passwords-section' ),
 		$newAppPassForm   = $appPassSection.find( '.create-application-password' ),
 		$newAppPassField  = $newAppPassForm.find( '.input' ),
 		$newAppPassButton = $newAppPassForm.find( '.button' ),
@@ -82,7 +83,7 @@
 	$appPassTbody.on( 'click', '.delete', function( e ) {
 		e.preventDefault();
 
-		if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke this password? This action cannot be undone.' ) ) ) {
+		if ( ! window.confirm( __( 'Are you sure you want to revoke this password? This action cannot be undone.', 'wp-user-profiles' ) ) ) {
 			return;
 		}
 
@@ -108,7 +109,7 @@
 
 				hideElement( $tr );
 
-				addNotice( wp.i18n.__( 'Application password revoked.' ), 'success' ).focus();
+				addNotice( __( 'Application password revoked.', 'wp-user-profiles' ), 'success' ).focus();
 			}
 		} ).fail( handleErrorResponse );
 	} );
@@ -116,7 +117,7 @@
 	$removeAllBtn.on( 'click', function( e ) {
 		e.preventDefault();
 
-		if ( ! window.confirm( wp.i18n.__( 'Are you sure you want to revoke all passwords? This action cannot be undone.' ) ) ) {
+		if ( ! window.confirm( __( 'Are you sure you want to revoke all passwords? This action cannot be undone.', 'wp-user-profiles' ) ) ) {
 			return;
 		}
 
@@ -139,7 +140,7 @@
 
 				hideElement( $appPassTwrapper, false );
 
-				addNotice( wp.i18n.__( 'All application passwords revoked.' ), 'success' ).focus();
+				addNotice( __( 'All application passwords revoked.', 'wp-user-profiles' ), 'success' ).focus();
 			}
 		} ).fail( handleErrorResponse );
 	} );
@@ -208,7 +209,7 @@
 				$( '<button></button>' )
 					.attr( 'type', 'button' )
 					.addClass( 'notice-dismiss' )
-					.append( $( '<span></span>' ).addClass( 'screen-reader-text' ).text( wp.i18n.__( 'Dismiss this notice.' ) ) )
+					.append( $( '<span></span>' ).addClass( 'screen-reader-text' ).text( __( 'Dismiss this notice.', 'wp-user-profiles' ) ) )
 			);
 
 		$newAppPassForm.after( $notice );
