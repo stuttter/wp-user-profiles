@@ -52,7 +52,7 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 		);
 
 		// Contact, if methods are registered
-		if ( wp_get_user_contact_methods( $user ) ) {
+		if ( wp_get_user_contact_methods( $user['user'] ) ) {
 			add_meta_box(
 				'contact',
 				_x( 'Contact', 'users user-admin edit screen', 'wp-user-profiles' ),
