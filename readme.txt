@@ -60,7 +60,8 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 
 = Where can I get support? =
 
-* https://wordpress.org/support/plugin/wp-user-profiles/
+* Community: https://wordpress.org/support/plugin/wp-user-profiles
+* Development: https://github.com/stuttter/wp-user-profiles/discussions
 
 = Where can I find documentation? =
 

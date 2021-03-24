@@ -2,6 +2,14 @@
 
 WP User Profiles is a sophisticated way to edit users in WordPress.
 
+* Includes all functionality from WordPress itself
+* Includes 4 top-level "Sections"
+* Includes an "Other" section to automatically work with third-party plugins
+* Each section includes 1 or more meta-boxes
+* Status meta-box allows easily changing user status
+* Works great with multisite Network and User Dashboards
+* Works great with WP User Groups and WP User Avatars plugins
+
 # Installation
 
 * Download and install using the built in WordPress plugin installer.
@@ -20,7 +28,8 @@ Yes. There are a filters you can use to add or remove sections and their metabox
 
 ### Where can I get support?
 
-* https://wordpress.org/support/plugin/wp-user-profiles/
+* Community: https://wordpress.org/support/plugin/wp-user-profiles
+* Development: https://github.com/stuttter/wp-user-profiles/discussions
 
 ### Can I contribute?
 
