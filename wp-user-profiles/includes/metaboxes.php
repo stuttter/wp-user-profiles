@@ -22,8 +22,8 @@ function wp_user_profiles_add_meta_boxes() {
 	// Maybe die if user cannot be edited
 	wp_user_profiles_current_user_can_edit( $user->ID );
 
-	// Get the 
-	$hook = isset( $GLOBALS['page_hook'] )
+	// Get the page hook
+	$hook = ! empty( $GLOBALS['page_hook'] )
 		? sanitize_key( $GLOBALS['page_hook'] )
 		: null;
 
@@ -41,10 +41,10 @@ function wp_user_profiles_add_meta_boxes() {
  *
  * @since 0.1.9
  *
- * @param  string  $hook
- * @param  WP_User $user
+ * @param string $hook
+ * @param array  $args
  */
-function wp_user_profiles_add_status_meta_box( $hook = '', $user = null ) {
+function wp_user_profiles_add_status_meta_box( $hook = '', $args = array() ) {
 
 	// Register the "Status" side meta box
 	add_meta_box(
@@ -54,6 +54,6 @@ function wp_user_profiles_add_status_meta_box( $hook = '', $user = null ) {
 		$hook,
 		'side',
 		'high',
-		$user
+		$args
 	);
 }

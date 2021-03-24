@@ -22,12 +22,12 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param string $type
-	 * @param object $user
+	 * @param array  $args
 	 */
-	public function add_meta_boxes( $type = '', $user = null ) {
+	public function add_meta_boxes( $type = '', $args = array() ) {
 
 		// Allow third party plugins to add metaboxes
-		parent::add_meta_boxes( $type, $user );
+		parent::add_meta_boxes( $type, $args );
 
 		// Name
 		add_meta_box(
@@ -37,7 +37,7 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 			$type,
 			'normal',
 			'high',
-			$user
+			$args
 		);
 
 		// About
@@ -48,11 +48,11 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 			$type,
 			'normal',
 			'core',
-			$user
+			$args
 		);
 
 		// Contact, if methods are registered
-		if ( wp_get_user_contact_methods( $user['user'] ) ) {
+		if ( wp_get_user_contact_methods( $args['user'] ) ) {
 			add_meta_box(
 				'contact',
 				_x( 'Contact', 'users user-admin edit screen', 'wp-user-profiles' ),
@@ -60,7 +60,7 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 				$type,
 				'normal',
 				'low',
-				$user
+				$args
 			);
 		}
 	}

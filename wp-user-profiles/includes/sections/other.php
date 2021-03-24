@@ -22,12 +22,12 @@ class WP_User_Profile_Other_Section extends WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param string $type
-	 * @param object $user
+	 * @param array  $args
 	 */
-	public function add_meta_boxes( $type = '', $user = null ) {
+	public function add_meta_boxes( $type = '', $args = array() ) {
 
 		// Allow third party plugins to add metaboxes
-		parent::add_meta_boxes( $type, $user );
+		parent::add_meta_boxes( $type, $args );
 
 		// Other
 		add_meta_box(
@@ -37,7 +37,7 @@ class WP_User_Profile_Other_Section extends WP_User_Profile_Section {
 			$type,
 			'normal',
 			'high',
-			$user
+			$args
 		);
 	}
 

@@ -184,8 +184,8 @@ class WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param  string  $type
-	 * @param  array   $args
+	 * @param string $type
+	 * @param array  $args
 	 */
 	public function action_add_meta_boxes( $type = '', $args = null ) {
 
@@ -216,7 +216,7 @@ class WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param  WP_User $user
+	 * @param WP_User $user
 	 */
 	public function save( $user = null ) {
 
@@ -242,11 +242,11 @@ class WP_User_Profile_Section {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param  string  $type
-	 * @param  WP_User $user
+	 * @param string $type
+	 * @param array  $args
 	 */
-	public function add_meta_boxes( $type = '', $user = null ) {
-		do_action( "wp_user_profiles_add_{$this->id}_meta_boxes", $type, $user );
+	public function add_meta_boxes( $type = '', $args = array() ) {
+		do_action( "wp_user_profiles_add_{$this->id}_meta_boxes", $type, $args );
 	}
 
 	/**

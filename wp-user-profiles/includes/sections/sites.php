@@ -21,13 +21,13 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param  string  $type
-	 * @param  WP_User $user
+	 * @param string $type
+	 * @param array  $args
 	 */
-	public function add_meta_boxes( $type = '', $user = null ) {
+	public function add_meta_boxes( $type = '', $args = array() ) {
 
 		// Allow third party plugins to add metaboxes
-		parent::add_meta_boxes( $type, $user );
+		parent::add_meta_boxes( $type, $args );
 
 		// Primary Site
 		add_meta_box(
@@ -37,7 +37,7 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			$type,
 			'normal',
 			'high',
-			$user
+			$args
 		);
 
 		// Sites
@@ -48,7 +48,7 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			$type,
 			'normal',
 			'core',
-			$user
+			$args
 		);
 	}
 
