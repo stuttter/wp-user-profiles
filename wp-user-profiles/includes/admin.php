@@ -673,7 +673,7 @@ function wp_user_profiles_user_admin() {
 		: '2'; ?>
 
 	<div class="wrap" id="wp-user-profiles-page">
-		<h1><?php
+		<h1 class="wp-heading-inline"><?php
 
 			// The page title
 			echo esc_html( $display_name );
