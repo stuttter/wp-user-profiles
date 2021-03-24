@@ -63,19 +63,24 @@ function wp_user_profiles_password_metabox( $user = null ) {
 				</label>
 			</td>
 		</tr>
-		<tr class="user-generate-reset-link-wrap hide-if-no-js">
-			<th><?php esc_html_e( 'Password Reset', 'wp-user-profiles' ); ?></th>
-			<td>
-				<div class="generate-reset-link">
-					<button type="button" class="button button-secondary" id="generate-reset-link">
-						<?php esc_html_e( 'Email Link', 'wp-user-profiles' ); ?>
-					</button>
-				</div>
-				<p class="description">
-					<?php esc_html_e( 'This does not change their password.', 'wp-user-profiles' ); ?>
-				</p>
-			</td>
-		</tr>
+
+		<?php if ( ! wp_is_profile_page() ) : ?>
+
+			<tr class="user-generate-reset-link-wrap hide-if-no-js">
+				<th><?php esc_html_e( 'Password Reset', 'wp-user-profiles' ); ?></th>
+				<td>
+					<div class="generate-reset-link">
+						<button type="button" class="button button-secondary" id="generate-reset-link">
+							<?php esc_html_e( 'Send Password Reset Email', 'wp-user-profiles' ); ?>
+						</button>
+					</div>
+					<p class="description">
+						<?php esc_html_e( 'Sending this email does not force-change their password.', 'wp-user-profiles' ); ?>
+					</p>
+				</td>
+			</tr>
+
+		<?php endif; ?>
 
 	</table>
 
