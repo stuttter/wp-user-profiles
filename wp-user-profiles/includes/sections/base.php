@@ -190,8 +190,8 @@ class WP_User_Profile_Section {
 	 */
 	public function action_save( $user = null ) {
 
-		// Bail if ID is empty or object is not a user
-		if ( empty( $this->id ) || ! is_a( $user, 'WP_User' ) ) {
+		// Bail if ID is empty
+		if ( empty( $this->id ) ) {
 			return $user;
 		}
 
@@ -256,11 +256,6 @@ class WP_User_Profile_Section {
 		// Return errors if there are any
 		if ( is_wp_error( $user ) && $user->get_error_codes() ) {
 			return $user;
-		}
-
-		// Maybe save user status
-		if ( ! empty( $_POST['user_status'] ) ) {
-			wp_user_profiles_update_user_status( $user, sanitize_key( $_POST['user_status'] ) );
 		}
 
 		// Update the user in the database

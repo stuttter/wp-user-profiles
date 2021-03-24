@@ -24,45 +24,85 @@ defined( 'ABSPATH' ) || exit;
  * @return int   The initially passed $value.
  */
 function wp_user_profiles_update_user_status( $user, $status = 'inactive' ) {
-	global $wpdb;
 
 	// Get the user
 	$user = new WP_User( $user );
 
+	// Bail if anonymous user
+	if ( empty( $user->ID ) ) {
+		return $user;
+	}
+
+	// Bail if super administrator
+	if ( is_multisite() && is_super_admin( $user->ID ) ) {
+		return $user;
+	}
+
 	// Save the old status for help with transitioning
 	$old_status = $user->user_status;
 
-	// Update user status accordingly
-	if ( 'spam' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '1', 'spam' => '1' ), array( 'ID' => $user->ID ) );
-	} elseif ( 'ham' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '0', 'spam' => '0' ), array( 'ID' => $user->ID ) );
-	} elseif ( 'deleted' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '2', 'deleted' => '1' ), array( 'ID' => $user->ID ) );
-	} elseif ( 'undeleted' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
-	} elseif ( 'inactive' === $status ) {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '2', 'spam' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
-	} else {
-		$wpdb->update( $wpdb->users, array( 'user_status' => '0', 'spam' => '0', 'deleted' => '0' ), array( 'ID' => $user->ID ) );
+	// What's the new status?
+	switch ( $status ) {
+
+		// Deleted
+		case 'deleted' :
+			$where = is_multisite()
+				? array( 'user_status' => '2', 'deleted' => '1' )
+				: array( 'user_status' => '2' );
+			break;
+
+		// Undeleted
+		case 'undeleted' :
+			$where = is_multisite()
+				? array( 'user_status' => '0', 'deleted' => '0' )
+				: array( 'user_status' => '0' );
+			break;
+
+		// Inactive
+		case 'inactive' :
+			$where = is_multisite()
+				? array( 'user_status' => '2', 'spam' => '0', 'deleted' => '0' )
+				: array( 'user_status' => '2' );
+			break;
+
+		// Spammer
+		case 'spam' :
+			$where = is_multisite()
+				? array( 'user_status' => '1', 'spam' => '1' )
+				: array( 'user_status' => '1' );
+			break;
+
+		// Not a Spammer/Active
+		case 'ham' :
+		default :
+			$where = is_multisite()
+				? array( 'user_status' => '0', 'spam' => '0', 'deleted' => '0' )
+				: array( 'user_status' => '0' );
+			break;
 	}
 
-	// Bust the user's cache
-	clean_user_cache( $user );
+	// Only update the database if changing
+	if ( $status !== $old_status ) {
+		global $wpdb;
 
-	// Get the user, again
-	$user = new WP_User( $user );
+		// Attempt the database query
+		$result = $wpdb->update( $wpdb->users, $where, array( 'ID' => $user->ID ) );
 
-	// Backpat for multisite
-	if ( 'spam' === $status ) {
-		do_action( 'make_spam_user', $user->ID );
-	} elseif ( 'active' === $status ) {
-		do_action( 'make_ham_user', $user->ID );
+		// Query succeeded
+		if ( ! empty( $result ) ) {
+
+			// Bust the user's cache
+			clean_user_cache( $user );
+
+			// Get the user, again
+			$user = new WP_User( $user );
+		}
 	}
 
 	// Transition a user from one status to another
 	wp_user_profiles_transition_user_status( $user->user_status, $old_status, $user );
 
+	// Return the (possibly updated) user
 	return $user;
 }
 
@@ -88,6 +128,15 @@ function wp_user_profiles_update_user_status( $user, $status = 'inactive' ) {
  * @param WP_User $user       User data.
  */
 function wp_user_profiles_transition_user_status( $new_status, $old_status, $user ) {
+
+	// Backwards compatibility for multisite spamming
+	if ( ( 'spam' === $new_status ) && ( 'spam' !== $old_status ) ) {
+		do_action( 'make_spam_user', $user->ID );
+
+	// Backwards compatibility for multisite unspamming
+	} elseif ( ( 'active' === $new_status ) && ( 'active' !== $old_status ) ) {
+		do_action( 'make_ham_user', $user->ID );
+	}
 
 	/**
 	 * Fires when a user is transitioned from one status to another.
@@ -135,24 +184,28 @@ function wp_user_profiles_transition_user_status( $new_status, $old_status, $use
 }
 
 /**
- * Grant or revoke super admin status
+ * Update the user status, from fields in the "Status" metabox.
  *
- * This function exists to assist with updating whether a user is an
- * administrator to the entire installation.
+ * Filters the user object
  *
- * @since 0.2.0
+ * @since 2.5.1
  *
- * @param int $user
+ * @param WP_User $user
  */
-function wp_user_profiles_update_global_admin( $user = null ) {
+function wp_user_profiles_save_user_status( $user = null ) {
 
-	// Grant or revoke super admin status if requested.
-	if ( is_a( $user, 'WP_User' ) && is_multisite() && is_network_admin() && ! wp_is_profile_page() && current_user_can( 'manage_network_options' ) && ! isset( $GLOBALS['super_admins'] ) && empty( $_POST['super_admin'] ) == is_super_admin( $user->ID ) ) {
-		empty( $_POST['super_admin'] )
-			? revoke_super_admin( $user->ID )
-			: grant_super_admin( $user->ID );
+	// Maybe update user status
+	if ( ! empty( $_POST['user_status'] ) ) {
+
+		// Sanitize the posted status
+		$status = sanitize_key( $_POST['user_status'] );
+
+		// Returns a (possibly) updated WP_User object
+		if ( ! empty( $status ) ) {
+			$user = wp_user_profiles_update_user_status( $user, $status );
+		}
 	}
 
-	// Return the user
+	// Return the (possibly filtered) user
 	return $user;
 }
