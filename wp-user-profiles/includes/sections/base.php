@@ -187,7 +187,7 @@ class WP_User_Profile_Section {
 	 * @param string $type
 	 * @param array  $args
 	 */
-	public function action_add_meta_boxes( $type = '', $args = null ) {
+	public function action_add_meta_boxes( $type = '', $args = array() ) {
 
 		// Bail if ID is empty
 		if ( empty( $this->id ) ) {
