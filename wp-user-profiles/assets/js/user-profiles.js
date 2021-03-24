@@ -106,28 +106,31 @@
 	 */
 	function bindPasswordRestLink() {
 		$( '#generate-reset-link' ).on( 'click', function() {
-			var $this  = $(this),
-				data = {
+			var $this = $(this),
+				data  = {
 					'user_id': userProfileL10n.user_id, // The user to send a reset to.
 					'nonce':   userProfileL10n.nonce    // Nonce to validate the action.
 				};
 
-				// Remove any previous error messages.
-				$this.parent().find( '.notice-error' ).remove();
+			// Disable button to prevent spamming
+			$this.prop( 'disabled', true );
 
-				// Send the reset request.
-				var resetAction =  wp.ajax.post( 'send-password-reset', data );
+			// Remove any previous error messages.
+			$this.parent().find( '.notice-error, .notice-success' ).remove();
 
-				// Handle reset success.
-				resetAction.done( function( response ) {
-					addInlineNotice( $this, true, response );
-				} );
+			// Send the reset request.
+			var resetAction =  wp.ajax.post( 'send-password-reset', data );
 
-				// Handle reset failure.
-				resetAction.fail( function( response ) {
-					addInlineNotice( $this, false, response );
-				} );
-		});
+			// Handle reset success.
+			resetAction.done( function( response ) {
+				addInlineNotice( $this, true, response );
+			} );
+
+			// Handle reset failure.
+			resetAction.fail( function( response ) {
+				addInlineNotice( $this, false, response );
+			} );
+		} );
 	}
 
 	/**
@@ -139,10 +142,10 @@
 	 * @param {string}        message The message to insert.
 	 */
 	function addInlineNotice( $this, success, message ) {
-		var resultDiv = $( '<div />' );
+		var resultDiv = $( '<div id="message" />' );
 
 		// Set up the notice div.
-		resultDiv.addClass( 'notice inline' );
+		resultDiv.addClass( 'notice inline is-dismissible' );
 
 		// Add a class indicating success or failure.
 		resultDiv.addClass( 'notice-' + ( success ? 'success' : 'error' ) );
@@ -151,13 +154,40 @@
 		resultDiv.text( $( $.parseHTML( message ) ).text() ).wrapInner( '<p />');
 
 		// Disable the button when the callback has succeeded.
-		$this.prop( 'disabled', success );
+		$this.prop( 'disabled', false );
 
 		// Remove any previous notices.
 		$this.siblings( '.notice' ).remove();
 
 		// Insert the notice.
-		$this.before( resultDiv );
+		$this.after( resultDiv );
+
+		// Make notice dismissible
+		makeNoticesDismissible();
+	}
+
+	function makeNoticesDismissible() {
+		$( '.notice.is-dismissible' ).each( function() {
+			var $el = $( this ),
+				$button = $( '<button type="button" class="notice-dismiss"><span class="screen-reader-text"></span></button>' );
+
+			if ( $el.find( '.notice-dismiss' ).length ) {
+				return;
+			}
+
+			// Ensure plain text.
+			$button.find( '.screen-reader-text' ).text( __( 'Dismiss this notice.' ) );
+			$button.on( 'click.wp-dismiss-notice', function( event ) {
+				event.preventDefault();
+				$el.fadeTo( 100, 0, function() {
+					$el.slideUp( 100, function() {
+						$el.remove();
+					});
+				});
+			});
+
+			$el.append( $button );
+		});
 	}
 
 	function bindPasswordForm() {
