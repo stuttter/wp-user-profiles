@@ -1,17 +1,25 @@
 === WP User Profiles ===
-Contributors: johnjamesjacoby, stuttter, baden03
-Tags: users, user, profile, edit, metabox
-Requires PHP: 7.2
+Contributors:      johnjamesjacoby, stuttter, baden03
+Tags:              users, user, profile, edit, metabox
+Requires PHP:      7.2
 Requires at least: 5.2
-Tested up to: 5.6
-Stable tag: 2.5.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
+Tested up to:      5.8
+Stable tag:        2.5.1
+License:           GPLv2 or later
+License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9Q4F4EL5YJ62J
 
 == Description ==
 
 WP User Profiles is a sophisticated way to edit users in WordPress.
+
+* Includes all functionality from WordPress itself
+* Includes 4 top-level "Sections"
+* Includes an "Other" section to automatically work with third-party plugins
+* Each section includes 1 or more meta-boxes
+* Status meta-box allows easily changing user status
+* Works great with multisite Network and User Dashboards
+* Works great with WP User Groups and WP User Avatars plugins
 
 = Also checkout =
 
@@ -59,6 +67,12 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
+
+= [2.5.1]- 2021-03-24 =
+* Add support for Sending Password Reset Email, in WordPress 5.7
+* Fix bug causing unintended revocation of super admin abilities
+* Fix bug causing contact methods not to work
+* Fix some untranslatable strings
 
 = [2.5.0]- 2020-11-11 =
 * Add support for Application Passwords, in WordPress 5.6
