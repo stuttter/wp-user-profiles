@@ -1,4 +1,4 @@
-/* global ajaxurl, pwsL10n, zxcvbn */
+/* global ajaxurl, pwsL10n, zxcvbn, userProfileL10n */
 (function($) {
 	var updateLock = false,
 		__ = wp.i18n.__,
@@ -100,11 +100,101 @@
 		});
 	}
 
+	/**
+	 * Handle the password reset button. Sets up an ajax callback to trigger sending
+	 * a password reset email.
+	 */
+	function bindPasswordRestLink() {
+		$( '#generate-reset-link' ).on( 'click', function() {
+			var $this = $(this),
+				data  = {
+					'user_id': userProfileL10n.user_id, // The user to send a reset to.
+					'nonce':   userProfileL10n.nonce    // Nonce to validate the action.
+				};
+
+			// Disable button to prevent spamming
+			$this.prop( 'disabled', true );
+
+			// Remove any previous error messages.
+			$this.parent().find( '.notice-error, .notice-success' ).remove();
+
+			// Send the reset request.
+			var resetAction =  wp.ajax.post( 'send-password-reset', data );
+
+			// Handle reset success.
+			resetAction.done( function( response ) {
+				addInlineNotice( $this, true, response );
+			} );
+
+			// Handle reset failure.
+			resetAction.fail( function( response ) {
+				addInlineNotice( $this, false, response );
+			} );
+		} );
+	}
+
+	/**
+	 * Helper function to insert an inline notice of success or failure.
+	 *
+	 * @param {jQuery Object} $this   The button element: the message will be inserted
+	 *                                above this button
+	 * @param {bool}          success Whether the message is a success message.
+	 * @param {string}        message The message to insert.
+	 */
+	function addInlineNotice( $this, success, message ) {
+		var resultDiv = $( '<div id="message" />' );
+
+		// Set up the notice div.
+		resultDiv.addClass( 'notice inline is-dismissible' );
+
+		// Add a class indicating success or failure.
+		resultDiv.addClass( 'notice-' + ( success ? 'success' : 'error' ) );
+
+		// Add the message, wrapping in a p tag, with a fadein to highlight each message.
+		resultDiv.text( $( $.parseHTML( message ) ).text() ).wrapInner( '<p />');
+
+		// Disable the button when the callback has succeeded.
+		$this.prop( 'disabled', false );
+
+		// Remove any previous notices.
+		$this.siblings( '.notice' ).remove();
+
+		// Insert the notice.
+		$this.after( resultDiv );
+
+		// Make notice dismissible
+		makeNoticesDismissible();
+	}
+
+	function makeNoticesDismissible() {
+		$( '.notice.is-dismissible' ).each( function() {
+			var $el = $( this ),
+				$button = $( '<button type="button" class="notice-dismiss"><span class="screen-reader-text"></span></button>' );
+
+			if ( $el.find( '.notice-dismiss' ).length ) {
+				return;
+			}
+
+			// Ensure plain text.
+			$button.find( '.screen-reader-text' ).text( __( 'Dismiss this notice.' ) );
+			$button.on( 'click.wp-dismiss-notice', function( event ) {
+				event.preventDefault();
+				$el.fadeTo( 100, 0, function() {
+					$el.slideUp( 100, function() {
+						$el.remove();
+					});
+				});
+			});
+
+			$el.append( $button );
+		});
+	}
+
 	function bindPasswordForm() {
 		var $generateButton,
 			$cancelButton;
 
-		$pass1Row = $( '.user-pass1-wrap, .user-pass-wrap' );
+		$pass1Row = $( '.user-pass1-wrap, .user-pass-wrap, .reset-pass-submit' );
 
 		// Hide the confirm password field when JavaScript support is enabled.
 		$('.user-pass2-wrap').hide();
@@ -117,7 +207,7 @@
 
 		$weakRow = $( '.pw-weak' );
 		$weakCheckbox = $weakRow.find( '.pw-checkbox' );
-		$weakCheckbox.change( function() {
+		$weakCheckbox.on( 'change', function() {
 			$submitButtons.prop( 'disabled', ! $weakCheckbox.prop( 'checked' ) );
 		} );
 
@@ -154,13 +244,6 @@
 		$generateButton  = $pass1Row.find( 'button.wp-generate-pw' );
 
 		bindToggleButton();
-
-		// Generate the first password and cache it, but don't set it yet.
-		wp.ajax.post( 'generate-password' )
-			.done( function( data ) {
-				// Cache password.
-				$pass1.data( 'pw', data );
-			} );
 
 		$generateButton.show();
 		$generateButton.on( 'click', function () {
@@ -281,12 +364,12 @@
 
 		$( '#pass1' ).val( '' ).on( 'input' + ' pwupdate', check_pass_strength );
 		$('#pass-strength-result').show();
-		$('.color-palette').click( function() {
+		$('.color-palette').on( 'click', function() {
 			$(this).siblings('input[name="admin_color"]').prop('checked', true);
 		});
 
 		if ( select.length ) {
-			$('#first_name, #last_name, #nickname').bind( 'blur.user_profile', function() {
+			$('#first_name, #last_name, #nickname').on( 'blur.user_profile', function() {
 				var dub = [],
 					inputs = {
 						display_nickname  : $('#nickname').val() || '',
@@ -362,7 +445,7 @@
 				// Repaint icons.
 				if ( typeof wp !== 'undefined' && wp.svgPainter ) {
 					try {
-						colors = $.parseJSON( $this.children( '.icon_colors' ).val() );
+						colors = JSON.parse( $this.children( '.icon_colors' ).val() );
 					} catch ( error ) {}
 
 					if ( colors ) {
@@ -385,6 +468,7 @@
 		});
 
 		bindPasswordForm();
+		bindPasswordRestLink();
 	});
 
 	$( '#destroy-sessions' ).on( 'click', function( e ) {
@@ -417,4 +501,14 @@
 	// Disable the add dummy entry
 	$( '.postbox#sites .bulkactions select[name=action] > option[value=add]' ).attr( 'disabled', 'disabled' );
 
+	/*
+	 * We need to generate a password as soon as the Reset Password page is loaded,
+	 * to avoid double clicking the button to retrieve the first generated password.
+	 * See ticket #39638.
+	 */
+	$( document ).ready( function() {
+		if ( $( '.reset-pass-submit' ).length ) {
+			$( '.reset-pass-submit button.wp-generate-pw' ).trigger( 'click' );
+		}
+	});
 })(jQuery);
