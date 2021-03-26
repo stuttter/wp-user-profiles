@@ -652,6 +652,9 @@ function wp_user_profiles_user_admin() {
 	 */
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
 
+	// Remove the Classic Editor metabox
+	remove_meta_box( 'classic-editor-switch-editor', null, 'side' );
+
 	// Remove possible query arguments
 	$request_url = remove_query_arg( array(
 		'action',
