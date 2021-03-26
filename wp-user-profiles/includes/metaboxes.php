@@ -57,3 +57,28 @@ function wp_user_profiles_add_status_meta_box( $hook = '', $args = array() ) {
 		$args
 	);
 }
+
+/**
+ * Output a table row if the current user is unable to edit any of the options
+ * inside of a registered meta-box.
+ *
+ * @since 2.6.0
+ *
+ * @param array $show
+ */
+function wp_user_profiles_maybe_empty( $show = array() ) {
+
+	// Empty table
+	if ( ! array_filter( array_values( $show ) ) ) :
+
+		?><tr>
+			<th scope="row"><?php
+				esc_html_e( 'No options', 'wp-user-profiles' );
+			?></th>
+			<td><?php
+				esc_html_e( 'The options in this area are not available to you at this time.', 'wp-user-profiles' );
+			?></td>
+		</tr><?php
+
+	endif;
+}
