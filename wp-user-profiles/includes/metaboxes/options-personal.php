@@ -114,7 +114,7 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 		endif;
 
 		// Maybe empty
-		wp_user_profiles_maybe_empty( $show );
+		wp_user_profiles_handle_empty_metabox( $show );
 
 	?></table><?php
 

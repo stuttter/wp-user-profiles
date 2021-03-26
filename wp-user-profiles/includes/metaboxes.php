@@ -66,7 +66,7 @@ function wp_user_profiles_add_status_meta_box( $hook = '', $args = array() ) {
  *
  * @param array $show
  */
-function wp_user_profiles_maybe_empty( $show = array() ) {
+function wp_user_profiles_handle_empty_metabox( $show = array() ) {
 
 	// Empty table
 	if ( ! array_filter( array_values( $show ) ) ) :
