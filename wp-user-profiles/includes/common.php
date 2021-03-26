@@ -508,3 +508,25 @@ function wp_user_profiles_unhook_bp_profile_nav() {
 	remove_action( 'show_user_profile', $tag, 99 );
 	remove_action( 'edit_user_profile', $tag, 99 );
 }
+
+/**
+ * Do an action inside of an output buffer.
+ *
+ * @since 2.6.0
+ *
+ * @param string $action
+ * @param WP_User $user
+ *
+ * @return mixed
+ */
+function wp_user_profiles_buffer_action( $action = '', $user = null ) {
+
+	// Start an output buffer
+	ob_start();
+
+	// Do the action
+	do_action( $action, $user );
+
+	// Return the current buffer
+	return ob_get_clean();
+}
