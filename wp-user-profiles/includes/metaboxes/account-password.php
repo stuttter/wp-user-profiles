@@ -23,7 +23,7 @@ function wp_user_profiles_password_metabox( $user = null ) {
 
 	<table class="form-table">
 		<tr id="password" class="user-pass1-wrap">
-			<th><label for="pass1"><?php esc_html_e( 'New Password', 'wp-user-profiles' ); ?></label></th>
+			<th scope="row"><label for="pass1"><?php esc_html_e( 'New Password', 'wp-user-profiles' ); ?></label></th>
 			<td>
 				<input class="hidden" value=" " /><!-- #24364 workaround -->
 				<button type="button" class="button wp-generate-pw hide-if-no-js" aria-expanded="false"><?php esc_html_e( 'Set New Password', 'wp-user-profiles' ); ?></button>
@@ -55,7 +55,7 @@ function wp_user_profiles_password_metabox( $user = null ) {
 			</td>
 		</tr>
 		<tr class="pw-weak">
-			<th><?php esc_html_e( 'Confirm Password', 'wp-user-profiles' ); ?></th>
+			<th scope="row"><?php esc_html_e( 'Confirm Password', 'wp-user-profiles' ); ?></th>
 			<td>
 				<label>
 					<input type="checkbox" name="pw_weak" class="pw-checkbox" />
@@ -67,7 +67,7 @@ function wp_user_profiles_password_metabox( $user = null ) {
 		<?php if ( ! wp_is_profile_page() ) : ?>
 
 			<tr class="user-generate-reset-link-wrap hide-if-no-js">
-				<th><?php esc_html_e( 'Password Reset', 'wp-user-profiles' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Password Reset', 'wp-user-profiles' ); ?></th>
 				<td>
 					<div class="generate-reset-link">
 						<button type="button" class="button button-secondary" id="generate-reset-link">

@@ -29,7 +29,7 @@ function wp_user_profiles_other_metabox( $user = null ) {
 	// Before
 	do_action( __FUNCTION__ . '_before', $user );
 
-	// Fire extra WordPress actions
+	// This action documented in wp-admin/user-edit.php
 	do_action( $action, $user );
 
 	// After

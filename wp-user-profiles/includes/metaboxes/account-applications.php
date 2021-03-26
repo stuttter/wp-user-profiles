@@ -60,13 +60,7 @@ function wp_user_profiles_application_metabox( $user = null ) {
 						// Output the button
 						echo $button;
 
-						/**
-						 * Fires in the create Application Passwords form.
-						 *
-						 * @since 5.6.0
-						 *
-						 * @param WP_User $profileuser The current WP_User object.
-						 */
+						// This action documented in wp-admin/user-edit.php
 						do_action( 'wp_create_application_password_form', $user );
 
 					?></td>
