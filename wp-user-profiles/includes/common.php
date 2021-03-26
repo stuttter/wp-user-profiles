@@ -378,7 +378,7 @@ function wp_user_profiles_save_user() {
 	// Remove the multisite email change action for now to prevent notices
 	remove_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
 
-	// Fire WordPress core actions
+	// This filter documented in wp-admin/user-edit.php
 	wp_is_profile_page()
 		? do_action( 'personal_options_update',  $user_id )
 		: do_action( 'edit_user_profile_update', $user_id );
