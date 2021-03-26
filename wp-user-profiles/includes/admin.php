@@ -628,10 +628,10 @@ function wp_user_profiles_title_actions() {
  * @since 0.1.0
  */
 function wp_user_profiles_user_admin() {
-	global $user_id;
+	global $user_id, $user_can_edit;
 
 	// Reset some global values
-	wp_reset_vars( array( 'action', 'user_id', 'wp_http_referer' ) );
+	wp_reset_vars( array( 'action', 'wp_http_referer' ) );
 
 	// Get user to edit
 	$user = wp_user_profiles_get_user_to_edit();
@@ -641,12 +641,19 @@ function wp_user_profiles_user_admin() {
 		? $user->ID
 		: 0;
 
+	// Compatibility with Classic Editor plugin
+	// See: https://github.com/WordPress/classic-editor/issues/158
+	$user_can_edit = current_user_can( 'edit_posts' ) || current_user_can( 'edit_pages' );
+
 	/**
 	 * Backwards compatibility for JIT metaboxes
 	 *
 	 * @since 0.2.0 Use `wp_user_profiles_add_meta_boxes` instead
 	 */
 	do_action( 'add_meta_boxes', get_current_screen()->id, $user );
+
+	// Remove the Classic Editor metabox
+	remove_meta_box( 'classic-editor-switch-editor', null, 'side' );
 
 	// Remove possible query arguments
 	$request_url = remove_query_arg( array(

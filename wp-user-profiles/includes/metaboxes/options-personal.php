@@ -17,6 +17,7 @@ defined( 'ABSPATH' ) || exit;
  * @param WP_User $user The WP_User object to be edited.
  */
 function wp_user_profiles_personal_options_metabox( $user = null ) {
+	global $user_can_edit;
 
 	// Start a buffer
 	ob_start();
@@ -24,19 +25,59 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 	// Before
 	do_action( __FUNCTION__ . '_before', $user );
 
-	?><table class="form-table">
+	// Whether to show specific options
+	$show = array(
+		'visual_editor'       => ! empty( $user_can_edit ),
+		'keyboard_shortcuts'  => ! empty( $user_can_edit ),
+		'admin_bar'           => apply_filters( 'show_admin_bar', true ),
+		'syntax_highlighting' => (
 
-		<tr class="user-rich-editing-wrap">
-			<th scope="row"><?php esc_html_e( 'Visual Editor', 'wp-user-profiles' ); ?></th>
-			<td>
-				<label for="rich_editing"><input name="rich_editing" type="checkbox" id="rich_editing" value="false" <?php checked( 'false', $user->rich_editing ); ?> />
-					<?php esc_html_e( 'Disable the visual editor when writing', 'wp-user-profiles' ); ?>
-				</label>
-			</td>
-		</tr><?php
+			// For Custom HTML widget and Additional CSS in Customizer.
+			user_can( $user, 'edit_theme_options' )
+			||
+			// Edit plugins.
+			user_can( $user, 'edit_plugins' )
+			||
+			// Edit themes.
+			user_can( $user, 'edit_themes' )
+		),
 
-		// Only show if user can moderate comments
-		if ( user_can( $user->ID, 'moderate_comments' ) ) :
+		// Third-party plugins
+		'personal_options'    => wp_user_profiles_buffer_action( 'personal_options', $user )
+	);
+
+	?><table class="form-table"><?php
+
+		// Visual Editor
+		if ( ! empty( $show['visual_editor'] ) ) :
+
+			?><tr class="user-rich-editing-wrap">
+				<th scope="row"><?php esc_html_e( 'Visual Editor', 'wp-user-profiles' ); ?></th>
+				<td>
+					<label for="rich_editing"><input name="rich_editing" type="checkbox" id="rich_editing" value="false" <?php checked( 'false', $user->rich_editing ); ?> />
+						<?php esc_html_e( 'Disable the visual editor when writing', 'wp-user-profiles' ); ?>
+					</label>
+				</td>
+			</tr><?php
+
+		endif;
+
+		// Syntax Highlighting
+		if ( ! empty( $show['syntax_highlighting'] ) ) :
+
+			?><tr class="user-syntax-highlighting-wrap">
+				<th scope="row"><?php esc_html_e( 'Syntax Highlighting', 'wp-user-profiles' ); ?></th>
+				<td>
+					<label for="syntax_highlighting"><input name="syntax_highlighting" type="checkbox" id="syntax_highlighting" value="false" <?php checked( 'false', $user->syntax_highlighting ); ?> />
+						<?php esc_html_e( 'Disable syntax highlighting when editing code', 'wp-user-profiles' ); ?>
+					</label>
+				</td>
+			</tr><?php
+
+		endif;
+
+		// Keyboard Shortcuts
+		if ( ! empty( $show['keyboard_shortcuts'] ) ) :
 
 			?><tr class="user-comment-shortcuts-wrap">
 				<th scope="row"><?php esc_html_e( 'Keyboard Shortcuts', 'wp-user-profiles' ); ?></th>
@@ -49,8 +90,8 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 
 		endif;
 
-		// Only show setting if admin var can be visible
-		if ( apply_filters( 'show_admin_bar', true ) ) :
+		// Admin Bar
+		if ( ! empty( $show['admin_bar'] ) ) :
 
 			?><tr class="show-admin-bar user-admin-bar-front-wrap">
 				<th scope="row"><?php esc_html_e( 'Toolbar', 'wp-user-profiles' ); ?></th>
@@ -67,16 +108,20 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 
 		endif;
 
-		/**
-		 * Fires at the end of the 'Personal Options' settings table on the user editing screen.
-		 *
-		 * @since 2.7.0
-		 *
-		 * @param WP_User $user The current WP_User object.
-		 */
-		do_action( 'personal_options', $user );
+		// Third-party Personal Options
+		if ( ! empty( $show['personal_options'] ) ) :
+			echo $show['personal_options'];
+		endif;
+
+		// Maybe empty
+		wp_user_profiles_handle_empty_metabox( $show );
 
 	?></table><?php
+
+	// Output third-party profile personal options
+	if ( wp_is_profile_page() ) {
+		echo wp_user_profiles_buffer_action( 'profile_personal_options', $user );
+	}
 
 	// After
 	do_action( __FUNCTION__ . '_after', $user );

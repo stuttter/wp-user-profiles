@@ -25,9 +25,9 @@ function wp_user_profiles_email_metabox( $user = null ) {
 
 	<table class="form-table">
 		<tr class="user-email-wrap">
-			<th>
-				<label for="email"><?php _e( 'Email' ); ?>
-					<span class="description"><?php _e( '(required)' ); ?></span>
+			<th scope="row">
+				<label for="email"><?php esc_html_e( 'Email', 'wp-user-profiles' ); ?>
+					<span class="description"><?php esc_html_e( '(required)', 'wp-user-profiles' ); ?></span>
 				</label>
 			</th>
 			<td>
@@ -38,8 +38,8 @@ function wp_user_profiles_email_metabox( $user = null ) {
 					<div class="updated inline">
 					<p><?php
 						printf(
-							__( 'There is a pending change of your email to %1$s. <a href="%2$s">Cancel</a>' ),
-							'<code>' . $new_email['newemail'] . '</code>',
+							__( 'There is a pending change of your email to %1$s. <a href="%2$s">Cancel</a>', 'wp-user-profiles' ),
+							'<code>' . esc_html( $new_email['newemail'] ) . '</code>',
 							esc_url( self_admin_url( 'profile.php?dismiss=' . $current_user->ID . '_new_email' ) )
 					); ?></p>
 					</div>

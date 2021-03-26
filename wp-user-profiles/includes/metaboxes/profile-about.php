@@ -26,16 +26,25 @@ function wp_user_profiles_about_metabox( $user = null ) {
 
 	?><table class="form-table">
 		<tr class="user-url-wrap">
-			<th><label for="url"><?php esc_html_e( 'Website', 'wp-user-profiles' ) ?></label></th>
-			<td><input type="url" name="url" id="url" value="<?php echo esc_attr( $user->user_url ) ?>" class="regular-text code" /></td>
+			<th scope="row">
+				<label for="url"><?php esc_html_e( 'Website', 'wp-user-profiles' ) ?></label>
+			</th>
+			<td>
+				<input type="url" name="url" id="url" value="<?php echo esc_attr( $user->user_url ) ?>" class="regular-text code" />
+			</td>
 		</tr>
+
 		<tr class="user-description-wrap">
-			<th><label for="description"><?php esc_html_e( 'Biographical Info', 'wp-user-profiles' ); ?></label></th>
+			<th scope="row">
+				<label for="description"><?php esc_html_e( 'Biographical Info', 'wp-user-profiles' ); ?></label>
+			</th>
 			<td>
 				<textarea name="description" id="description" rows="5" cols="30"><?php echo $user->description; // textarea_escaped ?></textarea>
-				<p class="description">
-					<?php esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wp-user-profiles' ); ?>
-				</p>
+				<p class="description"><?php
+
+					esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wp-user-profiles' );
+
+				?></p>
 			</td>
 		</tr>
 	</table><?php

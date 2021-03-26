@@ -39,7 +39,7 @@ function wp_user_profiles_primary_site_metabox( $user = null ) {
 		<tr>
 			<th scope="row">
 				<label for="primary_blog">
-					<?php _e( 'Primary Site', 'wp-user-profiles' ); ?>
+					<?php esc_html_e( 'Primary Site', 'wp-user-profiles' ); ?>
 				</label>
 			</th>
 			<td><?php if ( ! empty( $sites ) ) :

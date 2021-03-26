@@ -30,11 +30,11 @@ function wp_user_profiles_session_metabox( $user = null ) {
 		<?php if ( ( true === $profile ) && count( $sessions->get_all() ) === 1 ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
-				<th><?php _e( 'Sessions' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
 				<td aria-live="assertive">
-					<div class="destroy-sessions"><button type="button" disabled class="button button-secondary"><?php _e( 'Log Out Everywhere Else' ); ?></button></div>
+					<div class="destroy-sessions"><button type="button" disabled class="button button-secondary"><?php esc_html_e( 'Log Out Everywhere Else', 'wp-user-profiles' ); ?></button></div>
 					<p class="description">
-						<?php _e( 'You are only logged in at this location.' ); ?>
+						<?php esc_html_e( 'You are only logged in at this location.', 'wp-user-profiles' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -42,11 +42,11 @@ function wp_user_profiles_session_metabox( $user = null ) {
 		<?php elseif ( ( true === $profile ) && count( $sessions->get_all() ) > 1 ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
-				<th><?php _e( 'Sessions' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
 				<td aria-live="assertive">
-					<div class="destroy-sessions"><button type="button" class="button button-secondary" id="destroy-sessions"><?php _e( 'Log Out Everywhere Else' ); ?></button></div>
+					<div class="destroy-sessions"><button type="button" class="button button-secondary" id="destroy-sessions"><?php esc_html_e( 'Log Out Everywhere Else', 'wp-user-profiles' ); ?></button></div>
 					<p class="description">
-						<?php _e( 'Did you lose your phone or leave your account logged in at a public computer? You can log out everywhere else, and stay logged in here.' ); ?>
+						<?php esc_html_e( 'Did you lose your phone or leave your account logged in at a public computer? You can log out everywhere else, and stay logged in here.', 'wp-user-profiles' ); ?>
 					</p>
 				</td>
 			</tr>
@@ -54,13 +54,13 @@ function wp_user_profiles_session_metabox( $user = null ) {
 		<?php elseif ( ( false === $profile ) && $sessions->get_all() ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
-				<th><?php _e( 'Sessions' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Sessions', 'wp-user-profiles' ); ?></th>
 				<td>
-					<p><button type="button" class="button button-secondary" id="destroy-sessions"><?php _e( 'Log Out Everywhere' ); ?></button></p>
+					<p><button type="button" class="button button-secondary" id="destroy-sessions"><?php esc_html_e( 'Log Out Everywhere', 'wp-user-profiles' ); ?></button></p>
 					<p class="description">
 						<?php
 						/* translators: 1: User's display name. */
-						printf( __( 'Log %s out of all locations.' ), $user->display_name );
+						printf( esc_html__( 'Log %s out of all locations.', 'wp-user-profiles' ), $user->display_name );
 						?>
 					</p>
 				</td>
@@ -69,12 +69,12 @@ function wp_user_profiles_session_metabox( $user = null ) {
 		<?php elseif ( ( false === $profile ) && ! $sessions->get_all() ) : ?>
 
 			<tr class="user-sessions-wrap hide-if-no-js">
-				<th><?php _e( 'Inactive' ); ?></th>
+				<th scope="row"><?php esc_html_e( 'Inactive', 'wp-user-profiles' ); ?></th>
 				<td>
 					<p>
 						<?php
 						/* translators: 1: User's display name. */
-						printf( __( '%s has not logged in yet.' ), $user->display_name );
+						printf( esc_html__( '%s has not logged in yet.', 'wp-user-profiles' ), $user->display_name );
 						?>
 					</p>
 				</td>

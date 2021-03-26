@@ -106,7 +106,7 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			? $_POST['pass2']
 			: '';
 
-		/** This filter is documented in wp-admin/includes/user.php */
+		// This filter is documented in wp-admin/includes/user.php
 		do_action_ref_array( 'check_passwords', array( $user->user_login, &$pass1, &$pass2 ) );
 
 		// Check for "\" in password
