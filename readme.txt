@@ -69,6 +69,12 @@ http://github.com/stuttter/wp-user-profiles
 
 == Changelog ==
 
+= [2.6.0]- 2021-03-26 =
+* Improve compatibility with Classic Editor plugin
+* Fix some untranslatable strings
+* Fix styling for RTL languages
+* Add minified styling for production sites
+
 = [2.5.1]- 2021-03-24 =
 * Add support for Sending Password Reset Email, in WordPress 5.7
 * Fix bug causing unintended revocation of super admin abilities
