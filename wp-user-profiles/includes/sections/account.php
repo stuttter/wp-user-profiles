@@ -111,12 +111,12 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 
 		// Check for "\" in password
 		if ( false !== strpos( wp_unslash( $pass1 ), "\\" ) ) {
-			$this->errors->add( 'pass', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".' ), array( 'form-field' => 'pass1' ) );
+			$this->errors->add( 'pass', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".', 'wp-user-profiles' ), array( 'form-field' => 'pass1' ) );
 		}
 
 		// Checking the password has been typed twice the same
 		if ( $pass1 !== $pass2 ) {
-			$this->errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter the same password in both password fields.' ), array( 'form-field' => 'pass1' ) );
+			$this->errors->add( 'pass', __( '<strong>ERROR</strong>: Please enter the same password in both password fields.', 'wp-user-profiles' ), array( 'form-field' => 'pass1' ) );
 		}
 
 		// Set the password
@@ -147,15 +147,15 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 
 			// Email empty
 			if ( empty( $user->user_email ) ) {
-				$this->errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an email address.' ), array( 'form-field' => 'email' ) );
+				$this->errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an email address.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
 			// Email invalid
 			} elseif ( ! is_email( $user->user_email ) ) {
-				$this->errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address is not correct.' ), array( 'form-field' => 'email' ) );
+				$this->errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address is not correct.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
 			// Email in use
 			} elseif ( ( $owner_id = email_exists( $user->user_email ) ) && ( $owner_id !== $user->ID ) ) {
-				$this->errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.' ), array( 'form-field' => 'email' ) );
+				$this->errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 			}
 		}
 

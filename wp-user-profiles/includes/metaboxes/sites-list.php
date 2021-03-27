@@ -208,7 +208,7 @@ function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
 		foreach ( wp_user_profiles_get_common_user_roles() as $role => $name ) {
 
 			// translators: prefix for roles dropdown
-			$actions[ 'add_as_' . $role ] = sprintf( _x( '&mdash; %s', 'translators: prefix for roles dropdown', 'wp-user-profile' ), $name );
+			$actions[ 'add_as_' . $role ] = sprintf( _x( '&mdash; %s', 'translators: prefix for roles dropdown', 'wp-user-profiles' ), $name );
 		}
 	}
 

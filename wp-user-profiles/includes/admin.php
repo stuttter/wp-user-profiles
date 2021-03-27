@@ -20,8 +20,31 @@ function wp_user_profiles_admin_register_scripts() {
 	$src = wp_user_profiles_get_plugin_url();
 	$ver = wp_user_profiles_get_asset_version();
 
+	// Append CSS directory
+	$src .= 'assets/css/';
+
+	// Minify?
+	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+		$src .= 'min/';
+	}
+
+	// Right-to-Left?
+	if ( is_rtl() ) {
+		$src .= 'rtl/';
+	} else {
+		$src .= 'ltr/';
+	}
+
+	// Maybe add a trailing slash
+	if ( ! empty( $src ) ) {
+		$src = trailingslashit( $src );
+	}
+
+	// CSS Dependencies
+	$deps = array( 'dashboard', 'dashicons', 'edit' );
+
 	// Styles
-	wp_register_style( 'wp-user-profiles', $src . 'assets/css/user-profiles.css', array(), $ver );
+	wp_register_style( 'wp-user-profiles', $src . 'user-profiles.css', $deps, $ver );
 }
 
 /**

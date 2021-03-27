@@ -1,2 +1,51 @@
-/vendor/
+# Configuration files with possibly sensitive information
+.htaccess
+
+# Files and folders related to build/test tools
+/phpunit.xml
+/tests/phpunit/build
+/node_modules
+/npm-debug.log
+
+# Output directory.
+/build
+
+# Operating system specific files
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Ignore other .gitignore files to allow for personal customizations
+.gitignore
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# PhpStorm
+.idea
+
+# Eclipse
+*.pydevproject
+.project
+.metadata
+build/
+tmp/
+tests/clover.xml
+
+# Node
+node_modules
+pnpm-lock.yaml
+
+# Vendor
+/vendor
+
+# Temporary files
+*~
+
+# File types that do not belong
+*.sql
+*.tar.gz
+*.zip

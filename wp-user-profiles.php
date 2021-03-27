@@ -1,15 +1,18 @@
 <?php
 
 /**
- * Plugin Name: WP User Profiles
- * Plugin URI:  https://wordpress.org/plugins/wp-user-profiles/
- * Author:      John James Jacoby
- * Author URI:  https://profiles.wordpress.org/johnjamesjacoby/
- * License:     GPLv2 or later
- * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Description: A sophisticated way to edit users in WordPress
- * Version:     2.5.1
- * Text Domain: wp-user-profiles
+ * Plugin Name:       WP User Profiles
+ * Plugin URI:        https://wordpress.org/plugins/wp-user-profiles/
+ * Author:            John James Jacoby
+ * Author URI:        https://profiles.wordpress.org/johnjamesjacoby/
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Description:       A sophisticated way to edit users in WordPress
+ * Version:     2.6.0
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Text Domain:       wp-user-profiles
+ * Domain Path:       /wp-user-profiles/includes/languages
  */
 
 // Exit if accessed directly
@@ -90,5 +93,5 @@ function wp_user_profiles_get_plugin_url() {
 function wp_user_profiles_get_asset_version() {
 	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG
 		? time()
-		: 202103240001;
+		: 202103260001;
 }

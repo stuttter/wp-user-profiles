@@ -18,16 +18,19 @@ class WP_User_Profiles_Sites_List_Table extends WP_MS_Sites_List_Table {
 	 *
 	 * @param array $blog Current site.
 	 */
-	public function column_cb( $blog ) {
-		$blogname = untrailingslashit( $blog['domain'] . $blog['path'] );
-		?>
-		<label class="screen-reader-text" for="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>">
-			<?php
+	public function column_cb( $blog = array() ) {
+
+		// Combine and add a trailing slash
+		$blogname = untrailingslashit( $blog['domain'] . $blog['path'] ); ?>
+
+		<label class="screen-reader-text" for="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>"><?php
+
 			/* translators: %s: Site URL. */
-			printf( __( 'Select %s' ), $blogname );
-			?>
-		</label>
+			printf( esc_html__( 'Select %s', 'wp-user-profiles' ), $blogname );
+
+		?></label>
 		<input type="checkbox" id="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>" name="allblogs[]" value="<?php echo esc_attr( $blog['blog_id'] ); ?>" />
+
 		<?php
 	}
 

@@ -27,10 +27,6 @@
 	background-color: #fafafa;
 }
 
-#do_new_application_password {
-	
-}
-
 .create-application-password td {
 	padding-right: 0;
 }
@@ -114,11 +110,11 @@
 /* bbPress Color Schemes */
 
 /* Evergreen */
-.admin-color-evergreen #profile-subnav a.current {
+.admin-color-bbp-evergreen #profile-subnav a.current {
 	border-bottom-color: #36533f;
 }
 
 /* Mint */
-.admin-color-mint #profile-subnav a.current {
+.admin-color-bbp-mint #profile-subnav a.current {
 	border-bottom-color: #4f6d59;
 }

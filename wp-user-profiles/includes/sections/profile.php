@@ -82,17 +82,17 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 
 			// Invalid login
 			if ( ! validate_username( $user->user_login ) ) {
-				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.' ) );
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username.', 'wp-user-profiles' ) );
 			}
 
 			// Login already exists
 			if ( username_exists( $user->user_login ) ) {
-				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.' ) );
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: This username is already registered. Please choose another one.', 'wp-user-profiles' ) );
 			}
 
 			// Checking that username has been typed
 			if ( empty( $user->user_login ) ) {
-				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.' ) );
+				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.', 'wp-user-profiles' ) );
 			}
 
 			// Return if errored
@@ -119,7 +119,7 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 
 			// Nickname was empty
 			if ( empty( $user->nickname ) ) {
-				$this->errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.' ) );
+				$this->errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.', 'wp-user-profiles' ) );
 				return $this->errors;
 			}
 		}
