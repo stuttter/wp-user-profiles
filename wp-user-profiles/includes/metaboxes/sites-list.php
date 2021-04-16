@@ -193,7 +193,7 @@ function wp_user_profiles_filter_role_column( $column_name = '', $blog_id = 0 ) 
  *
  * @param array|null $site_ids List of site IDs to grab roles from
  *
- * @return array|bool|mixed
+ * @return string[] Array of user role display names keyed by role.
  */
 function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 
