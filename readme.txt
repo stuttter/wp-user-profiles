@@ -74,6 +74,10 @@ Yes. There are a bunch of filters to add/remove sections, and their boxes & fiel
 
 == Changelog ==
 
+= [2.6.1] - 2021-05-29 =
+* Update author info
+* Add sponsor link
+
 = [2.6.0]- 2021-03-26 =
 * Improve compatibility with Classic Editor plugin
 * Fix some untranslatable strings
