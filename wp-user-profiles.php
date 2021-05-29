@@ -2,17 +2,18 @@
 
 /**
  * Plugin Name:       WP User Profiles
+ * Description:       Upgrade your WordPress admin user profile experience
  * Plugin URI:        https://wordpress.org/plugins/wp-user-profiles/
- * Author:            John James Jacoby
- * Author URI:        https://profiles.wordpress.org/johnjamesjacoby/
+ * Author:            Triple J Software, Inc.
+ * Author URI:        https://jjj.software
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Description:       A sophisticated way to edit users in WordPress
- * Version:     2.6.0
- * Requires at least: 5.2
- * Requires PHP:      7.2
  * Text Domain:       wp-user-profiles
  * Domain Path:       /wp-user-profiles/includes/languages
+ * Requires at least: 5.2
+ * Requires PHP:      7.2
+ * Tested up to:      5.8
+ * Version:           2.6.1
  */
 
 // Exit if accessed directly
@@ -64,6 +65,7 @@ function _wp_user_profiles() {
 	require_once $plugin_path . 'includes/metaboxes.php';
 	require_once $plugin_path . 'includes/screen-options.php';
 	require_once $plugin_path . 'includes/sections.php';
+	require_once $plugin_path . 'includes/sponsor.php';
 	require_once $plugin_path . 'includes/status.php';
 	require_once $plugin_path . 'includes/hooks.php';
 
@@ -93,5 +95,5 @@ function wp_user_profiles_get_plugin_url() {
 function wp_user_profiles_get_asset_version() {
 	return defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG
 		? time()
-		: 202103260001;
+		: 202105290001;
 }
