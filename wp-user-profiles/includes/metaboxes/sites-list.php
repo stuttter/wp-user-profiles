@@ -60,8 +60,6 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 	do_action( __FUNCTION__ . '_before', $user );
 
 	// Filter action links
-	add_filter( 'manage_sites_action_links',   'wp_user_profiles_filter_sites_action_links', 10, 2 );
-	add_filter( 'wpmu_blogs_columns',          'wp_user_profiles_filter_sites_columns'      );
 	add_filter( 'views_network-sites',         'wp_user_profiles_filter_views'              );
 	add_filter( 'bulk_actions-network-sites',  'wp_user_profiles_filter_bulk_actions'       );
 	add_filter( 'manage_sites_custom_column',  'wp_user_profiles_filter_role_column', 10, 2 );
@@ -70,10 +68,6 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 
 	// Output list table
 	$wp_list_table->display();
-
-	// Unfilter action links
-	remove_filter( 'manage_sites_action_links', 'wp_user_profiles_filter_sites_action_links' );
-	remove_filter( 'wpmu_blogs_columns',        'wp_user_profiles_filter_sites_columns'      );
 
 	// After
 	do_action( __FUNCTION__ . '_after', $user );
@@ -104,60 +98,6 @@ function wp_user_profiles_filter_sites_table_query_args( $args = array() ) {
 
 	// Filter & return
 	return apply_filters( 'wp_user_profiles_filter_sites_table_query_args', $args );
-}
-
-/**
- * Unset some links if user cannot manage sites
- *
- * @since 1.0.0
- *
- * @param array $links
- * @return array
- */
-function wp_user_profiles_filter_sites_action_links( $links = array(), $blog_id = 0 ) {
-
-	if ( ! current_user_can( 'manage_sites' ) ) {
-		// Unset actionable links
-		unset(
-
-			// Core
-			$links['edit'],
-			$links['activate'],
-			$links['deactivate'],
-			$links['archive'],
-			$links['unarchive'],
-			$links['spam'],
-			$links['unspam'],
-			$links['delete'],
-
-			// WP Multi Network
-			$links['move']
-		);
-	}
-
-	return $links;
-}
-
-/**
- * Unset the checkbox column in user profiles
- *
- * @since 1.0.0
- *
- * @param array $columns
- * @return array
- */
-function wp_user_profiles_filter_sites_columns( $columns = array() ) {
-	$is_network_admin = current_user_can( 'manage_sites' );
-
-	if ( $is_network_admin ) {
-		$columns['roles'] = esc_html__( 'Roles', 'wp-user-profiles' );
-	} else {
-		unset( $columns['cb'] );
-	}
-
-	unset( $columns['lastupdated'], $columns['registered'] );
-
-	return $columns;
 }
 
 /**
@@ -253,7 +193,7 @@ function wp_user_profiles_filter_role_column( $column_name = '', $blog_id = 0 ) 
  *
  * @param array|null $site_ids List of site IDs to grab roles from
  *
- * @return array|bool|mixed
+ * @return string[] Array of user role display names keyed by role.
  */
 function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
 
