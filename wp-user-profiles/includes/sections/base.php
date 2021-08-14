@@ -249,7 +249,7 @@ class WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param WP_User $user
-	 * @return int
+	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
 

@@ -58,8 +58,7 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	 * @since 1.0.0
 	 *
 	 * @param WP_User $user
-	 *
-	 * @return WP_User
+	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
 

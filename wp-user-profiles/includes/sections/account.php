@@ -93,8 +93,7 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param WP_User $user
-	 *
-	 * @return WP_User
+	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
 
