@@ -24,7 +24,7 @@ function wp_user_profiles_admin_register_scripts() {
 	$src .= 'assets/css/';
 
 	// Minify?
-	if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+	if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
 		$src .= 'min/';
 	}
 

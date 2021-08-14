@@ -38,7 +38,7 @@ add_action( 'admin_init', function() {
 function filter_plugin_action_links( $actions = array() ) {
 
 	// Sponsor text
-	$text = esc_html_x( 'Sponsor', 'verb', 'wp-user-avatars' );
+	$text = esc_html_x( 'Sponsor', 'verb', 'wp-user-profiles' );
 
 	// Sponsor URL
 	$url  = 'https://buy.stripe.com/7sI3cd2tK1Cy2lydQR';

@@ -88,7 +88,7 @@ module.exports = function( grunt ) {
 				overwrite: true,
 				replacements: [{
 					from: /Version:\s*(.*)/,
-					to: "Version:     <%= pkg.version %>",
+					to: "Version:           <%= pkg.version %>",
 				}],
 			},
 

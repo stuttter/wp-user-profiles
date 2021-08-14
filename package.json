@@ -1,6 +1,6 @@
 {
 	"name": "wp-user-profiles",
-	"version": "2.6.0",
+	"version": "2.6.1",
 	"main": "webpack.config.js",
 	"author": "John James Jacoby",
 	"private": true,
