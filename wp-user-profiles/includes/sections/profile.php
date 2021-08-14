@@ -95,10 +95,17 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 			if ( empty( $user->user_login ) ) {
 				$this->errors->add( 'user_login', __( '<strong>ERROR</strong>: Please enter a username.', 'wp-user-profiles' ) );
 			}
+		}
 
-			// Return if errored
-			if ( $this->errors->get_error_code() ) {
-				return $this->errors;
+		// Nickname
+		if ( isset( $_POST['nickname'] ) ) {
+
+			// Set the nick
+			$user->nickname = sanitize_text_field( $_POST['nickname'] );
+
+			// Nickname was empty
+			if ( empty( $user->nickname ) ) {
+				$this->errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.', 'wp-user-profiles' ) );
 			}
 		}
 
@@ -111,19 +118,6 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 		$user->last_name = isset( $_POST['last_name'] )
 			? sanitize_text_field( $_POST['last_name'] )
 			: '';
-
-		// Nickname
-		if ( isset( $_POST['nickname'] ) ) {
-
-			// Set the nick
-			$user->nickname = sanitize_text_field( $_POST['nickname'] );
-
-			// Nickname was empty
-			if ( empty( $user->nickname ) ) {
-				$this->errors->add( 'nickname', __( '<strong>ERROR</strong>: Please enter a nickname.', 'wp-user-profiles' ) );
-				return $this->errors;
-			}
-		}
 
 		// Display
 		$user->display_name = isset( $_POST['display_name'] )

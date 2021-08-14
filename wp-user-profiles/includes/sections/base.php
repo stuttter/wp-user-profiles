@@ -256,10 +256,13 @@ class WP_User_Profile_Section {
 		// Allow third party plugins to hook into this sections saving process
 		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
 
-		// Return errors if there are any
-		if ( is_wp_error( $user ) && $user->get_error_codes() ) {
-			return $user;
+		// Return (do not update) if there are any errors
+		if ( $this->errors->get_error_codes() || ( is_wp_error( $user ) && $user->get_error_codes() ) ) {
+			return $this->errors;
 		}
+
+		// Pre-clean the cache before updating
+		clean_user_cache( $user );
 
 		// Update the user in the database
 		return wp_update_user( $user );

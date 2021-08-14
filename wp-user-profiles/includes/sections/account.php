@@ -160,11 +160,6 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			}
 		}
 
-		// Bail if password change errors occurred
-		if ( $this->errors->get_error_code() ) {
-			return $this->errors;
-		}
-
 		// Allow third party plugins to save data in this section
 		return parent::save( $user );
 	}

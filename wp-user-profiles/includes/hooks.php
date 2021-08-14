@@ -48,7 +48,7 @@ add_action( 'wp_user_profiles_get_admin_notices',        'wp_user_profiles_save_
 add_filter( 'wp_user_profiles_save_permissions_section', 'wp_user_profiles_save_user_super_admin' );
 
 // Capabilities
-add_filter( 'map_meta_cap',     'wp_user_profiles_map_meta_cap', 10, 4 );
+add_filter( 'map_meta_cap', 'wp_user_profiles_map_meta_cap', 10, 4 );
 
 // Redirect
 add_filter( 'load-profile.php',   'wp_user_profiles_old_profile_redirect'   );

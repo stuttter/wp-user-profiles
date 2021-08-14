@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2021-08-14 05:59:29+00:00\n"
+"POT-Creation-Date: 2021-08-14 06:48:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -427,27 +427,27 @@ msgstr ""
 msgid "<strong>ERROR</strong>: This email is already in use."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:182
+#: wp-user-profiles/includes/sections/account.php:177
 msgid "This is where important account information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:183
+#: wp-user-profiles/includes/sections/account.php:178
 msgid "Your email address is used for receiving notifications from this site"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:184
+#: wp-user-profiles/includes/sections/account.php:179
 msgid "Passwords should be lengthy and complex to help keep your account secure"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:185
+#: wp-user-profiles/includes/sections/account.php:180
 msgid "The language you pick will be used wherever it is supported."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:186
+#: wp-user-profiles/includes/sections/account.php:181
 msgid "Sessions are logged from each device you login from"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:187
+#: wp-user-profiles/includes/sections/account.php:182
 msgid "Application passwords allow authentication via non-interactive systems."
 msgstr ""
 
@@ -507,23 +507,23 @@ msgstr ""
 msgid "<strong>ERROR</strong>: Please enter a username."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:123
+#: wp-user-profiles/includes/sections/profile.php:108
 msgid "<strong>ERROR</strong>: Please enter a nickname."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:179
+#: wp-user-profiles/includes/sections/profile.php:173
 msgid "This is where most biographical information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:180
+#: wp-user-profiles/includes/sections/profile.php:174
 msgid "First and Last Name"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:181
+#: wp-user-profiles/includes/sections/profile.php:175
 msgid "Nickname and Display Name"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:182
+#: wp-user-profiles/includes/sections/profile.php:176
 msgid "Website and Biography"
 msgstr ""
 
