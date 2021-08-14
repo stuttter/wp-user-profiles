@@ -187,6 +187,8 @@ class WP_User_Profile_Section {
 	 * Saving this section?
 	 *
 	 * @since 0.2.0
+	 *
+	 * @return WP_User
 	 */
 	public function action_save( $user = null ) {
 
@@ -247,6 +249,7 @@ class WP_User_Profile_Section {
 	 * @since 0.2.0
 	 *
 	 * @param WP_User $user
+	 * @return int
 	 */
 	public function save( $user = null ) {
 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2021-08-14 05:10:12+00:00\n"
+"POT-Creation-Date: 2021-08-14 05:50:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -236,7 +236,7 @@ msgid "Admin Color Scheme"
 msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/options-personal.php:55
-#: wp-user-profiles/includes/sections/options.php:107
+#: wp-user-profiles/includes/sections/options.php:109
 msgid "Visual Editor"
 msgstr ""
 
@@ -405,141 +405,141 @@ msgstr ""
 msgid "The options in this area are not available to you at this time."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:114
+#: wp-user-profiles/includes/sections/account.php:116
 msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:119
+#: wp-user-profiles/includes/sections/account.php:121
 msgid ""
 "<strong>ERROR</strong>: Please enter the same password in both password "
 "fields."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:150
+#: wp-user-profiles/includes/sections/account.php:152
 msgid "<strong>ERROR</strong>: Please enter an email address."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:154
+#: wp-user-profiles/includes/sections/account.php:156
 msgid "<strong>ERROR</strong>: The email address is not correct."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:158
+#: wp-user-profiles/includes/sections/account.php:160
 msgid "<strong>ERROR</strong>: This email is already in use."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:181
+#: wp-user-profiles/includes/sections/account.php:183
 msgid "This is where important account information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:182
+#: wp-user-profiles/includes/sections/account.php:184
 msgid "Your email address is used for receiving notifications from this site"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:183
+#: wp-user-profiles/includes/sections/account.php:185
 msgid "Passwords should be lengthy and complex to help keep your account secure"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:184
+#: wp-user-profiles/includes/sections/account.php:186
 msgid "The language you pick will be used wherever it is supported."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:185
+#: wp-user-profiles/includes/sections/account.php:187
 msgid "Sessions are logged from each device you login from"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:186
+#: wp-user-profiles/includes/sections/account.php:188
 msgid "Application passwords allow authentication via non-interactive systems."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:105
+#: wp-user-profiles/includes/sections/options.php:107
 msgid "This is where most options & site preferences can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:106
+#: wp-user-profiles/includes/sections/options.php:108
 msgid "Color Schemes"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:108
+#: wp-user-profiles/includes/sections/options.php:110
 msgid "Comment Moderation Shortcuts"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/other.php:67
+#: wp-user-profiles/includes/sections/other.php:69
 msgid "This is where any additional information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/other.php:68
+#: wp-user-profiles/includes/sections/other.php:70
 msgid "Plugins using legacy actions"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/other.php:69
+#: wp-user-profiles/includes/sections/other.php:71
 msgid "Fields without explicit sections"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:106
+#: wp-user-profiles/includes/sections/permissions.php:108
 msgid "This is where role & capability settings can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:107
+#: wp-user-profiles/includes/sections/permissions.php:109
 msgid "Your role determines what you are able to do"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:108
+#: wp-user-profiles/includes/sections/permissions.php:110
 msgid "In some cases, you may have more than one role"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:109
+#: wp-user-profiles/includes/sections/permissions.php:111
 msgid "Some capabilities may be uniquely granted"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:85
+#: wp-user-profiles/includes/sections/profile.php:87
 msgid ""
 "<strong>ERROR</strong>: This username is invalid because it uses illegal "
 "characters. Please enter a valid username."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:90
+#: wp-user-profiles/includes/sections/profile.php:92
 msgid ""
 "<strong>ERROR</strong>: This username is already registered. Please choose "
 "another one."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:95
+#: wp-user-profiles/includes/sections/profile.php:97
 msgid "<strong>ERROR</strong>: Please enter a username."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:122
+#: wp-user-profiles/includes/sections/profile.php:124
 msgid "<strong>ERROR</strong>: Please enter a nickname."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:178
+#: wp-user-profiles/includes/sections/profile.php:180
 msgid "This is where most biographical information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:179
+#: wp-user-profiles/includes/sections/profile.php:181
 msgid "First and Last Name"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:180
+#: wp-user-profiles/includes/sections/profile.php:182
 msgid "Nickname and Display Name"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/profile.php:181
+#: wp-user-profiles/includes/sections/profile.php:183
 msgid "Website and Biography"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:111
+#: wp-user-profiles/includes/sections/sites.php:114
 msgid "This is where sites & the primary set setting can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:112
+#: wp-user-profiles/includes/sections/sites.php:115
 msgid "Your sites are determined by having a role on each one"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:113
+#: wp-user-profiles/includes/sections/sites.php:116
 msgid "You may be able to navigate between these sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:114
+#: wp-user-profiles/includes/sections/sites.php:117
 msgid "You may be able to take action on these sites"
 msgstr ""
 

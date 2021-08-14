@@ -58,6 +58,8 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	 * @since 1.0.0
 	 *
 	 * @param WP_User $user
+	 *
+	 * @return WP_User
 	 */
 	public function save( $user = null ) {
 
@@ -95,7 +97,8 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 			}
 		}
 
-		parent::save( $user );
+		// Allow third party plugins to save data in this section
+		return parent::save( $user );
 	}
 
 	/**
