@@ -19,18 +19,20 @@ class WP_User_Profiles_Sites_List_Table extends WP_MS_Sites_List_Table {
 	 * @return string[] Array of column heading names keyed by column ID.
 	 */
 	public function get_columns() {
-		$is_network_admin = current_user_can( 'manage_sites' );
 
+		// Default columns
 		$columns = array(
 			'cb'       => '<input type="checkbox" />',
-			'blogname' => __( 'URL', 'wp-user-profiles' ),
-			'users'    => __( 'Users', 'wp-user-profiles' ),
+			'blogname' => esc_html__( 'URL',   'wp-user-profiles' ),
+			'users'    => esc_html__( 'Users', 'wp-user-profiles' ),
 		);
 
-		if ( $is_network_admin ) {
+		// Can manage sites
+		if ( current_user_can( 'manage_sites' ) ) {
 			$columns['roles'] = esc_html__( 'Roles', 'wp-user-profiles' );
 		}
 
+		// Return
 		return $columns;
 	}
 
