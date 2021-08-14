@@ -64,7 +64,7 @@ function wp_user_profiles_password_metabox( $user = null ) {
 			</td>
 		</tr>
 
-		<?php if ( ! wp_is_profile_page() ) : ?>
+		<?php if ( ! wp_is_profile_page() && function_exists( 'retrieve_password' ) ) : ?>
 
 			<tr class="user-generate-reset-link-wrap hide-if-no-js">
 				<th scope="row"><?php esc_html_e( 'Password Reset', 'wp-user-profiles' ); ?></th>
