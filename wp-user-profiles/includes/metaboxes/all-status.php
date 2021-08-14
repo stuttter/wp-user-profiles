@@ -23,6 +23,10 @@ function wp_user_profiles_status_metabox( $user = null ) {
 		return;
 	}
 
+	// Format registration date
+	$datef = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+	$date  = get_date_from_gmt( $user->user_registered, $datef );
+
 	// Before
 	do_action( __FUNCTION__ . '_before', $user ); ?>
 
@@ -32,7 +36,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 				<?php
 
 				// Get the spam status once here to compare against below
-				if ( apply_filters( 'wp_user_profiles_show_status', true ) && ( current_user_can( 'edit_user', $user->ID ) && ! wp_is_profile_page() && ! is_user_admin() && ! in_array( $user->user_login, get_super_admins() ) ) ) : ?>
+				if ( apply_filters( 'wp_user_profiles_show_status', true ) && ( current_user_can( 'edit_user', $user->ID ) && ! wp_is_profile_page() && ! is_user_admin() && ! in_array( $user->user_login, get_super_admins(), true ) ) ) : ?>
 
 					<div class="misc-pub-section" id="comment-status-radio">
 						<label class="approved"><input type="radio" name="user_status" value="ham" <?php checked( $user->user_status, 0 ); ?>><?php esc_html_e( 'Active', 'wp-user-profiles' ); ?></label><br>
@@ -40,14 +44,9 @@ function wp_user_profiles_status_metabox( $user = null ) {
 						<label class="spam"><input type="radio" name="user_status" value="spam" <?php checked( $user->user_status, 1 ); ?>><?php esc_html_e( 'Spammer', 'wp-user-profiles' ); ?></label>
 					</div>
 
-				<?php endif ;?>
+				<?php endif; ?>
 
 				<div class="misc-pub-section curtime misc-pub-section-last">
-					<?php
-
-					$datef = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
-					$date  = date_i18n( $datef, strtotime( $user->user_registered ) ); ?>
-
 					<span id="timestamp"><?php printf( esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ), '<strong>' . $date . '</strong>' ); ?></span>
 				</div>
 			</div>
