@@ -47,7 +47,15 @@ function wp_user_profiles_status_metabox( $user = null ) {
 				<?php endif; ?>
 
 				<div class="misc-pub-section curtime misc-pub-section-last">
-					<span id="timestamp"><?php printf( esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ), '<strong>' . $date . '</strong>' ); ?></span>
+					<span id="timestamp"><?php
+
+						// Output description & date
+						printf(
+							esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ),
+							'<strong>' . esc_html( $date ) . '</strong>'
+						);
+
+					?></span>
 				</div>
 			</div>
 

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2021-08-14 05:06:25+00:00\n"
+"POT-Creation-Date: 2021-08-14 05:10:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -219,15 +219,15 @@ msgstr ""
 msgid "Spammer"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/all-status.php:50
+#: wp-user-profiles/includes/metaboxes/all-status.php:54
 msgid "Registered on: %1$s"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/all-status.php:59
+#: wp-user-profiles/includes/metaboxes/all-status.php:67
 msgid "View User"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/all-status.php:60
+#: wp-user-profiles/includes/metaboxes/all-status.php:68
 msgid "Update"
 msgstr ""
 
