@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2021-08-14 04:45:19+00:00\n"
+"POT-Creation-Date: 2021-08-14 04:53:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -357,35 +357,31 @@ msgstr ""
 msgid "Display name publicly as"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:153
-msgid "Roles"
-msgstr ""
-
-#: wp-user-profiles/includes/metaboxes/sites-list.php:175
+#: wp-user-profiles/includes/metaboxes/sites-list.php:115
 msgid "Assigned"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:176
+#: wp-user-profiles/includes/metaboxes/sites-list.php:116
 msgid "All Sites"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:193
+#: wp-user-profiles/includes/metaboxes/sites-list.php:133
 msgid "Remove"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:205
+#: wp-user-profiles/includes/metaboxes/sites-list.php:145
 msgid "Assign as (Choose a Role)"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:247
+#: wp-user-profiles/includes/metaboxes/sites-list.php:187
 msgid "User is not a member of this site"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:322
+#: wp-user-profiles/includes/metaboxes/sites-list.php:262
 msgid "Default site role"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:439
+#: wp-user-profiles/includes/metaboxes/sites-list.php:379
 msgid "Invalid nonce or user ID."
 msgstr ""
 
@@ -567,7 +563,19 @@ msgstr ""
 msgid "Sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sites-list-table.php:29
+#: wp-user-profiles/includes/sites-list-table.php:26
+msgid "URL"
+msgstr ""
+
+#: wp-user-profiles/includes/sites-list-table.php:27
+msgid "Users"
+msgstr ""
+
+#: wp-user-profiles/includes/sites-list-table.php:31
+msgid "Roles"
+msgstr ""
+
+#: wp-user-profiles/includes/sites-list-table.php:50
 #. translators: %s: Site URL.
 msgid "Select %s"
 msgstr ""
@@ -586,7 +594,7 @@ msgctxt "user"
 msgid "Add Existing"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:211
+#: wp-user-profiles/includes/metaboxes/sites-list.php:151
 #. translators: prefix for roles dropdown
 msgctxt "translators: prefix for roles dropdown"
 msgid "&mdash; %s"
