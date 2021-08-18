@@ -65,27 +65,50 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 		// Role changes
 		if ( isset( $_POST['role'] ) && is_array( $_POST['role'] ) && current_user_can( $this->cap, $user->ID ) ) {
 
+			// Stash the current Site ID for later reuse
+			$current_site_id = get_current_blog_id();
+
 			// Loop through new roles
-			foreach ( $_POST['role'] as $blog_id => $new_role ) {
+			foreach ( $_POST['role'] as $site_id => $new_role ) {
 
 				// Switch to the blog
 				if ( is_multisite() ) {
-					switch_to_blog( $blog_id );
+
+					// Switch site early
+					switch_to_blog( $site_id );
+
+					// User cannot be promoted on this site by current user
+					if ( ( $current_site_id !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
+
+						// Switch site back
+						restore_current_blog();
+
+						// Skip to next site
+						continue;
+					}
+
+					// Reinitialize the user roles & caps for this site ID
+					$user->for_site( $site_id );
 				}
 
-				// Only allow switching to editable role for site
+				// Get roles for this site
 				$editable_roles = get_editable_roles();
+
+				// Only allow editable roles for switched site
 				if ( ! empty( $new_role ) && ! empty( $editable_roles[ $new_role ] ) ) {
 					$user->set_role( $new_role );
 
-				// Or remove all caps if no role for site
+				// ...or remove all caps if no role for site
 				} elseif ( empty( $new_role ) ) {
 					$user->remove_all_caps();
 				}
 
-				// Switch back
+				// Switch back to the current site
 				if ( is_multisite() ) {
 					restore_current_blog();
+
+					// Reset the user's role & capabilities
+					$user->for_site( $current_site_id );
 				}
 			}
 		}
