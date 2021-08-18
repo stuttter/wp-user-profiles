@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.1\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2021-08-14 06:48:30+00:00\n"
+"POT-Creation-Date: 2021-08-18 18:32:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -315,7 +315,7 @@ msgstr ""
 msgid "This user has no role on any sites"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/permissions-roles.php:100
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:108
 msgid "&mdash; No role for this site &mdash;"
 msgstr ""
 
@@ -475,19 +475,19 @@ msgstr ""
 msgid "Fields without explicit sections"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:107
+#: wp-user-profiles/includes/sections/permissions.php:130
 msgid "This is where role & capability settings can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:108
+#: wp-user-profiles/includes/sections/permissions.php:131
 msgid "Your role determines what you are able to do"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:109
+#: wp-user-profiles/includes/sections/permissions.php:132
 msgid "In some cases, you may have more than one role"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:110
+#: wp-user-profiles/includes/sections/permissions.php:133
 msgid "Some capabilities may be uniquely granted"
 msgstr ""
 

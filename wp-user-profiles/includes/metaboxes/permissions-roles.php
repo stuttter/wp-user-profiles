@@ -69,42 +69,50 @@ function wp_user_profiles_roles_metabox( $user = null ) {
 				// Switch to this site
 				if ( is_multisite() ) {
 
-					// Skip if user cannot manage
+					// Switch site early
+					switch_to_blog( $site_id );
+
+					// User cannot be promoted on this site by current user
 					if ( ( $current_site_id !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
+
+						// Switch site back
+						restore_current_blog();
+
+						// Skip to next site
 						continue;
 					}
 
-					switch_to_blog( $site_id );
-
-					// Reinitialize the User roles & caps for this Site ID
+					// Reinitialize the user roles & caps for this site ID
 					$user->for_site( $site_id );
-				} ?>
+				}
+
+				// Compare user role against currently editable roles
+				$editable_roles = get_editable_roles();
+				$user_roles     = array_intersect( array_values( $user->roles ), array_keys( $editable_roles ) );
+				$user_role      = reset( $user_roles );
+
+				?>
 
 				<tr class="user-role-wrap">
 					<th scope="row">
-						<label for="role[<?php echo $site_id; ?>]">
+						<label for="role[<?php echo (int) $site_id; ?>]">
 							<?php echo esc_html( $site->blogname ); ?><br>
-							<span class="description"><?php echo $site->siteurl; ?></span>
+							<span class="description"><?php echo esc_html( $site->siteurl ); ?></span>
 						</label>
 					</th>
-					<td><select name="role[<?php echo $site_id; ?>]" id="role[<?php echo $site_id; ?>]" <?php disabled( $is_self, true ); ?>>
-							<?php
-
-							// Compare user role against currently editable roles
-							$user_roles = array_intersect( array_values( $user->roles ), array_keys( get_editable_roles() ) );
-							$user_role  = reset( $user_roles );
+					<td><select name="role[<?php echo (int) $site_id; ?>]" id="role[<?php echo (int) $site_id; ?>]" <?php disabled( $is_self, true ); ?>><?php
 
 							// Print the full list of roles
-							wp_dropdown_roles( $user_role ); ?>
+							wp_dropdown_roles( $user_role );
 
-							<option value="" <?php selected( empty( $user_role ) ); ?>><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
+							?><option value="" <?php selected( empty( $user_role ) ); ?>><?php esc_html_e( '&mdash; No role for this site &mdash;', 'wp-user-profiles' ); ?></option>
 						</select>
 					</td>
 				</tr>
 
 				<?php
 
-				// Switch back to this site
+				// Switch back to the current site
 				if ( is_multisite() ) {
 					restore_current_blog();
 
