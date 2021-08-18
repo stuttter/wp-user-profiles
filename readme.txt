@@ -9,8 +9,8 @@ Contributors:      johnjamesjacoby, baden03
 Tags:              user, profile, edit, metabox
 Requires PHP:      7.2
 Requires at least: 5.2
-Tested up to:      5.8
-Stable tag:        2.6.1
+Tested up to:      5.9
+Stable tag:        2.6.2
 
 == Description ==
 

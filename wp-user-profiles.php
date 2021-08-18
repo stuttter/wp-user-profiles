@@ -13,7 +13,7 @@
  * Requires at least: 5.2
  * Requires PHP:      7.2
  * Tested up to:      5.8
- * Version:           2.6.1
+ * Version:           2.6.2
  */
 
 // Exit if accessed directly
