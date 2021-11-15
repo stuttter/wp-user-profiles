@@ -28,46 +28,60 @@ function _wp_user_profiles() {
 
 	// Get the plugin path
 	$plugin_path = plugin_dir_path( __FILE__ ) . 'wp-user-profiles/';
+	
+	// Core Files
+	$sources = array(
+		// Sections
+		'includes/sections/base.php',
+		'includes/sections/profile.php',
+		'includes/sections/account.php',
+		'includes/sections/options.php',
+		'includes/sections/other.php',
+		'includes/sections/permissions.php',
+		'includes/sections/sites.php',
 
-	// Sections
-	require_once $plugin_path . 'includes/sections/base.php';
-	require_once $plugin_path . 'includes/sections/profile.php';
-	require_once $plugin_path . 'includes/sections/account.php';
-	require_once $plugin_path . 'includes/sections/options.php';
-	require_once $plugin_path . 'includes/sections/other.php';
-	require_once $plugin_path . 'includes/sections/permissions.php';
-	require_once $plugin_path . 'includes/sections/sites.php';
+		// Meta Boxes
+		'includes/metaboxes/all-status.php',
+		'includes/metaboxes/account-email.php',
+		'includes/metaboxes/account-language.php',
+		'includes/metaboxes/account-password.php',
+		'includes/metaboxes/account-applications.php',
+		'includes/metaboxes/account-sessions.php',
+		'includes/metaboxes/options-color-scheme.php',
+		'includes/metaboxes/options-contact.php',
+		'includes/metaboxes/options-personal.php',
+		'includes/metaboxes/other-all.php',
+		'includes/metaboxes/permissions-capabilities.php',
+		'includes/metaboxes/permissions-roles.php',
+		'includes/metaboxes/profile-about.php',
+		'includes/metaboxes/profile-name.php',
+		'includes/metaboxes/sites-list.php',
+		'includes/metaboxes/sites-primary.php',
 
-	// Meta Boxes
-	require_once $plugin_path . 'includes/metaboxes/all-status.php';
-	require_once $plugin_path . 'includes/metaboxes/account-email.php';
-	require_once $plugin_path . 'includes/metaboxes/account-language.php';
-	require_once $plugin_path . 'includes/metaboxes/account-password.php';
-	require_once $plugin_path . 'includes/metaboxes/account-applications.php';
-	require_once $plugin_path . 'includes/metaboxes/account-sessions.php';
-	require_once $plugin_path . 'includes/metaboxes/options-color-scheme.php';
-	require_once $plugin_path . 'includes/metaboxes/options-contact.php';
-	require_once $plugin_path . 'includes/metaboxes/options-personal.php';
-	require_once $plugin_path . 'includes/metaboxes/other-all.php';
-	require_once $plugin_path . 'includes/metaboxes/permissions-capabilities.php';
-	require_once $plugin_path . 'includes/metaboxes/permissions-roles.php';
-	require_once $plugin_path . 'includes/metaboxes/profile-about.php';
-	require_once $plugin_path . 'includes/metaboxes/profile-name.php';
-	require_once $plugin_path . 'includes/metaboxes/sites-list.php';
-	require_once $plugin_path . 'includes/metaboxes/sites-primary.php';
+		// Required Files
+		'includes/admin.php',
+		'includes/capabilities.php',
+		'includes/dependencies.php',
+		'includes/common.php',
+		'includes/help.php',
+		'includes/metaboxes.php',
+		'includes/screen-options.php',
+		'includes/sections.php',
+		'includes/sponsor.php',
+		'includes/status.php',
+		'includes/hooks.php'
+	);
 
-	// Required Files
-	require_once $plugin_path . 'includes/admin.php';
-	require_once $plugin_path . 'includes/capabilities.php';
-	require_once $plugin_path . 'includes/dependencies.php';
-	require_once $plugin_path . 'includes/common.php';
-	require_once $plugin_path . 'includes/help.php';
-	require_once $plugin_path . 'includes/metaboxes.php';
-	require_once $plugin_path . 'includes/screen-options.php';
-	require_once $plugin_path . 'includes/sections.php';
-	require_once $plugin_path . 'includes/sponsor.php';
-	require_once $plugin_path . 'includes/status.php';
-	require_once $plugin_path . 'includes/hooks.php';
+	$files = array();
+	foreach( $sources as $key => $source ) {
+		$files[ $key ] = $plugin_path . $source;
+	}
+	// Allow for filtering of the Core Files
+	$core_files = apply_filters( 'wp_user_profiles_core_files', $files, $sources );
+	
+	foreach( $core_files as $file ) {
+		require_once( $file );
+	}
 
 	// Load translations
 	load_plugin_textdomain( 'wp-user-profiles' );
