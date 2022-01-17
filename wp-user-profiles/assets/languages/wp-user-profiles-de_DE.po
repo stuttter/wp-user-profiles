@@ -1,0 +1,515 @@
+# Translation of Plugins - WP User Profiles - Development (trunk) in German
+# This file is distributed under the same license as the Plugins - WP User Profiles - Development (trunk) package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - WP User Profiles - Development (trunk)\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2022-01-17 20:16+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/wp-user-profiles/"
+msgstr "https://de.wordpress.org/plugins/wp-user-profiles/"
+
+#. Plugin Name of the plugin
+msgid "WP User Profiles"
+msgstr "WP User Profiles"
+
+#: wp-user-profiles/includes/sections.php:121
+msgid "Sites"
+msgstr "Websites"
+
+#: wp-user-profiles/includes/sections.php:102
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+#: wp-user-profiles/includes/sections.php:59
+msgid "Options"
+msgstr "Optionen"
+
+#: wp-user-profiles/includes/sections/sites.php:116
+msgid "You may be able to take action on these sites"
+msgstr "Sie können auf diesen Websites Aktionen durchführen"
+
+#: wp-user-profiles/includes/sections/sites.php:115
+msgid "You may be able to navigate between these sites"
+msgstr "Sie können zwischen diesen Websites navigieren"
+
+#: wp-user-profiles/includes/sections/sites.php:114
+msgid "Your sites are determined by having a role on each one"
+msgstr "Ihre Websites sind dadurch gekennzeichnet, dass Sie eine Rolle auf diesen haben"
+
+#: wp-user-profiles/includes/sections/sites.php:113
+msgid "This is where sites & the primary set setting can be found."
+msgstr "Hier finden Sie Ihre Websites und die Einstellung für die primäre Website."
+
+#: wp-user-profiles/includes/sections/sites.php:46
+msgctxt "users user-admin edit screen"
+msgid "Sites"
+msgstr "Websites"
+
+#: wp-user-profiles/includes/sections/sites.php:35
+msgctxt "users user-admin edit screen"
+msgid "Primary Site"
+msgstr "Primäre Website"
+
+#: wp-user-profiles/includes/sections/profile.php:176
+msgid "Website and Biography"
+msgstr "Website und Biografische Angaben"
+
+#: wp-user-profiles/includes/sections/profile.php:175
+msgid "Nickname and Display Name"
+msgstr "Spitzname und Öffentlicher Name"
+
+#: wp-user-profiles/includes/sections/profile.php:174
+msgid "First and Last Name"
+msgstr "Vor- und Nachname"
+
+#: wp-user-profiles/includes/sections/profile.php:173
+msgid "This is where most biographical information can be found."
+msgstr "Hier finden Sie biografische Angaben."
+
+#: wp-user-profiles/includes/sections/profile.php:108
+msgid "<strong>ERROR</strong>: Please enter a nickname."
+msgstr "<strong>FEHLER:</strong>: Bitte geben Sie einen Spitznamen ein."
+
+#: wp-user-profiles/includes/sections/profile.php:96
+msgid "<strong>ERROR</strong>: Please enter a username."
+msgstr "<strong>FEHLER:</strong>: Bitte geben Sie einen Benutzernamen ein."
+
+#: wp-user-profiles/includes/sections/profile.php:91
+msgid "<strong>ERROR</strong>: This username is already registered. Please choose another one."
+msgstr "<strong>FEHLER:</strong>: Dieser Benutzername ist bereits registriert. Bitte wählen Sie einen anderen."
+
+#: wp-user-profiles/includes/sections/profile.php:86
+msgid "<strong>ERROR</strong>: This username is invalid because it uses illegal characters. Please enter a valid username."
+msgstr "<strong>FEHLER:</strong>: Dieser Benutzername ist ungültig, da er verbotene Zeichen benutzt. Bitte geben Sie einen gültigen Benutzernamen ein."
+
+#: wp-user-profiles/includes/sections/profile.php:58
+msgctxt "users user-admin edit screen"
+msgid "Contact"
+msgstr "Kontaktinfo"
+
+#: wp-user-profiles/includes/sections/profile.php:46
+msgctxt "users user-admin edit screen"
+msgid "About"
+msgstr "Über den Benutzer"
+
+#: wp-user-profiles/includes/sections/profile.php:35
+msgctxt "users user-admin edit screen"
+msgid "Name"
+msgstr "Name"
+
+#: wp-user-profiles/includes/sections/permissions.php:133
+msgid "Some capabilities may be uniquely granted"
+msgstr "Manche Berechtigungen können einzeln vergeben werden"
+
+#: wp-user-profiles/includes/sections/permissions.php:132
+msgid "In some cases, you may have more than one role"
+msgstr "In manchen Fällen können Sie mehr als eine Rolle haben"
+
+#: wp-user-profiles/includes/sections/permissions.php:131
+msgid "Your role determines what you are able to do"
+msgstr "Ihre Rolle entscheidet darüber, welche Aktionen Sie durchführen können"
+
+#: wp-user-profiles/includes/sections/permissions.php:130
+msgid "This is where role & capability settings can be found."
+msgstr "Hier finden Sie Einstellungen zu Rollen und Berechtigungen."
+
+#: wp-user-profiles/includes/sections/permissions.php:46
+msgctxt "users user-admin edit screen"
+msgid "Additional Capabilities"
+msgstr "Zusätzliche Berechtigungen"
+
+#: wp-user-profiles/includes/sections/permissions.php:35
+msgctxt "users user-admin edit screen"
+msgid "Roles"
+msgstr "Rollen"
+
+#: wp-user-profiles/includes/sections/options.php:109
+msgid "Comment Moderation Shortcuts"
+msgstr "Tastaturkürzel für die Kommentarmoderation"
+
+#: wp-user-profiles/includes/sections/options.php:107
+msgid "Color Schemes"
+msgstr "Farbschemata"
+
+#: wp-user-profiles/includes/sections/options.php:48
+msgctxt "users user-admin edit screen"
+msgid "Personal Options"
+msgstr "Persönliche Optionen"
+
+#: wp-user-profiles/includes/sections/options.php:106
+msgid "This is where most options & site preferences can be found."
+msgstr "Hier finden Sie die meisten Optionen und Website-Einstellungen."
+
+#: wp-user-profiles/includes/sections/options.php:36
+msgctxt "users user-admin edit screen"
+msgid "Color Scheme"
+msgstr "Farbschema"
+
+#: wp-user-profiles/includes/sections/account.php:181
+msgid "Sessions are logged from each device you login from"
+msgstr "Sessions werden von jedem Gerät, von dem Sie sich anmelden, gespeichert"
+
+#: wp-user-profiles/includes/sections/account.php:180
+msgid "The language you pick will be used wherever it is supported."
+msgstr "Die hier ausgewählte Sprache wird verwendet, wo immer sie unterstützt wird."
+
+#: wp-user-profiles/includes/sections/account.php:120
+msgid "<strong>ERROR</strong>: Please enter the same password in both password fields."
+msgstr "<strong>FEHLER</strong>: Bitte geben Sie ein identisches Passwort in beiden Passwort-Feldern ein."
+
+#: wp-user-profiles/includes/sections/account.php:115
+msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
+msgstr "<strong>FEHLER</strong>: Passwörter dürfen nicht das Zeichen \"\\\" enthalten."
+
+#: wp-user-profiles/includes/sections/account.php:68
+msgctxt "users user-admin edit screen"
+msgid "Sessions"
+msgstr "Sessions"
+
+#: wp-user-profiles/includes/sections/account.php:57
+msgctxt "users user-admin edit screen"
+msgid "Language"
+msgstr "Sprache"
+
+#: wp-user-profiles/includes/sections/account.php:46
+msgctxt "users user-admin edit screen"
+msgid "Password"
+msgstr "Passwort"
+
+#: wp-user-profiles/includes/metaboxes.php:52
+msgctxt "users user-admin edit screen"
+msgid "Status"
+msgstr "Status"
+
+#: wp-user-profiles/includes/capabilities.php:76
+msgid "Invalid user ID."
+msgstr "Ungültige Benutzer-ID."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:62
+msgid "This user is not a member of any sites."
+msgstr "Dieser Benutzer ist auf keiner Website Mitglied."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:61
+msgid "You are not a member of any sites."
+msgstr "Sie sind auf keiner Website Mitglied."
+
+#: wp-user-profiles/includes/metaboxes/sites-primary.php:42
+msgid "Primary Site"
+msgstr "Primäre Website"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:97
+msgid "Display name publicly as"
+msgstr "Name öffentlich anzeigen als"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:86
+msgid "Nickname"
+msgstr "Spitzname"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:77
+msgid "Last Name"
+msgstr "Nachname"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:68
+msgid "First Name"
+msgstr "Vorname"
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:61
+msgid "Usernames cannot be changed."
+msgstr "Benutzernamen können nicht geändert werden."
+
+#: wp-user-profiles/includes/metaboxes/profile-name.php:58
+msgid "Username"
+msgstr "Benutzername"
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:45
+msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
+msgstr "Teilen Sie ein paar biografische Informationen, um Ihr Profil zu ergänzen. Die Informationen könnten öffentlich sichtbar sein."
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:39
+msgid "Biographical Info"
+msgstr "Biografische Angaben"
+
+#: wp-user-profiles/includes/metaboxes/profile-about.php:30
+msgid "Website"
+msgstr "Website"
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:108
+msgid "&mdash; No role for this site &mdash;"
+msgstr "&mdash; Keine Rolle auf dieser Website &mdash;"
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:57
+msgid "This user has no role on any sites"
+msgstr "Dieser Benutzer hat auf keiner Website eine Rolle"
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:56
+msgid "You have no role on any sites."
+msgstr "Sie haben auf keiner Website eine Rolle."
+
+#: wp-user-profiles/includes/metaboxes/permissions-roles.php:50
+msgid "No Sites"
+msgstr "Keine Websites"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:86
+msgid "No additional capabilities"
+msgstr "Keine zusätzlichen Berechtigungen"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:79
+msgid "Denied: %s"
+msgstr "Verweigert: %s"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:78
+msgid "Allowed: %s"
+msgstr "Erlaubt: %s"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:66
+msgid "Capabilities"
+msgstr "Berechtigungen"
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:39
+msgid "Super Admin"
+msgstr "Super-Administrator"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:103
+msgid "Show Toolbar when viewing site"
+msgstr "Werkzeugleiste für mich auf der Website anzeigen"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:97
+#: wp-user-profiles/includes/metaboxes/options-personal.php:100
+msgid "Toolbar"
+msgstr "Werkzeugleiste"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:86
+msgid "Enable keyboard shortcuts for comment moderation."
+msgstr "Tastaturkürzel für die Kommentarmoderation aktivieren."
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:83
+msgid "Keyboard Shortcuts"
+msgstr "Tastaturkürzel"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:58
+msgid "Disable the visual editor when writing"
+msgstr "Beim Schreiben den visuellen Editor nicht benutzen"
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:55
+#: wp-user-profiles/includes/sections/options.php:108
+msgid "Visual Editor"
+msgstr "Visueller Editor"
+
+#: wp-user-profiles/includes/metaboxes/options-color-scheme.php:26
+msgid "Admin Color Scheme"
+msgstr "Farbschema verwalten"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:68
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:67
+msgid "View User"
+msgstr "Benutzer ansehen"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:54
+msgid "Registered on: %1$s"
+msgstr "Registriert am: %1$s"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:44
+msgid "Spammer"
+msgstr "Spam"
+
+#: wp-user-profiles/includes/metaboxes/all-status.php:42
+msgid "Active"
+msgstr "Aktiv"
+
+#. translators: 1: User's display name.
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:77
+msgid "%s has not logged in yet."
+msgstr "%s hat sich noch nicht angemeldet."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:72
+#: wp-user-profiles/includes/metaboxes/all-status.php:43
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#. translators: 1: User's display name.
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:63
+msgid "Log %s out of all locations."
+msgstr "%s an allen Plätzen abmelden."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:59
+msgid "Log Out Everywhere"
+msgstr "Überall abmelden"
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:37
+msgid "You are only logged in at this location."
+msgstr "Sie sind nur an diesem Ort angemeldet."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:35
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:47
+msgid "Log Out Everywhere Else"
+msgstr "Überall sonst abmelden"
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:33
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:45
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:57
+msgid "Sessions"
+msgstr "Sessions"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:62
+#: wp-user-profiles/assets/js/user-profiles.js:42
+msgid "Confirm use of weak password"
+msgstr "Bitte bestätigen Sie die Verwendung des schwachen Passwortes"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:58
+msgid "Confirm Password"
+msgstr "Passwort bestätigen"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:47
+msgid "Repeat New Password"
+msgstr "Neues Passwort wiederholen"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:70
+msgid "Password Reset"
+msgstr "Passwort zurücksetzen"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:74
+msgid "Send Password Reset Email"
+msgstr "E-Mail zum Zurücksetzen des Passworts senden"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:74
+msgid "Sending this email does not force-change their password."
+msgstr "Durch das Senden dieser E-Mail wird das Passwort nicht zwangsweise geändert."
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:38
+#: wp-user-profiles/includes/metaboxes/account-password.php:40
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:36
+#: wp-user-profiles/assets/js/user-profiles.js:76
+msgid "Hide"
+msgstr "Ausblenden"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:34
+#: wp-user-profiles/assets/js/user-profiles.js:71
+msgid "Hide password"
+msgstr "Passwort ausblenden"
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:26
+msgid "New Password"
+msgstr "Neues Passwort"
+
+#: wp-user-profiles/includes/metaboxes/account-language.php:37
+msgid "Language"
+msgstr "Sprache"
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:41
+msgid "There is a pending change of your email to %1$s. <a href=\"%2$s\">Cancel</a>"
+msgstr "Eine Änderung Ihrer E-Mail-Adresse in %1$s steht noch aus. <a href=\"%2$s\">Abbrechen</a>"
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:30
+#: wp-user-profiles/includes/metaboxes/profile-name.php:87
+msgid "(required)"
+msgstr "(erforderlich)"
+
+#: wp-user-profiles/includes/help.php:21
+msgid "Some information may be displayed publicly on the site."
+msgstr "Manche Informationen könnten auf der Website öffentlich dargestellt werden."
+
+#: wp-user-profiles/includes/common.php:446
+msgid "User updated."
+msgstr "Benutzer aktualisiert."
+
+#: wp-user-profiles/includes/admin.php:643
+msgctxt "user"
+msgid "Add Existing"
+msgstr "Bestehenden hinzufügen"
+
+#: wp-user-profiles/includes/admin.php:639
+msgctxt "user"
+msgid "Add New"
+msgstr "Neu hinzufügen"
+
+#: wp-user-profiles/includes/admin.php:336
+#: wp-user-profiles/includes/metaboxes/account-applications.php:101
+#: wp-user-profiles/assets/js/app-passwords.js:212
+#: wp-user-profiles/assets/js/user-profiles.js:179
+msgid "Dismiss this notice."
+msgstr "Diese Mitteilung ausblenden."
+
+#: wp-user-profiles/includes/admin.php:329
+msgid "&larr; Back to Users"
+msgstr "&larr; Zurück zu Benutzer"
+
+#: wp-user-profiles/includes/admin.php:147
+#: wp-user-profiles/includes/admin.php:148
+#: wp-user-profiles/includes/admin.php:216
+#: wp-user-profiles/includes/admin.php:217
+#: wp-user-profiles/includes/sections.php:23
+msgid "Profile"
+msgstr "Profil"
+
+#: wp-user-profiles/includes/sections/account.php:35
+msgctxt "users user-admin edit screen"
+msgid "Email"
+msgstr "E-Mail-Adresse"
+
+#: wp-user-profiles/includes/sections/account.php:151
+msgid "<strong>ERROR</strong>: Please enter an email address."
+msgstr "<strong>FEHLER</strong>: Bitte geben Sie eine E-Mail-Adresse ein."
+
+#: wp-user-profiles/includes/sections/account.php:155
+msgid "<strong>ERROR</strong>: The email address is not correct."
+msgstr "<strong>FEHLER</strong>: Diese E-Mail-Adresse ist nicht korrekt."
+
+#: wp-user-profiles/includes/sections/account.php:159
+msgid "<strong>ERROR</strong>: This email is already in use."
+msgstr "<strong>FEHLER</strong>: Diese E-Mail-Adresse wird bereits verwendet."
+
+#: wp-user-profiles/includes/sections/account.php:178
+msgid "Your email address is used for receiving notifications from this site"
+msgstr "Ihre E-Mail-Adresse wird dazu verwendet, Benachrichtigungen von dieser Website zu erhalten."
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:53
+msgid "Super admin privileges cannot be removed because this user has the network admin email."
+msgstr "Diesem Benutzer können nicht die Super-Administratoren-Rechte entzogen werden, da dieser Benutzer als E-Mail-Adresse die des Netzwerk-Administrators hat."
+
+#: wp-user-profiles/includes/metaboxes/permissions-capabilities.php:47
+msgid "Grant this user super admin privileges for the Network."
+msgstr "Diesem Benutzer Super-Administratoren-Rechte für das gesamte Netzwerk erteilen."
+
+#: wp-user-profiles/includes/metaboxes/account-email.php:29
+msgid "Email"
+msgstr "E-Mail-Adresse"
+
+#: wp-user-profiles/includes/help.php:22
+msgid "Always use a strong password, and never give your login information to anyone."
+msgstr "Verwenden Sie immer ein sicheres Passwort und geben Sie Ihre Anmeldedaten niemals an Dritte weiter."
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:51
+msgid "Type your new password again."
+msgstr "Geben Sie Ihr neues Passwort ein weiteres Mal ein."
+
+#: wp-user-profiles/includes/sections/account.php:179
+msgid "Passwords should be lengthy and complex to help keep your account secure"
+msgstr "Passwörter sollten lang und komplex sein, um Ihr Konto abzusichern."
+
+#: wp-user-profiles/includes/sections.php:41
+msgid "Account"
+msgstr "Konto"
+
+#: wp-user-profiles/includes/sections/account.php:177
+msgid "This is where important account information can be found."
+msgstr "Hier finden Sie wichtige Informationen zu Ihrem Konto."
+
+#: wp-user-profiles/includes/metaboxes/account-sessions.php:49
+msgid "Did you lose your phone or leave your account logged in at a public computer? You can log out everywhere else, and stay logged in here."
+msgstr "Haben Sie Ihr Smartphone verloren oder an einem öffentlich zugänglichen Computer Ihr Konto angemeldet gelassen? Sie können sich überall sonst abmelden und hier angemeldet bleiben."
