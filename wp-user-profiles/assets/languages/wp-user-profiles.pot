@@ -111,6 +111,18 @@ msgstr ""
 msgid "Confirm use of weak password"
 msgstr ""
 
+#: wp-user-profiles/includes/metaboxes/account-password.php:70
+msgid "Password Reset"
+msgstr ""
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:74
+msgid "Send Password Reset Email"
+msgstr ""
+
+#: wp-user-profiles/includes/metaboxes/account-password.php:78
+msgid "Sending this email does not force-change their password."
+msgstr ""
+
 #: wp-user-profiles/includes/metaboxes/account-sessions.php:29
 #: wp-user-profiles/includes/metaboxes/account-sessions.php:41
 #: wp-user-profiles/includes/metaboxes/account-sessions.php:53
