@@ -89,7 +89,7 @@ function wp_user_profiles_register_other_section() {
 }
 
 /**
- * Register the "Options" section
+ * Register the "Persissions" section
  *
  * @since 0.2.0
  *
