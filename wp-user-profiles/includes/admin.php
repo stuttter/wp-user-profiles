@@ -213,8 +213,8 @@ function wp_user_profiles_admin_menus() {
 
 		// Add the main page
 		add_menu_page(
-			esc_html__( 'Profile', 'wp-user-profiles' ),
-			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile' ),
+			esc_html__( 'Profile' ),
 			'read',
 			'profile',
 			$callback,
