@@ -172,7 +172,7 @@ module.exports = function( grunt ) {
 		makepot: {
 			target: {
 				options: {
-					domainPath: '/<%= pkg.name %>/includes/languages/',
+					domainPath: '/<%= pkg.name %>/assets/languages/',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*', 'build/*' ],
 					mainFile: '<%= pkg.name %>.php',
 					potFilename: '<%= pkg.name %>.pot',
