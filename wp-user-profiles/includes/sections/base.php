@@ -256,6 +256,13 @@ class WP_User_Profile_Section {
 		// Allow third party plugins to hook into this sections saving process
 		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
 
+		// This action is documented in wp-admin/includes/user.php
+		do_action_ref_array( 'user_profile_update_errors', array(
+			&$this->errors,
+			true,
+			&$user
+		) );
+
 		// Return (do not update) if there are any errors
 		if ( $this->errors->get_error_codes() || ( is_wp_error( $user ) && $user->get_error_codes() ) ) {
 			return $this->errors;

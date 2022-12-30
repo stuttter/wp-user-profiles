@@ -142,7 +142,7 @@ class WP_User_Profile_Profile_Section extends WP_User_Profile_Section {
 				$protocols      = implode( '|', array_map( 'preg_quote', wp_allowed_protocols() ) );
 				$user->user_url = preg_match( '/^(' . $protocols . '):/is', $user->user_url )
 					? $user->user_url
-					: 'http://' . $user->user_url;
+					: 'https://' . $user->user_url;
 			}
 		}
 
