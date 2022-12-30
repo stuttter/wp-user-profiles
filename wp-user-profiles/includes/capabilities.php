@@ -182,7 +182,7 @@ function wp_user_profiles_user_supports( $thing = '', $user_id = 0 ) {
 	}
 
 	// Filter & return
-	return apply_filters( '', $retval, $thing, $user_id );
+	return apply_filters( 'wp_user_profiles_user_supports', $retval, $thing, $user_id );
 }
 
 /**

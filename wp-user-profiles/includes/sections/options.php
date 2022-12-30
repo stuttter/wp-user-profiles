@@ -74,6 +74,11 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			? 'false'
 			: 'true';
 
+		// Double negative syntax highlighting
+		$user->syntax_highlighting = isset( $_POST['syntax_highlighting'] )
+			? 'false'
+			: 'true';
+
 		// Admin bar front
 		$user->show_admin_bar_front = isset( $_POST['admin_bar_front'] )
 			? 'true'

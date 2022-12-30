@@ -28,7 +28,9 @@ function wp_user_profiles_contact_metabox( $user = null ) {
 
 		foreach ( $methods as $name => $desc ) :
 
-			?><tr class="user-<?php echo esc_attr( $name ); ?>-wrap">
+			$row_class = "user-{$name}-wrap";
+
+			?><tr class="<?php echo esc_attr( $row_class ); ?>">
 				<th scope="row">
 					<label for="<?php echo esc_attr( $name ); ?>"><?php
 
@@ -38,7 +40,13 @@ function wp_user_profiles_contact_metabox( $user = null ) {
 					?></label>
 				</th>
 				<td>
-					<input type="text" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $user->{$name} ); ?>" class="regular-text" />
+					<input
+						type="text"
+						class="regular-text"
+						id="<?php echo esc_attr( $name ); ?>"
+						name="<?php echo esc_attr( $name ); ?>"
+						value="<?php echo esc_attr( $user->{$name} ); ?>"
+					/>
 				</td>
 			</tr><?php
 
