@@ -213,8 +213,8 @@ function wp_user_profiles_admin_menus() {
 
 		// Add the main page
 		add_menu_page(
-			esc_html__( 'Profile' ),
-			esc_html__( 'Profile' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
+			esc_html__( 'Profile', 'wp-user-profiles' ),
 			'read',
 			'profile',
 			$callback,
@@ -317,8 +317,7 @@ function wp_user_profiles_admin_notices() {
 	}
 
 	// Check for conditional classes
-	$updated     = isset( $notice['classes'] ) && in_array( 'updated',        $notice['classes'], true );
-	$dismissible = isset( $notice['classes'] ) && in_array( 'is-dismissible', $notice['classes'], true ); ?>
+	$updated = isset( $notice['classes'] ) && in_array( 'updated', $notice['classes'], true ); ?>
 
 	<div id="message" class="<?php echo esc_attr( implode( ' ', $notice['classes'] ) ); ?>">
 
@@ -327,14 +326,6 @@ function wp_user_profiles_admin_notices() {
 		<?php if ( ! empty( $wp_http_referer ) && ( true === $updated ) ) : ?>
 
 			<p><a href="<?php echo esc_url( $wp_http_referer ); ?>"><?php esc_html_e( '&larr; Back to Users', 'wp-user-profiles' ); ?></a></p>
-
-		<?php endif; ?>
-
-		<?php if ( true === $dismissible ) : ?>
-
-			<button type="button" class="notice-dismiss">
-				<span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'wp-user-profiles' ); ?></span>
-			</button>
 
 		<?php endif; ?>
 

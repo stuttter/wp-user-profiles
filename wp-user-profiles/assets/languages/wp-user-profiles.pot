@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Triple J Software, Inc.
+# Copyright (C) 2023 Triple J Software, Inc.
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
 "Project-Id-Version: WP User Profiles 2.6.2\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/stuttter/wp-user-profiles/issues/new\n"
-"POT-Creation-Date: 2022-04-06 02:33:18+00:00\n"
+"POT-Creation-Date: 2023-01-05 10:11:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: WP-Translations (http://wp-translations.org/)\n"
 "Language-Team: WP-Translations <wpt@wp-translations.org>\n"
 "Language: en_US\n"
@@ -33,24 +33,19 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:329
+#: wp-user-profiles/includes/admin.php:328
 msgid "&larr; Back to Users"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:336
-#: wp-user-profiles/includes/metaboxes/account-applications.php:101
-msgid "Dismiss this notice."
-msgstr ""
-
-#: wp-user-profiles/includes/admin.php:494
+#: wp-user-profiles/includes/admin.php:485
 msgid "Secondary menu"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:578
+#: wp-user-profiles/includes/admin.php:569
 msgid "General"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:698
+#: wp-user-profiles/includes/admin.php:689
 msgid "Anonymous"
 msgstr ""
 
@@ -99,6 +94,10 @@ msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/account-applications.php:94
 msgid "Save this in a safe location. You cannot retrieve it again later."
+msgstr ""
+
+#: wp-user-profiles/includes/metaboxes/account-applications.php:101
+msgid "Dismiss this notice."
 msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/account-email.php:29
@@ -236,7 +235,7 @@ msgid "Admin Color Scheme"
 msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/options-personal.php:55
-#: wp-user-profiles/includes/sections/options.php:108
+#: wp-user-profiles/includes/sections/options.php:113
 msgid "Visual Editor"
 msgstr ""
 
@@ -451,15 +450,15 @@ msgstr ""
 msgid "Application passwords allow authentication via non-interactive systems."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:106
+#: wp-user-profiles/includes/sections/options.php:111
 msgid "This is where most options & site preferences can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:107
+#: wp-user-profiles/includes/sections/options.php:112
 msgid "Color Schemes"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:109
+#: wp-user-profiles/includes/sections/options.php:114
 msgid "Comment Moderation Shortcuts"
 msgstr ""
 
@@ -584,12 +583,12 @@ msgstr ""
 msgid "Upgrade your WordPress admin user profile experience"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:639
+#: wp-user-profiles/includes/admin.php:630
 msgctxt "user"
 msgid "Add New"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:643
+#: wp-user-profiles/includes/admin.php:634
 msgctxt "user"
 msgid "Add Existing"
 msgstr ""
