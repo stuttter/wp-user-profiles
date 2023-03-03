@@ -72,3 +72,7 @@ add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 
 
 // BuddyPress
 add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );
+
+// 'Two-Factor' Plugin
+if ( defined('TWO_FACTOR_DIR') && class_exists('Two_Factor_Core') ){
+}
