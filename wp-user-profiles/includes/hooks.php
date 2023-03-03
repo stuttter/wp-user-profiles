@@ -79,4 +79,8 @@ if ( defined('TWO_FACTOR_DIR') && class_exists('Two_Factor_Core') ){
 	// Enqueue Admin Scripts
 	// add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_twofactor_admin_enqueue_scripts' );
 	add_action( 'admin_enqueue_scripts', 'wp_user_profiles_twofactor_admin_enqueue_scripts', 0 );
+
+	// Prevent UI from getting hooked to 'Other' tab.
+	remove_action( 'show_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
+	remove_action( 'edit_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
 }
