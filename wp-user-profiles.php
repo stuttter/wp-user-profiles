@@ -47,6 +47,7 @@ function _wp_user_profiles() {
 		'includes/metaboxes/account-password.php',
 		'includes/metaboxes/account-applications.php',
 		'includes/metaboxes/account-sessions.php',
+		'includes/metaboxes/account-twofactor.php',
 		'includes/metaboxes/options-color-scheme.php',
 		'includes/metaboxes/options-contact.php',
 		'includes/metaboxes/options-personal.php',
