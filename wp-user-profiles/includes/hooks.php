@@ -75,4 +75,8 @@ add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );
 
 // 'Two-Factor' Plugin
 if ( defined('TWO_FACTOR_DIR') && class_exists('Two_Factor_Core') ){
+
+	// Enqueue Admin Scripts
+	// add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_twofactor_admin_enqueue_scripts' );
+	add_action( 'admin_enqueue_scripts', 'wp_user_profiles_twofactor_admin_enqueue_scripts', 0 );
 }
