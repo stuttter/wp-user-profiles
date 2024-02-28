@@ -104,6 +104,35 @@ function wp_user_profiles_admin_enqueue_scripts() {
 }
 
 /**
+ * Load scripts & styles for the 'Two-Factor' plugin.
+ *
+ * Only load on the 'Account' tab.
+ *
+ * @since  2.7.0
+ *
+ * @param  string $hook [description]
+ * @return void
+ */
+function wp_user_profiles_twofactor_admin_enqueue_scripts( $hook ) {
+
+	// Only load for the 'Account' tab
+	if ( 'users_page_account' !== $hook ) {
+		return;
+	}
+
+	// Check for dependencies
+	$two_factor_fido_u2f_admin = TWO_FACTOR_DIR . 'providers/class-two-factor-fido-u2f-admin.php';
+	if ( ! class_exists('Two_Factor_FIDO_U2F_Admin') && file_exists( $two_factor_fido_u2f_admin ) ) {
+		require_once $two_factor_fido_u2f_admin;
+	}
+
+	// Scripts & Styles would not be called by default, 
+	// because 'wp-user-profiles' uses a different $hook global.
+	// Luckily, we can just call it with a 'wrong' $hook
+	Two_Factor_FIDO_U2F_Admin::enqueue_assets( 'profile.php' );
+}
+
+/**
  * Add admin pages and setup submenus
  *
  * @since 0.1.0

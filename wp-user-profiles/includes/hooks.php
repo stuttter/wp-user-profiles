@@ -72,3 +72,19 @@ add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 
 
 // BuddyPress
 add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );
+
+// 'Two-Factor' Plugin
+if ( defined('TWO_FACTOR_DIR') && class_exists('Two_Factor_Core') ){
+
+	// Enqueue Admin Scripts
+	// add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_twofactor_admin_enqueue_scripts' );
+	add_action( 'admin_enqueue_scripts', 'wp_user_profiles_twofactor_admin_enqueue_scripts', 0 );
+
+	// Prevent UI from getting hooked to 'Other' tab.
+	remove_action( 'show_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
+	remove_action( 'edit_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
+	// Instead create an new metabox within the 'Account' tab.
+	add_action( 'wp_user_profiles_add_account_meta_boxes','wp_user_profiles_add_twofactor_metabox', 10, 2 );
+	// and show the the native 2fa-plugin-options in this new metabox.
+	add_action( 'wp_user_profiles_twofactor_metabox_after', array( 'Two_Factor_Core', 'user_two_factor_options' ), 0 );
+}
