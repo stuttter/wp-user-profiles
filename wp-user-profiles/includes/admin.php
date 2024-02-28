@@ -57,6 +57,7 @@ function wp_user_profiles_admin_register_scripts() {
  */
 function wp_user_profiles_admin_enqueue_scripts() {
 
+
 	// Set location & version for scripts & styles
 	$src = wp_user_profiles_get_plugin_url();
 	$ver = wp_user_profiles_get_asset_version();
@@ -110,23 +111,28 @@ function wp_user_profiles_admin_enqueue_scripts() {
  *
  * @since  2.7.0
  *
- * @param  string $hook [description]
+ * @param  string $hook The current admin page.
  * @return void
  */
-function wp_user_profiles_twofactor_admin_enqueue_scripts( $hook ) {
+function wp_user_profiles_two_factor_admin_enqueue_scripts( $hook = '' ) {
 
 	// Only load for the 'Account' tab
 	if ( 'users_page_account' !== $hook ) {
 		return;
 	}
 
+	// Bail if Two-Factor is not supported
+	if ( ! wp_user_profiles_user_supports( 'two-factor-authentication' ) ) {
+		return;
+	}
+
 	// Check for dependencies
-	$two_factor_fido_u2f_admin = TWO_FACTOR_DIR . 'providers/class-two-factor-fido-u2f-admin.php';
-	if ( ! class_exists('Two_Factor_FIDO_U2F_Admin') && file_exists( $two_factor_fido_u2f_admin ) ) {
+	$two_factor_fido_u2f_admin = constant( 'TWO_FACTOR_DIR' ) . 'providers/class-two-factor-fido-u2f-admin.php';
+	if ( ! class_exists( 'Two_Factor_FIDO_U2F_Admin' ) && file_exists( $two_factor_fido_u2f_admin ) ) {
 		require_once $two_factor_fido_u2f_admin;
 	}
 
-	// Scripts & Styles would not be called by default, 
+	// Scripts & Styles would not be called by default,
 	// because 'wp-user-profiles' uses a different $hook global.
 	// Luckily, we can just call it with a 'wrong' $hook
 	Two_Factor_FIDO_U2F_Admin::enqueue_assets( 'profile.php' );
@@ -275,7 +281,7 @@ function wp_user_profiles_admin_menus() {
  *
  * @since 2.0.0
  *
- * @param string $hook
+ * @param string $hook The current admin page.
  */
 function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
 
@@ -294,8 +300,8 @@ function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
  *
  * @since 0.1.0
  *
- * @global  string  $plugin_page
- * @global  string  $submenu_file
+ * @global  string  $plugin_page  The current plugin page
+ * @global  string  $submenu_file The current submenu file
  */
 function wp_user_profiles_admin_menu_highlight() {
 	global $plugin_page, $submenu_file;
@@ -368,7 +374,7 @@ function wp_user_profiles_admin_notices() {
  *
  * @since 2.0.0
  *
- * @param WP_User $user
+ * @param WP_User|null $user User to create profile navigation for.
  *
  * @return array
  */
@@ -433,7 +439,7 @@ function wp_user_profiles_admin_show_subnav( $parent = '' ) {
  *
  * @since 0.1.0
  *
- * @param object|null $user User to create profile navigation for.
+ * @param WP_User|null $user User to create profile navigation for.
  *
  * @return string
  */
@@ -524,7 +530,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
  *
  * @since 2.0.0
  *
- * @param object|null $user User to create profile navigation for.
+ * @param WP_User|null $user User to create profile navigation for.
  *
  * @return string
  */

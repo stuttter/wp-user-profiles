@@ -179,10 +179,17 @@ function wp_user_profiles_user_supports( $thing = '', $user_id = 0 ) {
 				$retval = true;
 			}
 			break;
+
+		// Two-Factor Authentication in WordPress 6.X
+		case 'two-factor-authentication' :
+			if ( defined( 'TWO_FACTOR_DIR' ) && class_exists( 'Two_Factor_Core' ) ) {
+				$retval = true;
+			}
+			break;
 	}
 
 	// Filter & return
-	return apply_filters( 'wp_user_profiles_user_supports', $retval, $thing, $user_id );
+	return (bool) apply_filters( 'wp_user_profiles_user_supports', $retval, $thing, $user_id );
 }
 
 /**
