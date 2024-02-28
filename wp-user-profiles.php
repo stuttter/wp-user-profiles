@@ -81,7 +81,7 @@ function _wp_user_profiles() {
 	$core_files = apply_filters( 'wp_user_profiles_core_files', $files, $sources );
 	
 	foreach( $core_files as $file ) {
-		require_once( $file );
+		require_once $file;
 	}
 
 	// Load translations
