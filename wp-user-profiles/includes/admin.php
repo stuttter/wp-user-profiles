@@ -87,7 +87,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 		? absint( $_GET['user_id'] )
 		: get_current_user_id();
 
-	// Only enqueue;
+	// Application Passwords
 	if ( wp_user_profiles_user_supports( 'application-passwords', $user_id ) ) {
 
 		// Replace the application-passwords script with our own
@@ -102,40 +102,23 @@ function wp_user_profiles_admin_enqueue_scripts() {
 		wp_scripts()->registered[ $handle ]->deps = $deps;
 		wp_scripts()->set_translations( $handle );
 	}
-}
 
-/**
- * Load scripts & styles for the 'Two-Factor' plugin.
- *
- * Only load on the 'Account' tab.
- *
- * @since  2.7.0
- *
- * @param  string $hook The current admin page.
- * @return void
- */
-function wp_user_profiles_two_factor_admin_enqueue_scripts( $hook = '' ) {
+	// Two-Factor Authentication
+	if ( wp_user_profiles_user_supports( 'two-factor-authentication', $user_id ) ) {
 
-	// Only load for the 'Account' tab
-	if ( 'users_page_account' !== $hook ) {
-		return;
+		// Check for dependencies
+		$two_factor_fido_u2f_admin = constant( 'TWO_FACTOR_DIR' ) . 'providers/class-two-factor-fido-u2f-admin.php';
+		if ( ! class_exists( 'Two_Factor_FIDO_U2F_Admin' ) && file_exists( $two_factor_fido_u2f_admin ) ) {
+			require_once $two_factor_fido_u2f_admin;
+		}
+
+		// Two-Factor assets are not enqueued because WP User Profiles
+		// uses non-core $hook global values, so we manually enqueue them
+		// here and pass the necessary $hook value.
+		if ( class_exists( 'Two_Factor_FIDO_U2F_Admin' ) ) {
+			Two_Factor_FIDO_U2F_Admin::enqueue_assets( 'profile.php' );
+		}
 	}
-
-	// Bail if Two-Factor is not supported
-	if ( ! wp_user_profiles_user_supports( 'two-factor-authentication' ) ) {
-		return;
-	}
-
-	// Check for dependencies
-	$two_factor_fido_u2f_admin = constant( 'TWO_FACTOR_DIR' ) . 'providers/class-two-factor-fido-u2f-admin.php';
-	if ( ! class_exists( 'Two_Factor_FIDO_U2F_Admin' ) && file_exists( $two_factor_fido_u2f_admin ) ) {
-		require_once $two_factor_fido_u2f_admin;
-	}
-
-	// Scripts & Styles would not be called by default,
-	// because 'wp-user-profiles' uses a different $hook global.
-	// Luckily, we can just call it with a 'wrong' $hook
-	Two_Factor_FIDO_U2F_Admin::enqueue_assets( 'profile.php' );
 }
 
 /**
@@ -304,7 +287,7 @@ function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
  * @global  string  $submenu_file The current submenu file
  */
 function wp_user_profiles_admin_menu_highlight() {
-	global $plugin_page, $submenu_file;
+	global $plugin_page, $submenu_file, $title;
 
 	// Bail if in user dashboard area
 	if ( is_user_admin() ) {
@@ -328,6 +311,8 @@ function wp_user_profiles_admin_menu_highlight() {
 			$plugin_page  = 'profile';
 		}
 	}
+
+	$title = 'Hello';
 }
 
 /**
