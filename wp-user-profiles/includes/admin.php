@@ -127,6 +127,10 @@ function wp_user_profiles_admin_enqueue_scripts() {
  * @since 0.1.0
  */
 function wp_user_profiles_admin_menus() {
+	global $title;
+
+	// Set the title
+	$title = esc_html__( 'Profile', 'wp-user-profiles' );
 
 	// Empty hooks array
 	$file     = wp_user_profiles_get_file();
@@ -287,7 +291,7 @@ function wp_user_profiles_admin_menu_hooks( $hook = '' ) {
  * @global  string  $submenu_file The current submenu file
  */
 function wp_user_profiles_admin_menu_highlight() {
-	global $plugin_page, $submenu_file, $title;
+	global $plugin_page, $submenu_file;
 
 	// Bail if in user dashboard area
 	if ( is_user_admin() ) {
@@ -311,8 +315,6 @@ function wp_user_profiles_admin_menu_highlight() {
 			$plugin_page  = 'profile';
 		}
 	}
-
-	$title = 'Hello';
 }
 
 /**
