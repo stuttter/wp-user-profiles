@@ -73,17 +73,13 @@ add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 
 // BuddyPress
 add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );
 
-// 'Two-Factor' Plugin
-if ( defined( 'TWO_FACTOR_DIR' ) && class_exists( 'Two_Factor_Core' ) ) {
+// Two-Factor Core Plugin
+if ( wp_user_profiles_user_supports( 'two-factor-authentication' ) ) {
 
-	// Enqueue Admin Scripts
-	// add_action( 'wp_user_profiles_do_admin_head', 'wp_user_profiles_twofactor_admin_enqueue_scripts' );
-	add_action( 'admin_enqueue_scripts', 'wp_user_profiles_twofactor_admin_enqueue_scripts', 0 );
+	// Prevent Two-Factor from loading its assets.
+	remove_action( 'admin_enqueue_scripts', array( 'Two_Factor_Core', 'enqueue_assets' ) );
 
-	// Prevent UI from getting hooked to 'Other' tab.
+	// Prevent Two-Factor from getting hooked to 'Other' tab.
 	remove_action( 'show_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
 	remove_action( 'edit_user_profile', array( 'Two_Factor_Core', 'user_two_factor_options' ) );
-
-	// and show the the native 2fa-plugin-options in this new metabox.
-	add_action( 'wp_user_profiles_twofactor_metabox_after', array( 'Two_Factor_Core', 'user_two_factor_options' ), 0 );
 }
