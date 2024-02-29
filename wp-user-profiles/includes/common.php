@@ -161,7 +161,7 @@ function wp_user_profiles_sections( $args = array() ) {
  *
  * @param object $hip
  * @param object $hop
- * @return type
+ * @return int
  */
 function wp_user_profiles_sort_sections( $hip, $hop ) {
 	return ( $hip->order - $hop->order );
