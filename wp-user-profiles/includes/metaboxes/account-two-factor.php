@@ -22,7 +22,7 @@ function wp_user_profiles_two_factor_metabox( $user = null ) {
 	do_action( __FUNCTION__ . '_before', $user ); 
 
 	// Call the method from the Two-Factor plugin
-	call_user_func( array( 'Two_Factor_Core', 'user_two_factor_options' ) );
+	call_user_func( array( 'Two_Factor_Core', 'user_two_factor_options' ), $user );
 
 	// After
 	do_action( __FUNCTION__ . '_after', $user );
