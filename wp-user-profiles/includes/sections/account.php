@@ -183,16 +183,28 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 	 * @since 0.2.0
 	 */
 	public function add_contextual_help() {
+
+		// General
+		$content = '<p>' . esc_html__( 'This is where important account information can be found.',          'wp-user-profiles' ) . '</p><ul>' .
+			'<li>' . esc_html__( 'Your email address is used for receiving notifications from this site',    'wp-user-profiles' ) . '</li>' .
+			'<li>' . esc_html__( 'Passwords should be lengthy and complex to help keep your account secure', 'wp-user-profiles' ) . '</li>' .
+			'<li>' . esc_html__( 'The language you pick will be used wherever it is supported.',             'wp-user-profiles' ) . '</li>' .
+			'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li>' .
+			'<li>' . esc_html__( 'Application passwords allow authentication via non-interactive systems.',  'wp-user-profiles' ) . '</li>';
+
+		// Two-Factor Authentication
+		if ( wp_user_profiles_user_supports( 'two-factor-authentication' ) ) {
+			$content .= '<li>' . esc_html__( 'Two-Factor Authentication adds an extra layer of security to your account.', 'wp-user-profiles' ) . '</li>';
+		}
+
+		// Close the list
+		$content .= '</ul>';
+
+		// Add the help tab
 		get_current_screen()->add_help_tab( array(
 			'id'		=> $this->id,
 			'title'		=> $this->name,
-			'content'	=>
-				'<p>'  . esc_html__( 'This is where important account information can be found.',                'wp-user-profiles' ) . '</p><ul>' .
-				'<li>' . esc_html__( 'Your email address is used for receiving notifications from this site',    'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'Passwords should be lengthy and complex to help keep your account secure', 'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'The language you pick will be used wherever it is supported.',             'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'Sessions are logged from each device you login from',                      'wp-user-profiles' ) . '</li>' .
-				'<li>' . esc_html__( 'Application passwords allow authentication via non-interactive systems.',  'wp-user-profiles' ) . '</li></ul>'
+			'content'	=> $content
 		) );
 	}
 }
