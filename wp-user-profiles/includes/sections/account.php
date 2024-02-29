@@ -89,7 +89,7 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		// Two-Factor Authentication
 		if ( wp_user_profiles_user_supports( 'two-factor-authentication', $user ) ) {
 			add_meta_box(
-				'twofactor',
+				'two-factor',
 				_x( 'Two-Factor Authentication', 'users user-admin edit screen', 'wp-user-profiles' ),
 				'wp_user_profiles_two_factor_metabox',
 				$type,
