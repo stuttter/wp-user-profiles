@@ -1,7 +1,6 @@
 === WP User Profiles ===
 Author:            Triple J Software, Inc.
 Author URI:        https://jjj.software
-Donate link:       https://buy.stripe.com/7sI3cd2tK1Cy2lydQR
 Plugin URI:        https://wordpress.org/plugins/wp-user-profiles/
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 License:           GPLv2 or later
@@ -9,7 +8,7 @@ Contributors:      johnjamesjacoby, baden03
 Tags:              user, profile, edit, metabox
 Requires PHP:      7.2
 Requires at least: 5.2
-Tested up to:      5.9
+Tested up to:      6.6
 Stable tag:        2.6.2
 
 == Description ==
