@@ -12,7 +12,7 @@
  * Domain Path:       /wp-user-profiles/includes/languages
  * Requires at least: 5.2
  * Requires PHP:      7.2
- * Tested up to:      5.8
+ * Tested up to:      6.6
  * Version:           2.6.2
  */
 
@@ -28,7 +28,7 @@ function _wp_user_profiles() {
 
 	// Get the plugin path
 	$plugin_path = plugin_dir_path( __FILE__ ) . 'wp-user-profiles/';
-	
+
 	// Core Files
 	$sources = array(
 		// Sections
@@ -78,7 +78,7 @@ function _wp_user_profiles() {
 	}
 	// Allow for filtering of the Core Files
 	$core_files = apply_filters( 'wp_user_profiles_core_files', $files, $sources );
-	
+
 	foreach( $core_files as $file ) {
 		require_once( $file );
 	}
