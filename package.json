@@ -33,7 +33,7 @@
 		"makepot": "^0.3.0",
 		"uglify-es": "3.3.9",
 		"uglifyjs-webpack-plugin": "2.1.2",
-		"webpack": "4.29.6",
+		"webpack": "5.94.0",
 		"webpack-cli": "^3.3.12"
 	},
 	"scripts": {
