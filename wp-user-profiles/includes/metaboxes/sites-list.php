@@ -191,11 +191,11 @@ function wp_user_profiles_filter_role_column( $column_name = '', $blog_id = 0 ) 
 /**
  * Return a list of common user roles from a list of sites
  *
- * @param array|null $site_ids List of site IDs to grab roles from
+ * @param array $site_ids List of site IDs to grab roles from
  *
  * @return string[] Array of user role display names keyed by role.
  */
-function wp_user_profiles_get_common_user_roles( array $site_ids = null ) {
+function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 
 	// Allow filtering this to disable querying all sites for roles
 	$roles = apply_filters( 'pre_wp_user_profiles_common_user_roles', false );
