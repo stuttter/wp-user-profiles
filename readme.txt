@@ -65,7 +65,9 @@ Yes. It works awesome with the User Dashboard, too!
 
 = Can I add my own sections? =
 
-Yes. There are a bunch of filters to add/remove sections, and their boxes & fields.
+Yes. There are hooks to add/remove sections, their boxes, and fields.
+
+See: `wp-user-profiles/includes/hooks.php`
 
 = Where can I get support? =
 

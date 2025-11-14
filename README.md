@@ -24,7 +24,9 @@ Yes. It works super awesome with the multisite-only User Dashboard!
 
 ### Can I add my own sections?
 
-Yes. There are a filters you can use to add or remove sections and their metaboxes.
+Yes. There are hooks to add/remove sections, their boxes, and fields.
+
+See: `wp-user-profiles/includes/hooks.php`
 
 ### Where can I get support?
 
