@@ -358,6 +358,11 @@ function wp_user_profiles_save_user() {
 	if ( ! ( isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
 		return;
 	}
+	
+	// Do not update the role unless allowed, ref CVE-2025-31524
+	if ( ! current_user_can( 'promote_users' ) ) {
+		unset( $_POST['role'] );
+	}
 
 	// Set the user ID
 	$user_id = (int) $_POST['user_id'];
