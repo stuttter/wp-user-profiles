@@ -48,6 +48,27 @@ function wp_user_profiles_admin_register_scripts() {
 }
 
 /**
+ * Enqueue password nag fix script globally
+ *
+ * This script fixes the default password nag link to point to the account page
+ * where the password field is actually located.
+ *
+ * @since 2.6.3
+ */
+function wp_user_profiles_enqueue_password_nag_fix() {
+	$src = wp_user_profiles_get_plugin_url();
+	$ver = wp_user_profiles_get_asset_version();
+	
+	wp_enqueue_script(
+		'wp-user-profiles-password-nag-fix',
+		$src . 'assets/js/fix-password-nag.js',
+		array(),
+		$ver,
+		true
+	);
+}
+
+/**
  * Enqueue admin scripts
  *
  * Also, override a few scripts that we need to fork & maintain separately, as

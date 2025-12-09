@@ -23,6 +23,9 @@ add_action( 'init', 'wp_user_profiles_register_sites_section'       );
 // Initialize registered scripts
 add_action( 'init', 'wp_user_profiles_admin_register_scripts' );
 
+// Fix password nag links globally in admin
+add_action( 'admin_enqueue_scripts', 'wp_user_profiles_enqueue_password_nag_fix' );
+
 // Admin Menus
 add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );
 add_action( 'network_admin_menu', 'wp_user_profiles_admin_menus' );
@@ -40,12 +43,6 @@ add_action( 'wp_user_profiles_add_meta_boxes', 'wp_user_profiles_add_status_meta
 
 // Admin notices
 add_action( 'wp_user_profiles_admin_notices', 'wp_user_profiles_admin_notices' );
-
-// Fix password nag links to point to account page instead of profile page
-add_action( 'admin_notices', 'wp_user_profiles_start_admin_notices_buffer', 0 );
-add_action( 'admin_notices', 'wp_user_profiles_end_admin_notices_buffer', PHP_INT_MAX );
-add_action( 'user_admin_notices', 'wp_user_profiles_start_admin_notices_buffer', 0 );
-add_action( 'user_admin_notices', 'wp_user_profiles_end_admin_notices_buffer', PHP_INT_MAX );
 
 // Admin Saving
 add_action( 'admin_init',                                'wp_user_profiles_save_user'             );
