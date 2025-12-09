@@ -42,7 +42,6 @@ function _wp_user_profiles() {
 
 		// Meta Boxes
 		'includes/metaboxes/all-status.php',
-		'includes/metaboxes/all-user-switching.php',
 		'includes/metaboxes/account-email.php',
 		'includes/metaboxes/account-language.php',
 		'includes/metaboxes/account-password.php',
@@ -71,6 +70,7 @@ function _wp_user_profiles() {
 		'includes/sections.php',
 		'includes/sponsor.php',
 		'includes/status.php',
+		'includes/user-switching.php',
 		'includes/hooks.php'
 	);
 

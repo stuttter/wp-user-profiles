@@ -3,7 +3,7 @@
 /**
  * User Switching Integration
  *
- * @package Plugins/Users/Profiles/Metaboxes/UserSwitching
+ * @package Plugins/Users/Profiles/UserSwitching
  */
 
 // Exit if accessed directly
