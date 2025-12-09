@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_user_switching_link( $user = null ) {
 
 	// Bail if User Switching plugin is not active
-	if ( ! function_exists( 'switch_to_user' ) ) {
+	if ( ! function_exists( 'switch_to_user' ) || ! class_exists( 'user_switching' ) ) {
 		return;
 	}
 
@@ -36,14 +36,21 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 		return;
 	}
 
-	// Get current URL and validate it for redirect
-	$current_url = user_switching::current_url();
+	// Get current URL for redirect
+	if ( method_exists( 'user_switching', 'current_url' ) ) {
+		$current_url = user_switching::current_url();
+	} else {
+		// Fallback to current page URL
+		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	}
+
+	// Validate the redirect URL
 	$redirect_to = wp_validate_redirect( $current_url, admin_url() );
 
 	// Get the switch URL with redirect back to current page
 	$url = add_query_arg(
 		array(
-			'redirect_to' => rawurlencode( $redirect_to ),
+			'redirect_to' => $redirect_to,
 		),
 		user_switching::switch_to_url( $user )
 	);
