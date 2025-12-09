@@ -102,22 +102,8 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 		$url = wp_user_profiles_get_admin_area_url( $user_id, $scheme );
 	}
 
-	// Default to profile page
-	$page = 'profile';
-
-	// Check if this is being called for password-related functionality
-	// by examining the call stack for default_password_nag
-	$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 10 );
-	foreach ( $backtrace as $trace ) {
-		if ( isset( $trace['function'] ) && 'default_password_nag' === $trace['function'] ) {
-			// Password field is in the account section
-			$page = 'account';
-			break;
-		}
-	}
-
 	return add_query_arg( array(
-		'page' => $page
+		'page' => 'profile'
 	), $url );
 }
 
@@ -548,4 +534,38 @@ function wp_user_profiles_buffer_action( $action = '', $user = null ) {
 
 	// Return the current buffer
 	return ob_get_clean();
+}
+
+/**
+ * Start output buffering for admin notices
+ *
+ * This function starts output buffering before admin notices are displayed
+ * so we can modify their content if needed.
+ *
+ * @since 2.6.3
+ */
+function wp_user_profiles_start_admin_notices_buffer() {
+	ob_start();
+}
+
+/**
+ * End output buffering for admin notices and fix password nag links
+ *
+ * This function ends output buffering after admin notices are displayed
+ * and modifies the output to replace links to the profile page with links
+ * to the account page when they contain the #password fragment, since the
+ * password field is in the Account section.
+ *
+ * @since 2.6.3
+ */
+function wp_user_profiles_end_admin_notices_buffer() {
+	$output = ob_get_clean();
+
+	// Only process if the output contains the password fragment
+	if ( false !== strpos( $output, '#password' ) ) {
+		// Replace page=profile#password with page=account#password
+		$output = str_replace( 'page=profile#password', 'page=account#password', $output );
+	}
+
+	echo $output;
 }
