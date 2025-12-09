@@ -561,9 +561,15 @@ function wp_user_profiles_start_admin_notices_buffer() {
 function wp_user_profiles_end_admin_notices_buffer() {
 	$output = ob_get_clean();
 
+	// Bail if no output buffer was active
+	if ( false === $output ) {
+		return;
+	}
+
 	// Only process if the output contains the password fragment
 	if ( false !== strpos( $output, '#password' ) ) {
 		// Replace page=profile#password with page=account#password
+		// This handles the WordPress Core default_password_nag() link
 		$output = str_replace( 'page=profile#password', 'page=account#password', $output );
 	}
 
