@@ -49,6 +49,10 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	// Get current URL for redirect
 	if ( method_exists( $user_switching_class, 'current_url' ) ) {
 		$current_url = call_user_func( array( $user_switching_class, 'current_url' ) );
+		// Ensure we got a valid URL
+		if ( empty( $current_url ) ) {
+			$current_url = get_edit_user_link( $user->ID );
+		}
 	} else {
 		// Fallback to the current user profile page
 		$current_url = get_edit_user_link( $user->ID );
@@ -67,8 +71,8 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 
 	?>
 	<div class="submitbox">
-		<div id="major-publishing-actions">
-			<div id="publishing-action">
+		<div id="user-switching-actions">
+			<div id="user-switching-action">
 				<a href="<?php echo esc_url( $url ); ?>" class="button"><?php esc_html_e( 'Switch To', 'wp-user-profiles' ); ?></a>
 			</div>
 			<div class="clear"></div>
