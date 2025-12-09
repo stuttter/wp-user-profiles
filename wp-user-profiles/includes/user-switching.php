@@ -60,6 +60,9 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 
 	// Validate the redirect URL
 	$redirect_to = wp_validate_redirect( $current_url, admin_url() );
+	if ( false === $redirect_to ) {
+		$redirect_to = admin_url();
+	}
 
 	// Get the switch URL
 	$switch_url = call_user_func( array( $user_switching_class, 'switch_to_url' ), $user );
