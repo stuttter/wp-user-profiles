@@ -21,8 +21,11 @@ defined( 'ABSPATH' ) || exit;
  */
 function wp_user_profiles_user_switching_link( $user = null ) {
 
+	// Determine the User Switching class name (support both versions)
+	$user_switching_class = class_exists( 'User_Switching' ) ? 'User_Switching' : 'user_switching';
+
 	// Bail if User Switching plugin is not active or required methods don't exist
-	if ( ! class_exists( 'user_switching' ) || ! method_exists( 'user_switching', 'switch_to_url' ) ) {
+	if ( ! class_exists( $user_switching_class ) || ! method_exists( $user_switching_class, 'switch_to_url' ) ) {
 		return;
 	}
 
@@ -37,8 +40,8 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	}
 
 	// Get current URL for redirect
-	if ( method_exists( 'user_switching', 'current_url' ) ) {
-		$current_url = user_switching::current_url();
+	if ( method_exists( $user_switching_class, 'current_url' ) ) {
+		$current_url = call_user_func( array( $user_switching_class, 'current_url' ) );
 	} else {
 		// Fallback to the current user profile page
 		$current_url = get_edit_user_link( $user->ID );
@@ -52,7 +55,7 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 		array(
 			'redirect_to' => $redirect_to,
 		),
-		user_switching::switch_to_url( $user )
+		call_user_func( array( $user_switching_class, 'switch_to_url' ), $user )
 	);
 
 	?>
