@@ -73,6 +73,9 @@ add_action( 'wp_user_profiles_nav_actions', 'wp_user_profiles_admin_subnav', 14 
 // BuddyPress
 add_action( 'bp_init', 'wp_user_profiles_unhook_bp_profile_nav' );
 
+// User Switching Plugin
+add_action( 'wp_user_profiles_status_metabox_after', 'wp_user_profiles_user_switching_link' );
+
 // Two-Factor Core Plugin
 if ( wp_user_profiles_user_supports( 'two-factor-authentication' ) ) {
 
