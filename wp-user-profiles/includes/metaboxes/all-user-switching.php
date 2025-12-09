@@ -22,10 +22,17 @@ defined( 'ABSPATH' ) || exit;
 function wp_user_profiles_user_switching_link( $user = null ) {
 
 	// Determine the User Switching class name (support both versions)
-	$user_switching_class = class_exists( 'User_Switching' ) ? 'User_Switching' : 'user_switching';
+	if ( class_exists( 'User_Switching' ) ) {
+		$user_switching_class = 'User_Switching';
+	} elseif ( class_exists( 'user_switching' ) ) {
+		$user_switching_class = 'user_switching';
+	} else {
+		// User Switching plugin is not active
+		return;
+	}
 
-	// Bail if User Switching plugin is not active or required methods don't exist
-	if ( ! class_exists( $user_switching_class ) || ! method_exists( $user_switching_class, 'switch_to_url' ) ) {
+	// Bail if required methods don't exist
+	if ( ! method_exists( $user_switching_class, 'switch_to_url' ) ) {
 		return;
 	}
 
