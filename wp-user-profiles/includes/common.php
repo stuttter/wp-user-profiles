@@ -559,6 +559,8 @@ function wp_user_profiles_start_admin_notices_buffer() {
  * @since 2.6.3
  */
 function wp_user_profiles_end_admin_notices_buffer() {
+	// Get the buffered output
+	// Returns false if no buffer is active, or the buffer contents (including empty string)
 	$output = ob_get_clean();
 
 	// Bail if no output buffer was active
@@ -573,5 +575,6 @@ function wp_user_profiles_end_admin_notices_buffer() {
 		$output = str_replace( 'page=profile#password', 'page=account#password', $output );
 	}
 
+	// Echo the output (even if empty)
 	echo $output;
 }
