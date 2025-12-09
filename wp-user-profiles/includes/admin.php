@@ -58,7 +58,7 @@ function wp_user_profiles_admin_register_scripts() {
 function wp_user_profiles_enqueue_password_nag_fix() {
 	$src = wp_user_profiles_get_plugin_url();
 	$ver = wp_user_profiles_get_asset_version();
-	
+
 	wp_enqueue_script(
 		'wp-user-profiles-password-nag-fix',
 		$src . 'assets/js/fix-password-nag.js',

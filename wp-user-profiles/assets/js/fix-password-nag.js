@@ -17,12 +17,10 @@
 	function fixPasswordNagLinks() {
 		// Find all links in admin notices that point to profile page with #password
 		var links = document.querySelectorAll( '.notice a[href*="page=profile#password"]' );
-		
-		if ( links.length > 0 ) {
-			links.forEach( function( link ) {
-				// Replace page=profile#password with page=account#password
-				link.href = link.href.replace( 'page=profile#password', 'page=account#password' );
-			} );
-		}
+
+		// Replace page=profile#password with page=account#password
+		links.forEach( function( link ) {
+			link.href = link.href.replace( 'page=profile#password', 'page=account#password' );
+		} );
 	}
 })();
