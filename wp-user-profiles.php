@@ -70,6 +70,7 @@ function _wp_user_profiles() {
 		'includes/sections.php',
 		'includes/sponsor.php',
 		'includes/status.php',
+		'includes/user-switching.php',
 		'includes/hooks.php'
 	);
 
