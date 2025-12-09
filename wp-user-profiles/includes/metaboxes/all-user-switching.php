@@ -36,10 +36,14 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 		return;
 	}
 
+	// Get current URL and validate it for redirect
+	$current_url = user_switching::current_url();
+	$redirect_to = wp_validate_redirect( $current_url, admin_url() );
+
 	// Get the switch URL with redirect back to current page
 	$url = add_query_arg(
 		array(
-			'redirect_to' => rawurlencode( user_switching::current_url() ),
+			'redirect_to' => rawurlencode( $redirect_to ),
 		),
 		user_switching::switch_to_url( $user )
 	);
@@ -48,7 +52,7 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	<div class="submitbox">
 		<div id="major-publishing-actions">
 			<div id="publishing-action">
-				<a href="<?php echo esc_url( $url ); ?>" class="button"><?php esc_html_e( 'Switch To', 'user-switching' ); ?></a>
+				<a href="<?php echo esc_url( $url ); ?>" class="button"><?php esc_html_e( 'Switch To', 'wp-user-profiles' ); ?></a>
 			</div>
 			<div class="clear"></div>
 		</div>
