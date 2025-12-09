@@ -61,16 +61,24 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	// Validate the redirect URL
 	$redirect_to = wp_validate_redirect( $current_url, admin_url() );
 
-	// Get the switch URL with redirect back to current page
+	// Get the switch URL
+	$switch_url = call_user_func( array( $user_switching_class, 'switch_to_url' ), $user );
+
+	// Bail if we didn't get a valid switch URL
+	if ( empty( $switch_url ) ) {
+		return;
+	}
+
+	// Add redirect parameter to switch URL
 	$url = add_query_arg(
 		array(
 			'redirect_to' => $redirect_to,
 		),
-		call_user_func( array( $user_switching_class, 'switch_to_url' ), $user )
+		$switch_url
 	);
 
 	?>
-	<div class="submitbox">
+	<div class="submitbox" id="user-switching-box">
 		<div id="user-switching-actions">
 			<div id="user-switching-action">
 				<a href="<?php echo esc_url( $url ); ?>" class="button"><?php esc_html_e( 'Switch To', 'wp-user-profiles' ); ?></a>
