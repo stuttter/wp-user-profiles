@@ -535,3 +535,4 @@ function wp_user_profiles_buffer_action( $action = '', $user = null ) {
 	// Return the current buffer
 	return ob_get_clean();
 }
+

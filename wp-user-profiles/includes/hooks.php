@@ -23,6 +23,9 @@ add_action( 'init', 'wp_user_profiles_register_sites_section'       );
 // Initialize registered scripts
 add_action( 'init', 'wp_user_profiles_admin_register_scripts' );
 
+// Fix password nag links globally in admin
+add_action( 'admin_enqueue_scripts', 'wp_user_profiles_enqueue_password_nag_fix' );
+
 // Admin Menus
 add_action( 'admin_menu',         'wp_user_profiles_admin_menus' );
 add_action( 'network_admin_menu', 'wp_user_profiles_admin_menus' );
