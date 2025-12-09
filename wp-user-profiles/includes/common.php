@@ -102,8 +102,22 @@ function wp_user_profiles_edit_user_url_filter( $url = '', $user_id = 0, $scheme
 		$url = wp_user_profiles_get_admin_area_url( $user_id, $scheme );
 	}
 
+	// Default to profile page
+	$page = 'profile';
+
+	// Check if this is being called for password-related functionality
+	// by examining the call stack for default_password_nag
+	$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 10 );
+	foreach ( $backtrace as $trace ) {
+		if ( isset( $trace['function'] ) && 'default_password_nag' === $trace['function'] ) {
+			// Password field is in the account section
+			$page = 'account';
+			break;
+		}
+	}
+
 	return add_query_arg( array(
-		'page' => 'profile'
+		'page' => $page
 	), $url );
 }
 
