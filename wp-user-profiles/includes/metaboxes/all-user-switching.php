@@ -49,8 +49,8 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	// Get current URL for redirect
 	if ( method_exists( $user_switching_class, 'current_url' ) ) {
 		$current_url = call_user_func( array( $user_switching_class, 'current_url' ) );
-		// Ensure we got a valid URL
-		if ( empty( $current_url ) ) {
+		// Ensure we got a valid URL string
+		if ( empty( $current_url ) || ! is_string( $current_url ) ) {
 			$current_url = get_edit_user_link( $user->ID );
 		}
 	} else {
@@ -64,8 +64,8 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	// Get the switch URL
 	$switch_url = call_user_func( array( $user_switching_class, 'switch_to_url' ), $user );
 
-	// Bail if we didn't get a valid switch URL
-	if ( empty( $switch_url ) ) {
+	// Bail if we didn't get a valid switch URL string
+	if ( empty( $switch_url ) || ! is_string( $switch_url ) ) {
 		return;
 	}
 
