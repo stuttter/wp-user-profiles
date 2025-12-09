@@ -40,8 +40,8 @@ function wp_user_profiles_user_switching_link( $user = null ) {
 	if ( method_exists( 'user_switching', 'current_url' ) ) {
 		$current_url = user_switching::current_url();
 	} else {
-		// Fallback to current page URL
-		$current_url = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		// Fallback to admin URL with current parameters
+		$current_url = add_query_arg( array(), admin_url( 'admin.php' ) );
 	}
 
 	// Validate the redirect URL
