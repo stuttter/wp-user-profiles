@@ -358,7 +358,7 @@ function wp_user_profiles_save_user() {
 	if ( ! ( isset( $_REQUEST['page'] ) && in_array( $_REQUEST['page'], $sections ) ) ) {
 		return;
 	}
-	
+
 	// Do not update the role unless allowed, ref CVE-2025-31524
 	if ( ! current_user_can( 'promote_users' ) ) {
 		unset( $_POST['role'] );
@@ -397,14 +397,25 @@ function wp_user_profiles_save_user() {
 	// No errors
 	if ( ! is_wp_error( $status ) ) {
 
-		// Add updated query arg to trigger success notice
-		$redirect = add_query_arg( array(
+		// Edit link
+		$user_link = get_edit_user_link( $user_id );
+
+		// Default arguments
+		$args = array(
 			'action'  => 'update',
 			'updated' => 'true',
 			'page'    => isset( $_GET['page'] )
 				? sanitize_key( $_GET['page'] )
 				: 'profile'
-		), get_edit_user_link( $user_id ) );
+		);
+
+		// Maybe add "all_sites" to redirect
+		if ( isset( $_GET['all_sites'] ) && is_numeric( $_GET['all_sites'] ) ) {
+			$args['all_sites'] = (int) $_GET['all_sites'];
+		}
+
+		// Add updated query arg to trigger success notice
+		$redirect = add_query_arg( $args, $user_link );
 
 		// Referring?
 		$wp_http_referer = ! empty( $_REQUEST['wp_http_referer'] )
