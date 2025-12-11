@@ -142,7 +142,7 @@ function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
 	if ( ! empty( $all_sites ) ) {
 
 		// Add the "add" action
-		$actions['add'] = esc_html__( 'Assign as (Choose a Role)', 'wp-user-profiles' );
+		$actions['add'] = esc_html__( 'Set Role for Site', 'wp-user-profiles' );
 
 		// Add combined roles
 		foreach ( wp_user_profiles_get_common_user_roles() as $role => $name ) {
@@ -215,6 +215,9 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 		return $cached;
 	}
 
+	// Get the strategy (mixed, local, remote)
+	$strategy = wp_user_profiles_get_common_user_roles_strategy();
+
 	// Use the current user ID for caching
 	$user_id = get_current_user_id();
 
@@ -277,41 +280,49 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 		// Loop through sites
 		foreach ( $sites->sites as $site_id ) {
 
-			// Admin URL
-			$url = get_admin_url( $site_id ) . '/admin-ajax.php';
+			// Local
+			if ( empty( $roles[ $site_id ] ) && in_array( $strategy, array( 'mixed', 'local' ), true ) ) {
 
-			// Remote URL
-			$remote = add_query_arg( array(
-				'action' => 'wp_user_profiles_export_roles',
-				'nonce'  => $nonce,
-				'auth'   => $user_id,
-			), $url );
+				// Get roles locally
+				$site_roles = wp_user_profiles_get_common_user_roles_local_strategy( $site_id );
 
-			// Remote request
-			$response = wp_remote_get( $remote, array(
-				'timeout' => 10
-			) );
+				// Maybe add to roles array
+				if ( ! empty( $site_roles ) ) {
+					$roles[ $site_id ] = $site_roles;
+				}
+			}
 
-			// Get response code
-			$code = wp_remote_retrieve_response_code( $response );
+			// Remote
+			if ( empty( $roles[ $site_id ] ) && in_array( $strategy, array( 'mixed', 'remote' ), true ) ) {
 
-			// Success
-			if ( 200 === $code ) {
+				// Admin URL
+				$url = get_admin_url( $site_id ) . '/admin-ajax.php';
 
-				// Get info
-				$body = wp_remote_retrieve_body( $response );
-				$data = json_decode( $body, true );
+				// Arguments
+				$args = array(
+					'action' => 'wp_user_profiles_export_roles',
+					'nonce'  => $nonce,
+					'auth'   => $user_id,
+				);
 
-				// Look for data
-				if ( ! empty( $data['data'] ) ) {
-					$roles[ $site_id ] = $data['data'];
+				// Remote URL
+				$remote = add_query_arg( $args, $url );
+
+				// Get roles remotely
+				$site_roles = wp_user_profiles_get_common_user_roles_remote_strategy( $site_id, $remote );
+
+				// Maybe add to roles array
+				if ( ! empty( $site_roles ) ) {
+					$roles[ $site_id ] = $site_roles;
 				}
 			}
 		}
 
-		// Get all possible roles and reduce them
-		$all     = call_user_func_array( 'array_merge', $roles );
-		$reduced = array_reduce( $roles, 'array_intersect_key', $all );
+		// Reduce site roles
+		if ( ! empty( $roles ) ) {
+			$all     = call_user_func_array( 'array_merge', $roles );
+			$reduced = array_reduce( $roles, 'array_intersect_key', $all );
+		}
 	}
 
 	// Setup the return value
@@ -326,6 +337,127 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 	delete_network_option( $network_id, $nonce_key );
 
 	// Return the roles
+	return $retval;
+}
+
+/**
+ * Return a string that determines the strategy used to get common user roles
+ * from an array of site IDs.
+ *
+ * @param array $site_ids Array of site IDs to get roles from.
+ *
+ * @return string
+ */
+function wp_user_profiles_get_common_user_roles_strategy( $site_ids = array() ) {
+
+	// Default return value
+	$default = 'mixed';
+
+	// Allowed strategies
+	$allowed = array(
+		'mixed',
+		'local',
+		'remote'
+	);
+
+	// Filter
+	$retval = apply_filters( 'wp_user_profiles_get_common_user_roles_strategy', $default, $site_ids );
+
+	// Fallback to default if invalid strategy
+	if ( ! in_array( $retval, $allowed, true ) ) {
+		$retval = $default;
+	}
+
+	// Return
+	return $retval;
+}
+
+/**
+ * Get the roles of a site using switch_to_blog() and get_editable_roles().
+ *
+ * This does not require that the WP User Profiles plugin is active on that site.
+ *
+ * @param int $site_id Site id.
+ *
+ * @return array Roles from the site.
+ */
+function wp_user_profiles_get_common_user_roles_local_strategy( $site_id = 0 ) {
+
+	// Bail if no site ID
+	if ( empty( $site_id ) ) {
+		return array();
+	}
+
+	// Default return value
+	$retval = array();
+
+	// Switch
+	if ( is_multisite() ) {
+		switch_to_blog( $site_id );
+	}
+
+	// Get roles for site
+	$site_roles = get_editable_roles();
+
+	// Restore
+	if ( is_multisite() ) {
+		restore_current_blog();
+	}
+
+	// Get role names
+	if ( ! empty( $site_roles->roles ) ) {
+		$retval = wp_list_pluck( $site_roles->roles, 'name' );
+	}
+
+	// Return
+	return $retval;
+}
+
+/**
+ * Get the roles of a site using a custom remote request.
+ *
+ * This requires that the WP User Profiles plugin is active on that site.
+ *
+ * @param int   $site_id Site id.
+ * @param array $remote  Array of remote request data.
+ *
+ * @return array Roles from the site.
+ */
+function wp_user_profiles_get_common_user_roles_remote_strategy( $site_id = 0, $remote = array() ) {
+
+	// Bail if no site ID
+	if ( empty( $site_id ) || empty( $remote ) ) {
+		return array();
+	}
+
+	// Default return value
+	$retval = array();
+
+	// Remote request
+	$response = wp_remote_get(
+		$remote,
+		array(
+			'timeout' => 10
+		)
+	);
+
+	// Get response code
+	$code = wp_remote_retrieve_response_code( $response );
+
+	// Success
+	if ( 200 === $code ) {
+
+		// Get info
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		// Look for data
+		if ( ! empty( $data['data'] ) ) {
+			$retval = $data['data'];
+		}
+	}
+
+	// Return
 	return $retval;
 }
 
