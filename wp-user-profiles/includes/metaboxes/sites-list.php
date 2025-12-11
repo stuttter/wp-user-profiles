@@ -316,7 +316,11 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 			if ( null === $site_roles ) {
 				switch_to_blog( $site_id );
 				$wp_roles = wp_roles();
-				$site_roles = wp_list_pluck( $wp_roles->roles, 'name' );
+				if ( $wp_roles && ! empty( $wp_roles->roles ) ) {
+					$site_roles = wp_list_pluck( $wp_roles->roles, 'name' );
+				} else {
+					$site_roles = array();
+				}
 				restore_current_blog();
 			}
 
