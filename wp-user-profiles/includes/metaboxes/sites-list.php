@@ -277,6 +277,9 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 		// Loop through sites
 		foreach ( $sites->sites as $site_id ) {
 
+			// Try remote request first (works when plugin is active on target site)
+			$site_roles = null;
+
 			// Admin URL
 			$url = get_admin_url( $site_id ) . '/admin-ajax.php';
 
@@ -304,14 +307,30 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
 
 				// Look for data
 				if ( ! empty( $data['data'] ) ) {
-					$roles[ $site_id ] = $data['data'];
+					$site_roles = $data['data'];
 				}
+			}
+
+			// Fallback: If remote request failed, switch to the site and get roles directly
+			// This handles cases where the plugin isn't active on the target site
+			if ( null === $site_roles ) {
+				switch_to_blog( $site_id );
+				$wp_roles = wp_roles();
+				$site_roles = wp_list_pluck( $wp_roles->roles, 'name' );
+				restore_current_blog();
+			}
+
+			// Store the roles for this site
+			if ( ! empty( $site_roles ) ) {
+				$roles[ $site_id ] = $site_roles;
 			}
 		}
 
 		// Get all possible roles and reduce them
-		$all     = call_user_func_array( 'array_merge', $roles );
-		$reduced = array_reduce( $roles, 'array_intersect_key', $all );
+		if ( ! empty( $roles ) ) {
+			$all     = call_user_func_array( 'array_merge', $roles );
+			$reduced = array_reduce( $roles, 'array_intersect_key', $all );
+		}
 	}
 
 	// Setup the return value
