@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Render the sites metabox for user profile screen
+ * Render the sites metabox for user profile screen.
  *
  * @since 1.0.0
  *
@@ -101,7 +101,9 @@ function wp_user_profiles_filter_sites_table_query_args( $args = array() ) {
 }
 
 /**
- * Show different views/filters for list of sites
+ * Show different views/filters for list of sites.
+ *
+ * @since 2.0.0
  *
  * @param array $views
  *
@@ -120,7 +122,9 @@ function wp_user_profiles_filter_views( $views = array() ) {
 }
 
 /**
- * Filter list of actions
+ * Filter list of bulk actions.
+ *
+ * @since 2.0.0
  *
  * @param array $actions
  *
@@ -156,7 +160,9 @@ function wp_user_profiles_filter_bulk_actions( $actions = array() ) {
 }
 
 /**
- * Output user roles for a blog
+ * Output user roles for a blog.
+ *
+ * @since 2.0.0
  *
  * @param string $column_name
  * @param int    $blog_id
@@ -189,7 +195,9 @@ function wp_user_profiles_filter_role_column( $column_name = '', $blog_id = 0 ) 
 }
 
 /**
- * Return a list of common user roles from a list of sites
+ * Return a list of common user roles from a list of sites.
+ *
+ * @since 2.0.0
  *
  * @param array $site_ids List of site IDs to grab roles from
  *
@@ -344,9 +352,11 @@ function wp_user_profiles_get_common_user_roles( array $site_ids = array() ) {
  * Return a string that determines the strategy used to get common user roles
  * from an array of site IDs.
  *
+ * @since 3.0.0
+ *
  * @param array $site_ids Array of site IDs to get roles from.
  *
- * @return string
+ * @return string The strategy to use when getting common user roles.
  */
 function wp_user_profiles_get_common_user_roles_strategy( $site_ids = array() ) {
 
@@ -376,6 +386,8 @@ function wp_user_profiles_get_common_user_roles_strategy( $site_ids = array() ) 
  * Get the roles of a site using switch_to_blog() and get_editable_roles().
  *
  * This does not require that the WP User Profiles plugin is active on that site.
+ *
+ * @since 3.0.0
  *
  * @param int $site_id Site id.
  *
@@ -418,12 +430,14 @@ function wp_user_profiles_get_common_user_roles_local_strategy( $site_id = 0 ) {
  *
  * This requires that the WP User Profiles plugin is active on that site.
  *
- * @param int   $site_id Site id.
- * @param array $remote  Array of remote request data.
+ * @since 3.0.0
+ *
+ * @param int    $site_id Site id.
+ * @param string $remote  Remote request URI.
  *
  * @return array Roles from the site.
  */
-function wp_user_profiles_get_common_user_roles_remote_strategy( $site_id = 0, $remote = array() ) {
+function wp_user_profiles_get_common_user_roles_remote_strategy( $site_id = 0, $remote = '' ) {
 
 	// Bail if no site ID
 	if ( empty( $site_id ) || empty( $remote ) ) {
@@ -462,9 +476,9 @@ function wp_user_profiles_get_common_user_roles_remote_strategy( $site_id = 0, $
 }
 
 /**
- * AJAX endpoint to query roles from specific list of sites
+ * AJAX endpoint to query roles from specific list of sites.
  *
- * @action wp_ajax_wp_user_profiles_common_roles
+ * @since 2.0.0
  */
 function wp_user_profiles_get_common_user_roles_ajax() {
 	check_admin_referer( 'wp_user_profiles_common_roles', 'nonce' );
@@ -479,10 +493,9 @@ function wp_user_profiles_get_common_user_roles_ajax() {
 }
 
 /**
- * AJAX endpoint to query roles from the current site
+ * AJAX endpoint to query roles from the current site.
  *
- * @action wp_ajax_wp_user_profiles_export_roles
- * @action wp_ajax_nopriv_wp_user_profiles_export_roles
+ * @since 2.0.0
  */
 function wp_user_profiles_export_user_roles_ajax() {
 
