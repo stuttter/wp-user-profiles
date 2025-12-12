@@ -405,8 +405,8 @@ function wp_user_profiles_get_common_user_roles_local_strategy( $site_id = 0 ) {
 	}
 
 	// Get role names
-	if ( ! empty( $site_roles->roles ) ) {
-		$retval = wp_list_pluck( $site_roles->roles, 'name' );
+	if ( ! empty( $site_roles ) ) {
+		$retval = wp_list_pluck( $site_roles, 'name' );
 	}
 
 	// Return
