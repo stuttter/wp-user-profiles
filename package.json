@@ -10,7 +10,7 @@
 		"npm": ">=6.0.0"
 	},
 	"devDependencies": {
-		"@babel/core": "7.4.3",
+		"@babel/core": "7.29.6",
 		"@wordpress/babel-preset-default": "4.1.0",
 		"@wordpress/browserslist-config": "2.3.0",
 		"@wordpress/eslint-plugin": "2.1.0",
