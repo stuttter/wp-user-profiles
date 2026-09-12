@@ -52,6 +52,8 @@ register_shutdown_function(
 	}
 );
 
+wp_set_current_user( $site_owner_id );
+
 $site_result = wpmu_create_blog( "roles-{$run_id}.example.test", '/', 'Roles site', $site_owner_id );
 wpup_multisite_assert( ! is_wp_error( $site_result ), 'Could not create a second site.' );
 $site_id = (int) $site_result;

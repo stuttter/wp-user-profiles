@@ -11,6 +11,7 @@ function wpup_smoke_assert( $condition, $message ) {
 wpup_smoke_assert( function_exists( 'wp_user_profiles_save_user' ), 'Plugin bootstrap did not load.' );
 wpup_smoke_assert( has_action( 'admin_init', 'wp_user_profiles_save_user' ), 'Save handler is not registered.' );
 wpup_smoke_assert( has_filter( 'map_meta_cap', 'wp_user_profiles_map_meta_cap' ), 'Capability mapper is not registered.' );
+wpup_smoke_assert( ! is_multisite(), 'Single-site smoke test cannot run on multisite.' );
 
 if ( ! function_exists( 'wp_delete_user' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/user.php';
