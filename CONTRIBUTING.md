@@ -25,5 +25,20 @@ criteria in a GitHub issue. Report suspected vulnerabilities privately through
   release ZIP files.
 * Wait for every required check and resolve review conversations before merge.
 
+## Live WordPress smoke tests
+
+The integration wrappers provision isolated WordPress and MariaDB containers,
+activate the plugin, run the existing PHP smoke payload, and always remove the
+containers, network, and temporary WordPress files when they finish:
+
+```sh
+tests/integration/run-single-site.sh
+tests/integration/run-multisite.sh
+```
+
+They use PHP 7.4 and WordPress 5.2.4 to exercise the declared compatibility
+floors. Docker is the only host dependency; the wrappers do not read or require
+repository or service credentials.
+
 AI-assisted contributions are welcome, but the contributor remains responsible
 for understanding and validating the result.
