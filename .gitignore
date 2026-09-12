@@ -3,6 +3,7 @@
 
 # Files and folders related to build/test tools
 /phpunit.xml
+/.phpunit.result.cache
 /tests/phpunit/build
 /node_modules
 /npm-debug.log
