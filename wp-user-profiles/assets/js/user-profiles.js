@@ -176,7 +176,7 @@
 			}
 
 			// Ensure plain text.
-			$button.find( '.screen-reader-text' ).text( __( 'Dismiss this notice.' ) );
+			$button.find( '.screen-reader-text' ).text( __( 'Dismiss this notice.', 'wp-user-profiles' ) );
 			$button.on( 'click.wp-dismiss-notice', function( event ) {
 				event.preventDefault();
 				$el.fadeTo( 100, 0, function() {

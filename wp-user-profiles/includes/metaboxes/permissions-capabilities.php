@@ -74,9 +74,13 @@ function wp_user_profiles_additional_capabilities_metabox( $user = null ) {
 								$output .= ', ';
 							}
 
-							$output .= ! empty( $value )
-								? sprintf( esc_html__( 'Allowed: %s', 'wp-user-profiles' ), $cap )
-								: sprintf( esc_html__( 'Denied: %s',  'wp-user-profiles' ), $cap );
+							if ( ! empty( $value ) ) {
+								/* translators: %s: Capability name. */
+								$output .= sprintf( esc_html__( 'Allowed: %s', 'wp-user-profiles' ), $cap );
+							} else {
+								/* translators: %s: Capability name. */
+								$output .= sprintf( esc_html__( 'Denied: %s', 'wp-user-profiles' ), $cap );
+							}
 						}
 					}
 

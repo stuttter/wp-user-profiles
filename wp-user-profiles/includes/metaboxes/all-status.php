@@ -51,6 +51,7 @@ function wp_user_profiles_status_metabox( $user = null ) {
 
 						// Output description & date
 						printf(
+							/* translators: %s: User registration date. */
 							esc_html__( 'Registered on: %1$s', 'wp-user-profiles' ),
 							'<strong>' . esc_html( $date ) . '</strong>'
 						);

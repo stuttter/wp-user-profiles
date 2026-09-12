@@ -8,7 +8,11 @@
     "composer/installers": "^2.3"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.6.36"
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
+    "phpunit/phpunit": "^9.6.36",
+    "wp-cli/i18n-command": "2.7.0",
+    "wp-cli/wp-cli": "2.12.0",
+    "wp-coding-standards/wpcs": "^3.4.1"
   },
   "license": "GPL-2.0-or-later",
   "authors": [
@@ -18,11 +22,21 @@
     }
   ],
   "scripts": {
-    "test": "phpunit"
+    "i18n": "bash bin/i18n.sh",
+    "i18n:check": "bash bin/i18n.sh --check",
+    "phpcs": "phpcs --standard=.phpcs-i18n.xml.dist",
+    "release:check": "php bin/check-release-metadata.php",
+    "release:version": "php bin/update-version.php",
+    "test": [
+      "phpunit",
+      "@release:check",
+      "@i18n:check"
+    ]
   },
   "config": {
     "allow-plugins": {
-      "composer/installers": true
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
     },
     "platform": {
       "php": "7.4.0"

@@ -76,6 +76,15 @@ See: `wp-user-profiles/includes/hooks.php`
 
 == Changelog ==
 
+= [2.6.2] - 2021-08-18 =
+* Correct role assignment when saving the Permissions section on multisite
+* Check `promote_users` in the context of each affected site
+* Prevent stale cached user data from being saved
+* Improve the Sites role list table
+* Show status dates in the user's timezone
+* Avoid a fatal error on WordPress versions without password reset emails
+* Load unminified assets when `SCRIPT_DEBUG` is enabled
+
 = [2.6.1] - 2021-05-29 =
 * Update author info
 * Add sponsor link

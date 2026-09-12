@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="WP User Profiles internationalization">
+	<description>Validate translatable strings and the wp-user-profiles text domain.</description>
+
+	<file>wp-user-profiles.php</file>
+	<file>wp-user-profiles</file>
+
+	<exclude-pattern>*/assets/languages/*</exclude-pattern>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wp-user-profiles"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

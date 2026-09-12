@@ -38,6 +38,7 @@ function wp_user_profiles_email_metabox( $user = null ) {
 					<div class="updated inline">
 					<p><?php
 						printf(
+							/* translators: 1: Pending email address, 2: URL to cancel the change. */
 							__( 'There is a pending change of your email to %1$s. <a href="%2$s">Cancel</a>', 'wp-user-profiles' ),
 							'<code>' . esc_html( $new_email['newemail'] ) . '</code>',
 							esc_url( self_admin_url( 'profile.php?dismiss=' . $current_user->ID . '_new_email' ) )
