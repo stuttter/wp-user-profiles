@@ -42,3 +42,28 @@ repository or service credentials.
 
 AI-assisted contributions are welcome, but the contributor remains responsible
 for understanding and validating the result.
+
+## Release and translation chores
+
+`readme.txt` is the canonical WordPress.org listing. `README.md` is a concise,
+human-maintained GitHub overview; it is not generated from `readme.txt`.
+
+Install the locked tools with `composer install`, then use:
+
+* `composer release:version -- 2.7.0` to update the plugin header, WordPress.org
+  stable tag, `package.json`, and both package-lock declarations.
+* `composer release:check` to fail when any of those version declarations drift.
+* `composer phpcs` to validate translatable PHP strings and their text domain
+  with WordPress Coding Standards.
+* `composer i18n` to regenerate the tracked POT file with the locked WP-CLI.
+* `composer i18n:check` to regenerate to a temporary file and fail on drift.
+
+Run `composer test`, `composer phpcs`, and `npm run build:check` before opening a
+release pull request. Review every generated diff. Commands return nonzero on a
+failed check; do not suppress their exit status.
+
+Production ZIP creation belongs exclusively to the central Stuttter artifact
+builder already invoked by CI. Version/tag validation, GitHub releases, and
+WordPress.org Subversion publication belong to the central release workflow
+once this repository is separately onboarded to that protected lane. Do not add
+or commit a second local release archive.

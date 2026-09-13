@@ -12,6 +12,7 @@
 * Correct saving for syntax highlighting and profile validation errors
 * Fix dismissible administration notices
 * Update WordPress compatibility metadata and development dependencies
+* Replace retired release and translation chores with deterministic commands
 
 ## 2.6.2 (2021-08-18)
 

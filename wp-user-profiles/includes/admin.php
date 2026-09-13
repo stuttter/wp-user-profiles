@@ -101,7 +101,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 	wp_scripts()->registered[ $handle ]->src  = $url;
 	wp_scripts()->registered[ $handle ]->ver  = $ver;
 	wp_scripts()->registered[ $handle ]->deps = $deps;
-	wp_scripts()->set_translations( $handle );
+	wp_scripts()->set_translations( $handle, 'wp-user-profiles' );
 
 	// Get the user ID
 	$user_id = ! empty( $_GET['user_id'] )
@@ -121,7 +121,7 @@ function wp_user_profiles_admin_enqueue_scripts() {
 		wp_scripts()->registered[ $handle ]->src  = $url;
 		wp_scripts()->registered[ $handle ]->ver  = $ver;
 		wp_scripts()->registered[ $handle ]->deps = $deps;
-		wp_scripts()->set_translations( $handle );
+		wp_scripts()->set_translations( $handle, 'wp-user-profiles' );
 	}
 
 	// Two-Factor Authentication
