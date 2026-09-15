@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.7.0 (2026-09-14)
+
 * Add integrations for the Two-Factor and User Switching plugins
 * Add selectable local and remote strategies for discovering roles across a
   multisite network
@@ -11,8 +13,11 @@
 * Allow the list of loaded plugin files to be filtered
 * Correct saving for syntax highlighting and profile validation errors
 * Fix dismissible administration notices
+* Improve output escaping throughout profile administration
+* Prevent direct access to the multisite sites list table
 * Update WordPress compatibility metadata and development dependencies
 * Replace retired release and translation chores with deterministic commands
+* Add managed release, Plugin Check, and real-WordPress compatibility validation
 
 ## 2.6.2 (2021-08-18)
 
