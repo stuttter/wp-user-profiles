@@ -35,7 +35,7 @@ function wp_user_profiles_contact_metabox( $user = null ) {
 					<label for="<?php echo esc_attr( $name ); ?>"><?php
 
 						// This filter documented in wp-admin/user-edit.php
-						echo apply_filters( "user_{$name}_label", $desc );
+						echo wp_kses_post( apply_filters( "user_{$name}_label", $desc ) );
 
 					?></label>
 				</th>

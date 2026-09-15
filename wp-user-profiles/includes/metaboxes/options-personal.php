@@ -110,6 +110,8 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 
 		// Third-party Personal Options
 		if ( ! empty( $show['personal_options'] ) ) :
+			// Third-party profile hooks intentionally render complete admin form fields.
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo $show['personal_options'];
 		endif;
 
@@ -120,6 +122,8 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 
 	// Output third-party profile personal options
 	if ( wp_is_profile_page() ) {
+		// Third-party profile hooks intentionally render complete admin form fields.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo wp_user_profiles_buffer_action( 'profile_personal_options', $user );
 	}
 

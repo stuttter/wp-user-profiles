@@ -435,7 +435,10 @@ function wp_user_profiles_save_user() {
 
 	// Errors
 	} else {
-		wp_die( $status );
+		// Preserve the intended inline markup while removing unsafe extension output.
+		$message = implode( '<br />', $status->get_error_messages() );
+
+		wp_die( wp_kses_post( $message ) );
 	}
 }
 
@@ -546,4 +549,3 @@ function wp_user_profiles_buffer_action( $action = '', $user = null ) {
 	// Return the current buffer
 	return ob_get_clean();
 }
-

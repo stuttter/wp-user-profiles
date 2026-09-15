@@ -508,7 +508,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
 		}
 
 		// Output the link
-		?><a class="nav-tab<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url );?>"<?php echo $aria; // Do not escape ?>><?php
+		?><a class="nav-tab<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url );?>"<?php if ( ! empty( $aria ) ) : ?> aria-current="page"<?php endif; ?>><?php
 
 			/**
 			 * This text is intentionally not escaped to allow HTML, for
@@ -516,7 +516,7 @@ function wp_user_profiles_admin_nav( $user = null ) {
 			 *
 			 * Please make sure to escape your own strings as needed.
 			 */
-			echo apply_filters( 'wp_user_profiles_admin_nav_html', $nav->name, $nav );
+			echo wp_kses_post( apply_filters( 'wp_user_profiles_admin_nav_html', $nav->name, $nav ) );
 
 		?></a><?php
 	}
@@ -527,7 +527,8 @@ function wp_user_profiles_admin_nav( $user = null ) {
 	// Output the navigation
 	?><nav id="profile-nav" class="nav-tab-wrapper" aria-label="<?php esc_html_e( 'Secondary menu', 'wp-user-profiles' ); ?>"><?php
 
-		// Output the links
+		// The buffered structure and its dynamic values are escaped above.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $links;
 
 	?></nav><?php
@@ -626,7 +627,7 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 		}
 
 		// Output the link
-		?><li class="<?php echo esc_attr( $class ); ?>"<?php echo $aria; // Do not escape ?>>
+		?><li class="<?php echo esc_attr( $class ); ?>"<?php if ( ! empty( $aria ) ) : ?> aria-current="page"<?php endif; ?>>
 			<a class="<?php echo esc_attr( $class ); ?>" href="<?php echo esc_url( $url ); ?>"><?php
 
 				/**
@@ -635,7 +636,7 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 				 *
 				 * Please make sure to escape your own strings as needed.
 				 */
-				echo apply_filters( 'wp_user_profiles_admin_subnav_html', $text, $sub );
+				echo wp_kses_post( apply_filters( 'wp_user_profiles_admin_subnav_html', $text, $sub ) );
 
 			?></a>
 		<li><?php
@@ -652,8 +653,9 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 	// Output the subnavigation
 	?><ul id="profile-subnav" class="subsubsub"><?php
 
-		// Output the links
-		 echo $links;
+		// The buffered structure and its dynamic values are escaped above.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $links;
 
 	?></ul><?php
 }
@@ -782,7 +784,7 @@ function wp_user_profiles_user_admin() {
 				</div>
 			</div>
 
-			<input type="hidden" name="checkuser_id" value="<?php echo get_current_user_id(); ?>" />
+			<input type="hidden" name="checkuser_id" value="<?php echo esc_attr( get_current_user_id() ); ?>" />
 
 			<?php wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 			<?php wp_nonce_field( 'meta-box-order',  'meta-box-order-nonce', false ); ?>

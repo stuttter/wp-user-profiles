@@ -76,16 +76,16 @@ function wp_user_profiles_additional_capabilities_metabox( $user = null ) {
 
 							if ( ! empty( $value ) ) {
 								/* translators: %s: Capability name. */
-								$output .= sprintf( esc_html__( 'Allowed: %s', 'wp-user-profiles' ), $cap );
+								$output .= sprintf( __( 'Allowed: %s', 'wp-user-profiles' ), $cap );
 							} else {
 								/* translators: %s: Capability name. */
-								$output .= sprintf( esc_html__( 'Denied: %s', 'wp-user-profiles' ), $cap );
+								$output .= sprintf( __( 'Denied: %s', 'wp-user-profiles' ), $cap );
 							}
 						}
 					}
 
 					if ( ! empty( $output ) ) {
-						echo $output;
+						echo esc_html( $output );
 					} else {
 						esc_html_e( 'No additional capabilities', 'wp-user-profiles' );
 					}

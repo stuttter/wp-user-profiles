@@ -73,6 +73,8 @@ function wp_user_profiles_sites_metabox( $user = null ) {
 	do_action( __FUNCTION__ . '_after', $user );
 
 	// Output the buffer
+	// The core list table and profile hooks intentionally render complete admin markup.
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo ob_get_clean();
 }
 
