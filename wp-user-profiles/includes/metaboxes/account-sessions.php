@@ -60,7 +60,7 @@ function wp_user_profiles_session_metabox( $user = null ) {
 					<p class="description">
 						<?php
 						/* translators: 1: User's display name. */
-						printf( esc_html__( 'Log %s out of all locations.', 'wp-user-profiles' ), $user->display_name );
+						printf( esc_html__( 'Log %s out of all locations.', 'wp-user-profiles' ), esc_html( $user->display_name ) );
 						?>
 					</p>
 				</td>
@@ -74,7 +74,7 @@ function wp_user_profiles_session_metabox( $user = null ) {
 					<p>
 						<?php
 						/* translators: 1: User's display name. */
-						printf( esc_html__( '%s has not logged in yet.', 'wp-user-profiles' ), $user->display_name );
+						printf( esc_html__( '%s has not logged in yet.', 'wp-user-profiles' ), esc_html( $user->display_name ) );
 						?>
 					</p>
 				</td>

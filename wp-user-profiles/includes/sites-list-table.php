@@ -6,6 +6,9 @@
  * @package Plugins/Users/Profiles/SitesList
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 require_once ABSPATH . 'wp-admin/includes/class-wp-ms-sites-list-table.php';
 
 /**
@@ -49,7 +52,7 @@ class WP_User_Profiles_Sites_List_Table extends WP_MS_Sites_List_Table {
 		<label class="screen-reader-text" for="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>"><?php
 
 			/* translators: %s: Site URL. */
-			printf( esc_html__( 'Select %s', 'wp-user-profiles' ), $blogname );
+			printf( esc_html__( 'Select %s', 'wp-user-profiles' ), esc_html( $blogname ) );
 
 		?></label>
 		<input type="checkbox" id="blog_<?php echo esc_attr( $blog['blog_id'] ); ?>" name="allblogs[]" value="<?php echo esc_attr( $blog['blog_id'] ); ?>" />

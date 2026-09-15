@@ -39,7 +39,7 @@ function wp_user_profiles_about_metabox( $user = null ) {
 				<label for="description"><?php esc_html_e( 'Biographical Info', 'wp-user-profiles' ); ?></label>
 			</th>
 			<td>
-				<textarea name="description" id="description" rows="5" cols="30"><?php echo $user->description; // textarea_escaped ?></textarea>
+				<textarea name="description" id="description" rows="5" cols="30"><?php echo esc_textarea( $user->description ); ?></textarea>
 				<p class="description"><?php
 
 					esc_html_e( 'Share a little biographical information to fill out your profile. This may be shown publicly.', 'wp-user-profiles' );
