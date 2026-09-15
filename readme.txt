@@ -9,7 +9,7 @@ Tags:              user, profile, edit, metabox
 Requires PHP:      7.4
 Requires at least: 5.2
 Tested up to:      7.1
-Stable tag:        2.6.2
+Stable tag:        2.7.0
 
 == Description ==
 
@@ -75,6 +75,21 @@ See: `wp-user-profiles/includes/hooks.php`
 * Development: https://github.com/stuttter/wp-user-profiles/discussions
 
 == Changelog ==
+
+= [2.7.0] - 2026-09-14 =
+* Add integrations for the Two-Factor and User Switching plugins
+* Add selectable local and remote strategies for discovering roles across a multisite network
+* Correct the password-nag link to open the Account section
+* Prevent users without the `promote_users` capability from changing roles
+* Improve PHP 8 compatibility for multisite role discovery
+* Allow the list of loaded plugin files to be filtered
+* Correct saving for syntax highlighting and profile validation errors
+* Fix dismissible administration notices
+* Improve output escaping throughout profile administration
+* Prevent direct access to the multisite sites list table
+* Update WordPress compatibility metadata and development dependencies
+* Replace retired release and translation chores with deterministic commands
+* Add managed release, Plugin Check, and real-WordPress compatibility validation
 
 = [2.6.2] - 2021-08-18 =
 * Correct role assignment when saving the Permissions section on multisite
