@@ -40,10 +40,12 @@ function wp_user_profiles_other_metabox( $user = null ) {
 
 	// Hooks are working
 	if ( ! empty( $output ) ) {
+		// Third-party profile hooks intentionally render complete admin form fields.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $output;
 
 	// Hooks are doing weird things
 	} else {
-		echo wpautop( esc_html__( 'A plugin attempted to show something here, but then failed to do so.', 'wp-user-profiles' ) );
+		echo wp_kses_post( wpautop( esc_html__( 'A plugin attempted to show something here, but then failed to do so.', 'wp-user-profiles' ) ) );
 	}
 }

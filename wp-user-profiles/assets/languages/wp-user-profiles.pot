@@ -56,21 +56,21 @@ msgstr ""
 msgid "Secondary menu"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:612
+#: wp-user-profiles/includes/admin.php:613
 msgid "General"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:673
+#: wp-user-profiles/includes/admin.php:675
 msgctxt "user"
 msgid "Add New"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:677
+#: wp-user-profiles/includes/admin.php:679
 msgctxt "user"
 msgid "Add Existing"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:732
+#: wp-user-profiles/includes/admin.php:734
 msgid "Anonymous"
 msgstr ""
 
@@ -82,7 +82,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to edit this user."
 msgstr ""
 
-#: wp-user-profiles/includes/common.php:462
+#: wp-user-profiles/includes/common.php:465
 msgid "User updated."
 msgstr ""
 
@@ -129,11 +129,11 @@ msgstr ""
 msgid "Required to create an Application Password."
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/account-applications.php:94
+#: wp-user-profiles/includes/metaboxes/account-applications.php:95
 msgid "Save this in a safe location. You cannot retrieve it again later."
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/account-applications.php:101
+#: wp-user-profiles/includes/metaboxes/account-applications.php:102
 #: wp-user-profiles/assets/js/app-passwords.js:212
 #: wp-user-profiles/assets/js/user-profiles.js:179
 msgid "Dismiss this notice."
@@ -149,7 +149,7 @@ msgid "(required)"
 msgstr ""
 
 #. translators: 1: Pending email address, 2: URL to cancel the change.
-#: wp-user-profiles/includes/metaboxes/account-email.php:42
+#: wp-user-profiles/includes/metaboxes/account-email.php:43
 #, php-format
 msgid "There is a pending change of your email to %1$s. <a href=\"%2$s\">Cancel</a>"
 msgstr ""
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Show Toolbar when viewing site"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/other-all.php:47
+#: wp-user-profiles/includes/metaboxes/other-all.php:49
 msgid "A plugin attempted to show something here, but then failed to do so."
 msgstr ""
 
@@ -402,38 +402,38 @@ msgstr ""
 msgid "Display name publicly as"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:117
+#: wp-user-profiles/includes/metaboxes/sites-list.php:119
 msgid "Assigned"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:118
+#: wp-user-profiles/includes/metaboxes/sites-list.php:120
 msgid "All Sites"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:137
+#: wp-user-profiles/includes/metaboxes/sites-list.php:139
 msgid "Remove"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:149
+#: wp-user-profiles/includes/metaboxes/sites-list.php:151
 msgid "Set Role for Site"
 msgstr ""
 
 #. translators: prefix for roles dropdown
-#: wp-user-profiles/includes/metaboxes/sites-list.php:155
+#: wp-user-profiles/includes/metaboxes/sites-list.php:157
 #, php-format
 msgctxt "translators: prefix for roles dropdown"
 msgid "&mdash; %s"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:193
+#: wp-user-profiles/includes/metaboxes/sites-list.php:195
 msgid "User is not a member of this site"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:273
+#: wp-user-profiles/includes/metaboxes/sites-list.php:275
 msgid "Default site role"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/sites-list.php:524
+#: wp-user-profiles/includes/metaboxes/sites-list.php:526
 msgid "Invalid nonce or user ID."
 msgstr ""
 
@@ -685,20 +685,20 @@ msgstr ""
 msgid "You may be able to take action on these sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sites-list-table.php:26
+#: wp-user-profiles/includes/sites-list-table.php:29
 msgid "URL"
 msgstr ""
 
-#: wp-user-profiles/includes/sites-list-table.php:27
+#: wp-user-profiles/includes/sites-list-table.php:30
 msgid "Users"
 msgstr ""
 
-#: wp-user-profiles/includes/sites-list-table.php:32
+#: wp-user-profiles/includes/sites-list-table.php:35
 msgid "Roles"
 msgstr ""
 
 #. translators: %s: Site URL.
-#: wp-user-profiles/includes/sites-list-table.php:52
+#: wp-user-profiles/includes/sites-list-table.php:55
 #, php-format
 msgid "Select %s"
 msgstr ""
