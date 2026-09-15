@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.7.1 (2026-09-14)
+
+* Add the explicit short description required by the WordPress.org directory
+  importer
+
 ## 2.7.0 (2026-09-14)
 
 * Add integrations for the Two-Factor and User Switching plugins

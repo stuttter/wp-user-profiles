@@ -9,7 +9,9 @@ Tags:              user, profile, edit, metabox
 Requires PHP:      7.4
 Requires at least: 5.2
 Tested up to:      7.1
-Stable tag:        2.7.0
+Stable tag:        2.7.1
+
+A sophisticated way to edit users in WordPress.
 
 == Description ==
 
@@ -75,6 +77,9 @@ See: `wp-user-profiles/includes/hooks.php`
 * Development: https://github.com/stuttter/wp-user-profiles/discussions
 
 == Changelog ==
+
+= [2.7.1] - 2026-09-14 =
+* Add the explicit short description required by the WordPress.org directory importer
 
 = [2.7.0] - 2026-09-14 =
 * Add integrations for the Two-Factor and User Switching plugins
