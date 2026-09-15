@@ -30,7 +30,8 @@ Prioritize defects with a concrete failure mode:
   and peer requirements, plus package lifecycle scripts, especially in
   Dependabot and tooling changes; and
 - consistency between code, Composer constraints, plugin headers, readme
-  metadata, and the declared minimum PHP and WordPress versions.
+  metadata (including the required plain-text WordPress.org short description),
+  and the declared minimum PHP and WordPress versions.
 
 Report only actionable findings that are still present at the exact reviewed
 head. Tie each finding to the narrowest relevant changed lines, describe the
