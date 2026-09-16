@@ -36,7 +36,7 @@ tests/integration/run-single-site.sh
 tests/integration/run-multisite.sh
 ```
 
-They use PHP 7.4 and WordPress 5.2.4 to exercise the declared compatibility
+They use PHP 7.4 and WordPress 6.4 to exercise the declared compatibility
 floors. Docker is the only host dependency; the wrappers do not read or require
 repository or service credentials.
 

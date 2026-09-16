@@ -31,9 +31,9 @@ test ! -L "${integration_directory}/${payload}"
 
 # These are immutable multi-architecture image digests. Keep PHP 7.4 here so
 # the live checks exercise the plugin's declared minimum PHP version. The core
-# image supplies WordPress 5.2.4 files only; plugin code runs in the CLI image.
+# image supplies WordPress 6.4 files only; plugin code runs in the CLI image.
 wordpress_cli_image='wordpress:cli-php7.4@sha256:946a8b7f237f6cf90d8f04aff952544a0332d43374d598925dcf0180e4441c6c'
-wordpress_core_image='wordpress:5.2-apache@sha256:546e4bc9198845d8a1c89e212f73e520176759f3c625280b7a2f668bbabb19a8'
+wordpress_core_image='wordpress:6.4-apache@sha256:8ae66efb09a2cc4f1ce44414c52b0ce4198c1f8ed338a6f51910bc09cd7d8bbb'
 database_image='mariadb:10.11@sha256:07c0aaff7396b74cb7975cba78257178d188e30f531a5db2b617c48beef13c41'
 
 temporary_parent="${RUNNER_TEMP:-${TMPDIR:-/tmp}}"

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Require WordPress 6.4 or newer
+
 ## 2.7.1 (2026-09-14)
 
 * Add the explicit short description required by the WordPress.org directory

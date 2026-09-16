@@ -4,7 +4,7 @@
   "main_file": "wp-user-profiles.php",
   "risk": "critical",
   "minimum_php": "7.4",
-  "minimum_wordpress": "5.2",
+  "minimum_wordpress": "6.4",
   "tested_wordpress": "7.1",
   "wordpress_org": true,
   "multisite": true,
