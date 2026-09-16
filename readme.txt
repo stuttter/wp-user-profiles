@@ -7,7 +7,7 @@ License:           GPLv2 or later
 Contributors:      johnjamesjacoby, baden03
 Tags:              user, profile, edit, metabox
 Requires PHP:      7.4
-Requires at least: 5.2
+Requires at least: 6.4
 Tested up to:      7.1
 Stable tag:        2.7.1
 
