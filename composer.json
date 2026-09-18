@@ -24,7 +24,7 @@
   "scripts": {
     "i18n": "bash bin/i18n.sh",
     "i18n:check": "bash bin/i18n.sh --check",
-    "phpcs": "phpcs --standard=.phpcs-i18n.xml.dist",
+    "phpcs": "phpcs",
     "release:check": "php bin/check-release-metadata.php",
     "release:version": "php bin/update-version.php",
     "test": [
