@@ -148,10 +148,6 @@ function wp_user_profiles_admin_enqueue_scripts() {
  * @since 0.1.0
  */
 function wp_user_profiles_admin_menus() {
-	global $title;
-
-	// Set the title
-	$title = esc_html__( 'Profile', 'wp-user-profiles' );
 
 	// Empty hooks array
 	$file     = wp_user_profiles_get_file();
