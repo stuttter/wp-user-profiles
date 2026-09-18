@@ -4,6 +4,9 @@
 
 * Add an opt-in modern profile layout controlled by the
   `wp_user_profiles_use_modern_styles` filter
+* Prevent profile screens from overriding unrelated administration page titles
+* Preserve WordPress's user-validation hook contract for compatibility with
+  Jetpack Account Protection and other integrations
 
 ## 2.7.2 (2026-09-16)
 

@@ -256,6 +256,13 @@ class WP_User_Profile_Section {
 		// Allow third party plugins to hook into this sections saving process
 		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
 
+		// Match the object type used by edit_user() for this core action
+		if ( $user instanceof WP_User ) {
+			$user = isset( $user->data ) && is_object( $user->data )
+				? clone $user->data
+				: (object) get_object_vars( $user );
+		}
+
 		// This action is documented in wp-admin/includes/user.php
 		do_action_ref_array( 'user_profile_update_errors', array(
 			&$this->errors,
