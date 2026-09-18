@@ -36,7 +36,14 @@ class WP_Error {
 
 class WP_User {
 	public $ID = 0;
+
+	/**
+	 * User database fields.
+	 *
+	 * @var stdClass|null
+	 */
 	public $data = null;
+
 	public $roles = array();
 	public $filter = '';
 	public $user_status = 0;
@@ -55,6 +62,32 @@ class WP_User {
 		} else {
 			$this->ID = (int) $user;
 		}
+	}
+
+	/**
+	 * Get a user data property.
+	 *
+	 * @param string $key Property name.
+	 * @return mixed Property value, or null when unset.
+	 */
+	public function __get( $key ) {
+		return isset( $this->data->$key )
+			? $this->data->$key
+			: null;
+	}
+
+	/**
+	 * Set a user data property.
+	 *
+	 * @param string $key   Property name.
+	 * @param mixed  $value Property value.
+	 */
+	public function __set( $key, $value ) {
+		if ( ! is_object( $this->data ) ) {
+			$this->data = new stdClass();
+		}
+
+		$this->data->$key = $value;
 	}
 
 	public function for_site( $site_id ) {
