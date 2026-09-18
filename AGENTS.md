@@ -17,7 +17,7 @@
 - Characterize self-edit and other-user saves, nonce failures, capability
   checks, redirects, multisite role updates, and third-party hook routing when
   touching those paths.
-- Run `composer test`, `composer phpcs`, the declared PHP syntax matrix, both
+- Run `composer test`, the centrally managed PHPCS gate, the declared PHP syntax matrix, both
   WordPress integration topologies, and metadata/artifact validation before
   requesting review.
 
