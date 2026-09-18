@@ -36,7 +36,6 @@ class WP_Error {
 
 class WP_User {
 	public $ID = 0;
-	public $display_name = '';
 	public $roles = array();
 	public $filter = '';
 	public $user_status = 0;
@@ -69,14 +68,6 @@ class WP_User {
 	public function remove_all_caps() {
 		$this->role_history[] = array( 'remove' );
 		$this->roles = array();
-	}
-}
-
-class Wpup_Test_Screen {
-	public $id = 'users_page_profile';
-
-	public function get_columns() {
-		return 2;
 	}
 }
 
@@ -161,8 +152,6 @@ function plugin_dir_url( $file ) { return 'https://example.test/plugins/' . base
 function load_plugin_textdomain() { return true; }
 function esc_html__( $text ) { return $text; }
 function esc_html( $text ) { return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' ); }
-function esc_attr( $text ) { return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' ); }
-function esc_url( $url ) { return (string) $url; }
 function sanitize_key( $value ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $value ) ); }
 function absint( $value ) { return abs( (int) $value ); }
 function wp_unslash( $value ) { return $value; }
@@ -237,16 +226,6 @@ function is_wp_error( $value ) { return $value instanceof WP_Error; }
 function clean_user_cache() { return true; }
 function wp_update_user( $user ) { return $user->ID; }
 function get_edit_profile_url( $user_id ) { return 'https://example.test/profile/' . (int) $user_id; }
-function wp_reset_vars( $vars ) {
-	foreach ( $vars as $var ) {
-		$GLOBALS[ $var ] = '';
-	}
-}
-function get_current_screen() { return new Wpup_Test_Screen(); }
-function remove_meta_box() { return true; }
-function remove_query_arg( $keys, $url = '' ) { return (string) $url; }
-function do_meta_boxes() { return true; }
-function wp_nonce_field() { return ''; }
 
 wpup_test_reset();
 
