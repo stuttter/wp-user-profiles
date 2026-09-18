@@ -58,9 +58,10 @@ Install the locked tools with `composer install`, then use:
 * `composer i18n` to regenerate the tracked POT file with the locked WP-CLI.
 * `composer i18n:check` to regenerate to a temporary file and fail on drift.
 
-Run `composer test` and `npm run build:check` before opening a
-release pull request. Review every generated diff. Commands return nonzero on a
-failed check; do not suppress their exit status.
+Run `composer test` and `npm run build:check` before opening a release pull
+request, and require the centrally managed PHPCS gate to pass before merge.
+Review every generated diff. Commands return nonzero on a failed check; do not
+suppress their exit status.
 
 Production ZIP creation belongs exclusively to the central Stuttter artifact
 builder already invoked by CI. Version/tag validation, GitHub releases, and
