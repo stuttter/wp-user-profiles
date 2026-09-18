@@ -67,15 +67,20 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 		// Color Scheme
 		$user->admin_color = isset( $_POST['admin_color'] )
 			? sanitize_text_field( $_POST['admin_color'] )
-			: 'fresh';
+			: 'modern';
 
 		// Double negative visual editor
-		$user->rich_editing = isset( $_POST['rich_editing'] )
+		$user->rich_editing = isset( $_POST['rich_editing'] ) && ( 'false' === $_POST['rich_editing'] )
 			? 'false'
 			: 'true';
 
 		// Double negative syntax highlighting
-		$user->syntax_highlighting = isset( $_POST['syntax_highlighting'] )
+		$user->syntax_highlighting = isset( $_POST['syntax_highlighting'] ) && ( 'false' === $_POST['syntax_highlighting'] )
+			? 'false'
+			: 'true';
+
+		// Double negative Media Library infinite scrolling
+		$user->infinite_scrolling = isset( $_POST['infinite_scrolling'] ) && ( 'false' === $_POST['infinite_scrolling'] )
 			? 'false'
 			: 'true';
 
@@ -85,12 +90,12 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			: 'false';
 
 		// Enable comments shortcuts
-		$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] )
+		$user->comment_shortcuts = isset( $_POST['comment_shortcuts'] ) && ( 'true' === $_POST['comment_shortcuts'] )
 			? 'true'
-			: 'false';
+			: '';
 
 		// Force SSL
-		$user->use_ssl = isset( $_POST['use_ssl'] )
+		$user->use_ssl = ! empty( $_POST['use_ssl'] )
 			? 1
 			: 0;
 

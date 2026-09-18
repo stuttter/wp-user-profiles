@@ -279,38 +279,46 @@ msgstr ""
 msgid "Admin Color Scheme"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:55
-#: wp-user-profiles/includes/sections/options.php:113
+#: wp-user-profiles/includes/metaboxes/options-personal.php:56
+#: wp-user-profiles/includes/sections/options.php:118
 msgid "Visual Editor"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:58
+#: wp-user-profiles/includes/metaboxes/options-personal.php:59
 msgid "Disable the visual editor when writing"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:69
+#: wp-user-profiles/includes/metaboxes/options-personal.php:70
 msgid "Syntax Highlighting"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:72
+#: wp-user-profiles/includes/metaboxes/options-personal.php:73
 msgid "Disable syntax highlighting when editing code"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:83
+#: wp-user-profiles/includes/metaboxes/options-personal.php:84
 msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:86
+#: wp-user-profiles/includes/metaboxes/options-personal.php:87
 msgid "Enable keyboard shortcuts for comment moderation."
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:97
-#: wp-user-profiles/includes/metaboxes/options-personal.php:100
+#: wp-user-profiles/includes/metaboxes/options-personal.php:98
+#: wp-user-profiles/includes/metaboxes/options-personal.php:101
 msgid "Toolbar"
 msgstr ""
 
-#: wp-user-profiles/includes/metaboxes/options-personal.php:103
+#: wp-user-profiles/includes/metaboxes/options-personal.php:104
 msgid "Show Toolbar when viewing site"
+msgstr ""
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:116
+msgid "Infinite Scrolling"
+msgstr ""
+
+#: wp-user-profiles/includes/metaboxes/options-personal.php:119
+msgid "Disable infinite scrolling in the Media Library grid view"
 msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/other-all.php:49
@@ -506,43 +514,43 @@ msgstr ""
 msgid "<strong>ERROR</strong>: Please enter the same password in both password fields."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:164
+#: wp-user-profiles/includes/sections/account.php:169
 msgid "<strong>ERROR</strong>: Please enter an email address."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:168
+#: wp-user-profiles/includes/sections/account.php:173
 msgid "<strong>ERROR</strong>: The email address is not correct."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:172
+#: wp-user-profiles/includes/sections/account.php:177
 msgid "<strong>ERROR</strong>: This email is already in use."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:188
+#: wp-user-profiles/includes/sections/account.php:197
 msgid "This is where important account information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:189
+#: wp-user-profiles/includes/sections/account.php:198
 msgid "Your email address is used for receiving notifications from this site"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:190
+#: wp-user-profiles/includes/sections/account.php:199
 msgid "Passwords should be lengthy and complex to help keep your account secure"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:191
+#: wp-user-profiles/includes/sections/account.php:200
 msgid "The language you pick will be used wherever it is supported."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:192
+#: wp-user-profiles/includes/sections/account.php:201
 msgid "Sessions are logged from each device you login from"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:193
+#: wp-user-profiles/includes/sections/account.php:202
 msgid "Application passwords allow authentication via non-interactive systems."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:197
+#: wp-user-profiles/includes/sections/account.php:206
 msgid "Two-Factor Authentication adds an extra layer of security to your account."
 msgstr ""
 
@@ -556,15 +564,15 @@ msgctxt "users user-admin edit screen"
 msgid "Personal Options"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:111
+#: wp-user-profiles/includes/sections/options.php:116
 msgid "This is where most options & site preferences can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:112
+#: wp-user-profiles/includes/sections/options.php:117
 msgid "Color Schemes"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:114
+#: wp-user-profiles/includes/sections/options.php:119
 msgid "Comment Moderation Shortcuts"
 msgstr ""
 

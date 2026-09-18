@@ -112,12 +112,12 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 
 		// Password (1)
 		$pass1 = isset( $_POST['pass1'] )
-			? $_POST['pass1']
+			? trim( $_POST['pass1'] )
 			: '';
 
 		// Password (2)
 		$pass2 = isset( $_POST['pass2'] )
-			? $_POST['pass2']
+			? trim( $_POST['pass2'] )
 			: '';
 
 		// This filter is documented in wp-admin/includes/user.php
@@ -147,7 +147,13 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 			} elseif ( '' === $locale ) {
 				$locale = 'en_US';
 			} elseif ( ! in_array( $locale, get_available_languages(), true ) ) {
-				$locale = '';
+				if ( current_user_can( 'install_languages' ) && wp_can_install_language_pack() ) {
+					if ( ! wp_download_language_pack( $locale ) ) {
+						$locale = '';
+					}
+				} else {
+					$locale = '';
+				}
 			}
 
 			$user->locale = $locale;
@@ -156,20 +162,23 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		// Checking email address
 		if ( isset( $_POST['email'] ) ) {
 
-			// Sanitize the email
-			$user->user_email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+			$maybe_email = wp_unslash( $_POST['email'] );
 
 			// Email empty
-			if ( empty( $user->user_email ) ) {
+			if ( ! is_string( $maybe_email ) || empty( $maybe_email ) ) {
 				$this->errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an email address.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
 			// Email invalid
-			} elseif ( ! is_email( $user->user_email ) ) {
+			} elseif ( ! is_email( $maybe_email ) ) {
 				$this->errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address is not correct.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
 			// Email in use
-			} elseif ( ( $owner_id = email_exists( $user->user_email ) ) && ( $owner_id !== $user->ID ) ) {
+			} elseif ( ( $owner_id = email_exists( $maybe_email ) ) && ( $owner_id !== $user->ID ) ) {
 				$this->errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
+
+			// Email valid
+			} else {
+				$user->user_email = $maybe_email;
 			}
 		}
 
