@@ -654,7 +654,7 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 				echo wp_kses_post( apply_filters( 'wp_user_profiles_admin_subnav_html', $text, $sub ) );
 
 			?></a>
-		<li><?php
+		</li><?php
 	}
 
 	// Get links

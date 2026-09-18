@@ -45,7 +45,49 @@
 -------------------------------------------------------------- */
 
 #wp-user-profiles-page.wp-user-profiles-modern #profile-subnav {
-	margin-bottom: -1px;
+	display: flex;
+	box-sizing: border-box;
+	gap: 4px;
+	width: 100%;
+	margin: 0;
+	padding: 0 16px;
+	overflow-x: auto;
+	border-bottom: 1px solid #e0e0e0;
+	background: #f6f7f7;
+	box-shadow: none;
+	white-space: nowrap;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav li {
+	float: none;
+	margin: 0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a {
+	display: block;
+	padding: 11px 10px 9px;
+	border-bottom: 2px solid transparent;
+	color: #1e1e1e;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a.current {
+	padding-bottom: 9px;
+	border-bottom-color: var(--wp-admin-theme-color, #3858e9);
+	color: var(--wp-admin-theme-color, #3858e9);
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a:hover {
+	background: #e0e0e0;
+	color: #1e1e1e;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a:focus-visible {
+	outline: 2px solid var(--wp-admin-theme-color, #3858e9);
+	outline-offset: -4px;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper {
