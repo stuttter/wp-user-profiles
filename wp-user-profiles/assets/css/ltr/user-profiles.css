@@ -99,18 +99,23 @@
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper {
 	display: flex;
-	gap: 4px;
-	min-height: 52px;
-	padding: 8px 16px;
+	align-items: center;
+	gap: 0;
+	height: 64px;
+	padding: 0 16px;
 	overflow-x: auto;
 	white-space: nowrap;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a {
+	display: inline-flex;
+	box-sizing: border-box;
+	align-items: center;
 	flex: 0 0 auto;
+	height: 36px;
 	margin: 0;
-	padding: 8px 12px;
-	border: none;
+	padding: 4px 12px;
+	border: 1px solid transparent;
 	border-radius: 2px;
 	background: none;
 	box-shadow: none;
