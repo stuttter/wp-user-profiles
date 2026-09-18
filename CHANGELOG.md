@@ -7,6 +7,7 @@
 * Prevent profile screens from overriding unrelated administration page titles
 * Preserve WordPress's user-validation hook contract for compatibility with
   Jetpack Account Protection and other integrations
+* Restore WordPress's confirmation flow for self-service email changes
 
 ## 2.7.2 (2026-09-16)
 

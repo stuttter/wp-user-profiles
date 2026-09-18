@@ -81,7 +81,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to edit this user."
 msgstr ""
 
-#: wp-user-profiles/includes/common.php:465
+#: wp-user-profiles/includes/common.php:469
 msgid "User updated."
 msgstr ""
 
@@ -147,8 +147,12 @@ msgstr ""
 msgid "(required)"
 msgstr ""
 
+#: wp-user-profiles/includes/metaboxes/account-email.php:38
+msgid "If you change this, an email will be sent to the new address to confirm it. The new address will not become active until confirmed."
+msgstr ""
+
 #. translators: 1: Pending email address, 2: URL to cancel the change.
-#: wp-user-profiles/includes/metaboxes/account-email.php:43
+#: wp-user-profiles/includes/metaboxes/account-email.php:49
 #, php-format
 msgid "There is a pending change of your email to %1$s. <a href=\"%2$s\">Cancel</a>"
 msgstr ""

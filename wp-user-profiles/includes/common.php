@@ -380,8 +380,12 @@ function wp_user_profiles_save_user() {
 		define( 'IS_PROFILE_PAGE', get_current_user_id() === $user_id );
 	}
 
-	// Remove the multisite email change action for now to prevent notices
-	remove_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
+	// The core callback expects an email field, but most profile sections do not
+	// include one. Keep it attached for self-account saves so WordPress can own
+	// the confirmation handshake, and suppress it for every other section.
+	if ( wp_is_profile_page() && ! isset( $_POST['email'] ) ) {
+		remove_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
+	}
 
 	// This filter documented in wp-admin/user-edit.php
 	wp_is_profile_page()

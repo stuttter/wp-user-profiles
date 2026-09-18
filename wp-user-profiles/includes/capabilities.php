@@ -110,6 +110,19 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
  */
 function wp_user_profiles_old_profile_redirect() {
 
+	// Let WordPress complete or cancel its pending email change handshake.
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Core verifies the confirmation hash or cancellation nonce.
+	if (
+		isset( $_GET['newuseremail'] )
+		|| (
+			! empty( $_GET['dismiss'] )
+			&& get_current_user_id() . '_new_email' === sanitize_text_field( wp_unslash( $_GET['dismiss'] ) )
+		)
+	) {
+		return;
+	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
 	// Get the redirect URL
 	$url = get_edit_profile_url( get_current_user_id() );
 
