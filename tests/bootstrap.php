@@ -77,6 +77,16 @@ class WP_User {
 	}
 
 	/**
+	 * Determine whether a user data property is set.
+	 *
+	 * @param string $key Property name.
+	 * @return bool Whether the property is set.
+	 */
+	public function __isset( $key ) {
+		return isset( $this->data->$key );
+	}
+
+	/**
 	 * Set a user data property.
 	 *
 	 * @param string $key   Property name.
