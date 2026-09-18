@@ -56,14 +56,13 @@ wpup_smoke_assert( array( 'exist' ) === wp_user_profiles_map_meta_cap( array( 'e
 wpup_smoke_assert( ! current_user_can( 'edit_user', $administrator_id ), 'Subscriber can edit another user.' );
 
 // Exercise the real Core callback before the plugin's Account-section save.
-$subscriber       = get_userdata( $subscriber_id );
-$original_email   = $subscriber->user_email;
-$requested_email  = "wpup-new-{$run_id}@example.test";
-$_POST            = array(
+$subscriber      = get_userdata( $subscriber_id );
+$original_email  = $subscriber->user_email;
+$requested_email = "wpup-new-{$run_id}@example.test";
+$_POST           = array(
 	'user_id' => $subscriber_id,
 	'email'   => $requested_email,
 );
-$GLOBALS['errors'] = new WP_Error();
 
 add_filter( 'pre_wp_mail', '__return_true' );
 send_confirmation_on_profile_email( $subscriber_id );
@@ -71,7 +70,7 @@ remove_filter( 'pre_wp_mail', '__return_true' );
 
 $pending_email = get_user_meta( $subscriber_id, '_new_email', true );
 wpup_smoke_assert( $requested_email === $pending_email['newemail'], 'Core did not record the pending email change.' );
-wpup_smoke_assert( $original_email === $_POST['email'], 'Core did not restore the current email before the plugin save.' );
+wpup_smoke_assert( isset( $_POST['email'] ) && $original_email === $_POST['email'], 'Core did not restore the current email before the plugin save.' );
 
 $account_section = null;
 foreach ( wp_user_profiles_sections() as $section ) {
@@ -84,13 +83,13 @@ foreach ( wp_user_profiles_sections() as $section ) {
 wpup_smoke_assert( $account_section instanceof WP_User_Profile_Account_Section, 'Account section was not registered.' );
 $save_result = $account_section->save( get_userdata( $subscriber_id ) );
 wpup_smoke_assert( ! is_wp_error( $save_result ), 'Account section rejected the Core-managed email change.' );
-wpup_smoke_assert( $original_email === get_userdata( $subscriber_id )->user_email, 'Pending email became active before confirmation.' );
+wpup_smoke_assert( get_userdata( $subscriber_id )->user_email === $original_email, 'Pending email became active before confirmation.' );
 
 // The plugin yields matching cancellation requests to profile.php; Core still
 // owns and enforces the nonce before deleting the pending change.
 $dismiss_action = 'dismiss-' . $subscriber_id . '_new_email';
-$_GET            = array( 'dismiss' => $subscriber_id . '_new_email' );
-$_REQUEST        = array( '_wpnonce' => wp_create_nonce( $dismiss_action ) );
+$_GET           = array( 'dismiss' => $subscriber_id . '_new_email' );
+$_REQUEST       = array( '_wpnonce' => wp_create_nonce( $dismiss_action ) );
 wpup_smoke_assert( null === wp_user_profiles_old_profile_redirect(), 'Plugin intercepted a valid Core cancellation route.' );
 wpup_smoke_assert( 1 === check_admin_referer( $dismiss_action ), 'Core rejected a valid cancellation nonce.' );
 
