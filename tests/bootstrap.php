@@ -36,6 +36,7 @@ class WP_Error {
 
 class WP_User {
 	public $ID = 0;
+	public $data = null;
 	public $roles = array();
 	public $filter = '';
 	public $user_status = 0;
@@ -145,7 +146,18 @@ function do_action( $hook ) {
 		}
 	}
 }
-function do_action_ref_array( $hook, $args ) { wpup_test_call( 'do_action:' . $hook, $args ); }
+function do_action_ref_array( $hook, $args ) {
+	wpup_test_call( 'do_action:' . $hook, $args );
+	if ( empty( $GLOBALS['wpup_test']['actions'][ $hook ] ) ) {
+		return;
+	}
+	ksort( $GLOBALS['wpup_test']['actions'][ $hook ] );
+	foreach ( $GLOBALS['wpup_test']['actions'][ $hook ] as $callbacks ) {
+		foreach ( $callbacks as $registration ) {
+			call_user_func_array( $registration[0], array_slice( $args, 0, $registration[1] ) );
+		}
+	}
+}
 
 function plugin_dir_path( $file ) { return dirname( $file ) . '/'; }
 function plugin_dir_url( $file ) { return 'https://example.test/plugins/' . basename( dirname( $file ) ) . '/'; }
@@ -223,8 +235,14 @@ function add_query_arg( $args, $url = '' ) {
 	return $url . $separator . http_build_query( $args );
 }
 function is_wp_error( $value ) { return $value instanceof WP_Error; }
-function clean_user_cache() { return true; }
-function wp_update_user( $user ) { return $user->ID; }
+function clean_user_cache() {
+	wpup_test_call( __FUNCTION__, func_get_args() );
+	return true;
+}
+function wp_update_user( $user ) {
+	wpup_test_call( __FUNCTION__, array( clone $user ) );
+	return $user->ID;
+}
 function get_edit_profile_url( $user_id ) { return 'https://example.test/profile/' . (int) $user_id; }
 
 wpup_test_reset();

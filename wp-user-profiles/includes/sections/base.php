@@ -255,6 +255,9 @@ class WP_User_Profile_Section {
 
 		// Allow third party plugins to hook into this sections saving process
 		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
+		$user_id = ! empty( $user->ID )
+			? (int) $user->ID
+			: 0;
 
 		// Match the object type used by edit_user() for this core action
 		if ( $user instanceof WP_User ) {
@@ -276,7 +279,7 @@ class WP_User_Profile_Section {
 		}
 
 		// Pre-clean the cache before updating
-		clean_user_cache( $user );
+		clean_user_cache( $user_id );
 
 		// Update the user in the database
 		return wp_update_user( $user );
