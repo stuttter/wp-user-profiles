@@ -102,8 +102,9 @@ $die_handler    = static function () {
 };
 add_filter( 'wp_die_handler', $die_handler );
 
+wpup_smoke_assert( null === wp_user_profiles_old_profile_redirect(), 'Plugin intercepted an invalid Core cancellation route.' );
+
 try {
-	wpup_smoke_assert( null === wp_user_profiles_old_profile_redirect(), 'Plugin intercepted an invalid Core cancellation route.' );
 	check_admin_referer( $dismiss_action );
 } catch ( RuntimeException $exception ) {
 	$nonce_rejected = true;
