@@ -53,7 +53,7 @@
 	padding: 0 16px;
 	overflow-x: auto;
 	border-bottom: 1px solid #e0e0e0;
-	background: #f6f7f7;
+	background: #fff;
 	box-shadow: none;
 	white-space: nowrap;
 }
@@ -65,11 +65,11 @@
 
 #wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a {
 	display: block;
-	padding: 11px 10px 9px;
-	border-bottom: 2px solid transparent;
-	color: #1e1e1e;
-	font-size: 12px;
-	font-weight: 500;
+	padding: 12px 10px 9px;
+	border-bottom: 3px solid transparent;
+	color: #2271b1;
+	font-size: 13px;
+	font-weight: 400;
 	line-height: 20px;
 	text-decoration: none;
 }
@@ -77,12 +77,13 @@
 #wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a.current {
 	padding-bottom: 9px;
 	border-bottom-color: var(--wp-admin-theme-color, #3858e9);
-	color: var(--wp-admin-theme-color, #3858e9);
+	color: #1e1e1e;
+	font-weight: 600;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a:hover {
-	background: #e0e0e0;
-	color: #1e1e1e;
+	background: #f6f7f7;
+	color: #135e96;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern #profile-subnav a:focus-visible {
@@ -99,8 +100,8 @@
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper {
 	display: flex;
 	gap: 4px;
-	min-height: 48px;
-	padding: 0 16px;
+	min-height: 52px;
+	padding: 8px 16px;
 	overflow-x: auto;
 	white-space: nowrap;
 }
@@ -108,9 +109,9 @@
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a {
 	flex: 0 0 auto;
 	margin: 0;
-	padding: 14px 12px;
+	padding: 8px 12px;
 	border: none;
-	border-radius: 0;
+	border-radius: 2px;
 	background: none;
 	box-shadow: none;
 	color: #1e1e1e;
@@ -120,14 +121,19 @@
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a.nav-tab-active {
-	background: transparent;
-	box-shadow: inset 0 -3px var(--wp-admin-theme-color, #3858e9);
-	color: var(--wp-admin-theme-color, #3858e9);
+	background: #1e1e1e;
+	box-shadow: none;
+	color: #fff;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a:hover {
 	background: #f0f0f0;
 	color: #1e1e1e;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a.nav-tab-active:hover {
+	background: #1e1e1e;
+	color: #fff;
 }
 
 #wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a:focus-visible {
