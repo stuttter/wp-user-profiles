@@ -71,6 +71,14 @@ Yes. There are hooks to add/remove sections, their boxes, and fields.
 
 See: `wp-user-profiles/includes/hooks.php`
 
+= Can I enable the modern profile layout? =
+
+Yes. Add this filter in a small plugin, an mu-plugin, or your theme's code:
+
+`add_filter( 'wp_user_profiles_use_modern_styles', '__return_true' );`
+
+The classic layout remains the default unless the site owner enables this filter.
+
 = Where can I get support? =
 
 * Community: https://wordpress.org/support/plugin/wp-user-profiles

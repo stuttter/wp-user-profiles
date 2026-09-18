@@ -41,6 +41,123 @@
 	margin: 20px 0 0 0;
 }
 
+/* Modern profile layout
+-------------------------------------------------------------- */
+
+#wp-user-profiles-page.wp-user-profiles-modern #profile-subnav {
+	margin-bottom: -1px;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper {
+	margin: 20px -20px -1px -22px;
+	background: #fff;
+	border-top: 1px solid #e0e0e0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper {
+	padding: 16px 0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a {
+	border: none;
+	border-radius: 2px;
+	background: none;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper .nav-tab-wrapper a.nav-tab-active {
+	color: #fff;
+	background: #1e1e1e;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #poststuff {
+	float: left;
+	width: calc(100% + 40px);
+	height: 100%;
+	margin: 0 -22px;
+	padding: 0;
+	background: #fff;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #poststuff #post-body.columns-2 {
+	margin-right: 280px;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern #post-body.columns-2 #postbox-container-1 {
+	margin-right: -281px;
+	border-left: 1px solid #e0e0e0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox {
+	margin-bottom: -1px;
+	font-size: 13px;
+	border-color: #e0e0e0;
+	border-left: none;
+	border-right: none;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox h2 {
+	padding: 16px 48px 16px 16px;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox .postbox-header {
+	border-color: #e0e0e0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox .postbox-header:hover {
+	background-color: #f0f0f0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox:not(.closed) .postbox-header {
+	border: none;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox div.inside,
+#wp-user-profiles-page.wp-user-profiles-modern div.submitbox div.misc-pub-section {
+	margin: 0;
+	padding: 0 16px 16px;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox .form-table {
+	margin: 0;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox .form-table th {
+	padding: 16px 10px 16px 0;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+#wp-user-profiles-page.wp-user-profiles-modern div.postbox .form-table label {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+@media screen and (max-width: 782px) {
+	#wp-user-profiles-page.wp-user-profiles-modern .wp-user-profiles-nav-wrapper,
+	#wp-user-profiles-page.wp-user-profiles-modern #poststuff {
+		width: auto;
+		margin-right: -10px;
+		margin-left: -10px;
+	}
+
+	#wp-user-profiles-page.wp-user-profiles-modern #poststuff {
+		float: none;
+	}
+
+	#wp-user-profiles-page.wp-user-profiles-modern #poststuff #post-body.columns-2 {
+		margin-right: 0;
+	}
+
+	#wp-user-profiles-page.wp-user-profiles-modern #post-body.columns-2 #postbox-container-1 {
+		margin-right: 0;
+		border-left: none;
+	}
+}
+
 /* Secondary Nav
 -------------------------------------------------------------- */
 

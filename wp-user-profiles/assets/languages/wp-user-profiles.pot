@@ -39,38 +39,37 @@ msgstr ""
 msgid "https://jjj.software"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:154
-#: wp-user-profiles/includes/admin.php:190
-#: wp-user-profiles/includes/admin.php:191
-#: wp-user-profiles/includes/admin.php:259
-#: wp-user-profiles/includes/admin.php:260
+#: wp-user-profiles/includes/admin.php:205
+#: wp-user-profiles/includes/admin.php:206
+#: wp-user-profiles/includes/admin.php:274
+#: wp-user-profiles/includes/admin.php:275
 #: wp-user-profiles/includes/sections.php:23
 msgid "Profile"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:371
+#: wp-user-profiles/includes/admin.php:386
 msgid "&larr; Back to Users"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:528
+#: wp-user-profiles/includes/admin.php:543
 msgid "Secondary menu"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:613
+#: wp-user-profiles/includes/admin.php:628
 msgid "General"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:675
+#: wp-user-profiles/includes/admin.php:690
 msgctxt "user"
 msgid "Add New"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:679
+#: wp-user-profiles/includes/admin.php:694
 msgctxt "user"
 msgid "Add Existing"
 msgstr ""
 
-#: wp-user-profiles/includes/admin.php:734
+#: wp-user-profiles/includes/admin.php:749
 msgid "Anonymous"
 msgstr ""
 
