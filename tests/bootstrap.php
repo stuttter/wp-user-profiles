@@ -156,7 +156,20 @@ function add_filter( $hook, $callback, $priority = 10, $accepted_args = 1 ) {
 	$GLOBALS['wpup_test']['filters'][ $hook ][ $priority ][] = array( $callback, $accepted_args );
 	return true;
 }
-function remove_action( $hook, $callback, $priority = 10 ) { return true; }
+function remove_action( $hook, $callback, $priority = 10 ) {
+	if ( empty( $GLOBALS['wpup_test']['actions'][ $hook ][ $priority ] ) ) {
+		return false;
+	}
+
+	foreach ( $GLOBALS['wpup_test']['actions'][ $hook ][ $priority ] as $index => $registration ) {
+		if ( $registration[0] === $callback ) {
+			unset( $GLOBALS['wpup_test']['actions'][ $hook ][ $priority ][ $index ] );
+			return true;
+		}
+	}
+
+	return false;
+}
 function remove_filter( $hook, $callback, $priority = 10 ) { return true; }
 function has_action( $hook ) { return ! empty( $GLOBALS['wpup_test']['actions'][ $hook ] ); }
 function apply_filters( $hook, $value ) {
@@ -207,6 +220,14 @@ function plugin_dir_url( $file ) { return 'https://example.test/plugins/' . base
 function load_plugin_textdomain() { return true; }
 function esc_html__( $text ) { return $text; }
 function esc_html( $text ) { return htmlspecialchars( (string) $text, ENT_QUOTES, 'UTF-8' ); }
+
+/**
+ * Minimal text-field sanitizer for unit tests.
+ *
+ * @param mixed $text Input text.
+ * @return string Sanitized text.
+ */
+function sanitize_text_field( $text ) { return trim( (string) $text ); }
 function sanitize_key( $value ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $value ) ); }
 function absint( $value ) { return abs( (int) $value ); }
 function wp_unslash( $value ) { return $value; }
@@ -287,6 +308,15 @@ function wp_update_user( $user ) {
 	return $user->ID;
 }
 function get_edit_profile_url( $user_id ) { return 'https://example.test/profile/' . (int) $user_id; }
+
+/**
+ * Record core email-confirmation callback invocations.
+ *
+ * @param int $user_id User ID.
+ */
+function send_confirmation_on_profile_email( $user_id = 0 ) {
+	wpup_test_call( __FUNCTION__, array( (int) $user_id ) );
+}
 
 wpup_test_reset();
 

@@ -36,4 +36,31 @@ class BootstrapAndCapabilitiesTest extends TestCase {
 		$GLOBALS['wpup_test']['capabilities']['edit_user'] = true;
 		$this->assertNull( wp_user_profiles_current_user_can_edit( 9 ) );
 	}
+
+	/**
+	 * Core handles valid email confirmation requests.
+	 */
+	public function test_email_confirmation_request_uses_the_core_profile_route(): void {
+		$_GET['newuseremail'] = 'confirmation-hash';
+
+		$this->assertNull( wp_user_profiles_old_profile_redirect() );
+	}
+
+	/**
+	 * Core handles pending email cancellation requests.
+	 */
+	public function test_email_change_cancellation_uses_the_core_profile_route(): void {
+		$GLOBALS['wpup_test']['current_user_id'] = 7;
+		$_GET['dismiss']                         = '7_new_email';
+
+		$this->assertNull( wp_user_profiles_old_profile_redirect() );
+	}
+
+	/**
+	 * Ordinary profile.php requests remain redirected.
+	 */
+	public function test_unrelated_profile_request_still_redirects(): void {
+		$this->expectException( Wpup_Redirect_Exception::class );
+		wp_user_profiles_old_profile_redirect();
+	}
 }
