@@ -10,6 +10,25 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
+ * Return whether modern profile styles are enabled for this site.
+ *
+ * @since 2.8.0
+ *
+ * @return bool
+ */
+function wp_user_profiles_use_modern_styles() {
+
+	/**
+	 * Filters whether the modern profile layout is enabled for this site.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param bool $use_modern_styles Whether to use the modern layout.
+	 */
+	return (bool) apply_filters( 'wp_user_profiles_use_modern_styles', false );
+}
+
+/**
  * Register admin scripts
  *
  * @since 0.1.0
@@ -635,7 +654,7 @@ function wp_user_profiles_admin_subnav( $user = null ) {
 				echo wp_kses_post( apply_filters( 'wp_user_profiles_admin_subnav_html', $text, $sub ) );
 
 			?></a>
-		<li><?php
+		</li><?php
 	}
 
 	// Get links
@@ -732,9 +751,15 @@ function wp_user_profiles_user_admin() {
 	// Columns
 	$columns = ( 1 === (int) get_current_screen()->get_columns() )
 		? '1'
-		: '2'; ?>
+		: '2';
 
-	<div class="wrap" id="wp-user-profiles-page">
+	// Page classes
+	$page_classes = array( 'wrap' );
+	if ( wp_user_profiles_use_modern_styles() ) {
+		$page_classes[] = 'wp-user-profiles-modern';
+	} ?>
+
+	<div class="<?php echo esc_attr( implode( ' ', $page_classes ) ); ?>" id="wp-user-profiles-page">
 		<h1 class="wp-heading-inline"><?php
 
 			// The page title

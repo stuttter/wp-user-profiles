@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+* Add an opt-in modern profile layout controlled by the
+  `wp_user_profiles_use_modern_styles` filter
+
 ## 2.7.2 (2026-09-16)
 
 * Require WordPress 6.4 or newer
