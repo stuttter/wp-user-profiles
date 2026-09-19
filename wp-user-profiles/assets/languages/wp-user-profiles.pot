@@ -510,51 +510,51 @@ msgctxt "users user-admin edit screen"
 msgid "Two-Factor Authentication"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:128
+#: wp-user-profiles/includes/sections/account.php:132
 msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:133
+#: wp-user-profiles/includes/sections/account.php:137
 msgid "<strong>ERROR</strong>: Please enter the same password in both password fields."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:171
+#: wp-user-profiles/includes/sections/account.php:175
 msgid "<strong>ERROR</strong>: Please enter an email address."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:175
+#: wp-user-profiles/includes/sections/account.php:179
 msgid "<strong>ERROR</strong>: The email address is not correct."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:179
+#: wp-user-profiles/includes/sections/account.php:183
 msgid "<strong>ERROR</strong>: This email is already in use."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:199
+#: wp-user-profiles/includes/sections/account.php:203
 msgid "This is where important account information can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:200
+#: wp-user-profiles/includes/sections/account.php:204
 msgid "Your email address is used for receiving notifications from this site"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:201
+#: wp-user-profiles/includes/sections/account.php:205
 msgid "Passwords should be lengthy and complex to help keep your account secure"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:202
+#: wp-user-profiles/includes/sections/account.php:206
 msgid "The language you pick will be used wherever it is supported."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:203
+#: wp-user-profiles/includes/sections/account.php:207
 msgid "Sessions are logged from each device you login from"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:204
+#: wp-user-profiles/includes/sections/account.php:208
 msgid "Application passwords allow authentication via non-interactive systems."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/account.php:208
+#: wp-user-profiles/includes/sections/account.php:212
 msgid "Two-Factor Authentication adds an extra layer of security to your account."
 msgstr ""
 

@@ -84,6 +84,7 @@ wpup_smoke_assert( $account_section instanceof WP_User_Profile_Account_Section, 
 $save_result = $account_section->save( get_userdata( $subscriber_id ) );
 wpup_smoke_assert( ! is_wp_error( $save_result ), 'Account section rejected the Core-managed email change.' );
 wpup_smoke_assert( get_userdata( $subscriber_id )->user_email === $original_email, 'Pending email became active before confirmation.' );
+wpup_smoke_assert( function_exists( 'wp_can_install_language_pack' ), 'Account save did not load Core\'s language-pack API.' );
 
 // The plugin yields matching cancellation requests to profile.php; Core still
 // owns and enforces the nonce before deleting the pending change.

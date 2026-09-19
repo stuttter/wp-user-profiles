@@ -109,6 +109,10 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
+		// Core loads this API from user-edit.php, which this custom screen bypasses.
+		if ( ! function_exists( 'wp_can_install_language_pack' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/translation-install.php';
+		}
 
 		// Password (1)
 		$pass1 = isset( $_POST['pass1'] )
