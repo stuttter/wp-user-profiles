@@ -100,6 +100,21 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
 }
 
 /**
+ * Determine whether the current request should use WordPress's profile screen.
+ *
+ * @since 2.7.3
+ *
+ * @return bool Whether the profile redirect should be bypassed.
+ */
+function wp_user_profiles_is_redirect_bypassed() {
+	// This query argument only selects a screen; Core owns authorization and saving.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$value = isset( $_GET['wpup-skip-redirect'] ) ? sanitize_text_field( wp_unslash( $_GET['wpup-skip-redirect'] ) ) : '';
+
+	return '1' === $value;
+}
+
+/**
  * Prevent access to `profile.php`
  *
  * @since 0.2.0
@@ -109,6 +124,11 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
  * @param type $user
  */
 function wp_user_profiles_old_profile_redirect() {
+
+	// Allow deliberate access to WordPress's profile screen.
+	if ( wp_user_profiles_is_redirect_bypassed() ) {
+		return;
+	}
 
 	// Let WordPress complete or cancel its pending email change handshake.
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Core verifies the confirmation hash or cancellation nonce.
@@ -142,19 +162,24 @@ function wp_user_profiles_old_profile_redirect() {
  */
 function wp_user_profiles_old_user_edit_redirect() {
 
+	// Allow deliberate access to WordPress's user editing screen.
+	if ( wp_user_profiles_is_redirect_bypassed() ) {
+		return;
+	}
+
 	// Get the user ID
-    $user_id = ! empty( $_REQUEST['user_id'] )
+	$user_id = ! empty( $_REQUEST['user_id'] )
 		? absint( $_REQUEST['user_id'] )
 		: get_current_user_id();
 
 	// Get the redirect URL
-    $user_edit_url = add_query_arg( array(
+	$user_edit_url = add_query_arg( array(
 		'page' => 'profile'
 	), wp_user_profiles_get_admin_area_url( $user_id ) );
 
 	// Do the redirect
-    wp_safe_redirect( $user_edit_url );
-    exit;
+	wp_safe_redirect( $user_edit_url );
+	exit;
 }
 
 /**

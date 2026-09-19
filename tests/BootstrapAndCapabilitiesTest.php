@@ -63,4 +63,32 @@ class BootstrapAndCapabilitiesTest extends TestCase {
 		$this->expectException( Wpup_Redirect_Exception::class );
 		wp_user_profiles_old_profile_redirect();
 	}
+
+	/**
+	 * An explicit query argument exposes Core's own profile screen.
+	 */
+	public function test_profile_redirect_can_be_bypassed(): void {
+		$_GET['wpup-skip-redirect'] = '1';
+
+		$this->assertNull( wp_user_profiles_old_profile_redirect() );
+	}
+
+	/**
+	 * The bypass requires the exact documented value.
+	 */
+	public function test_profile_redirect_rejects_other_bypass_values(): void {
+		$_GET['wpup-skip-redirect'] = 'yes';
+
+		$this->expectException( Wpup_Redirect_Exception::class );
+		wp_user_profiles_old_profile_redirect();
+	}
+
+	/**
+	 * The same escape hatch applies when editing another user.
+	 */
+	public function test_user_edit_redirect_can_be_bypassed(): void {
+		$_GET['wpup-skip-redirect'] = '1';
+
+		$this->assertNull( wp_user_profiles_old_user_edit_redirect() );
+	}
 }

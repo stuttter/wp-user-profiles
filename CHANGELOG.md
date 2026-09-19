@@ -8,6 +8,8 @@
 * Preserve WordPress's user-validation hook contract for compatibility with
   Jetpack Account Protection and other integrations
 * Restore WordPress's confirmation flow for self-service email changes
+* Allow deliberate access to WordPress's original profile screens with the
+  `wpup-skip-redirect=1` query argument
 
 ## 2.7.2 (2026-09-16)
 

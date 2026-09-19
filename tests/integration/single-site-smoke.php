@@ -115,6 +115,11 @@ wpup_smoke_assert( $nonce_rejected, 'Core accepted a missing cancellation nonce.
 $pending_email = get_user_meta( $subscriber_id, '_new_email', true );
 wpup_smoke_assert( is_array( $pending_email ) && $requested_email === $pending_email['newemail'], 'Pending email was removed without a valid nonce.' );
 
+// A deliberate query argument exposes Core's profile and user-edit screens.
+$_GET = array( 'wpup-skip-redirect' => '1' );
+wpup_smoke_assert( null === wp_user_profiles_old_profile_redirect(), 'Plugin intercepted an explicit Core profile request.' );
+wpup_smoke_assert( null === wp_user_profiles_old_user_edit_redirect(), 'Plugin intercepted an explicit Core user-edit request.' );
+
 delete_user_meta( $subscriber_id, '_new_email' );
 $_GET     = array();
 $_POST    = array();
