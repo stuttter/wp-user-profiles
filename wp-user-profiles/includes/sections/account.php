@@ -162,21 +162,23 @@ class WP_User_Profile_Account_Section extends WP_User_Profile_Section {
 		// Checking email address
 		if ( isset( $_POST['email'] ) ) {
 
+			// Core validates this value as an email before assigning it.
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$maybe_email = wp_unslash( $_POST['email'] );
 
 			// Email empty
 			if ( ! is_string( $maybe_email ) || empty( $maybe_email ) ) {
 				$this->errors->add( 'empty_email', __( '<strong>ERROR</strong>: Please enter an email address.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
-			// Email invalid
+				// Email invalid
 			} elseif ( ! is_email( $maybe_email ) ) {
 				$this->errors->add( 'invalid_email', __( '<strong>ERROR</strong>: The email address is not correct.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
-			// Email in use
+				// Email in use
 			} elseif ( ( $owner_id = email_exists( $maybe_email ) ) && ( $owner_id !== $user->ID ) ) {
 				$this->errors->add( 'email_exists', __( '<strong>ERROR</strong>: This email is already in use.', 'wp-user-profiles' ), array( 'form-field' => 'email' ) );
 
-			// Email valid
+				// Email valid
 			} else {
 				$user->user_email = $maybe_email;
 			}

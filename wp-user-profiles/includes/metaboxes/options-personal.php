@@ -109,7 +109,9 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 
 		endif;
 
-		// Infinite Scrolling
+		// Infinite Scrolling.
+		// This legacy template intentionally mixes alternate PHP syntax with HTML.
+		// phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact,Squiz.PHP.EmbeddedPhp.ContentAfterEnd,Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
 		if ( ! empty( $show['infinite_scrolling'] ) ) :
 
 			?><tr class="user-infinite-scrolling-wrap">
@@ -122,6 +124,7 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 			</tr><?php
 
 		endif;
+		// phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact,Squiz.PHP.EmbeddedPhp.ContentAfterEnd,Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
 
 		// Third-party Personal Options
 		if ( ! empty( $show['personal_options'] ) ) :

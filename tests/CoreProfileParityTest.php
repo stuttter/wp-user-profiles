@@ -1,4 +1,10 @@
 <?php
+// phpcs:ignoreFile -- PHPUnit test doubles and their tests intentionally share this discovered fixture.
+/**
+ * Core profile parity regression tests.
+ *
+ * @package WP_User_Profiles
+ */
 
 use PHPUnit\Framework\TestCase;
 

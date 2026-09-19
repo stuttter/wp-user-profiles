@@ -63,6 +63,8 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
+		// The shared save handler verifies the request nonce before dispatching here.
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$default_admin_color = isset( $GLOBALS['_wp_admin_css_colors']['modern'] )
 			? 'modern'
 			: 'fresh';
@@ -82,7 +84,7 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			? 'false'
 			: 'true';
 
-		// Double negative Media Library infinite scrolling
+		// Double negative Media Library infinite scrolling.
 		$user->infinite_scrolling = isset( $_POST['infinite_scrolling'] ) && ( 'false' === $_POST['infinite_scrolling'] )
 			? 'false'
 			: 'true';
@@ -103,6 +105,7 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 			: 0;
 
 		// Allow third party plugins to save data in this section
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 		return parent::save( $user );
 	}
 
