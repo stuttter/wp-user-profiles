@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 2.7.3 (2026-09-19)
+
 * Add an opt-in modern profile layout controlled by the
   `wp_user_profiles_use_modern_styles` filter
 * Prevent profile screens from overriding unrelated administration page titles
