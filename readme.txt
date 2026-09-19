@@ -9,7 +9,7 @@ Tags:              user, profile, edit, metabox
 Requires PHP:      7.4
 Requires at least: 6.4
 Tested up to:      7.1
-Stable tag:        2.7.2
+Stable tag:        2.7.3
 
 A sophisticated way to edit users in WordPress.
 
@@ -85,6 +85,14 @@ The classic layout remains the default unless the site owner enables this filter
 * Development: https://github.com/stuttter/wp-user-profiles/discussions
 
 == Changelog ==
+
+= [2.7.3] - 2026-09-19 =
+* Add an opt-in modern profile layout controlled by the `wp_user_profiles_use_modern_styles` filter
+* Prevent profile screens from overriding unrelated administration page titles
+* Preserve WordPress's user-validation hook contract for compatibility with Jetpack Account Protection and other integrations
+* Match current WordPress behavior for profile preferences, downloadable user languages, email validation, and password normalization
+* Restore WordPress's confirmation flow for self-service email changes
+* Allow deliberate access to WordPress's original profile screens with the `wpup-skip-redirect=1` query argument
 
 = [2.7.2] - 2026-09-16 =
 * Require WordPress 6.4 or newer
