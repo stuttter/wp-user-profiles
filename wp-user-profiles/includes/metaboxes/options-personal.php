@@ -30,6 +30,7 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 		'visual_editor'       => ! empty( $user_can_edit ),
 		'keyboard_shortcuts'  => ! empty( $user_can_edit ),
 		'admin_bar'           => apply_filters( 'show_admin_bar', true ),
+		'infinite_scrolling'  => user_can( $user, 'upload_files' ),
 		'syntax_highlighting' => (
 
 			// For Custom HTML widget and Additional CSS in Customizer.
@@ -107,6 +108,23 @@ function wp_user_profiles_personal_options_metabox( $user = null ) {
 			</tr><?php
 
 		endif;
+
+		// Infinite Scrolling.
+		// This legacy template intentionally mixes alternate PHP syntax with HTML.
+		// phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact,Squiz.PHP.EmbeddedPhp.ContentAfterEnd,Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
+		if ( ! empty( $show['infinite_scrolling'] ) ) :
+
+			?><tr class="user-infinite-scrolling-wrap">
+				<th scope="row"><?php esc_html_e( 'Infinite Scrolling', 'wp-user-profiles' ); ?></th>
+				<td>
+					<label for="infinite_scrolling"><input name="infinite_scrolling" type="checkbox" id="infinite_scrolling" value="false" <?php checked( 'false', $user->infinite_scrolling ); ?> />
+						<?php esc_html_e( 'Disable infinite scrolling in the Media Library grid view', 'wp-user-profiles' ); ?>
+					</label>
+				</td>
+			</tr><?php
+
+		endif;
+		// phpcs:enable Generic.WhiteSpace.ScopeIndent.IncorrectExact,Squiz.PHP.EmbeddedPhp.ContentAfterEnd,Squiz.PHP.EmbeddedPhp.ContentBeforeOpen
 
 		// Third-party Personal Options
 		if ( ! empty( $show['personal_options'] ) ) :

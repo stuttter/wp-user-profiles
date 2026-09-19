@@ -7,6 +7,8 @@
 * Prevent profile screens from overriding unrelated administration page titles
 * Preserve WordPress's user-validation hook contract for compatibility with
   Jetpack Account Protection and other integrations
+* Match current WordPress behavior for profile preferences, downloadable user
+  languages, email validation, and password normalization
 * Restore WordPress's confirmation flow for self-service email changes
 * Allow deliberate access to WordPress's original profile screens with the
   `wpup-skip-redirect=1` query argument
