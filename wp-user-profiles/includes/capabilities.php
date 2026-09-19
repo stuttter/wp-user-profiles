@@ -100,11 +100,11 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
 }
 
 /**
- * Determine whether the current request should use WordPress's profile screen.
+ * Determine whether the current request should use WordPress's profile screens.
  *
  * @since 2.7.3
  *
- * @return bool Whether the profile redirect should be bypassed.
+ * @return bool Whether the Core profile redirects should be bypassed.
  */
 function wp_user_profiles_is_redirect_bypassed() {
 	// This query argument only selects a screen; Core owns authorization and saving.
