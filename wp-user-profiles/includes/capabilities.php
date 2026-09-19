@@ -108,8 +108,11 @@ function wp_user_profiles_current_user_can_edit( $user_id = 0 ) {
  */
 function wp_user_profiles_is_redirect_bypassed() {
 	// This query argument only selects a screen; Core owns authorization and saving.
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	$value = isset( $_GET['wpup-skip-redirect'] ) ? sanitize_text_field( wp_unslash( $_GET['wpup-skip-redirect'] ) ) : '';
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+	$value = isset( $_GET['wpup-skip-redirect'] ) && is_string( $_GET['wpup-skip-redirect'] )
+		? wp_unslash( $_GET['wpup-skip-redirect'] )
+		: '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 	return '1' === $value;
 }

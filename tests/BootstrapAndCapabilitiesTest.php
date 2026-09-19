@@ -84,6 +84,26 @@ class BootstrapAndCapabilitiesTest extends TestCase {
 	}
 
 	/**
+	 * Sanitization must not broaden the exact bypass value.
+	 */
+	public function test_profile_redirect_rejects_whitespace_padded_bypass(): void {
+		$_GET['wpup-skip-redirect'] = ' 1 ';
+
+		$this->expectException( Wpup_Redirect_Exception::class );
+		wp_user_profiles_old_profile_redirect();
+	}
+
+	/**
+	 * Array-shaped input must fail closed without a PHP warning.
+	 */
+	public function test_profile_redirect_rejects_array_bypass(): void {
+		$_GET['wpup-skip-redirect'] = array( '1' );
+
+		$this->expectException( Wpup_Redirect_Exception::class );
+		wp_user_profiles_old_profile_redirect();
+	}
+
+	/**
 	 * The same escape hatch applies when editing another user.
 	 */
 	public function test_user_edit_redirect_can_be_bypassed(): void {
