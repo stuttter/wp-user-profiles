@@ -81,7 +81,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to edit this user."
 msgstr ""
 
-#: wp-user-profiles/includes/common.php:465
+#: wp-user-profiles/includes/common.php:469
 msgid "User updated."
 msgstr ""
 
@@ -147,8 +147,12 @@ msgstr ""
 msgid "(required)"
 msgstr ""
 
+#: wp-user-profiles/includes/metaboxes/account-email.php:38
+msgid "If you change this, an email will be sent to the new address to confirm it. The new address will not become active until confirmed."
+msgstr ""
+
 #. translators: 1: Pending email address, 2: URL to cancel the change.
-#: wp-user-profiles/includes/metaboxes/account-email.php:43
+#: wp-user-profiles/includes/metaboxes/account-email.php:49
 #, php-format
 msgid "There is a pending change of your email to %1$s. <a href=\"%2$s\">Cancel</a>"
 msgstr ""
@@ -280,7 +284,7 @@ msgid "Admin Color Scheme"
 msgstr ""
 
 #: wp-user-profiles/includes/metaboxes/options-personal.php:56
-#: wp-user-profiles/includes/sections/options.php:118
+#: wp-user-profiles/includes/sections/options.php:121
 msgid "Visual Editor"
 msgstr ""
 
@@ -564,15 +568,15 @@ msgctxt "users user-admin edit screen"
 msgid "Personal Options"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:116
+#: wp-user-profiles/includes/sections/options.php:119
 msgid "This is where most options & site preferences can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:117
+#: wp-user-profiles/includes/sections/options.php:120
 msgid "Color Schemes"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/options.php:119
+#: wp-user-profiles/includes/sections/options.php:122
 msgid "Comment Moderation Shortcuts"
 msgstr ""
 

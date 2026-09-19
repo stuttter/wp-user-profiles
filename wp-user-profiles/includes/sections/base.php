@@ -255,13 +255,15 @@ class WP_User_Profile_Section {
 
 		// Allow third party plugins to hook into this sections saving process
 		$user = apply_filters( "wp_user_profiles_save_{$this->id}_section", $user );
-		$user_id = ! empty( $user->ID )
+
+		$user_id   = ! empty( $user->ID )
 			? (int) $user->ID
 			: 0;
+		$user_data = $user;
 
-		// Match the object type used by edit_user() for this core action
+		// Match the object type used by edit_user() for this core action.
 		if ( $user instanceof WP_User ) {
-			$user = isset( $user->data ) && is_object( $user->data )
+			$user_data = isset( $user->data ) && is_object( $user->data )
 				? clone $user->data
 				: (object) get_object_vars( $user );
 		}
@@ -270,11 +272,11 @@ class WP_User_Profile_Section {
 		do_action_ref_array( 'user_profile_update_errors', array(
 			&$this->errors,
 			true,
-			&$user
+			&$user_data
 		) );
 
 		// Return (do not update) if there are any errors
-		if ( $this->errors->get_error_codes() || ( is_wp_error( $user ) && $user->get_error_codes() ) ) {
+		if ( $this->errors->get_error_codes() || ( is_wp_error( $user_data ) && $user_data->get_error_codes() ) ) {
 			return $this->errors;
 		}
 
@@ -282,7 +284,7 @@ class WP_User_Profile_Section {
 		clean_user_cache( $user_id );
 
 		// Update the user in the database
-		return wp_update_user( $user );
+		return wp_update_user( $user_data );
 	}
 
 	/**

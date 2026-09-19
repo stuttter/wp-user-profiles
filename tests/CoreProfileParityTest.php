@@ -2,10 +2,6 @@
 
 use PHPUnit\Framework\TestCase;
 
-function sanitize_text_field( $value ) {
-	return trim( (string) $value );
-}
-
 function get_available_languages() {
 	return isset( $GLOBALS['wpup_test']['available_languages'] )
 		? $GLOBALS['wpup_test']['available_languages']
@@ -55,6 +51,7 @@ class CoreProfileParityUser extends WP_User {
 class CoreProfileParityTest extends TestCase {
 	protected function setUp(): void {
 		wpup_test_reset();
+		$GLOBALS['_wp_admin_css_colors'] = array();
 	}
 
 	public function test_options_match_current_core_update_semantics(): void {
@@ -84,7 +81,26 @@ class CoreProfileParityTest extends TestCase {
 		$this->assertSame( 1, $updated_user->use_ssl );
 	}
 
-	public function test_options_use_current_core_defaults(): void {
+	public function test_options_use_legacy_core_defaults_when_modern_scheme_is_unavailable(): void {
+		$section         = new WP_User_Profile_Options_Section();
+		$section->id     = 'options';
+		$section->errors = new WP_Error();
+
+		$this->assertSame( 7, $section->save( new CoreProfileParityUser( 7 ) ) );
+
+		$updated_user = $GLOBALS['wpup_test']['calls']['wp_update_user'][0][0];
+		$this->assertSame( 'fresh', $updated_user->admin_color );
+		$this->assertSame( 'true', $updated_user->rich_editing );
+		$this->assertSame( 'true', $updated_user->syntax_highlighting );
+		$this->assertSame( 'true', $updated_user->infinite_scrolling );
+		$this->assertSame( 'false', $updated_user->show_admin_bar_front );
+		$this->assertSame( '', $updated_user->comment_shortcuts );
+		$this->assertSame( 0, $updated_user->use_ssl );
+	}
+
+	public function test_options_use_current_core_color_default_when_modern_scheme_is_available(): void {
+		$GLOBALS['_wp_admin_css_colors']['modern'] = (object) array();
+
 		$section         = new WP_User_Profile_Options_Section();
 		$section->id     = 'options';
 		$section->errors = new WP_Error();
@@ -93,12 +109,6 @@ class CoreProfileParityTest extends TestCase {
 
 		$updated_user = $GLOBALS['wpup_test']['calls']['wp_update_user'][0][0];
 		$this->assertSame( 'modern', $updated_user->admin_color );
-		$this->assertSame( 'true', $updated_user->rich_editing );
-		$this->assertSame( 'true', $updated_user->syntax_highlighting );
-		$this->assertSame( 'true', $updated_user->infinite_scrolling );
-		$this->assertSame( 'false', $updated_user->show_admin_bar_front );
-		$this->assertSame( '', $updated_user->comment_shortcuts );
-		$this->assertSame( 0, $updated_user->use_ssl );
 	}
 
 	public function test_account_installs_selected_language_and_preserves_valid_email(): void {

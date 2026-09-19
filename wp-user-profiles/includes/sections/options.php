@@ -63,11 +63,14 @@ class WP_User_Profile_Options_Section extends WP_User_Profile_Section {
 	 * @return mixed Integer on success. WP_Error on failure.
 	 */
 	public function save( $user = null ) {
+		$default_admin_color = isset( $GLOBALS['_wp_admin_css_colors']['modern'] )
+			? 'modern'
+			: 'fresh';
 
 		// Color Scheme
 		$user->admin_color = isset( $_POST['admin_color'] )
 			? sanitize_text_field( $_POST['admin_color'] )
-			: 'modern';
+			: $default_admin_color;
 
 		// Double negative visual editor
 		$user->rich_editing = isset( $_POST['rich_editing'] ) && ( 'false' === $_POST['rich_editing'] )

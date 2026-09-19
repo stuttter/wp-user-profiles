@@ -57,6 +57,56 @@ class SaveRoutingTest extends TestCase {
 		}
 	}
 
+	/**
+	 * Self-account saves retain WordPress's email confirmation callback.
+	 */
+	public function test_self_account_save_keeps_core_email_confirmation_callback(): void {
+		$GLOBALS['wpup_test']['current_user_id']        = 7;
+		$GLOBALS['wp_user_profile_sections']['account'] = (object) array(
+			'id'    => 'account',
+			'slug'  => 'account',
+			'order' => 2,
+		);
+		$_GET['page']                                   = 'account';
+		$_REQUEST['page']                               = 'account';
+		$_POST['email']                                 = 'new@example.test';
+		add_filter(
+			'wp_is_profile_page',
+			function () {
+				return true;
+			}
+		);
+		add_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
+
+		try {
+			wp_user_profiles_save_user();
+			$this->fail( 'Expected a redirect.' );
+		} catch ( Wpup_Redirect_Exception $exception ) {
+			$this->assertSame( array( array( 7 ) ), $GLOBALS['wpup_test']['calls']['send_confirmation_on_profile_email'] );
+		}
+	}
+
+	/**
+	 * Sections without an email field suppress WordPress's callback.
+	 */
+	public function test_self_save_without_email_removes_core_confirmation_callback(): void {
+		$GLOBALS['wpup_test']['current_user_id'] = 7;
+		add_filter(
+			'wp_is_profile_page',
+			function () {
+				return true;
+			}
+		);
+		add_action( 'personal_options_update', 'send_confirmation_on_profile_email' );
+
+		try {
+			wp_user_profiles_save_user();
+			$this->fail( 'Expected a redirect.' );
+		} catch ( Wpup_Redirect_Exception $exception ) {
+			$this->assertArrayNotHasKey( 'send_confirmation_on_profile_email', $GLOBALS['wpup_test']['calls'] );
+		}
+	}
+
 	public function test_other_user_save_uses_edit_hook_and_preserves_referrer(): void {
 		$GLOBALS['wpup_test']['current_user_id'] = 1;
 		$_REQUEST['wp_http_referer'] = '/wp-admin/users.php';

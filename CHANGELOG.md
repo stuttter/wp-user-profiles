@@ -9,6 +9,9 @@
   Jetpack Account Protection and other integrations
 * Match current WordPress behavior for profile preferences, downloadable user
   languages, email validation, and password normalization
+* Restore WordPress's confirmation flow for self-service email changes
+* Allow deliberate access to WordPress's original profile screens with the
+  `wpup-skip-redirect=1` query argument
 
 ## 2.7.2 (2026-09-16)
 
