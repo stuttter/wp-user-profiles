@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+## 2.7.4 (2026-10-02)
+
+* Require the network site-management capability before changing a user's
+  Multisite membership or role from the Sites profile section
+* Require user-editing permission before changing another account's status,
+  and prevent status changes through the user's own profile
+* Require role-promotion permission in the Permissions section for every site
+  on an editable network, and reject crafted self-role changes
+* Match WordPress Core's existence check for primary sites without requiring
+  membership
+* Apply Core's network, removal, and promotion checks to Sites bulk actions
+* Preserve registered custom role slugs in Sites bulk actions
+
 ## 2.7.3 (2026-09-19)
 
 * Add an opt-in modern profile layout controlled by the

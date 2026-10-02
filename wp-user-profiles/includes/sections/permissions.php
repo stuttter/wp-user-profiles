@@ -63,7 +63,7 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 	public function save( $user = null ) {
 
 		// Role changes
-		if ( isset( $_POST['role'] ) && is_array( $_POST['role'] ) && current_user_can( $this->cap, $user->ID ) ) {
+		if ( isset( $_POST['role'] ) && is_array( $_POST['role'] ) && get_current_user_id() !== (int) $user->ID && current_user_can( $this->cap, $user->ID ) ) {
 
 			// Stash the current Site ID for later reuse
 			$current_site_id = get_current_blog_id();
@@ -73,12 +73,18 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 
 				// Switch to the blog
 				if ( is_multisite() ) {
+					$site_id = absint( $site_id );
+					$site    = $site_id ? get_site( $site_id ) : false;
+
+					if ( ! $site || ! can_edit_network( (int) $site->site_id ) ) {
+						continue;
+					}
 
 					// Switch site early
 					switch_to_blog( $site_id );
 
 					// User cannot be promoted on this site by current user
-					if ( ( $current_site_id !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
+					if ( ! current_user_can( 'promote_user', $user->ID ) ) {
 
 						// Switch site back
 						restore_current_blog();
@@ -89,6 +95,8 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 
 					// Reinitialize the user roles & caps for this site ID
 					$user->for_site( $site_id );
+				} elseif ( ! current_user_can( 'promote_user', $user->ID ) ) {
+					continue;
 				}
 
 				// Get roles for this site

@@ -2,7 +2,7 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP User Profiles 2.7.3\n"
+"Project-Id-Version: WP User Profiles 2.7.4\n"
 "Report-Msgid-Bugs-To: https://github.com/stuttter/wp-user-profiles/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -607,19 +607,19 @@ msgctxt "users user-admin edit screen"
 msgid "Additional Capabilities"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:130
+#: wp-user-profiles/includes/sections/permissions.php:138
 msgid "This is where role & capability settings can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:131
+#: wp-user-profiles/includes/sections/permissions.php:139
 msgid "Your role determines what you are able to do"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:132
+#: wp-user-profiles/includes/sections/permissions.php:140
 msgid "In some cases, you may have more than one role"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:133
+#: wp-user-profiles/includes/sections/permissions.php:141
 msgid "Some capabilities may be uniquely granted"
 msgstr ""
 
@@ -680,19 +680,23 @@ msgctxt "users user-admin edit screen"
 msgid "Sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:113
+#: wp-user-profiles/includes/sections/sites.php:75
+msgid "The primary site you chose does not exist."
+msgstr ""
+
+#: wp-user-profiles/includes/sections/sites.php:138
 msgid "This is where sites & the primary set setting can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:114
+#: wp-user-profiles/includes/sections/sites.php:139
 msgid "Your sites are determined by having a role on each one"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:115
+#: wp-user-profiles/includes/sections/sites.php:140
 msgid "You may be able to navigate between these sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:116
+#: wp-user-profiles/includes/sections/sites.php:141
 msgid "You may be able to take action on these sites"
 msgstr ""
 

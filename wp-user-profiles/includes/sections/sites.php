@@ -63,36 +63,61 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	public function save( $user = null ) {
 
 		// Primary Site
-		$user->primary_blog = isset( $_POST['primary_blog'] )
+		$primary_blog = isset( $_POST['primary_blog'] )
 			? (int) $_POST['primary_blog']
-			: null;
+			: 0;
 
 		// Temporarily save this here, because it's not handled by WordPress
-		if ( ! empty( $user->primary_blog ) ) {
-			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
+		if ( $primary_blog ) {
+			$primary_site = get_site( $primary_blog );
+
+			if ( ! $primary_site ) {
+				return new WP_Error( 'primary_blog', esc_html__( 'The primary site you chose does not exist.', 'wp-user-profiles' ) );
+			}
+
+			$user->primary_blog = $primary_blog;
+			update_user_meta( $user->ID, 'primary_blog', $primary_blog );
 		}
 
 		// Update user sites membership through bulk actions
-		if ( isset( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) { // WPCS: input var ok
+		if ( current_user_can( 'manage_sites' ) && isset( $_POST['action'] ) && is_string( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) { // WPCS: input var ok
 			$blog_ids = array_map( 'absint', (array) $_POST['allblogs'] ); // WPCS input var ok
+			// Preserve registered role slugs exactly; validate them on each site below.
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$action = wp_unslash( $_POST['action'] );
 
-			if ( 'remove' === $_POST['action'] ) { // WPCS: input var ok
-				foreach ( $blog_ids as $blog_id ) {
+			foreach ( $blog_ids as $blog_id ) {
+				$site = get_site( $blog_id );
+
+				if ( ! $site || ! can_edit_network( (int) $site->site_id ) ) {
+					continue;
+				}
+
+				switch_to_blog( $blog_id );
+
+				if ( 'remove' === $action && current_user_can( 'remove_users' ) ) {
 					// TODO: Come up with a flow for reassigning content
 					remove_user_from_blog( $user->ID, $blog_id );
-				}
-			} elseif ( false !== strpos( $_POST['action'], 'add_as_' ) ) { // WPCS: input var ok
-				$role = substr_replace( $_POST['action'], '', 0, 7 ); // WPCS: input var ok
 
-				foreach ( $blog_ids as $blog_id ) {
-					// TODO Possibility of not hitting custom filters here ? maybe do it via REST ? :/ but then reachability concerns
-					$_role = $role;
+				} elseif ( 0 === strpos( $action, 'add_as_' ) ) {
+					$role = substr( $action, 7 );
 					if ( '__default__' === $role ) {
-						$_role = get_blog_option( $blog_id, 'default_role' );
+						$role = get_blog_option( $blog_id, 'default_role' );
 					}
 
-					add_user_to_blog( $blog_id, $user->ID, $_role );
+					if ( wp_roles()->is_role( $role ) ) {
+						$member = is_user_member_of_blog( $user->ID, $blog_id );
+						if ( ! $member || (
+							current_user_can( 'promote_users' )
+							&& current_user_can( 'promote_user', $user->ID )
+							&& ! empty( get_editable_roles()[ $role ] )
+						) ) {
+							add_user_to_blog( $blog_id, $user->ID, $role );
+						}
+					}
 				}
+
+				restore_current_blog();
 			}
 		}
 
