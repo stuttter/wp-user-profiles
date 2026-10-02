@@ -7,6 +7,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__ . '/fixtures/site-membership-stubs.php';
+
 /**
  * Test role changes at the section's own authorization boundary.
  */
@@ -98,5 +100,39 @@ class PermissionsSecurityTest extends TestCase {
 		$this->section()->save( $user );
 
 		$this->assertSame( array(), $user->role_history );
+	}
+
+	/**
+	 * A network administrator cannot change roles on another network.
+	 */
+	public function test_role_change_requires_network_access(): void {
+		$GLOBALS['wpup_test']['is_multisite']                 = true;
+		$GLOBALS['wpup_test']['capabilities']['edit_profile'] = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user'] = true;
+		$GLOBALS['wpup_test']['can_edit_network']             = false;
+		$_POST['role']                                        = array( 2 => 'administrator' );
+
+		$user = $this->user();
+		$this->section()->save( $user );
+
+		$this->assertSame( array(), $user->role_history );
+		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
+	}
+
+	/**
+	 * A role change cannot target a site that does not exist.
+	 */
+	public function test_role_change_requires_existing_site(): void {
+		$GLOBALS['wpup_test']['is_multisite']                 = true;
+		$GLOBALS['wpup_test']['capabilities']['edit_profile'] = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user'] = true;
+		$GLOBALS['wpup_test']['sites'][2]                     = false;
+		$_POST['role']                                        = array( 2 => 'administrator' );
+
+		$user = $this->user();
+		$this->section()->save( $user );
+
+		$this->assertSame( array(), $user->role_history );
+		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
 	}
 }

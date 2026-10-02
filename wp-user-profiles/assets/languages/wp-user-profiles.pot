@@ -607,19 +607,19 @@ msgctxt "users user-admin edit screen"
 msgid "Additional Capabilities"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:132
+#: wp-user-profiles/includes/sections/permissions.php:138
 msgid "This is where role & capability settings can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:133
+#: wp-user-profiles/includes/sections/permissions.php:139
 msgid "Your role determines what you are able to do"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:134
+#: wp-user-profiles/includes/sections/permissions.php:140
 msgid "In some cases, you may have more than one role"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:135
+#: wp-user-profiles/includes/sections/permissions.php:141
 msgid "Some capabilities may be uniquely granted"
 msgstr ""
 
@@ -684,19 +684,19 @@ msgstr ""
 msgid "The primary site you chose does not exist."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:134
+#: wp-user-profiles/includes/sections/sites.php:138
 msgid "This is where sites & the primary set setting can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:135
+#: wp-user-profiles/includes/sections/sites.php:139
 msgid "Your sites are determined by having a role on each one"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:136
+#: wp-user-profiles/includes/sections/sites.php:140
 msgid "You may be able to navigate between these sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:137
+#: wp-user-profiles/includes/sections/sites.php:141
 msgid "You may be able to take action on these sites"
 msgstr ""
 

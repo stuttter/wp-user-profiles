@@ -81,3 +81,12 @@ function update_user_meta( $user_id, $key, $value ) {
 	wpup_test_call( __FUNCTION__, array( $user_id, $key, $value ) );
 	return true;
 }
+
+/**
+ * Return the role registry for the current site.
+ *
+ * @return WPUP_Test_Site_Roles Role registry.
+ */
+function wp_roles() {
+	return new WPUP_Test_Site_Roles();
+}

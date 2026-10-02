@@ -89,9 +89,10 @@ The classic layout remains the default unless the site owner enables this filter
 = [2.7.4] - 2026-10-02 =
 * Require network site-management permission to change Multisite membership or roles from a user profile
 * Prevent profile saves from changing account status without user-editing permission
-* Require role-promotion permission in the Permissions section for every site and reject crafted self-role changes
+* Require role-promotion permission on editable networks and reject crafted self-role changes
 * Validate primary site existence without requiring membership
 * Apply network, removal, and promotion permissions to Sites bulk actions
+* Preserve registered custom role slugs in Sites bulk actions
 
 = [2.7.3] - 2026-09-19 =
 * Add an opt-in modern profile layout controlled by the `wp_user_profiles_use_modern_styles` filter

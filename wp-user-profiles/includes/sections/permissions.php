@@ -73,6 +73,12 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 
 				// Switch to the blog
 				if ( is_multisite() ) {
+					$site_id = absint( $site_id );
+					$site    = $site_id ? get_site( $site_id ) : false;
+
+					if ( ! $site || ! can_edit_network( (int) $site->site_id ) ) {
+						continue;
+					}
 
 					// Switch site early
 					switch_to_blog( $site_id );

@@ -82,7 +82,9 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 		// Update user sites membership through bulk actions
 		if ( current_user_can( 'manage_sites' ) && isset( $_POST['action'] ) && is_string( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) { // WPCS: input var ok
 			$blog_ids = array_map( 'absint', (array) $_POST['allblogs'] ); // WPCS input var ok
-			$action   = sanitize_key( wp_unslash( $_POST['action'] ) ); // WPCS: input var ok
+			// Preserve registered role slugs exactly; validate them on each site below.
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$action = wp_unslash( $_POST['action'] );
 
 			foreach ( $blog_ids as $blog_id ) {
 				$site = get_site( $blog_id );
@@ -103,13 +105,15 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 						$role = get_blog_option( $blog_id, 'default_role' );
 					}
 
-					$member = is_user_member_of_blog( $user->ID, $blog_id );
-					if ( ! $member || (
-						current_user_can( 'promote_users' )
-						&& current_user_can( 'promote_user', $user->ID )
-						&& ! empty( get_editable_roles()[ $role ] )
-					) ) {
-						add_user_to_blog( $blog_id, $user->ID, $role );
+					if ( wp_roles()->is_role( $role ) ) {
+						$member = is_user_member_of_blog( $user->ID, $blog_id );
+						if ( ! $member || (
+							current_user_can( 'promote_users' )
+							&& current_user_can( 'promote_user', $user->ID )
+							&& ! empty( get_editable_roles()[ $role ] )
+						) ) {
+							add_user_to_blog( $blog_id, $user->ID, $role );
+						}
 					}
 				}
 

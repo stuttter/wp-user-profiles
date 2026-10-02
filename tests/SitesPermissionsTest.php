@@ -8,6 +8,7 @@
 use PHPUnit\Framework\TestCase;
 
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/sections/sites.php';
+require_once __DIR__ . '/fixtures/class-wpup-test-site-roles.php';
 require_once __DIR__ . '/fixtures/site-membership-stubs.php';
 
 /**
@@ -229,6 +230,53 @@ class SitesPermissionsTest extends TestCase {
 		$GLOBALS['wpup_test']['sites'][2]                     = false;
 
 		$_POST['action']   = 'add_as_editor';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+	}
+
+	/**
+	 * A custom role slug keeps its case when adding a new member.
+	 */
+	public function test_custom_role_slug_is_preserved_for_new_member(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+		$GLOBALS['wpup_test']['all_roles']['Shop_Manager']    = true;
+
+		$_POST['action']   = 'add_as_Shop_Manager';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertSame( array( array( 2, 9, 'Shop_Manager' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
+	}
+
+	/**
+	 * A custom editable role slug keeps its case for an existing member.
+	 */
+	public function test_custom_role_slug_is_preserved_for_existing_member(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites']   = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_users']  = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user']   = true;
+		$GLOBALS['wpup_test']['memberships'][9][2]              = true;
+		$GLOBALS['wpup_test']['editable_roles']['Shop_Manager'] = array( 'name' => 'Shop Manager' );
+
+		$_POST['action']   = 'add_as_Shop_Manager';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertSame( array( array( 2, 9, 'Shop_Manager' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
+	}
+
+	/**
+	 * A crafted action cannot add a member with an unregistered role.
+	 */
+	public function test_new_member_role_must_exist(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+
+		$_POST['action']   = 'add_as_not_registered';
 		$_POST['allblogs'] = array( 2 );
 
 		$this->section()->save( $this->user() );
