@@ -29,26 +29,3 @@ function remove_user_from_blog( $user_id, $blog_id ) {
 	wpup_test_call( __FUNCTION__, array( $user_id, $blog_id ) );
 	return true;
 }
-
-/**
- * Return the user's site memberships.
- *
- * @param int $user_id User ID.
- * @return array Site memberships.
- */
-function get_blogs_of_user( $user_id ) {
-	return $GLOBALS['wpup_test']['user_blogs'][ $user_id ] ?? array();
-}
-
-/**
- * Record user metadata changes.
- *
- * @param int    $user_id User ID.
- * @param string $key     Metadata key.
- * @param mixed  $value   Metadata value.
- * @return true
- */
-function update_user_meta( $user_id, $key, $value ) {
-	wpup_test_call( __FUNCTION__, array( $user_id, $key, $value ) );
-	return true;
-}

@@ -680,19 +680,19 @@ msgctxt "users user-admin edit screen"
 msgid "Sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:115
+#: wp-user-profiles/includes/sections/sites.php:113
 msgid "This is where sites & the primary set setting can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:116
+#: wp-user-profiles/includes/sections/sites.php:114
 msgid "Your sites are determined by having a role on each one"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:117
+#: wp-user-profiles/includes/sections/sites.php:115
 msgid "You may be able to navigate between these sites"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/sites.php:118
+#: wp-user-profiles/includes/sections/sites.php:116
 msgid "You may be able to take action on these sites"
 msgstr ""
 

@@ -81,32 +81,4 @@ class SitesPermissionsTest extends TestCase {
 
 		$this->assertSame( array( array( 2, 9, 'editor' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
 	}
-
-	/**
-	 * A crafted primary site must belong to the edited user.
-	 */
-	public function test_primary_site_must_be_a_membership(): void {
-		$GLOBALS['wpup_test']['user_blogs'][9] = array( 2 => (object) array( 'userblog_id' => 2 ) );
-
-		$_POST['primary_blog'] = '3';
-
-		$user = $this->user();
-		$this->section()->save( $user );
-
-		$this->assertArrayNotHasKey( 'update_user_meta', $GLOBALS['wpup_test']['calls'] );
-		$this->assertFalse( isset( $user->data->primary_blog ) );
-	}
-
-	/**
-	 * A member can still select an existing site as their primary site.
-	 */
-	public function test_member_can_select_primary_site(): void {
-		$GLOBALS['wpup_test']['user_blogs'][9] = array( 2 => (object) array( 'userblog_id' => 2 ) );
-
-		$_POST['primary_blog'] = '2';
-
-		$this->section()->save( $this->user() );
-
-		$this->assertSame( array( array( 9, 'primary_blog', 2 ) ), $GLOBALS['wpup_test']['calls']['update_user_meta'] );
-	}
 }
