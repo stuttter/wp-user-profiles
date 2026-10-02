@@ -6,6 +6,8 @@
 
 * Require the network site-management capability before changing a user's
   Multisite membership or role from the Sites profile section
+* Require user-editing permission before changing another account's status,
+  and prevent status changes through the user's own profile
 
 ## 2.7.3 (2026-09-19)
 

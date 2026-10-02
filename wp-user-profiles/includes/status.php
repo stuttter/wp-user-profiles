@@ -195,7 +195,13 @@ function wp_user_profiles_transition_user_status( $new_status, $old_status, $use
 function wp_user_profiles_save_user_status( $user = null ) {
 
 	// Maybe update user status
-	if ( ! empty( $_POST['user_status'] ) ) {
+	if (
+		! empty( $_POST['user_status'] )
+		&& get_current_user_id() !== (int) $user->ID
+		&& ! is_user_admin()
+		&& current_user_can( 'edit_user', $user->ID )
+		&& apply_filters( 'wp_user_profiles_show_status', true )
+	) {
 
 		// Sanitize the posted status
 		$status = sanitize_key( $_POST['user_status'] );
