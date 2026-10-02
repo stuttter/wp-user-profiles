@@ -8,31 +8,7 @@
 use PHPUnit\Framework\TestCase;
 
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/sections/sites.php';
-
-/**
- * Record site membership additions.
- *
- * @param int    $blog_id Site ID.
- * @param int    $user_id User ID.
- * @param string $role    Role name.
- * @return true
- */
-function add_user_to_blog( $blog_id, $user_id, $role ) {
-	wpup_test_call( __FUNCTION__, func_get_args() );
-	return true;
-}
-
-/**
- * Record site membership removals.
- *
- * @param int $user_id User ID.
- * @param int $blog_id Site ID.
- * @return true
- */
-function remove_user_from_blog( $user_id, $blog_id ) {
-	wpup_test_call( __FUNCTION__, func_get_args() );
-	return true;
-}
+require_once __DIR__ . '/fixtures/site-membership-stubs.php';
 
 /**
  * Test the Sites section's membership boundary.
@@ -97,6 +73,7 @@ class SitesPermissionsTest extends TestCase {
 	 */
 	public function test_network_manager_can_assign_site_role(): void {
 		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+
 		$_POST['action']   = 'add_as_editor';
 		$_POST['allblogs'] = array( 2 );
 
