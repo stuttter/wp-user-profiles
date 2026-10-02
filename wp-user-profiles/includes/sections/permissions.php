@@ -78,7 +78,7 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 					switch_to_blog( $site_id );
 
 					// User cannot be promoted on this site by current user
-					if ( ( $current_site_id !== $site_id ) && ! current_user_can( 'promote_user', $user->ID ) ) {
+					if ( ! current_user_can( 'promote_user', $user->ID ) ) {
 
 						// Switch site back
 						restore_current_blog();
@@ -89,6 +89,8 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 
 					// Reinitialize the user roles & caps for this site ID
 					$user->for_site( $site_id );
+				} elseif ( ! current_user_can( 'promote_user', $user->ID ) ) {
+					continue;
 				}
 
 				// Get roles for this site

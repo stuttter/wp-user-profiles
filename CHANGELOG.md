@@ -8,6 +8,7 @@
   Multisite membership or role from the Sites profile section
 * Require user-editing permission before changing another account's status,
   and prevent status changes through the user's own profile
+* Require role-promotion permission in the Permissions section for every site
 
 ## 2.7.3 (2026-09-19)
 

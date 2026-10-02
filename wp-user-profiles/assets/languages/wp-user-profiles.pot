@@ -607,19 +607,19 @@ msgctxt "users user-admin edit screen"
 msgid "Additional Capabilities"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:130
+#: wp-user-profiles/includes/sections/permissions.php:132
 msgid "This is where role & capability settings can be found."
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:131
+#: wp-user-profiles/includes/sections/permissions.php:133
 msgid "Your role determines what you are able to do"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:132
+#: wp-user-profiles/includes/sections/permissions.php:134
 msgid "In some cases, you may have more than one role"
 msgstr ""
 
-#: wp-user-profiles/includes/sections/permissions.php:133
+#: wp-user-profiles/includes/sections/permissions.php:135
 msgid "Some capabilities may be uniquely granted"
 msgstr ""
 
