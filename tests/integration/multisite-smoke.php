@@ -66,15 +66,8 @@ $user_id = (int) $user_result;
 wp_set_current_user( $user_id );
 $_POST['action']   = 'add_as_administrator';
 $_POST['allblogs'] = array( $site_id );
-$sites_section     = new WP_User_Profile_Sites_Section(
-	array(
-		'id'    => 'sites',
-		'slug'  => 'sites',
-		'name'  => 'Sites',
-		'cap'   => 'edit_profile',
-		'icon'  => 'dashicons-admin-multisite',
-	)
-);
+$sites_section     = $GLOBALS['wp_user_profile_sections']['sites'];
+wpup_multisite_assert( $sites_section instanceof WP_User_Profile_Sites_Section, 'Sites section was not registered.' );
 $sites_section->save( get_user_by( 'id', $user_id ) );
 wpup_multisite_assert( ! is_user_member_of_blog( $user_id, $site_id ), 'User gained a site role without network permission.' );
 unset( $_POST['action'], $_POST['allblogs'] );

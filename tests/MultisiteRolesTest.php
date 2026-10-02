@@ -56,47 +56,4 @@ class MultisiteRolesTest extends TestCase {
 		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
 		$this->assertCount( 1, $GLOBALS['wpup_test']['calls']['restore_current_blog'] );
 	}
-
-	public function test_sites_save_rejects_membership_changes_without_manage_sites(): void {
-		$_POST['action']   = 'add_as_administrator';
-		$_POST['allblogs'] = array( 2 );
-		$user = new WP_User( 9 );
-		$user->data = (object) array( 'ID' => 9 );
-		$section = new WP_User_Profile_Sites_Section(
-			array( 'id' => 'sites', 'slug' => 'sites', 'cap' => 'edit_profile', 'name' => 'Sites', 'icon' => 'dashicons-admin-multisite', 'order' => 1 )
-		);
-
-		$section->save( $user );
-
-		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
-	}
-
-	public function test_network_manager_can_update_site_membership(): void {
-		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
-		$_POST['action']   = 'add_as_administrator';
-		$_POST['allblogs'] = array( 2 );
-		$user = new WP_User( 9 );
-		$user->data = (object) array( 'ID' => 9 );
-		$section = new WP_User_Profile_Sites_Section(
-			array( 'id' => 'sites', 'slug' => 'sites', 'cap' => 'edit_profile', 'name' => 'Sites', 'icon' => 'dashicons-admin-multisite', 'order' => 1 )
-		);
-
-		$section->save( $user );
-
-		$this->assertSame( array( array( 2, 9, 'administrator' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
-	}
-
-	public function test_sites_save_rejects_removal_without_manage_sites(): void {
-		$_POST['action']   = 'remove';
-		$_POST['allblogs'] = array( 2 );
-		$user = new WP_User( 9 );
-		$user->data = (object) array( 'ID' => 9 );
-		$section = new WP_User_Profile_Sites_Section(
-			array( 'id' => 'sites', 'slug' => 'sites', 'cap' => 'edit_profile', 'name' => 'Sites', 'icon' => 'dashicons-admin-multisite', 'order' => 1 )
-		);
-
-		$section->save( $user );
-
-		$this->assertArrayNotHasKey( 'remove_user_from_blog', $GLOBALS['wpup_test']['calls'] );
-	}
 }

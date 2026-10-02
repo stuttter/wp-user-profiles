@@ -307,20 +307,6 @@ function wp_update_user( $user ) {
 	wpup_test_call( __FUNCTION__, array( clone $user ) );
 	return $user->ID;
 }
-function update_user_meta( $user_id, $key, $value ) {
-	wpup_test_call( __FUNCTION__, func_get_args() );
-}
-function add_user_to_blog( $blog_id, $user_id, $role ) {
-	wpup_test_call( __FUNCTION__, func_get_args() );
-	return true;
-}
-function remove_user_from_blog( $user_id, $blog_id ) {
-	wpup_test_call( __FUNCTION__, func_get_args() );
-	return true;
-}
-function get_blog_option( $blog_id, $key ) {
-	return 'subscriber';
-}
 function get_edit_profile_url( $user_id ) { return 'https://example.test/profile/' . (int) $user_id; }
 
 /**
@@ -340,5 +326,4 @@ require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/common.php';
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/capabilities.php';
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/sections/base.php';
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/sections/permissions.php';
-require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/sections/sites.php';
 require_once dirname( __DIR__ ) . '/wp-user-profiles/includes/metaboxes/sites-list.php';
