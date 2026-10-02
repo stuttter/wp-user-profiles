@@ -19,5 +19,7 @@
 /package-lock.json export-ignore
 /package.json export-ignore
 /phpcs-baseline.json export-ignore
+/phpstan-baseline.neon export-ignore
+/phpstan.neon.dist export-ignore
 /phpunit.xml.dist export-ignore
 /tests export-ignore
