@@ -9,6 +9,7 @@
 * Require user-editing permission before changing another account's status,
   and prevent status changes through the user's own profile
 * Require role-promotion permission in the Permissions section for every site
+* Validate that a selected primary site belongs to the user
 
 ## 2.7.3 (2026-09-19)
 

@@ -63,13 +63,15 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 	public function save( $user = null ) {
 
 		// Primary Site
-		$user->primary_blog = isset( $_POST['primary_blog'] )
+		$primary_blog = isset( $_POST['primary_blog'] )
 			? (int) $_POST['primary_blog']
-			: null;
+			: 0;
+		$sites        = $primary_blog ? get_blogs_of_user( $user->ID ) : array();
 
 		// Temporarily save this here, because it's not handled by WordPress
-		if ( ! empty( $user->primary_blog ) ) {
-			update_user_meta( $user->ID, 'primary_blog', $user->primary_blog );
+		if ( isset( $sites[ $primary_blog ] ) ) {
+			$user->primary_blog = $primary_blog;
+			update_user_meta( $user->ID, 'primary_blog', $primary_blog );
 		}
 
 		// Update user sites membership through bulk actions
