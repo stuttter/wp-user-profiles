@@ -63,7 +63,7 @@ class WP_User_Profile_Permissions_Section extends WP_User_Profile_Section {
 	public function save( $user = null ) {
 
 		// Role changes
-		if ( isset( $_POST['role'] ) && is_array( $_POST['role'] ) && current_user_can( $this->cap, $user->ID ) ) {
+		if ( isset( $_POST['role'] ) && is_array( $_POST['role'] ) && get_current_user_id() !== (int) $user->ID && current_user_can( $this->cap, $user->ID ) ) {
 
 			// Stash the current Site ID for later reuse
 			$current_site_id = get_current_blog_id();

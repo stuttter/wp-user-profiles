@@ -81,4 +81,158 @@ class SitesPermissionsTest extends TestCase {
 
 		$this->assertSame( array( array( 2, 9, 'editor' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
 	}
+
+	/**
+	 * Primary site selection does not require site membership.
+	 */
+	public function test_primary_site_can_be_another_existing_site(): void {
+		$_POST['primary_blog'] = '3';
+
+		$this->section()->save( $this->user() );
+
+		$this->assertSame( array( array( 9, 'primary_blog', 3 ) ), $GLOBALS['wpup_test']['calls']['update_user_meta'] );
+	}
+
+	/**
+	 * Core rejects nonexistent primary sites.
+	 */
+	public function test_primary_site_must_exist(): void {
+		$GLOBALS['wpup_test']['sites'][3] = false;
+
+		$_POST['primary_blog'] = '3';
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'update_user_meta', $GLOBALS['wpup_test']['calls'] );
+	}
+
+	/**
+	 * Network site management alone cannot remove a user from a site.
+	 */
+	public function test_removal_requires_remove_users(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+
+		$_POST['action']   = 'remove';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'remove_user_from_blog', $GLOBALS['wpup_test']['calls'] );
+	}
+
+	/**
+	 * Network site managers with removal permission can remove membership.
+	 */
+	public function test_authorized_removal(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+		$GLOBALS['wpup_test']['capabilities']['remove_users'] = true;
+
+		$_POST['action']   = 'remove';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertSame( array( array( 9, 2 ) ), $GLOBALS['wpup_test']['calls']['remove_user_from_blog'] );
+	}
+
+	/**
+	 * Changing an existing member's role requires promotion permission.
+	 */
+	public function test_existing_member_role_change_requires_promotion(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+
+		$GLOBALS['wpup_test']['memberships'][9][2] = true;
+
+		$_POST['action']   = 'add_as_administrator';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
+	}
+
+	/**
+	 * Existing membership also requires permission for the target user.
+	 */
+	public function test_existing_member_requires_target_promotion_permission(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites']  = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_users'] = true;
+		$GLOBALS['wpup_test']['memberships'][9][2]             = true;
+
+		$_POST['action']   = 'add_as_editor';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
+	}
+
+	/**
+	 * An authorized manager can change an existing member's role.
+	 */
+	public function test_authorized_existing_member_role_change(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites']  = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_users'] = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user']  = true;
+		$GLOBALS['wpup_test']['memberships'][9][2]             = true;
+
+		$_POST['action']   = 'add_as_editor';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertSame( array( array( 2, 9, 'editor' ) ), $GLOBALS['wpup_test']['calls']['add_user_to_blog'] );
+		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
+	}
+
+	/**
+	 * Existing members cannot be given a role outside editable roles.
+	 */
+	public function test_existing_member_role_must_be_editable(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites']  = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_users'] = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user']  = true;
+		$GLOBALS['wpup_test']['memberships'][9][2]             = true;
+		$GLOBALS['wpup_test']['editable_roles']                = array( 'editor' => array( 'name' => 'Editor' ) );
+
+		$_POST['action']   = 'add_as_administrator';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+	}
+
+	/**
+	 * A site outside the manager's network cannot be changed.
+	 */
+	public function test_site_requires_network_access(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+
+		$GLOBALS['wpup_test']['can_edit_network'] = false;
+
+		$_POST['action']   = 'add_as_editor';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+	}
+
+	/**
+	 * Bulk actions cannot target a nonexistent site.
+	 */
+	public function test_bulk_action_requires_existing_site(): void {
+		$GLOBALS['wpup_test']['capabilities']['manage_sites'] = true;
+		$GLOBALS['wpup_test']['sites'][2]                     = false;
+
+		$_POST['action']   = 'add_as_editor';
+		$_POST['allblogs'] = array( 2 );
+
+		$this->section()->save( $this->user() );
+
+		$this->assertArrayNotHasKey( 'add_user_to_blog', $GLOBALS['wpup_test']['calls'] );
+	}
 }

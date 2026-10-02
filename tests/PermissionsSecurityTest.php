@@ -84,4 +84,19 @@ class PermissionsSecurityTest extends TestCase {
 		$this->assertSame( array( array( 'set', 'editor' ) ), $user->role_history );
 		$this->assertSame( 1, $GLOBALS['wpup_test']['current_blog_id'] );
 	}
+
+	/**
+	 * A crafted self-profile request cannot change its own role.
+	 */
+	public function test_self_role_change_is_blocked(): void {
+		$GLOBALS['wpup_test']['capabilities']['edit_profile'] = true;
+		$GLOBALS['wpup_test']['capabilities']['promote_user'] = true;
+		$_POST['role']                                        = array( 1 => 'subscriber' );
+
+		$user       = new WP_User( 1 );
+		$user->data = (object) array( 'ID' => 1 );
+		$this->section()->save( $user );
+
+		$this->assertSame( array(), $user->role_history );
+	}
 }

@@ -9,6 +9,10 @@
 * Require user-editing permission before changing another account's status,
   and prevent status changes through the user's own profile
 * Require role-promotion permission in the Permissions section for every site
+  and reject crafted self-role changes
+* Match WordPress Core's existence check for primary sites without requiring
+  membership
+* Apply Core's network, removal, and promotion checks to Sites bulk actions
 
 ## 2.7.3 (2026-09-19)
 
