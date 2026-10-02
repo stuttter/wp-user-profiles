@@ -73,7 +73,7 @@ class WP_User_Profile_Sites_Section extends WP_User_Profile_Section {
 		}
 
 		// Update user sites membership through bulk actions
-		if ( isset( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) { // WPCS: input var ok
+		if ( current_user_can( 'manage_sites' ) && isset( $_POST['action'] ) && isset( $_POST['allblogs'] ) && is_array( $_POST['allblogs'] ) ) { // WPCS: input var ok
 			$blog_ids = array_map( 'absint', (array) $_POST['allblogs'] ); // WPCS input var ok
 
 			if ( 'remove' === $_POST['action'] ) { // WPCS: input var ok

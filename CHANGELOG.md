@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 2.7.4 (2026-10-02)
+
+* Require the network site-management capability before changing a user's
+  Multisite membership or role from the Sites profile section
+
 ## 2.7.3 (2026-09-19)
 
 * Add an opt-in modern profile layout controlled by the

@@ -61,8 +61,30 @@ $site_id = (int) $site_result;
 $user_result = wp_create_user( "wpup-network-user-{$run_id}", wp_generate_password(), "wpup-network-user-{$run_id}@example.test" );
 wpup_multisite_assert( ! is_wp_error( $user_result ), 'Could not create network user.' );
 $user_id = (int) $user_result;
-$add_user_result = add_user_to_blog( $site_id, $user_id, 'editor' );
-wpup_multisite_assert( true === $add_user_result, 'Could not add user to second site.' );
+
+// A user may save their own Sites section, but may not grant themselves a role.
+wp_set_current_user( $user_id );
+$_POST['action']   = 'add_as_administrator';
+$_POST['allblogs'] = array( $site_id );
+$sites_section     = new WP_User_Profile_Sites_Section(
+	array(
+		'id'    => 'sites',
+		'slug'  => 'sites',
+		'name'  => 'Sites',
+		'cap'   => 'edit_profile',
+		'icon'  => 'dashicons-admin-multisite',
+	)
+);
+$sites_section->save( get_user_by( 'id', $user_id ) );
+wpup_multisite_assert( ! is_user_member_of_blog( $user_id, $site_id ), 'User gained a site role without network permission.' );
+unset( $_POST['action'], $_POST['allblogs'] );
+wp_set_current_user( $site_owner_id );
+
+$_POST['action']   = 'add_as_editor';
+$_POST['allblogs'] = array( $site_id );
+$sites_section->save( get_user_by( 'id', $user_id ) );
+unset( $_POST['action'], $_POST['allblogs'] );
+wpup_multisite_assert( is_user_member_of_blog( $user_id, $site_id ), 'Network administrator could not add user to second site.' );
 
 $roles = wp_user_profiles_get_common_user_roles_local_strategy( $site_id );
 wpup_multisite_assert( isset( $roles['editor'] ), 'Second-site editor role was not discovered.' );
