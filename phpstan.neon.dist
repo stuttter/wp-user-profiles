@@ -1,0 +1,17 @@
+includes:
+    - vendor/johnbillion/wp-compat/extension.neon
+    - phpstan-baseline.neon
+
+parameters:
+    level: 7
+    phpVersion: 70400
+    paths:
+        - wp-user-profiles.php
+        - wp-user-profiles
+    scanFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+    tmpDir: build/phpstan
+    parallel:
+        maximumNumberOfProcesses: 1
+    WPCompat:
+        pluginFile: wp-user-profiles.php

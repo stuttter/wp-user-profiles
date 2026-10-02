@@ -1,0 +1,1075 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Function _wp_user_profiles\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Argument of an invalid type array\|object supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 4
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Cannot access property \$id on array\|object\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Cannot access property \$parent on array\|object\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_default_query_args\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_enqueue_scripts\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_menu_highlight\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_menu_hooks\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_menus\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_nav\(\) should return string but empty return statement found\.$#'
+			identifier: return.empty
+			count: 2
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_nav\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_notices\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_register_scripts\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_show_subnav\(\) has parameter \$parent with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_subnav\(\) should return string but empty return statement found\.$#'
+			identifier: return.empty
+			count: 5
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_admin_subnav\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_enqueue_password_nag_fix\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_title_actions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Function wp_user_profiles_user_admin\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#1 \$hook of function wp_user_profiles_admin_menu_hooks expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 3
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#1 \$stack of function array_unshift expects array, array\|object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<0, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#2 \$screen of function remove_meta_box expects array\|string\|WP_Screen, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#4 \$ver of function wp_enqueue_script expects bool\|string\|null, int given\.$#'
+			identifier: argument.type
+			count: 3
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Parameter \#4 \$ver of function wp_register_style expects bool\|string\|null, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Property _WP_Dependency\:\:\$ver \(string\|false\|null\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Variable \$src in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Variable \$user in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 2
+			path: wp-user-profiles/includes/admin.php
+
+		-
+			message: '#^Call to function is_array\(\) with int will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Call to function is_object\(\) with int will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_map_meta_cap\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_map_meta_cap\(\) has parameter \$args with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_map_meta_cap\(\) has parameter \$cap with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_map_meta_cap\(\) has parameter \$caps with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_map_meta_cap\(\) has parameter \$user_id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_old_profile_redirect\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Function wp_user_profiles_old_user_edit_redirect\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$hook$#'
+			identifier: parameter.notFound
+			count: 1
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$redirect_to$#'
+			identifier: parameter.notFound
+			count: 2
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$requested_redirect_to$#'
+			identifier: parameter.notFound
+			count: 2
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$user$#'
+			identifier: parameter.notFound
+			count: 2
+			path: wp-user-profiles/includes/capabilities.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 2
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_sections\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_sections\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_get_admin_area_url\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_get_section_hooknames\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_get_section_hooknames\(\) has parameter \$section with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_get_user_to_edit invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_save_user\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_save_user_notices\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_save_user_notices\(\) should return array but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_sections\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_sections\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_set_constants\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_unhook_bp_profile_nav\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_walk_section_hooknames\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$notice$#'
+			identifier: parameter.notFound
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Parameter \#1 \$hook_name of function do_action expects non\-empty\-string, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/common.php
+
+		-
+			message: '#^Function wp_user_profiles_do_admin_head\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/dependencies.php
+
+		-
+			message: '#^Function wp_user_profiles_do_admin_load\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/dependencies.php
+
+		-
+			message: '#^Function wp_user_profiles_add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/help.php
+
+		-
+			message: '#^Function wp_user_profiles_add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes.php
+
+		-
+			message: '#^Function wp_user_profiles_add_status_meta_box\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes.php
+
+		-
+			message: '#^Function wp_user_profiles_add_status_meta_box\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes.php
+
+		-
+			message: '#^Function wp_user_profiles_handle_empty_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes.php
+
+		-
+			message: '#^Function wp_user_profiles_handle_empty_metabox\(\) has parameter \$show with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes.php
+
+		-
+			message: '#^Function wp_user_profiles_application_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-applications.php
+
+		-
+			message: '#^Function wp_user_profiles_email_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-email.php
+
+		-
+			message: '#^Function wp_user_profiles_language_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-language.php
+
+		-
+			message: '#^Constant IS_PROFILE_PAGE not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-password.php
+
+		-
+			message: '#^Function wp_user_profiles_password_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-password.php
+
+		-
+			message: '#^Function wp_user_profiles_session_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-sessions.php
+
+		-
+			message: '#^Function wp_user_profiles_two_factor_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-two-factor.php
+
+		-
+			message: '#^Parameter \#1 \$function of function call_user_func expects callable\(\)\: mixed, array\{''Two_Factor_Core'', ''user_two_factor…''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/account-two-factor.php
+
+		-
+			message: '#^Function wp_user_profiles_status_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/all-status.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/all-status.php
+
+		-
+			message: '#^Function wp_user_profiles_color_scheme_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/options-color-scheme.php
+
+		-
+			message: '#^Function wp_user_profiles_contact_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/options-contact.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$comment_shortcuts\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/options-personal.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$infinite_scrolling\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/options-personal.php
+
+		-
+			message: '#^Function wp_user_profiles_personal_options_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/options-personal.php
+
+		-
+			message: '#^Function wp_user_profiles_other_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/other-all.php
+
+		-
+			message: '#^Function wp_user_profiles_additional_capabilities_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/permissions-capabilities.php
+
+		-
+			message: '#^Cannot access property \$blogname on object\|false\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/permissions-roles.php
+
+		-
+			message: '#^Cannot access property \$siteurl on object\|false\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/permissions-roles.php
+
+		-
+			message: '#^Function wp_user_profiles_roles_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/permissions-roles.php
+
+		-
+			message: '#^Parameter \#1 \$selected of function wp_dropdown_roles expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/permissions-roles.php
+
+		-
+			message: '#^Function wp_user_profiles_about_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/profile-about.php
+
+		-
+			message: '#^Function wp_user_profiles_name_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/profile-name.php
+
+		-
+			message: '#^Access to an undefined property WP_User_Profiles_Sites_List_Table\:\:\$_actions\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Cannot access property \$roles on WP_User\|false\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Constant DAY_IN_SECONDS not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_export_user_roles_ajax\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_bulk_actions\(\) has parameter \$actions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_bulk_actions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_role_column\(\) should return string but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_role_column\(\) should return string but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_sites_table_query_args\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_sites_table_query_args\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_views\(\) has parameter \$views with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_filter_views\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_get_common_user_roles\(\) has parameter \$site_ids with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_get_common_user_roles_ajax\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_get_common_user_roles_local_strategy\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_get_common_user_roles_remote_strategy\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_get_common_user_roles_strategy\(\) has parameter \$site_ids with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Function wp_user_profiles_sites_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(int Array of blog ids\)\: Unexpected token "Array", expected variable at offset 68 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(int Number of blogs\)\: Unexpected token "Number", expected variable at offset 73 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$wp_roles \\WP_Roles\)\: Unexpected token "\$wp_roles", expected type at offset 9 on line 1$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-list.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$userblog_id\.$#'
+			identifier: property.notFound
+			count: 5
+			path: wp-user-profiles/includes/metaboxes/sites-primary.php
+
+		-
+			message: '#^Function wp_user_profiles_primary_site_metabox\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/metaboxes/sites-primary.php
+
+		-
+			message: '#^Function wp_user_profiles_show_screen_options\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/screen-options.php
+
+		-
+			message: '#^Function wp_user_profiles_register_account_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_options_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_other_section\(\) should return WP_User_Profile_Section but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_other_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_permissions_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_profile_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Function wp_user_profiles_register_sites_section\(\) should return WP_User_Profile_Section but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: wp-user-profiles/includes/sections.php
+
+		-
+			message: '#^Method WP_User_Profile_Account_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Method WP_User_Profile_Account_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Parameter \#2 \$args of method WP_User_Profile_Section\:\:add_meta_boxes\(\) expects array, WP_User\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Parameter \#2 \$user \(WP_User\) of method WP_User_Profile_Account_Section\:\:add_meta_boxes\(\) should be compatible with parameter \$args \(array\) of method WP_User_Profile_Section\:\:add_meta_boxes\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Parameter \#2 \$user_id of function wp_user_profiles_user_supports expects int, WP_User\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Parameter \#7 \$callback_args of function add_meta_box expects array\|null, WP_User\|null given\.$#'
+			identifier: argument.type
+			count: 6
+			path: wp-user-profiles/includes/sections/account.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:action_add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:action_add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:action_save\(\) has parameter \$user with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:add_hooks\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Method WP_User_Profile_Section\:\:setup\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Offset ''icon'' on non\-empty\-array\<mixed, mixed\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Offset ''id'' on non\-empty\-array\<mixed, mixed\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Offset ''name'' on non\-empty\-array\<mixed, mixed\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Offset ''slug'' on non\-empty\-array\<mixed, mixed\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Property WP_User\:\:\$data \(stdClass\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: wp-user-profiles/includes/sections/base.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$admin_color\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$comment_shortcuts\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$infinite_scrolling\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$show_admin_bar_front\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Method WP_User_Profile_Options_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Method WP_User_Profile_Options_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Method WP_User_Profile_Options_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/options.php
+
+		-
+			message: '#^Method WP_User_Profile_Other_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/other.php
+
+		-
+			message: '#^Method WP_User_Profile_Other_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/other.php
+
+		-
+			message: '#^Method WP_User_Profile_Other_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/other.php
+
+		-
+			message: '#^Method WP_User_Profile_Permissions_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/permissions.php
+
+		-
+			message: '#^Method WP_User_Profile_Permissions_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/permissions.php
+
+		-
+			message: '#^Method WP_User_Profile_Permissions_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/permissions.php
+
+		-
+			message: '#^Method WP_User_Profile_Profile_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/profile.php
+
+		-
+			message: '#^Method WP_User_Profile_Profile_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/profile.php
+
+		-
+			message: '#^Method WP_User_Profile_Profile_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/profile.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$primary_blog\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/sections/sites.php
+
+		-
+			message: '#^Method WP_User_Profile_Sites_Section\:\:add_contextual_help\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/sites.php
+
+		-
+			message: '#^Method WP_User_Profile_Sites_Section\:\:add_meta_boxes\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sections/sites.php
+
+		-
+			message: '#^Method WP_User_Profile_Sites_Section\:\:add_meta_boxes\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sections/sites.php
+
+		-
+			message: '#^Method WP_User_Profiles_Sites_List_Table\:\:column_cb\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/sites-list-table.php
+
+		-
+			message: '#^Method WP_User_Profiles_Sites_List_Table\:\:column_cb\(\) has parameter \$blog with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sites-list-table.php
+
+		-
+			message: '#^Parameter \#1 \$blog \(object\) of method WP_User_Profiles_Sites_List_Table\:\:handle_row_actions\(\) should be compatible with parameter \$item \(array\) of method WP_MS_Sites_List_Table\:\:handle_row_actions\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: wp-user-profiles/includes/sites-list-table.php
+
+		-
+			message: '#^Function JJJ\\Plugins\\Users\\Profiles\\filter_plugin_action_links\(\) has parameter \$actions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sponsor.php
+
+		-
+			message: '#^Function JJJ\\Plugins\\Users\\Profiles\\filter_plugin_action_links\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: wp-user-profiles/includes/sponsor.php
+
+		-
+			message: '#^Access to an undefined property WP_User\:\:\$user_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Function wp_user_profiles_save_user_status\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Function wp_user_profiles_transition_user_status\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Function wp_user_profiles_update_user_status\(\) has parameter \$status with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Function wp_user_profiles_update_user_status\(\) should return int but returns WP_User\.$#'
+			identifier: return.type
+			count: 3
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$pref$#'
+			identifier: parameter.notFound
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$value$#'
+			identifier: parameter.notFound
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Parameter \#1 \$user of function wp_user_profiles_update_user_status expects int, WP_User\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/status.php
+
+		-
+			message: '#^Function wp_user_profiles_user_switching_link\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: wp-user-profiles/includes/user-switching.php
+
+		-
+			message: '#^Parameter \#1 \$function of function call_user_func expects callable\(\)\: mixed, array\{''User_Switching''\|''user_switching'', ''current_url''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/user-switching.php
+
+		-
+			message: '#^Parameter \#1 \$function of function call_user_func expects callable\(\)\: mixed, array\{''User_Switching''\|''user_switching'', ''switch_to_url''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: wp-user-profiles/includes/user-switching.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and string will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: wp-user-profiles/includes/user-switching.php

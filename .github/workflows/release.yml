@@ -12,13 +12,21 @@ on:
         description: Full commit SHA at the protected release branch head.
         required: true
         type: string
+      notes:
+        description: Exact reviewed UTF-8 release notes.
+        required: true
+        type: string
+      notes_sha256:
+        description: SHA256 of the exact reviewed notes bytes.
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 jobs:
   release:
-    uses: stuttter/.github/.github/workflows/wordpress-plugin-release.yml@15d5680de2238adc1fdcd670d30ca2ebe87824a0
+    uses: stuttter/.github/.github/workflows/wordpress-plugin-release.yml@0695f31adcb887434cb085fe8eb6c47047250a44
     permissions:
       contents: write
     secrets:
@@ -27,4 +35,6 @@ jobs:
     with:
       version: ${{ inputs.version }}
       commit: ${{ inputs.commit }}
+      release-notes: ${{ inputs.notes }}
+      release-notes-sha256: ${{ inputs.notes_sha256 }}
       release-branch: "master"
