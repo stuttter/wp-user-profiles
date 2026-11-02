@@ -8,7 +8,7 @@
     "composer/installers": "^2.3"
   },
   "require-dev": {
-    "johnbillion/wp-compat": "^2.0.1",
+    "johnbillion/wp-compat": "^3.0.1",
     "php-stubs/wordpress-stubs": "7.1.*",
     "phpstan/phpstan": "^2.2.13",
     "phpunit/phpunit": "^9.6.36",
